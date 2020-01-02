@@ -9,8 +9,7 @@
 
 ### [Link to Project](https://quiet-meadow-85627.herokuapp.com/)
 
-### GamerLobby:
-Implements the following:
+#### This project implements the following:
 - MongoDb with Mongoose
 - Angular Material
 - Express
