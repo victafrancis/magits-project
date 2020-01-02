@@ -7,7 +7,7 @@
 | Victa, Francis |101159185|
 | Yang, Maria Lilian |101151657|
 
-### [Link to Project](https://quiet-meadow-85627.herokuapp.com/)
+### [Link to Project](https://magits.herokuapp.com/)
 
 #### This project implements the following:
 - MongoDb with Mongoose
