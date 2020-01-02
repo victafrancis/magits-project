@@ -1,11 +1,9 @@
-# GamerLobby MEAN Stack Application
-### COMP 3123 Full Stack Development (Fall 2019)
-### Instructors: 
-- Mike Denton
-- Alla Abramova
+# Martial Arts Gym Information and Tracking System (MAGITS) 2020
 
 | Member Name |Student ID|
 |----------|:-------------:|
+| Jacildo, John Aldrin ||
+| Naguit, Sir Angel ||
 | Victa, Francis |101159185|
 | Yang, Maria Lilian |101151657|
 
