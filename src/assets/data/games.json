@@ -1,0 +1,10 @@
+[
+    {"title":"Overwatch","platform":"All","genre":"Action","rating":"4 Stars","publisher":"Blizzard","release":"2016","status":"Active"},
+    {"title":"Minecraft","platform":"PC","genre":"Action","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"Harry Potter Adventures","platform":"RPG","genre":"Action","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"Final Fantasy Online","platform":"Steam","genre":"Action","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"Persona 5","platform":"PS4","genre":"RPG","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"Heroes of the Storm","platform":"Steam","genre":"Strategy","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"The Sims","platform":"Steam","genre":"Family Game","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"},
+    {"title":"Tekken","platform":"All","genre":"Arcade","rating":"4 Stars","publisher":"Activision","release":"1982","status":"Active"}
+]
