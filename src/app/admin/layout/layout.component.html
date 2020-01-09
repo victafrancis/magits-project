@@ -1,6 +1,29 @@
-<p>
+<!-- <p>
     <a routerLink="home" >Home</a> |
     <button (click)="logout()"> Logout</button>
   </p>
 
-  <router-outlet></router-outlet>
+  <router-outlet></router-outlet> -->
+  <mat-toolbar color="primary" class="header">
+    <div>Admin Dashboard</div>
+    <span class="nav-tool-items">
+      <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+    </span>
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <!-- Sidenav -->
+    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+      [fixedTopGap]>
+      <mat-nav-list>
+        <a mat-list-item routerLinkActive="active" routerLink="home">
+          <mat-icon>add</mat-icon> Home
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <!-- Main content -->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
