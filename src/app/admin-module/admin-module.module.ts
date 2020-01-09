@@ -9,11 +9,17 @@ import { AuthGuard } from '../_guards/auth-guard.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../material.module';
+import { CoursesComponent } from './courses/courses.component';
+import { InstructorsComponent } from './instructors/instructors.component';
+import { SessionsComponent } from './sessions/sessions.component';
+import { MembersComponent } from './members/members.component';
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, CreateCourseComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

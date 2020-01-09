@@ -1,23 +1,37 @@
 <mat-toolbar color="primary" class="header">
-    <div>Instructor Dashboard</div>
-    <span class="nav-tool-items">
-      <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
-    </span>
-  </mat-toolbar>
-  
-  <mat-sidenav-container>
-    <!-- Sidenav -->
-    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
-      [fixedTopGap]>
-      <mat-nav-list>
-        <a mat-list-item routerLinkActive="active" routerLink="home">
-          <mat-icon>add</mat-icon> Home
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-  
-    <!-- Main content -->
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <div>INSTRUCTOR DASHBOARD</div>
+  <span class="nav-tool-items">
+    <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+    <button mat-raised-button color="accent" routerLinkActive="active" routerLink="profile">View Profile</button>&nbsp;
+    <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+  </span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <!-- Sidenav -->
+  <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+    [fixedTopGap]>
+    <mat-nav-list>
+      <a mat-list-item routerLinkActive="active" routerLink="home">
+        <mat-icon>home</mat-icon> Home
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="course-list">
+        <mat-icon>reorder</mat-icon> Course List
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="my-courses">
+        <mat-icon>reorder</mat-icon> My Courses
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="members">
+        <mat-icon>reorder</mat-icon> Members
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="announcements">
+        <mat-icon>reorder</mat-icon> Announcements
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

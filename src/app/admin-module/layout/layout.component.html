@@ -5,9 +5,10 @@
 
   <router-outlet></router-outlet> -->
   <mat-toolbar color="primary" class="header">
-    <div>Admin Dashboard</div>
+    <div>ADMIN DASHBOARD</div>
     <span class="nav-tool-items">
       <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+      <button mat-raised-button color="accent" (click)="logout()"> Logout</button>
     </span>
   </mat-toolbar>
   
@@ -16,8 +17,20 @@
     <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
       [fixedTopGap]>
       <mat-nav-list>
-        <a mat-list-item routerLinkActive="active" routerLink="home">
-          <mat-icon>add</mat-icon> Home
+        <a mat-list-item routerLinkActive="active" routerLink="courses">
+          <mat-icon>reorder</mat-icon> Courses
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="instructors">
+          <mat-icon>reorder</mat-icon> Instructors
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="sessions">
+          <mat-icon>reorder</mat-icon> Sessions
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="members">
+          <mat-icon>reorder</mat-icon> Members
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="announcements">
+          <mat-icon>reorder</mat-icon> Announcements
         </a>
       </mat-nav-list>
     </mat-sidenav>
