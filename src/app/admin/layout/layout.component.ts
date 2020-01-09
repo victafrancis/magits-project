@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class LayoutComponent implements OnInit {
 
   opened = true;
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
 
   constructor(private _authService: AuthService) { }
 
