@@ -16,17 +16,19 @@ import { ApiService } from './shared2/api.service';
 
 /* Reactive form services in Angular 8 */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddPlayerComponent } from './components/add-player/add-player.component';
-import { PlayersListComponent } from './components/players-list/players-list.component';
-import { EditPlayerComponent } from './components/edit-player/edit-player.component';
-import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-import { GamesComponent } from './components/games/games.component';
-import { JoinGameComponent } from './components/join-game/join-game.component';
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AdminModule } from './admin/admin.module';
+import { AddPlayerComponent } from './_components/add-player/add-player.component';
+import { PlayersListComponent } from './_components/players-list/players-list.component';
+import { EditPlayerComponent } from './_components/edit-player/edit-player.component';
+import { AdminHomeComponent } from './_components/admin-home/admin-home.component';
+import { GamesComponent } from './_components/games/games.component';
+import { JoinGameComponent } from './_components/join-game/join-game.component';
+import { LoginComponent } from './_login/login.component';
+import { PageNotFoundComponent } from './_page-not-found/page-not-found.component';
+import { AdminModule } from './admin-module/admin-module.module';
 import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app-routing.module';
+import { InstructorModule } from './instructor-module/instructor-module.module';
+import { MemberModule } from './member-module/member-module.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { APP_ROUTES } from './app-routing.module';
     ReactiveFormsModule,
     FormsModule,
     AdminModule,//
+    InstructorModule,//
+    MemberModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [],

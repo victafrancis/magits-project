@@ -6,9 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 // import { EditPlayerComponent } from './components/edit-player/edit-player.component';
 // import { JoinGameComponent } from './components/join-game/join-game.component';
 // import { GamesComponent } from './components/games/games.component';
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { adminRoutes } from './admin/admin.routes';
+import { LoginComponent } from './_login/login.component';
+import { PageNotFoundComponent } from './_page-not-found/page-not-found.component';
+import { adminRoutes } from './admin-module/admin.routes';
 
 // const routes: Routes = [
 //   { path: '', pathMatch: 'full', redirectTo: 'players-list' },

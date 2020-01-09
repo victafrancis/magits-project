@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone, Input, ɵPlayer } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatTableDataSource } from '@angular/material';
-import { ApiService } from './../../shared2/api.service';
+import { ApiService } from '../../shared2/api.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Game } from 'src/app/shared2/game';
 import { Player } from 'src/app/shared2/player';
