@@ -13,7 +13,8 @@ export class CreateCourseComponent implements OnInit {
 
   courseForm: FormGroup;
   Days: any = ['1', '2', '3'];
-
+  day_selected: null;
+  
   constructor(    
     public fb: FormBuilder
   ) { }
