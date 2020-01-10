@@ -12,8 +12,7 @@ import { AddInstructorComponent } from './add-instructor/add-instructor.componen
 import { AddMemberComponent } from './add-member/add-member.component';
 import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
-import { CourseProfileComponent } from './course-profile/course-profile.component';
-
+import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 
 
 export const adminRoutes: Routes = [
