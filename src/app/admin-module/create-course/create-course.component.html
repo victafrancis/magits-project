@@ -9,21 +9,54 @@
 
 <div class="inner-wrapper">
     <form [formGroup]="courseForm" (ngSubmit)="submitCourseForm()" novalidate>
-        
         <!-- LEFT SIDE -->
         <mat-card>
             <div class="controlers-wrapper">
-                
-              <!-- Course Name -->
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Course Name" formControlName="course_name">
-                <mat-error *ngIf="handleError('course_name', 'required')">
-                  You must provide a<strong>course name</strong>
-                </mat-error>
-              </mat-form-field>
+                <!-- Course Name -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Course Name" formControlName="course_name">
+                    <mat-error *ngIf="handleError('course_name', 'required')">
+                        You must provide a<strong> course name</strong>
+                    </mat-error>
+                </mat-form-field>
 
+                <!-- Course Detail -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Course Detail" formControlName="course_detail">
+                    <mat-error *ngIf="handleError('course_detail', 'required')">
+                        You must provide a<strong> course detail</strong>
+                    </mat-error>
+                </mat-form-field>
 
+                <!-- Number of Days-->
+                <mat-form-field>
+                    <mat-label>Number of Days</mat-label>
+                    <mat-select [(value)]="days_selected" formControlName="number_of_days">
+                        <mat-option [value]="day" *ngFor="let day of Days">{{day}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('number_of_days', 'required')">
+                        Number of days is required
+                    </mat-error>
+                </mat-form-field>
             </div>
-          </mat-card>
+        </mat-card>
+        
+        <!-- RIGHT SIDE -->
+        <mat-card>
+            <div class="controlers-wrapper">
+                <!-- Number of Days-->
+                <mat-form-field>
+                    <mat-label>Number of Days</mat-label>
+                    <mat-select [(value)]="days_selected" formControlName="number_of_days">
+                        <mat-option [value]="day" *ngFor="let day of Days">{{day}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('number_of_days', 'required')">
+                        Number of days is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card>
     </form>
 </div>

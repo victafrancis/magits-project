@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 export class CreateCourseComponent implements OnInit {
 
   courseForm: FormGroup;
+  Days: any = ['1', '2', '3'];
 
   constructor(    
     public fb: FormBuilder
@@ -24,6 +25,8 @@ export class CreateCourseComponent implements OnInit {
   submitCourseForm(){
     this.courseForm = this.fb.group({
       course_name: ['', [Validators.required]],
+      course_detail: ['', [Validators.required]],
+      number_of_days: ['', Validators.required]
     })
   }
   /* Get errors */
