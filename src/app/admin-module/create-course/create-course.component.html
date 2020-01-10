@@ -31,7 +31,7 @@
                 <!-- Number of Days-->
                 <mat-form-field>
                     <mat-label>Number of Days</mat-label>
-                    <mat-select [(value)]="days_selected" formControlName="number_of_days">
+                    <mat-select [(value)]="day_selected" formControlName="number_of_days">
                         <mat-option [value]="day" *ngFor="let day of Days">{{day}}
                         </mat-option>
                     </mat-select>
