@@ -29,6 +29,7 @@ import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app-routing.module';
 import { InstructorModule } from './instructor-module/instructor-module.module';
 import { MemberModule } from './member-module/member-module.module';
+import { CourseProfileComponent } from './admin-module/course-profile/course-profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MemberModule } from './member-module/member-module.module';
     GamesComponent,
     JoinGameComponent,
     LoginComponent,//
-    PageNotFoundComponent//
+    PageNotFoundComponent,//
+    CourseProfileComponent
   ],
   imports: [
     BrowserModule,//

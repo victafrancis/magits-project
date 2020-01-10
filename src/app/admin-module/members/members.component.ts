@@ -1,4 +1,4 @@
-import { ApiService } from '../../_services/user.service';
+import { UserService } from '../../_services/user.service';
 import { User } from '../../_services/user';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
@@ -13,7 +13,7 @@ export class MembersComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
 
-  constructor(private userApi: ApiService) { 
+  constructor(private userApi: UserService) { 
     this.userApi.GetUsers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);

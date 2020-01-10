@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../../_services/user.service';
+import { UserService } from '../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
@@ -13,7 +13,7 @@ export class MemberProfileComponent implements OnInit {
 
   constructor(
     private actRoute: ActivatedRoute,
-    private memberApi: ApiService,
+    private memberApi: UserService,
     private router: Router,
     private fb: FormBuilder,
     private ngZone: NgZone
