@@ -1,0 +1,49 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1"></h1>
+    <mat-divider fxFlex="10"></mat-divider>
+</div>
+ 
+  <div class="inner-wrapper">
+    <h1 class="mat-h1">Join Game</h1>
+    <mat-divider fxFlex="10"></mat-divider>
+  </div>
+  <h4>Course:&nbsp;&nbsp;&nbsp;{{userObj?.name}}</h4>
+  <h4>Details:&nbsp;&nbsp;&nbsp;{{userObj?.details}}</h4>
+  
+  <br>
+  <mat-label>Customer Game</mat-label>
+  <!-- Form -->
+  <!-- <div class="inner-wrapper">
+    <form [formGroup]="courseForm" (ngSubmit)="joinCourse()" #resetPlayerForm="ngForm"> -->
+      <!-- Left block -->
+      <!-- <mat-card>
+        <div class="controlers-wrapper"> -->
+
+           <!-- Customer -->
+          <!-- <mat-form-field class="example-full-width">
+            <mat-label>Choose a game to play:</mat-label>
+            <mat-select [(ngModel)]="customer" formControlName="customer">
+              <mat-option [value]="g.title" *ngFor="let g of games">
+                {{g.title}}
+              </mat-option></mat-select>
+              <mat-error *ngIf="handleError('customer', 'required')">
+                  Game is required.
+                </mat-error>
+          </mat-form-field>
+
+        </div>
+      </mat-card> -->
+    
+      <!-- Submit & Reset -->
+      <!-- <mat-card>
+        <div class="full-wrapper button-wrapper">
+          <div class="button-wrapper">
+            <button mat-flat-button color="warn" [disabled]="playerForm.invalid">Join</button>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+    <button mat-flat-button color="warn" [routerLink]="['/players-list']"><i class="material-icons">arrow_left</i>Cancel</button>
+  </div> -->
+  

@@ -14,6 +14,7 @@ import { CreateAnnouncementComponent } from './create-announcement/create-announ
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 
 
+
 export const adminRoutes: Routes = [
   {
     path: 'admin',
@@ -24,6 +25,7 @@ export const adminRoutes: Routes = [
       { path: '', redirectTo: 'courses', pathMatch: 'full',data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'home', component: HomeComponent,data: {role: 'Admin'},canActivate: [RoleGuard]},
       { path: 'courses', component: CoursesComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
+      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'instructors', component: InstructorsComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'sessions', component: SessionsComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
