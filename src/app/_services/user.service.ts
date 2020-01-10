@@ -4,17 +4,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { IGame } from '../game';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ApiService {
+export class UserService {
 
   endpoint: string = 'http://localhost:4000/user';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  private games_url: string ="/assets/data/games.json";
 
   constructor(private http: HttpClient) { }
 
@@ -73,7 +71,4 @@ export class ApiService {
     return throwError(errorMessage);
   }
 
-  getGames(): Observable<IGame[]>{
-    return this.http.get<IGame[]>(this.games_url);
-  }
 }
