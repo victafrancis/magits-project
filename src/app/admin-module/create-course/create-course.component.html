@@ -1,0 +1,29 @@
+<div class="title-group">
+    <div>
+        <h1 style="text-align: center;" class="mat-h1">Create Course</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="inner-wrapper">
+    <form [formGroup]="courseForm" (ngSubmit)="submitCourseForm()" novalidate>
+        
+        <!-- LEFT SIDE -->
+        <mat-card>
+            <div class="controlers-wrapper">
+                
+              <!-- Course Name -->
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Course Name" formControlName="course_name">
+                <mat-error *ngIf="handleError('course_name', 'required')">
+                  You must provide a<strong>course name</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+            </div>
+          </mat-card>
+    </form>
+</div>

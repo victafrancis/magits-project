@@ -9,10 +9,15 @@ import { instructorRoutes } from './instructor.routes';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../material.module';
+import { CourseListComponent } from './course-list/course-list.component';
+import { MyCoursesComponent } from './my-courses/my-courses.component';
+import { MembersComponent } from './members/members.component';
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent],
+  declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, MembersComponent, AnnouncementsComponent, ProfileComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

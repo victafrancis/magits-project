@@ -2,6 +2,8 @@
     <div>Member Dashboard</div>
     <span class="nav-tool-items">
       <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+      <button mat-raised-button color="accent" routerLinkActive="active" routerLink="profile">View Profile</button>&nbsp;
+      <button mat-raised-button color="accent" (click)="logout()">Logout</button>
     </span>
   </mat-toolbar>
   
@@ -11,7 +13,13 @@
       [fixedTopGap]>
       <mat-nav-list>
         <a mat-list-item routerLinkActive="active" routerLink="home">
-          <mat-icon>add</mat-icon> Home
+          <mat-icon>home</mat-icon> Home
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="courses">
+          <mat-icon>reorder</mat-icon> Courses
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="sessions">
+          <mat-icon>reorder</mat-icon> Sessions
         </a>
       </mat-nav-list>
     </mat-sidenav>
