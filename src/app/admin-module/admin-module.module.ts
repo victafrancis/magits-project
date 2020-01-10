@@ -15,16 +15,22 @@ import { SessionsComponent } from './sessions/sessions.component';
 import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { AddInstructorComponent } from './add-instructor/add-instructor.component';
+import { AddMemberComponent } from './add-member/add-member.component';
+import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, CreateCourseComponent],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
-    RouterModule.forChild(adminRoutes)
+    RouterModule.forChild(adminRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers:[
     RoleGuard,

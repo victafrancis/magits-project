@@ -16,6 +16,7 @@ const ELEMENT_DATA: Element[] = [
 
 ];
 // END OF SAMPLE DATA
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
