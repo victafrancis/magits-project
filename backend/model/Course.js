@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// let User = require('./User');
-
 // Define collection and schema
 let Course = new Schema({
   name: {
@@ -15,7 +13,8 @@ let Course = new Schema({
     type: Number
   },
   members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  instructors: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  instructors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 }, {
   collection: 'courses'
 })

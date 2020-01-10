@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from './course';
+import { Announcement } from './announcement';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -9,30 +9,30 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 
-export class CourseService {
+export class AnnouncementService {
 
-  endpoint: string = 'http://localhost:4000/course';
+  endpoint: string = 'http://localhost:4000/announcement';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
-  // Add course
-  AddCourse(data: Course): Observable<any> {
-    let API_URL = `${this.endpoint}/add-course`;
+  // Add announcement
+  AddAnnouncement(data: Announcement): Observable<any> {
+    let API_URL = `${this.endpoint}/add-announcement`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
       )
   }
 
-  // Get all Courses
-  GetCourses() {
+  // Get all Announcements
+  GetAnnouncements() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get course
-  GetCourse(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-course/${id}`;
+  // Get announcement
+  GetAnnouncement(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-announcement/${id}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -41,17 +41,9 @@ export class CourseService {
     )
   }
 
-  // Update course
-  UpdateCourse(id, data: Course): Observable<any> {
-    let API_URL = `${this.endpoint}/update/${id}`;
-    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
-  }
-
-  // Delete course
-  DeleteCourse(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-course/${id}`;
+  // Delete Announcement
+  DeleteAnnouncement(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-announcement/${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     )

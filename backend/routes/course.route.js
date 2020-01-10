@@ -84,8 +84,4 @@ courseRoute.route('/delete-course/:id').delete((req, res, next) => {
   })
 })
 
-
-
-
-
 module.exports = courseRoute;
