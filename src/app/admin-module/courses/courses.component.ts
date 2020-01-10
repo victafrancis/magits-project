@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { Course } from 'src/app/_services/course';
+import { CourseService } from 'src/app/_services/course.service';
 
 // SAMPLE DATA
 export interface Element {
@@ -6,15 +9,15 @@ export interface Element {
   instructorName: string;
 }
 
-const ELEMENT_DATA: Element[] = [
-  {courseName: 'Karate I', instructorName: 'Kuroko Tetsuya'},
-  {courseName: 'Karate II', instructorName: 'Kuroko Tetsuya'},
-  {courseName: 'Taekwondo I',  instructorName: 'Manny Preston'},
-  {courseName: 'Taekwondo II',  instructorName: 'Manny Preston'},
-  {courseName: 'Judo I', instructorName: 'Midoriya Izuku'},
-  {courseName: 'Judo II', instructorName: 'Midoriya Izuku'}
+// const ELEMENT_DATA: Element[] = [
+//   {courseName: 'Karate I', instructorName: 'Kuroko Tetsuya'},
+//   {courseName: 'Karate II', instructorName: 'Kuroko Tetsuya'},
+//   {courseName: 'Taekwondo I',  instructorName: 'Manny Preston'},
+//   {courseName: 'Taekwondo II',  instructorName: 'Manny Preston'},
+//   {courseName: 'Judo I', instructorName: 'Midoriya Izuku'},
+//   {courseName: 'Judo II', instructorName: 'Midoriya Izuku'}
 
-];
+// ];
 // END OF SAMPLE DATA
 
 @Component({
@@ -24,12 +27,33 @@ const ELEMENT_DATA: Element[] = [
 })
 export class CoursesComponent implements OnInit {
   
-  displayedColumns: string[] = ['courseName', 'instructorName'];
-  dataSource = ELEMENT_DATA;
+  CourseData: any =[];
+  dataSource: MatTableDataSource<Course>;
+  course: string;
 
-  constructor() { }
+  @ViewChild(MatPaginator, {static:true}) paginator:MatPaginator;
+ 
+  // displayedColumns: string[] = ['courseName', 'instructorName'];
+  displayedColumns: string[] = ['name', 'details'];
+
+  constructor(private _courseApi: CourseService) {
+    
+      this._courseApi.GetCourses().subscribe(data => {
+        this.CourseData = data;
+        this.dataSource = new MatTableDataSource<Course>(this.CourseData);
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+        }, 0);
+      })
+      
+     }
 
   ngOnInit() {
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 
 }

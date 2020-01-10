@@ -7,3 +7,4 @@ export class Course {
     instructors: [String];
     schedule: [String];
  }
+

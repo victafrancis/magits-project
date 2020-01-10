@@ -14,17 +14,18 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         
         <!-- Course Name Column -->
-        <ng-container matColumnDef="courseName">
+        <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Course Name </th>
             <td mat-cell *matCellDef="let element"> 
-                <a href="#" style="text-decoration: none; color:white;">{{element.courseName}}</a> 
+                <a routerLinkActive="active" style="text-decoration: none; color:white;" 
+                [routerLink]="['/course-profile/', element._id]">{{element.name}}</a> 
             </td>
         </ng-container>
 
-        <!-- Instructor Name Column -->
-        <ng-container matColumnDef="instructorName">
-            <th mat-header-cell *matHeaderCellDef> Instructor Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.instructorName}} </td>
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details </th>
+            <td mat-cell *matCellDef="let element"> {{element.details}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
