@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material';
 export class MembersComponent implements OnInit {
   UserData: any = [];
   dataSource: MatTableDataSource<User>;
-  displayedColumns: string[] = ['_id', 'firstname', 'lastname'];
+  displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
 
   constructor(private userApi: ApiService) { 
     this.userApi.GetUsers().subscribe(data => {
