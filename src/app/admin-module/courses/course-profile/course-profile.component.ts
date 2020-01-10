@@ -41,7 +41,7 @@ export class CourseProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateMemberForm(){
+  updateCourseForm(){
     var id = this.actRoute.snapshot.paramMap.get('id');
     if(window.confirm('Are you sure you want to update?')){
       this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
