@@ -9,6 +9,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './_login/login.component';
 import { PageNotFoundComponent } from './_page-not-found/page-not-found.component';
 import { adminRoutes } from './admin-module/admin.routes';
+import { RegisterComponent } from './register/register.component';
+import { MemberModule } from './member-module/member-module.module';
+import { InstructorModule } from './instructor-module/instructor-module.module';
+import { AdminModule } from './admin-module/admin-module.module';
+
+
+import { from } from 'rxjs';
 
 // const routes: Routes = [
 //   { path: '', pathMatch: 'full', redirectTo: 'players-list' },
@@ -22,6 +29,10 @@ import { adminRoutes } from './admin-module/admin.routes';
 
 export const APP_ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
+  {path: 'register', component: RegisterComponent},
+  {path: 'member', component: MemberModule},
+  {path: 'instructor', component: InstructorModule},
+  {path: 'admin', component: AdminModule},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
