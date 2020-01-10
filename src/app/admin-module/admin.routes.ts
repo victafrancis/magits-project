@@ -11,6 +11,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { AddInstructorComponent } from './add-instructor/add-instructor.component';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
+import { CourseProfileComponent } from './course-profile/course-profile.component';
 
 
 export const adminRoutes: Routes = [
@@ -23,6 +24,7 @@ export const adminRoutes: Routes = [
       { path: '', redirectTo: 'courses', pathMatch: 'full',data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'home', component: HomeComponent,data: {role: 'Admin'},canActivate: [RoleGuard]},
       { path: 'courses', component: CoursesComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
+      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'instructors', component: InstructorsComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'sessions', component: SessionsComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},

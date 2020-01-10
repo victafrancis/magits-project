@@ -19,11 +19,12 @@ import { AddInstructorComponent } from './add-instructor/add-instructor.componen
 import { AddMemberComponent } from './add-member/add-member.component';
 import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CourseProfileComponent } from './course-profile/course-profile.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, CourseProfileComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

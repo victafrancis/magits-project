@@ -5,4 +5,5 @@ export class Course {
     max_students: String;
     members: [];
     instructors: [];
+  course: any;
  }

@@ -10,7 +10,7 @@ import { IGame } from '../game';
   providedIn: 'root'
 })
 
-export class ApiService {
+export class UserService {
 
   endpoint: string = 'http://localhost:4000/user';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
