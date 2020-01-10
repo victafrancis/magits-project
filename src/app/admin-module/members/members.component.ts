@@ -1,19 +1,7 @@
+import { ApiService } from '../../_services/user.service';
+import { User } from '../../_services/user';
 import { Component, OnInit } from '@angular/core';
-
-// SAMPLE DATA
-export interface Member{
-  id: String;
-  firstname: String;
-  lastname: String;
-}
-const members: Member[] = [
-  {id: "1", firstname: 'Eleanor', lastname: 'Rigby'},
-  {id: "2", firstname: 'Aldrin', lastname: 'Jacildo'},
-  {id: "3", firstname: 'Francis', lastname: 'Victa'},
-  {id: "4", firstname: 'Sir Angel', lastname: 'Naguit'},
-  {id: "5", firstname: 'The', lastname: 'Other'}
-]
-// END OF SAMPLE DATA
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-members',
@@ -21,11 +9,16 @@ const members: Member[] = [
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
+  UserData: any = [];
+  dataSource: MatTableDataSource<User>;
+  displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
 
-  displayedColumns: string[] = ['MemberID', 'FirstName', 'LastName'];
-  dataSource = members;
-
-  constructor() { }
+  constructor(private userApi: ApiService) { 
+    this.userApi.GetUsers().subscribe(data => {
+      this.UserData = data;
+      this.dataSource = new MatTableDataSource<User>(this.UserData);
+    })
+  }
 
   ngOnInit() {
   }
