@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from './user';
+import { Feedback } from './feedback';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -9,30 +9,30 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 
-export class UserService {
+export class FeedbackService {
 
-  endpoint: string = 'http://localhost:4000/user';
+  endpoint: string = 'http://localhost:4000/feedback';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
-  // Add user
-  AddUser(data: User): Observable<any> {
-    let API_URL = `${this.endpoint}/register`;
+  // Add feedback
+  AddFeedback(data: Feedback): Observable<any> {
+    let API_URL = `${this.endpoint}/add-feedback`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
       )
   }
 
-  // Get all users
-  GetUsers() {
+  // Get all Feedbacks
+  GetFeedbacks() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get user
-  GetUser(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-user/${id}`;
+  // Get Feedback
+  GetFeedback(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-feedback/${id}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -41,17 +41,17 @@ export class UserService {
     )
   }
 
-  // Update user
-  UpdateUser(id, data: User): Observable<any> {
+  // Update Feedback
+  UpdateFeedback(id, data: Feedback): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  // Delete user
-  DeleteUser(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-user/${id}`;
+  // Delete Feedback
+  DeleteFeedback(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-feedback/${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     )

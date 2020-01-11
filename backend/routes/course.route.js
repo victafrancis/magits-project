@@ -43,6 +43,8 @@ courseRoute.route('/read-course/:id').get((req, res) => {
 
 // Update course
 courseRoute.route('/update/:id').put((req, res, next) => {
+  console.log(req.body);
+
   Course.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
@@ -58,8 +60,34 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 
 // add member to a course
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
+  console.log("req members: "+req.body.members);
+  
+  // Course.update(req.params.id, 
+  //   Course.members.push(req.body.members)
+  // , (error, data) => {
+  //   if (error) {
+  //     return next(error);
+  //     console.log(error)
+  //   } else {
+  //     res.json(data)
+  //     console.log('Course successfully updated!')
+  //   }
+  // })
+  
+  // Course.findById(req.params.id, {
+  //   $push: {"members": req.body.members}
+  // }, (error, data) => {
+  //   if (error) {
+  //     return next(error);
+  //     console.log(error)
+  //   } else {
+  //     res.json(data)
+  //     console.log('Course successfully updated!')
+  //   }
+  // })
+
   Course.findByIdAndUpdate(req.params.id, {
-    $set: req.body
+    $push: {"members": req.body.members}
   }, (error, data) => {
     if (error) {
       return next(error);
@@ -83,9 +111,5 @@ courseRoute.route('/delete-course/:id').delete((req, res, next) => {
     }
   })
 })
-
-
-
-
 
 module.exports = courseRoute;

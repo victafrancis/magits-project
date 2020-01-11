@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { IGame } from '../game';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,6 @@ export class CourseService {
 
   endpoint: string = 'http://localhost:4000/course';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  private games_url: string ="/assets/data/games.json";
 
   constructor(private http: HttpClient) { }
 
@@ -44,7 +42,7 @@ export class CourseService {
   }
 
   // Update course
-  UpdateCourse(id, data: Course): Observable<any> {
+  UpdateCourse(id, data): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
@@ -73,7 +71,4 @@ export class CourseService {
     return throwError(errorMessage);
   }
 
-  getGames(): Observable<IGame[]>{
-    return this.http.get<IGame[]>(this.games_url);
-  }
 }

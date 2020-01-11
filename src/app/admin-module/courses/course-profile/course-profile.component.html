@@ -1,0 +1,52 @@
+<div class="title-group">
+  <div>
+      <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Info</h1>
+  </div>
+  <br>
+  <mat-divider fxFlex="1 0"></mat-divider>
+  <br>
+</div>
+
+<div class="inner-wrapper" style="text-align: center;">
+  <form [formGroup]="courseForm" (ngSubmit)="updateCourseForm()" novalidate>
+      <!-- LEFT SIDE -->
+      <mat-card>
+          <div class="controlers-wrapper">
+
+              <!-- Course Name -->
+              <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Course Name" formControlName="name">
+                  <mat-error *ngIf="handleError('name', 'required')">
+                      You must provide Course<strong>name</strong>
+                  </mat-error>
+              </mat-form-field>
+
+              <!-- Details -->
+              <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Details" formControlName="details">
+                  <mat-error *ngIf="handleError('details', 'required')">
+                      You must provide<strong>details</strong>
+                  </mat-error>
+              </mat-form-field>
+
+              <!-- Member List -->
+              <mat-form-field class="example-full-width">
+                <mat-select [(ngModel)]="selected" formControlName="members">
+                  <mat-option [value]="u._id" *ngFor="let u of users">
+                    {{u.firstname}} {{u.lastname}}
+                </mat-option></mat-select>
+              </mat-form-field>
+
+              
+              <!-- Submit & Reset -->
+              <mat-card>
+                  <div class="full-wrapper button-wrapper">
+                      <div class="button-wrapper">
+                          <button mat-flat-button color="warn">Update</button>
+                      </div>
+                  </div>
+              </mat-card>
+          </div>
+      </mat-card>
+  </form>
+</div>

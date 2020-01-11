@@ -6,5 +6,8 @@ export class User {
     email: String;
     password: String;
     role: String;
-    courses: [];
+    courses: [String];
+    sessions: [String];
+    feedback: [String];
+    announcements: [String];
  }

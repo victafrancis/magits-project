@@ -7,13 +7,12 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
-import { CreateCourseComponent } from './create-course/create-course.component';
-import { AddInstructorComponent } from './add-instructor/add-instructor.component';
-import { AddMemberComponent } from './add-member/add-member.component';
-import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
+import { CreateCourseComponent } from './courses/create-course/create-course.component';
+import { AddInstructorComponent } from './instructors/add-instructor/add-instructor.component';
+import { AddMemberComponent } from './members/add-member/add-member.component';
+import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
-import { CourseProfileComponent } from './course-profile/course-profile.component';
-
+import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 
 
 export const adminRoutes: Routes = [

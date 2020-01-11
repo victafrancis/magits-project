@@ -21,7 +21,10 @@ let User = new Schema({
   role: {
     type: String
   },
-  courses: [{ type: Schema.Types.ObjectId, ref: 'Course' }]
+  courses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+  sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
+  feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
+  announcements: { type: Schema.Types.ObjectId, ref: 'Announcement' }
 }, {
   collection: 'users'
 })

@@ -3,7 +3,8 @@ export class Course {
     name: String;
     details: String;
     max_students: String;
-    members: [];
-    instructors: [];
-  course: any;
+    members: [String];
+    instructors: [String];
+    schedule: [String];
  }
+
