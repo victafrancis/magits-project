@@ -5,6 +5,8 @@ const courseRoute = express.Router();
 
 // Course model
 let Course = require('../model/Course');
+//User model
+let User = require('../model/User');
 
 
 // Add Course
@@ -46,11 +48,10 @@ courseRoute.route('/course-members/:id').get((req, res) => {
     if (error) {
       return next(error)
     } else {
-      res.json(data)
+      res.json(data.members)
     }
   })
 })
-
 
 // Update course
 courseRoute.route('/update/:id').put((req, res, next) => {
@@ -73,6 +74,7 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
   console.log("req members: "+req.body.members);
 
+  //find course and push member id to course members array
   Course.findByIdAndUpdate(req.params.id, {
     $push: {"members": req.body.members}
   }, (error, data) => {
@@ -80,8 +82,21 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
       return next(error);
       console.log(error)
     } else {
+
+      //find user and push course ID to user courses array
+      User.findByIdAndUpdate(req.body.members, {
+        $push: {"courses": req.params.id}
+      }, (error, data) => {
+        if (error) {
+          return next(error);
+          console.log(error)
+        } else {
+          console.log('Course added to member!')
+        }
+      })
+
       res.json(data)
-      console.log('Course successfully updated!')
+      console.log('Member successfully enrolled!')
     }
   })
 
