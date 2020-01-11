@@ -31,8 +31,8 @@
 
               <!-- Member List -->
               <mat-form-field class="example-full-width">
-                <mat-select [(ngModel)]="selected" formControlName="student">
-                  <mat-option [value]="u.firstname" *ngFor="let u of users">
+                <mat-select [(ngModel)]="selected" formControlName="members">
+                  <mat-option [value]="u._id" *ngFor="let u of users">
                     {{u.firstname}} {{u.lastname}}
                 </mat-option></mat-select>
               </mat-form-field>

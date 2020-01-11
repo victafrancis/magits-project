@@ -42,7 +42,7 @@ export class CourseService {
   }
 
   // Update course
-  UpdateCourse(id, data: Course): Observable<any> {
+  UpdateCourse(id, data): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
