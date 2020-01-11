@@ -10,7 +10,7 @@ let User = new Schema({
     type: String
   },
   birthdate: {
-    type: String
+    type: Date
   },
   email: {
     type: String

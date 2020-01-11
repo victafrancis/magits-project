@@ -2,7 +2,7 @@ export class User {
     _id: String;
     firstname: String;
     lastname: String;
-    birthdate: String;
+    birthdate: Date;
     email: String;
     password: String;
     role: String;

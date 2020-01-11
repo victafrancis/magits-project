@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { UserService } from '../../_services/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-instructor',
@@ -8,23 +10,35 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class AddInstructorComponent implements OnInit {
   instructorForm: FormGroup;
+  
   constructor(
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private userApi: UserService,
+    private ngZone: NgZone,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.submitInstructorForm();
-  }
-
-  submitInstructorForm(){
     this.instructorForm = this.fb.group({
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      email: ['', [Validators.required]]
-    })
+      birthdate: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['password'],
+      role: ['Instructor']
+    });  
   }
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.instructorForm.controls[controlName].hasError(errorName);
+  }
+
+  submitInstructorForm(){
+    if(window.confirm('Are you sure you want to add this instructor?')){
+      this.userApi.AddUser(this.instructorForm.value).subscribe(res => {
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/instructors'))
+      });
+    }
   }
 }

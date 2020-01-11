@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class MemberProfileComponent implements OnInit {
   memberForm: FormGroup;
-
+  
   constructor(
     private actRoute: ActivatedRoute,
     private memberApi: UserService,
@@ -26,11 +26,17 @@ export class MemberProfileComponent implements OnInit {
         lastname: [data.lastname, [Validators.required]],
         birthdate: [data.birthdate, [Validators.required]],
         email: [data.email, [Validators.required]]
-      })
+      });
     })
   }
 
   ngOnInit() {
+    this.memberForm = this.fb.group({
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      birthdate: ['', [Validators.required]],
+      email: ['', [Validators.required]]
+    });
   }
 
   updateMemberForm(){
