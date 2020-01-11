@@ -45,8 +45,6 @@ userRoute.route('/login').post((req, res, next) => {
         }
         let token = jwt.sign(payload, 'secretKey');
         res.status(200).send({token});
-        //console.log(token.toString());
-        //console.log('last!!!');
       }
     }
   })

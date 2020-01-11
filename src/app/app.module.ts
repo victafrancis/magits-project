@@ -31,6 +31,10 @@ import { InstructorModule } from './instructor-module/instructor-module.module';
 import { MemberModule } from './member-module/member-module.module';
 import { RegisterComponent } from './register/register.component';
 
+//LoginGuard
+import { LoginPageGuard } from './_guards/login-page-guard.service'; 
+
+
 @NgModule({
   declarations: [
     AppComponent,//
@@ -56,7 +60,7 @@ import { RegisterComponent } from './register/register.component';
     MemberModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
-  providers: [],
+  providers: [LoginPageGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

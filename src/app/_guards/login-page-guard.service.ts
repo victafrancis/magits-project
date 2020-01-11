@@ -3,10 +3,8 @@ import { AuthService } from '../_services/auth.service';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
-
 @Injectable()
-export class AuthGuard implements CanActivate {
-
+export class LoginPageGuard implements CanActivate {
 
   constructor(private _authService: AuthService, private _router: Router) {
   }
@@ -15,13 +13,21 @@ export class AuthGuard implements CanActivate {
     
     
     if (this._authService.isAuthenticated()) {
-        return true;
+      const user = this._authService.decode();
+      let url = user.role.toString();
+      if (url == 'member') {
+        this._router.navigate(["/member"]);
+      } else if(url == 'instructor'){
+        this._router.navigate(["/instructor"]);
+      } else if (url == 'admin'){
+        this._router.navigate(["/admin"]);
+      }
+      // you can save redirect url so after authing we can move them back to the page they requested
+      return false;
     }
+    
+    return true;
 
-    // navigate to login page
-    this._router.navigate(['/login']);
-    // you can save redirect url so after authing we can move them back to the page they requested
-    return false;
   }
 
 }

@@ -62,19 +62,8 @@ export class LoginComponent implements OnInit {
         }
 
       });
+    }else {
+      //wrong password
     }
-  }
-
-
-  login() {
-    this._authService.login();
-  }
-
-  loginAdmin() {
-    this._authService.loginAdmin();
-  }
-
-  loginInstructor() {
-    this._authService.loginInstructor();
   }
 }
