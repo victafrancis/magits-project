@@ -29,11 +29,14 @@
                   </mat-error>
               </mat-form-field>
 
-              <mat-select [(ngModel)]="users">
-                <mat-option [value]="u.firstname" *ngFor="let u of users">
-                  {{u.firstname}}
-              </mat-option></mat-select>
-    
+              <!-- Member List -->
+              <mat-form-field class="example-full-width">
+                <mat-select [(ngModel)]="selected">
+                  <mat-option [value]="u.firstname" *ngFor="let u of users">
+                    {{u.firstname}} {{u.lastname}}
+                </mat-option></mat-select>
+              </mat-form-field>
+
               
               <!-- Submit & Reset -->
               <mat-card>
