@@ -11,7 +11,7 @@ import { CourseService } from 'src/app/_services/course.service';
 export class CoursesComponent implements OnInit {
   CourseData: any = [];
   dataSource: MatTableDataSource<Course>;
-  displayedColumns: string[] = ['name', 'details', 'action'];
+  displayedColumns: string[] = ['name', 'details', 'members','action'];
 
   constructor(private userApi: CourseService) { 
     this.userApi.GetCourses().subscribe(data => {

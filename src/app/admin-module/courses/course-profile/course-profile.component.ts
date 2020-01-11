@@ -13,6 +13,7 @@ import { User } from 'src/app/_services/user';
 export class CourseProfileComponent implements OnInit {
   courseForm: FormGroup;
   users: any=[];
+  selected: null;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -28,8 +29,10 @@ export class CourseProfileComponent implements OnInit {
     this.courseApi.GetCourse(id).subscribe(data => {
       this.courseForm = this.fb.group({
         name: [data.name, [Validators.required]],
-        details: [data.details, [Validators.required]]
+        details: [data.details, [Validators.required]],
+        members: ['', [Validators.required]]
       })
+      
     })
 
     this.userApi.GetUsers().subscribe( data =>{
@@ -39,19 +42,26 @@ export class CourseProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.courseForm = this.fb.group({
+        name: ['', [Validators.required]],
+        details: ['', [Validators.required]],
+        members: ['', [Validators.required]]
+    });
   }
 
   updateCourseForm(){
     var id = this.actRoute.snapshot.paramMap.get('id');
     if(window.confirm('Are you sure you want to update?')){
+      console.log("added member: "+this.selected)
       this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('admin/course'))
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
       })
     }
   }
-  
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.courseForm.controls[controlName].hasError(errorName);
   }
+
 }
