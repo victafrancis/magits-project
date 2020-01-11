@@ -52,7 +52,7 @@ export class CourseProfileComponent implements OnInit {
     if(window.confirm('Are you sure you want to update?')){
       console.log("added member: " + this.selected)
       this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('admin/course'))
+        this.ngZone.run(() => this.router.navigateByUrl('admin/courses'))
       })
     }
   }
