@@ -40,6 +40,17 @@ courseRoute.route('/read-course/:id').get((req, res) => {
   })
 })
 
+// Get members of course
+courseRoute.route('/course-members/:id').get((req, res) => {
+  Course.findById(req.params.id).populate('members').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
 
 // Update course
 courseRoute.route('/update/:id').put((req, res, next) => {
@@ -61,30 +72,6 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 // add member to a course
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
   console.log("req members: "+req.body.members);
-  
-  // Course.update(req.params.id, 
-  //   Course.members.push(req.body.members)
-  // , (error, data) => {
-  //   if (error) {
-  //     return next(error);
-  //     console.log(error)
-  //   } else {
-  //     res.json(data)
-  //     console.log('Course successfully updated!')
-  //   }
-  // })
-  
-  // Course.findById(req.params.id, {
-  //   $push: {"members": req.body.members}
-  // }, (error, data) => {
-  //   if (error) {
-  //     return next(error);
-  //     console.log(error)
-  //   } else {
-  //     res.json(data)
-  //     console.log('Course successfully updated!')
-  //   }
-  // })
 
   Course.findByIdAndUpdate(req.params.id, {
     $push: {"members": req.body.members}
@@ -97,6 +84,32 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
       console.log('Course successfully updated!')
     }
   })
+
+  // Course.update(req.params.id,
+  //   Course.members.push(req.body.members)
+  // , (error, data) => {
+  //   if (error) {
+  //     return next(error);
+  //     console.log(error)
+  //   } else {
+  //     res.json(data)
+  //     console.log('Course successfully updated!')
+  //   }
+  // })
+
+  // Course.findById(req.params.id, {
+  //   $push: {"members": req.body.members}
+  // }, (error, data) => {
+  //   if (error) {
+  //     return next(error);
+  //     console.log(error)
+  //   } else {
+  //     res.json(data)
+  //     console.log('Course successfully updated!')
+  //   }
+  // })
+
+
 })
 
 // Delete course
