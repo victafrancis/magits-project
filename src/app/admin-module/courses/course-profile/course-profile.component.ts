@@ -41,12 +41,16 @@ export class CourseProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.courseForm = this.fb.group({
+        name: ['', [Validators.required]],
+        details: ['', [Validators.required]]
+    });
   }
 
   updateCourseForm(){
     var id = this.actRoute.snapshot.paramMap.get('id');
     if(window.confirm('Are you sure you want to update?')){
-      console.log("added member: "+this.selected)
+      console.log("added member: " + this.selected)
       this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
         this.ngZone.run(() => this.router.navigateByUrl('admin/course'))
       })
