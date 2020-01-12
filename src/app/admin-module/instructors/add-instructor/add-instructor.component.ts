@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { UserService } from '../../_services/user.service';
+import { UserService } from '../../../_services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
