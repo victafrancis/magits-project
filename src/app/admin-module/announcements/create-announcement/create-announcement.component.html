@@ -1,1 +1,51 @@
-<p>create-announcement works!</p>
+<div class="title-group">
+    <div>
+        <h1 style="width:90%; text-align: center;" class="mat-h1">Create Announcement</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="inner-wrapper" style="text-align: center;">
+    <form [formGroup]="AnnouncementForm" (ngSubmit)="submitAnnouncementForm()" novalidate>
+        <mat-card>
+            <div class="controlers-wrapper">
+
+                <!-- Date -->
+                <mat-form-field class="example-full-width">
+                    {{currentDate | date:'yyyy-MM-dd'}}
+                    <input type="date" matInput placeholder="Date" formControlName="date" value="{{currentDate | date:'yyyy-MM-dd'}}" hidden>
+                    <mat-error *ngIf="handleError('date', 'required')">
+                        You must provide a<strong> date</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Subject -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Subject" formControlName="subject">
+                    <mat-error *ngIf="handleError('subject', 'required')">
+                        You must provide a<strong> Subject</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Content -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Content" formControlName="content">
+                    <mat-error *ngIf="handleError('content', 'required')">
+                        You must provide a<strong> Content</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit & Reset -->
+                <mat-card>
+                    <div class="full-wrapper button-wrapper">
+                        <div class="button-wrapper">
+                            <button mat-flat-button color="warn">Add</button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+    </form>
+</div>
