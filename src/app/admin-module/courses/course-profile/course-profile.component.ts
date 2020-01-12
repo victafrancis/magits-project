@@ -22,8 +22,8 @@ export class CourseProfileComponent implements OnInit {
     private fb: FormBuilder,
     private ngZone: NgZone,
     private userApi: UserService
-  ) 
-  { 
+  )
+  {
     var id = this.actRoute.snapshot.paramMap.get('id');
 
     this.courseApi.GetCourse(id).subscribe(data => {
@@ -32,7 +32,7 @@ export class CourseProfileComponent implements OnInit {
         details: [data.details, [Validators.required]],
         members: ['', [Validators.required]]
       })
-      
+
     })
 
     this.userApi.GetUsers().subscribe( data =>{
@@ -53,7 +53,7 @@ export class CourseProfileComponent implements OnInit {
     var id = this.actRoute.snapshot.paramMap.get('id');
     if(window.confirm('Are you sure you want to update?')){
       console.log("added member: "+this.selected)
-      this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
+      this.courseApi.EnrolMember(id, this.courseForm.value).subscribe(res => {
         this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
       })
     }

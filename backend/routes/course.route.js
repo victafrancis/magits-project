@@ -5,6 +5,8 @@ const courseRoute = express.Router();
 
 // Course model
 let Course = require('../model/Course');
+//User model
+let User = require('../model/User');
 
 
 // Add Course
@@ -40,6 +42,16 @@ courseRoute.route('/read-course/:id').get((req, res) => {
   })
 })
 
+// Get members of course
+courseRoute.route('/course-members/:id').get((req, res) => {
+  Course.findById(req.params.id).populate('members').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data.members)
+    }
+  })
+})
 
 // Update course
 courseRoute.route('/update/:id').put((req, res, next) => {
@@ -61,8 +73,34 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 // add member to a course
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
   console.log("req members: "+req.body.members);
-  
-  // Course.update(req.params.id, 
+
+  //find course and push member id to course members array
+  Course.findByIdAndUpdate(req.params.id, {
+    $push: {"members": req.body.members}
+  }, (error, data) => {
+    if (error) {
+      return next(error);
+      console.log(error)
+    } else {
+
+      //find user and push course ID to user courses array
+      User.findByIdAndUpdate(req.body.members, {
+        $push: {"courses": req.params.id}
+      }, (error, data) => {
+        if (error) {
+          return next(error);
+          console.log(error)
+        } else {
+          console.log('Course added to member!')
+        }
+      })
+
+      res.json(data)
+      console.log('Member successfully enrolled!')
+    }
+  })
+
+  // Course.update(req.params.id,
   //   Course.members.push(req.body.members)
   // , (error, data) => {
   //   if (error) {
@@ -73,7 +111,7 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
   //     console.log('Course successfully updated!')
   //   }
   // })
-  
+
   // Course.findById(req.params.id, {
   //   $push: {"members": req.body.members}
   // }, (error, data) => {
@@ -86,17 +124,7 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
   //   }
   // })
 
-  Course.findByIdAndUpdate(req.params.id, {
-    $push: {"members": req.body.members}
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error)
-    } else {
-      res.json(data)
-      console.log('Course successfully updated!')
-    }
-  })
+
 })
 
 // Delete course
