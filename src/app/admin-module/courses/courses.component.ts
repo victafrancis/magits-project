@@ -1,21 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
-// SAMPLE DATA
-export interface Element {
-  courseName: string;
-  instructorName: string;
-}
-
-const ELEMENT_DATA: Element[] = [
-  {courseName: 'Karate I', instructorName: 'Kuroko Tetsuya'},
-  {courseName: 'Karate II', instructorName: 'Kuroko Tetsuya'},
-  {courseName: 'Taekwondo I',  instructorName: 'Manny Preston'},
-  {courseName: 'Taekwondo II',  instructorName: 'Manny Preston'},
-  {courseName: 'Judo I', instructorName: 'Midoriya Izuku'},
-  {courseName: 'Judo II', instructorName: 'Midoriya Izuku'}
-
-];
-// END OF SAMPLE DATA
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { Course } from 'src/app/_services/course';
+import { CourseService } from 'src/app/_services/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -23,11 +9,16 @@ const ELEMENT_DATA: Element[] = [
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-  
-  displayedColumns: string[] = ['courseName', 'instructorName'];
-  dataSource = ELEMENT_DATA;
+  CourseData: any = [];
+  dataSource: MatTableDataSource<Course>;
+  displayedColumns: string[] = ['name', 'details', 'members','action'];
 
-  constructor() { }
+  constructor(private userApi: CourseService) { 
+    this.userApi.GetCourses().subscribe(data => {
+      this.CourseData = data;
+      this.dataSource = new MatTableDataSource<Course>(this.CourseData);
+    })
+  }
 
   ngOnInit() {
   }

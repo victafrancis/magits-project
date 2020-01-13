@@ -7,11 +7,16 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
-import { CreateCourseComponent } from './create-course/create-course.component';
-import { AddInstructorComponent } from './add-instructor/add-instructor.component';
-import { AddMemberComponent } from './add-member/add-member.component';
-import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
+
 import { AuthGuard } from '../_guards/auth-guard.service';
+
+import { CreateCourseComponent } from './courses/create-course/create-course.component';
+import { AddInstructorComponent } from './instructors/add-instructor/add-instructor.component';
+import { AddMemberComponent } from './members/add-member/add-member.component';
+import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
+import { MemberProfileComponent } from './members/member-profile/member-profile.component';
+import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
+
 
 
 export const adminRoutes: Routes = [
@@ -31,7 +36,9 @@ export const adminRoutes: Routes = [
       { path: 'create-course', component: CreateCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-instructor', component: AddInstructorComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-member', component: AddMemberComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
+      { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
     ]
   }
 ];

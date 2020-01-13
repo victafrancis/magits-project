@@ -21,6 +21,10 @@ mongoose.connect(dataBaseConfig.db, {
 const playerRoute = require('../backend/routes/player.route')
 const courseRoute = require('../backend/routes/course.route')
 const userRoute = require('../backend/routes/user.route')
+const announcementRoute = require('../backend/routes/announcement.route')
+const feedbackRoute = require('../backend/routes/feedback.route')
+const scheduleRoute = require('../backend/routes/schedule.route')
+const sessionRoute = require('../backend/routes/session.route')
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,6 +37,10 @@ app.use('/', express.static(path.join(__dirname, 'dist/angular8-meanstack-angula
 app.use('/api', playerRoute)
 app.use('/course', courseRoute)
 app.use('/user', userRoute)
+app.use('/announcement', announcementRoute)
+app.use('/feedback', feedbackRoute)
+app.use('/schedule', scheduleRoute)
+app.use('/session', sessionRoute)
 
 
 // Create port
