@@ -14,8 +14,8 @@
 
                 <!-- Date -->
                 <mat-form-field class="example-full-width">
-                    {{currentDate | date:'yyyy-MM-dd'}}
-                    <input type="date" matInput placeholder="Date" formControlName="date" value="{{currentDate | date:'yyyy-MM-dd'}}" hidden>
+                    {{currentDate}}
+                    <input type="date" matInput placeholder="Date" formControlName="date" value="{{currentDate'}}" hidden>
                     <mat-error *ngIf="handleError('date', 'required')">
                         You must provide a<strong> date</strong>
                     </mat-error>
