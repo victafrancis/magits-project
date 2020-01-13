@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from './course';
+import { Schedule } from './schedule';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -9,30 +9,30 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 
-export class CourseService {
+export class ScheduleService {
 
-  endpoint: string = 'http://localhost:4000/course';
+  endpoint: string = 'http://localhost:4000/schedule';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
-  // Add course
-  AddCourse(data: Course): Observable<any> {
-    let API_URL = `${this.endpoint}/add-course`;
+  // Add schedule
+  AddSchedule(data: Schedule): Observable<any> {
+    let API_URL = `${this.endpoint}/add-schedule`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
       )
   }
 
-  // Get all Courses
-  GetCourses() {
+  // Get all Schedules
+  GetSchedules() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get course
-  GetCourse(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-course/${id}`;
+  // Get Schedule
+  GetSchedule(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-schedule/${id}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -41,25 +41,17 @@ export class CourseService {
     )
   }
 
-  // Update course
-  UpdateCourse(id, data): Observable<any> {
+  // Update Schedule
+  UpdateSchedule(id, data: Schedule): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  // Enrol member to course
-  EnrolMember(id, data): Observable<any> {
-    let API_URL = `${this.endpoint}/register-user-to-course/${id}`;
-    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
-  }
-
-  // Delete course
-  DeleteCourse(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-course/${id}`;
+  // Delete Schedule
+  DeleteSchedule(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-schedule/${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     )

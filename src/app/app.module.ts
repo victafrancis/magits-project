@@ -45,7 +45,9 @@ import { LoginPageGuard } from './_guards/login-page-guard.service';
     GamesComponent,
     JoinGameComponent,
     LoginComponent,//
-    PageNotFoundComponent, RegisterComponent//
+    PageNotFoundComponent, 
+    RegisterComponent//
+
   ],
   imports: [
     BrowserModule,//
