@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
+  User: any;
   opened = true;
   @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
 
@@ -24,6 +24,7 @@ export class LayoutComponent implements OnInit {
       this.sidenav.fixedTopGap = 55;
       this.opened = true;
     }
+    this.getUser();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -40,6 +41,11 @@ export class LayoutComponent implements OnInit {
 // call to logout event
   logout() {
     this._authService.logout();
+  }
+
+  getUser(){
+    this.User = this._authService.decode()
+    console.log(this.User.subject);
   }
 
   isBiggerScreen() {
