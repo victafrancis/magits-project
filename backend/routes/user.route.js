@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoute = express.Router();
+const jwt = require('jsonwebtoken');
 
 // user model
 let User = require('../model/User');
@@ -10,12 +11,45 @@ let User = require('../model/User');
 userRoute.route('/register').post((req, res, next) => {
   User.create(req.body, (error, data) => {
     if (error) {
-      return next(error)
+      console.log(error);
     } else {
-      res.json(data)
+      let payload = {
+        subject: user._id,
+        role: user.role,
+        firstname: user.firstname,
+        lastname: user.lastname
+      }
+      let token = jwt.sign(payload, 'secretKey');
+      res.status(200).send({token});
     }
   })
 });
+
+//Login
+userRoute.route('/login').post((req, res, next) => {
+  let userData = req.body;
+  User.findOne({email: userData.email}, (error, user) => {
+    if(error){
+      console.log(error);
+    }else {
+      if(!user) {
+        res.status(401).send('Invalid Email');
+      } else if( user.password !== userData.password){
+        res.status(401).send('Invalid Password');
+      }else {
+        let payload = {
+          subject: user._id,
+          role: user.role,
+          firstname: user.firstname,
+          lastname: user.lastname
+        }
+        let token = jwt.sign(payload, 'secretKey');
+        res.status(200).send({token});
+      }
+    }
+  })
+});
+
 
 
 // Get all users
