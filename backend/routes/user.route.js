@@ -9,7 +9,7 @@ let User = require('../model/User');
 
 //register a User
 userRoute.route('/register').post((req, res, next) => {
-  User.create(req.body, (error, data) => {
+  User.create(req.body, (error, user) => {
     if (error) {
       console.log(error);
     } else {
@@ -22,7 +22,7 @@ userRoute.route('/register').post((req, res, next) => {
       let token = jwt.sign(payload, 'secretKey');
       res.status(200).send({token});
     }
-  })
+  });
 });
 
 //Login

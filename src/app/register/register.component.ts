@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   memberRegForm: FormGroup;
   visible = true;
   selectable = true;
+  selected = null;
   Roles: any = ['Admin', 'Instructor', 'Member'];
   
 
