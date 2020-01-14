@@ -8,14 +8,14 @@
 </div>
 
 <div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="AnnouncementForm" (ngSubmit)="submitAnnouncementForm()" novalidate>
+    <form [formGroup]="announcementForm" (ngSubmit)="submitAnnouncementForm()" novalidate>
         <mat-card>
             <div class="controlers-wrapper">
 
                 <!-- Date -->
                 <mat-form-field class="example-full-width">
-                    {{currentDate}}
-                    <input type="date" matInput placeholder="Date" formControlName="date" value="{{currentDate'}}" hidden>
+                    {{currentDate | date: 'MM-dd-yyyy'}}
+                    <input type="date" matInput placeholder="Date" formControlName="date" hidden>
                     <mat-error *ngIf="handleError('date', 'required')">
                         You must provide a<strong> date</strong>
                     </mat-error>

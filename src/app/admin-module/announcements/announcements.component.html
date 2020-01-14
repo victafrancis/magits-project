@@ -17,7 +17,7 @@
         <!-- Date Column -->
         <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element">{{element.date}}</td>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
         </ng-container>
 
         <!-- Subject Column -->
@@ -36,7 +36,8 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;">
-                <button mat-raised-button color="accent">View Info</button>
+                <button mat-raised-button color="accent">View Info</button>&nbsp;
+                <button mat-raised-button color="warn" (click)="deleteAnnouncement(element)">Delete</button>
             </td>
         </ng-container>
 

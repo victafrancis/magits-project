@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AnnouncementService } from '../../../_services/announcement.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-create-announcement',
@@ -10,19 +11,25 @@ import { Router } from '@angular/router';
 })
 
 export class CreateAnnouncementComponent implements OnInit {
-  AnnouncementForm: FormGroup;
+  announcementForm: FormGroup;
   currentDate = new Date();
+  
 
   constructor(
     public fb: FormBuilder,
     private announcementApi: AnnouncementService,
     private ngZone: NgZone,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
-    this.AnnouncementForm = this.fb.group({
-      date: ['', [Validators.required]],
+    this.AnnouncementForm();
+  }
+
+  AnnouncementForm(){
+    this.announcementForm = this.fb.group({
+      date: [this.datePipe.transform(this.currentDate, 'yyyy-MM-dd'), [Validators.required]],
       subject: ['', [Validators.required]],
       content: ['', Validators.required]
     });
@@ -30,12 +37,12 @@ export class CreateAnnouncementComponent implements OnInit {
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
-    return this.AnnouncementForm.controls[controlName].hasError(errorName);
+    return this.announcementForm.controls[controlName].hasError(errorName);
   }
 
   submitAnnouncementForm(){
     if(window.confirm('Are you sure you want to send this announcement?')){
-      this.announcementApi.AddAnnouncement(this.AnnouncementForm.value).subscribe( res => {
+      this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
         this.ngZone.run(() => this.router.navigateByUrl('/admin/announcements'))
       });
     }
