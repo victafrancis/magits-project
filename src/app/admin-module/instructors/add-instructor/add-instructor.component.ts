@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from '../../../_services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-instructor',
@@ -25,7 +25,7 @@ export class AddInstructorComponent implements OnInit {
       birthdate: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['password'],
-      role: ['Instructor']
+      role: ['instructor']
     });  
   }
 

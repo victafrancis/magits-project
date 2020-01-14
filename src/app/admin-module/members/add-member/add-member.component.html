@@ -1,1 +1,57 @@
-<p>add-member works!</p>
+<div class="title-group">
+    <div>
+        <h1 style="width:90%; text-align: center;" class="mat-h1">Add Member</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="inner-wrapper" style="text-align: center;">
+    <form [formGroup]="memberForm" (ngSubmit)="submitMemberForm()" novalidate>
+        <mat-card>
+            <div class="controlers-wrapper">
+                <!-- First Name -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="First Name" formControlName="firstname">
+                    <mat-error *ngIf="handleError('firstname', 'required')">
+                        You must provide a<strong> First Name</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Last Name -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" formControlName="lastname">
+                    <mat-error *ngIf="handleError('lastname', 'required')">
+                        You must provide a<strong> Last Name</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Date of Birth-->
+                <mat-form-field class="example-full-width">
+                    <input type="date" matInput placeholder="Date of Birth" formControlName="birthdate">
+                    <mat-error *ngIf="handleError('birthdate', 'required')">
+                        You must provide a<strong> date of birth</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Email Address -->
+                <mat-form-field class="example-full-width">
+                    <input type="email" matInput placeholder="Email Address" formControlName="email">
+                    <mat-error *ngIf="handleError('email', 'required')">
+                        You must provide an<strong> Email Address</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit & Reset -->
+                <mat-card>
+                    <div class="full-wrapper button-wrapper">
+                        <div class="button-wrapper">
+                            <button mat-flat-button color="warn">Add</button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+    </form>
+</div>
