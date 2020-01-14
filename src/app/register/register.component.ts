@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { ApiService } from '../shared2/api.service';
+import { UserService } from '../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
@@ -17,14 +17,14 @@ export class RegisterComponent implements OnInit {
   visible = true;
   selectable = true;
   selected = null;
-  Roles: any = ['Admin', 'Instructor', 'Member'];
+  Roles: any = ['admin', 'instructor', 'member'];
   
 
   constructor( 
     public fb: FormBuilder,
     private router: Router,
     private ngZone: NgZone,
-    private userAPI: ApiService) { }
+    private userAPI: UserService) { }
 
   ngOnInit() {
     this.submitBookForm();
@@ -52,10 +52,10 @@ export class RegisterComponent implements OnInit {
   submitMemberRegForm() {
     if (this.memberRegForm.valid) {
       this.userAPI.AddUser(this.memberRegForm.value).subscribe(res => {
-        localStorage.setItem('token', res.token);
-        //this.ngZone.run(() => this.router.navigateByUrl('/login'))
       });
     }
+    this.router.navigateByUrl('/login');
+
   }
 
 }
