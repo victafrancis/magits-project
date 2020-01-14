@@ -13,6 +13,7 @@ import { AddMemberComponent } from './members/add-member/add-member.component';
 import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
+import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 
 
 export const adminRoutes: Routes = [
@@ -34,7 +35,8 @@ export const adminRoutes: Routes = [
       { path: 'add-instructor', component: AddInstructorComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'add-member', component: AddMemberComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
       { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
-      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]}
+      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]},
+      { path: 'instructor-profile/:id', component: InstructorProfileComponent, data: {role: 'Admin'}, canActivate: [RoleGuard]}
     ]
   }
 ];

@@ -21,13 +21,14 @@ import { CreateAnnouncementComponent } from './announcements/create-announcement
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
+import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
-    MemberProfileComponent, CourseProfileComponent],
+    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
