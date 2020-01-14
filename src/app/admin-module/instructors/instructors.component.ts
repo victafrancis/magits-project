@@ -1,29 +1,33 @@
+import { UserService } from '../../_services/user.service';
+import { User } from '../../_services/user';
 import { Component, OnInit } from '@angular/core';
-
-// SAMPLE DATA
-export interface Instructor{
-  name: String;
-}
-const instructors: Instructor[] = [
-  {name: 'Kuroko Tetsuya'},
-  {name: 'Midoriya Izuku'},
-  {name: 'Manny Preston'}
-]
-// END OF SAMPLE DATA
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-instructors',
   templateUrl: './instructors.component.html',
   styleUrls: ['./instructors.component.css']
 })
+
 export class InstructorsComponent implements OnInit {
+  UserData: any = [];
+  dataSource: MatTableDataSource<User>;
+  displayedColumns: string[] = ['ID','Firstname', 'Lastname', 'Action'];
 
-  displayedColumns: string[] = ['InstructorName'];
-  dataSource = instructors;
-
-  constructor() { }
-
+  constructor(private userApi: UserService) { 
+    this.userApi.GetUsers().subscribe(data => {
+      this.UserData = data;
+      this.dataSource = new MatTableDataSource<User>(this.UserData);
+    });
+  }
   ngOnInit() {
+  }
+
+  deleteInstructor(element){
+    if(window.confirm('Are you sure you want to delete this instructor?')){
+      this.userApi.DeleteUser(element._id).subscribe();
+      window.location.reload();
+    }
   }
 
 }

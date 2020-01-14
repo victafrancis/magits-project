@@ -16,6 +16,7 @@ import { AddMemberComponent } from './members/add-member/add-member.component';
 import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
+import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 
 
 
@@ -29,6 +30,7 @@ export const adminRoutes: Routes = [
       { path: '', redirectTo: 'courses', pathMatch: 'full',data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'home', component: HomeComponent,data: {role: 'admin'},canActivate: [RoleGuard]},
       { path: 'courses', component: CoursesComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'instructors', component: InstructorsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'sessions', component: SessionsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
@@ -38,7 +40,8 @@ export const adminRoutes: Routes = [
       { path: 'add-member', component: AddMemberComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
+      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'instructor-profile/:id', component: InstructorProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
     ]
   }
 ];
