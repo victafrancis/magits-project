@@ -15,11 +15,11 @@ export const memberRoutes: Routes = [
     data: {role: 'member'},
     canActivate: [RoleGuard, AuthGuard],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', component: HomeComponent},
-      { path: 'courses', component: CoursesComponent},
-      { path: 'sessions', component: SessionsComponent},
-      { path: 'profile', component: ProfileComponent}
+      { path: '', redirectTo: 'home', pathMatch: 'full' , data: {role: 'member'}, canActivate: [RoleGuard]},
+      { path: 'home', component: HomeComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
+      { path: 'courses', component: CoursesComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
+      { path: 'sessions', component: SessionsComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
+      { path: 'profile', component: ProfileComponent, data: {role: 'member'}, canActivate: [RoleGuard]}
     ]
   }
 ];
