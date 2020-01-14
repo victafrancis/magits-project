@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
@@ -38,7 +38,8 @@ import { CourseProfileComponent } from './courses/course-profile/course-profile.
   ],
   providers:[
     RoleGuard,
-    AuthGuard
+    AuthGuard,
+    DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

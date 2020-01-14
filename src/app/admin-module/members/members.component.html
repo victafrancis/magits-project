@@ -35,7 +35,8 @@
         <ng-container matColumnDef="Action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;">
-                <button mat-raised-button color="accent" [routerLink]="['/admin/member-profile/', element._id]" >View Info</button>
+                <button mat-raised-button color="accent" [routerLink]="['/admin/member-profile/', element._id]" >View Info</button>&nbsp;
+                <button mat-raised-button color="warn" (click)="deleteMember(element)">Delete</button>
             </td>
         </ng-container>
 

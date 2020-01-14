@@ -1,31 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-
-// SAMPLE DATA
-export interface Announcement {
-  date: String;
-  sender: String;
-  subject: String;
-}
-const announcements: Announcement[] = [
-  {date: '11/14/2019', sender: 'Manny Preston', subject: 'Taekwondo I: Class Cancellation for Nov. 15, 2019'},
-  {date: '11/13/2019', sender: 'Midoriya Izuku', subject: 'Judo: Reminders for Nov. 15, 2019'},
-  {date: '11/01/2019', sender: 'Admin', subject: 'New Course Available!!'}
-];
-// END OF SAMPLE DATA
+import { AnnouncementService } from '../../_services/announcement.service';
+import { MatTableDataSource } from '@angular/material';
+import { Announcement } from '../../_services/announcement';
 
 @Component({
   selector: 'app-announcements',
   templateUrl: './announcements.component.html',
   styleUrls: ['./announcements.component.css']
 })
-export class AnnouncementsComponent implements OnInit {
-    
-  displayedColumns: string[] = ['Date', 'From', 'Subject', 'Action'];
-  dataSource = announcements;
 
-  constructor() { }
+export class AnnouncementsComponent implements OnInit {
+  Announcements: any = [];
+  displayedColumns: string[] = ['date', 'subject', 'content', 'action'];
+  dataSource: MatTableDataSource<Announcement>;
+
+  constructor(private announcementApi: AnnouncementService) {
+    this.announcementApi.GetAnnouncements().subscribe(data => {
+      this.Announcements = data;
+      this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
+    });
+  }
 
   ngOnInit() {
   }
 
+  deleteAnnouncement(element) {
+    if (window.confirm('Are you sure you want to delete this announcement?')) {
+      this.announcementApi.DeleteAnnouncement(element._id).subscribe();
+      window.location.reload();
+    }
+  }
 }
