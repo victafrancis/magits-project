@@ -49,6 +49,14 @@ export class CourseService {
     )
   }
 
+  // Enrol member to course
+  EnrolMember(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/register-user-to-course/${id}`;
+    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Delete course
   DeleteCourse(id): Observable<any> {
     var API_URL = `${this.endpoint}/delete-course/${id}`;

@@ -1,8 +1,54 @@
 <p>
-    login works!
-    <button (click)="login()">Normal User Log in </button> |
-    <button (click)="loginAdmin()">Admin User Log in </button> |
-    <button (click)="loginInstructor()">Instructor User Log in </button>
-  
+    <a routerLink="/register"> <button> Register </button></a>
 </p>
+
+    <!-- Title group  -->
+    <div class = "loginClass">
+
+    <div class="title-group">
+        <h1 class="mat-h1">Login</h1>
+        <mat-divider fxFlex="1 0"></mat-divider>
+      </div>
+    
+      <!-- Form -->
+      <div class="inner-wrapper">
+        <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" #resetMemberRefForm="ngForm">
+          <!-- Left block -->
+          <mat-card>
+            <div class="controlers-wrapper">
+            
+             <!-- Email -->
+             <mat-form-field class="example-full-width">
+                    <input type="email" matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="handleError('email', 'required')">
+                    You must provide <strong>email</strong>
+                    </mat-error>
+                </mat-form-field>
+    
+    
+             <!-- Password -->
+             <mat-form-field class="example-full-width">
+                <input type="password" matInput placeholder="Password" formControlName="password">
+                <mat-error *ngIf="handleError('password', 'required')">
+                You must provide <strong>password</strong>
+                </mat-error>
+            </mat-form-field>
+                </div>
+          </mat-card>
+          
+          <!-- Submit & Reset -->
+            <mat-card>
+                <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                    <button mat-flat-button color="warn" [disabled]="loginForm.invalid">Submit</button>
+                </div>
+                </div>
+          </mat-card>
+        </form>
+
+    
+      </div>
+    </div>
+
+    
   

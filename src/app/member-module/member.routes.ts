@@ -5,12 +5,15 @@ import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from '../_guards/auth-guard.service';
 
 
 export const memberRoutes: Routes = [
   {
     path: 'member',
     component: LayoutComponent,
+    data: {role: 'member'},
+    canActivate: [RoleGuard, AuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomeComponent},

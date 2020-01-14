@@ -3,7 +3,7 @@
 | Member Name |Student ID|
 |----------|:-------------:|
 | Jacildo, John Aldrin |101112293|
-| Naguit, Sir Angel ||
+| Naguit, Sir Angel |101152749|
 | Victa, Francis |101159185|
 | Yang, Maria Lilian |101151657|
 

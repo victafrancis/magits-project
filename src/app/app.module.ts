@@ -29,6 +29,11 @@ import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app-routing.module';
 import { InstructorModule } from './instructor-module/instructor-module.module';
 import { MemberModule } from './member-module/member-module.module';
+import { RegisterComponent } from './register/register.component';
+
+//LoginGuard
+import { LoginPageGuard } from './_guards/login-page-guard.service'; 
+
 
 @NgModule({
   declarations: [
@@ -40,8 +45,9 @@ import { MemberModule } from './member-module/member-module.module';
     GamesComponent,
     JoinGameComponent,
     LoginComponent,//
-    PageNotFoundComponent//
-    
+    PageNotFoundComponent, 
+    RegisterComponent//
+
   ],
   imports: [
     BrowserModule,//
@@ -56,7 +62,7 @@ import { MemberModule } from './member-module/member-module.module';
     MemberModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
-  providers: [],
+  providers: [LoginPageGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
