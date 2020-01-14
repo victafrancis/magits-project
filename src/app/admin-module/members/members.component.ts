@@ -17,10 +17,16 @@ export class MembersComponent implements OnInit {
     this.userApi.GetUsers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
-    })
+    });
   }
 
   ngOnInit() {
   }
 
+  deleteMember(element){
+    if(window.confirm('Are you sure you want to delete this member?')){
+      this.userApi.DeleteUser(element._id).subscribe();
+      window.location.reload();
+    }
+  }
 }
