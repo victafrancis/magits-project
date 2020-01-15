@@ -76,7 +76,7 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
 
   //find course and push member id to course members array
   Course.findByIdAndUpdate(req.params.id, {
-    $push: {"members": req.body.members}
+    $push: {"members": req.body.user_id}
   }, (error, data) => {
     if (error) {
       return next(error);
@@ -84,7 +84,7 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
     } else {
 
       //find user and push course ID to user courses array
-      User.findByIdAndUpdate(req.body.members, {
+      User.findByIdAndUpdate(req.body.user_id, {
         $push: {"courses": req.params.id}
       }, (error, data) => {
         if (error) {
