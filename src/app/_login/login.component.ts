@@ -4,7 +4,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { ApiService } from '../shared2/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AuthService } from '../_services/auth/auth.service';
+import { AuthService } from '../_services/auth.service';
 import { decode } from 'punycode';
 
 @Component({

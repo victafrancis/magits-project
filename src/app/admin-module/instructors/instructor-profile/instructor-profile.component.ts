@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import { DatePipe } from '@angular/common';
-import { UserService } from '../../../_services/user/user.service';
+import { UserService } from '../../../_services/user.service';
 
 @Component({
   selector: 'app-instructor-profile',

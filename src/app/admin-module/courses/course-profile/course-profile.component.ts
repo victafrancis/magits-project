@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CourseService } from '../../../_services/course/course.service';
+import { CourseService } from '../../../_services/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { UserService } from 'src/app/_services/user/user.service';
-import { User } from 'src/app/_services/user/user';
+import { UserService } from 'src/app/_services/user.service';
+import { User } from 'src/app/_services/user';
 
 @Component({
   selector: 'app-course-profile',

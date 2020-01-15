@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { Course } from 'src/app/_services/course/course';
-import { CourseService } from 'src/app/_services/course/course.service';
+import { Course } from 'src/app/_services/course';
+import { CourseService } from 'src/app/_services/course.service';
 
 @Component({
   selector: 'app-courses',
