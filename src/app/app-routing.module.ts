@@ -13,7 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { MemberModule } from './member-module/member-module.module';
 import { InstructorModule } from './instructor-module/instructor-module.module';
 import { AdminModule } from './admin-module/admin-module.module';
-import { LoginPageGuard } from './_guards/login-page-guard.service'; 
+import { LoginPageGuard } from './_guards/login-page-guard.service';
 
 
 import { from } from 'rxjs';
@@ -35,7 +35,7 @@ export const APP_ROUTES: Routes = [
   {path: 'instructor', component: InstructorModule},
   {path: 'admin', component: AdminModule},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  // { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

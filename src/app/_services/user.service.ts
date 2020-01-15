@@ -30,6 +30,16 @@ export class UserService {
     return this.http.get(`${this.endpoint}`);
   }
 
+  // Get all members
+  GetMembers() {
+    return this.http.get(`${this.endpoint}/get-members`);
+  }
+
+  // Get all instructors
+  GetInstructors() {
+    return this.http.get(`${this.endpoint}/get-instructors`);
+  }
+
   // Get user
   GetUser(id): Observable<any> {
     let API_URL = `${this.endpoint}/read-user/${id}`;
