@@ -22,7 +22,8 @@ import { MemberModule } from './member-module/member-module.module';
 import { RegisterComponent } from './register/register.component';
 
 //LoginGuard
-import { LoginPageGuard } from './_guards/login-page-guard.service'; 
+import { LoginPageGuard } from './_guards/login-page-guard.service';
+import { MessageComponent } from './message/message.component'; 
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { LoginPageGuard } from './_guards/login-page-guard.service';
     AppComponent,//
     LoginComponent,//
     PageNotFoundComponent, 
-    RegisterComponent//
+    RegisterComponent, MessageComponent//
 
   ],
   imports: [
