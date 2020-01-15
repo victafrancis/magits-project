@@ -18,16 +18,6 @@ import { LoginPageGuard } from './_guards/login-page-guard.service';
 
 import { from } from 'rxjs';
 
-// const routes: Routes = [
-//   { path: '', pathMatch: 'full', redirectTo: 'players-list' },
-//   { path: 'edit-player/:id', component: EditPlayerComponent },
-//   { path: 'add-player', component: AddPlayerComponent },
-//   { path: 'players-list', component: PlayersListComponent },
-//   { path: 'admin-home', component: AdminHomeComponent },
-//   { path: 'join-game/:id', component: JoinGameComponent },
-//   { path: 'games', component: GamesComponent }
-// ];
-
 export const APP_ROUTES: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginPageGuard] },
   {path: 'register', component: RegisterComponent},
@@ -35,8 +25,7 @@ export const APP_ROUTES: Routes = [
   {path: 'instructor', component: InstructorModule},
   {path: 'admin', component: AdminModule},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  // { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '404', component: PageNotFoundComponent }
 ];
 
 @NgModule({

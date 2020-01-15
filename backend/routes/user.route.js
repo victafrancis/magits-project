@@ -12,16 +12,7 @@ userRoute.route('/register').post((req, res, next) => {
   User.create(req.body, (error, user) => {
     if (error) {
       console.log(error);
-    } else {
-      let payload = {
-        subject: user._id,
-        role: user.role,
-        firstname: user.firstname,
-        lastname: user.lastname
-      }
-      let token = jwt.sign(payload, 'secretKey');
-      res.status(200).send({token});
-    }
+    } 
   });
 });
 

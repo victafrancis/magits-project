@@ -25,6 +25,15 @@ export class UserService {
       )
   }
 
+   //Login User
+   LoginUser(data: User): Observable<any> {
+    let API_URL = `${this.endpoint}/login`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Get all users
   GetUsers() {
     return this.http.get(`${this.endpoint}`);
