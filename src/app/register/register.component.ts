@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../_services/user/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
