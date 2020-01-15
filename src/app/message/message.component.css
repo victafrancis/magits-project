@@ -2,7 +2,11 @@ body{
     background-color: #424242 ;
     padding: 1px;
 }
-h1{
+a{
     color: white;
+    margin-left: 10px;
+}
+h1{
+    color: darkorange;
     margin-left: 10px;
 }

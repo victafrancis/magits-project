@@ -9,11 +9,32 @@ let User = require('../model/User');
 
 //register a User
 userRoute.route('/register').post((req, res, next) => {
-  User.create(req.body, (error, user) => {
-    if (error) {
+
+ 
+  let userData = req.body;
+  User.findOne({email: userData.email}, (error, user) => {
+    if(error){
       console.log(error);
-    } 
-  });
+    }else {
+      if(user) {
+        res.status(401).send('Email Exist!');
+      } else {
+        User.create(req.body, (error, user) => {
+          if (error) {
+            console.log(error);
+          }
+          let payload = {
+            subject: user._id,
+            role: user.role,
+            firstname: user.firstname,
+            lastname: user.lastname
+          }
+          let token = jwt.sign(payload, 'secretKey');
+          res.status(200).send({token});
+        });
+      }
+    }
+  })
 });
 
 //Login

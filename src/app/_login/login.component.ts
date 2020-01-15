@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   visible = true;
   selectable = true;
+  error = false;
  
 
 
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   /* Reactive book form */
   submitBookForm() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],    
     })
   }
@@ -50,20 +51,20 @@ export class LoginComponent implements OnInit {
   submitLoginForm() {
     if (this.loginForm.valid) {
       this.userAPI.LoginUser(this.loginForm.value).subscribe(res => {
-        localStorage.setItem('token', res.token);
-        let token = this._authService.decode();
 
-        if (token.role == "member") {
-        this.ngZone.run(() => this.router.navigateByUrl('/member'));
-        }else if(token.role == "instructor") {
-        this.ngZone.run(() => this.router.navigateByUrl('/instructor'));
-        }else if(token.role == "admin"){
-        this.ngZone.run(() => this.router.navigateByUrl('/admin'));
-        }
-
+          localStorage.setItem('token', res.token);
+          let token = this._authService.decode();
+          if (token.role == "member") {
+            this.ngZone.run(() => this.router.navigateByUrl('/member'));
+          }else if(token.role == "instructor") {
+            this.ngZone.run(() => this.router.navigateByUrl('/instructor'));
+          }else if(token.role == "admin"){
+            this.ngZone.run(() => this.router.navigateByUrl('/admin'));
+          }     
+      }, (err) => {
+        console.log('Wrong Credentials! Try again!');
+        this.error = true;
       });
-    }else {
-      //wrong password
     }
   }
 }

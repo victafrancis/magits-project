@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   visible = true;
   selectable = true;
   selected = null;
+  error = false;
+  myValidator = false;
   Roles: any = ['admin', 'instructor', 'member'];
   
 
@@ -37,7 +39,7 @@ export class RegisterComponent implements OnInit {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       birthdate: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required , Validators.email]],
       password: ['', [Validators.required]],
       role: ['', [Validators.required]]
     })
@@ -52,10 +54,14 @@ export class RegisterComponent implements OnInit {
   submitMemberRegForm() {
     if (this.memberRegForm.valid) {
       this.userAPI.AddUser(this.memberRegForm.value).subscribe(res => {
+        if(res){
+          this.ngZone.run(() => this.router.navigateByUrl('/success'));
+        }
+        console.log('Success!');
+      }, (err) => {
+        console.log('Email Exists!');
+        this.error = true;
       });
     }
-    this.router.navigateByUrl('/login');
-
   }
-
 }
