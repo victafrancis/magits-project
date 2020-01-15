@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { ApiService } from '../shared2/api.service';
+import { UserService } from '../_services/user/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from '../_services/auth/auth.service';
 import { decode } from 'punycode';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private ngZone: NgZone,
-    private userAPI: ApiService) { }
+    private userAPI: UserService) { }
 
   ngOnInit() {
     this.submitBookForm();
