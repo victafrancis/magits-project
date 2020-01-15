@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AnnouncementService } from '../../../_services/announcement.service';
+import { AnnouncementService } from '../../../_services/announcement/announcement.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common'
