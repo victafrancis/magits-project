@@ -13,8 +13,8 @@ export class MembersComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
 
-  constructor(private userApi: UserService) { 
-    this.userApi.GetUsers().subscribe(data => {
+  constructor(private userApi: UserService) {
+    this.userApi.GetMembers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
     });

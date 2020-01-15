@@ -54,6 +54,28 @@ userRoute.route('/').get((req, res) => {
   })
 })
 
+// Get all members
+userRoute.route('/get-members').get((req, res) => {
+  User.find({ role:'member'}, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
+// Get all instructors
+userRoute.route('/get-instructors').get((req, res) => {
+  User.find({ role:'instructor'}, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
 // Get single user
 userRoute.route('/read-user/:id').get((req, res) => {
   User.findById(req.params.id, (error, data) => {
