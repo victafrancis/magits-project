@@ -30,12 +30,15 @@ export class CourseProfileComponent implements OnInit {
       this.courseForm = this.fb.group({
         name: [data.name, [Validators.required]],
         details: [data.details, [Validators.required]],
-        members: ['', [Validators.required]]
+        user_id: ['', [Validators.required]],
+        subscriptionCost: [],
+        sessionCost: [],
+        sessionLimit: []
       })
 
     })
 
-    this.userApi.GetUsers().subscribe( data =>{
+    this.userApi.GetMembers().subscribe( data =>{
       this.users = data;
     })
 
@@ -45,7 +48,7 @@ export class CourseProfileComponent implements OnInit {
     this.courseForm = this.fb.group({
         name: ['', [Validators.required]],
         details: ['', [Validators.required]],
-        members: ['', [Validators.required]]
+        user_id: ['', [Validators.required]]
     });
   }
 

@@ -31,13 +31,13 @@
 
               <!-- Member List -->
               <mat-form-field class="example-full-width">
-                <mat-select [(ngModel)]="selected" formControlName="members">
+                <mat-select [(ngModel)]="selected" formControlName="user_id">
                   <mat-option [value]="u._id" *ngFor="let u of users">
                     {{u.firstname}} {{u.lastname}}
                 </mat-option></mat-select>
               </mat-form-field>
 
-              
+
               <!-- Submit & Reset -->
               <mat-card>
                   <div class="full-wrapper button-wrapper">
