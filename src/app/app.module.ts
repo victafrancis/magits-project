@@ -10,18 +10,8 @@ import { AngularMaterialModule } from './material.module';
 /* Angular 8 http service */
 import { HttpClientModule } from '@angular/common/http';
 
-/* Angular 8 CRUD services */
-import { ApiService } from './shared2/api.service';
-
-
 /* Reactive form services in Angular 8 */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddPlayerComponent } from './_components/add-player/add-player.component';
-import { PlayersListComponent } from './_components/players-list/players-list.component';
-import { EditPlayerComponent } from './_components/edit-player/edit-player.component';
-import { AdminHomeComponent } from './_components/admin-home/admin-home.component';
-import { GamesComponent } from './_components/games/games.component';
-import { JoinGameComponent } from './_components/join-game/join-game.component';
 import { LoginComponent } from './_login/login.component';
 import { PageNotFoundComponent } from './_page-not-found/page-not-found.component';
 import { AdminModule } from './admin-module/admin-module.module';
@@ -38,12 +28,6 @@ import { LoginPageGuard } from './_guards/login-page-guard.service';
 @NgModule({
   declarations: [
     AppComponent,//
-    AddPlayerComponent,
-    PlayersListComponent,
-    EditPlayerComponent,
-    AdminHomeComponent,
-    GamesComponent,
-    JoinGameComponent,
     LoginComponent,//
     PageNotFoundComponent, 
     RegisterComponent//
