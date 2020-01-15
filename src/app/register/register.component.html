@@ -1,19 +1,16 @@
 <body>
 <!-- Title group  -->
 
-<div class="title-group">
-    <h1 class="mat-h1">Register Member</h1>
-    <mat-divider fxFlex="1 0"></mat-divider>
-  </div>
+<h1 class="login">Registration</h1>
+<p *ngIf="error" class="errorMsg">Email already exists, try again!</p>
 
   <!-- Form -->
-  <div class="inner-wrapper">
     <form [formGroup]="memberRegForm" (ngSubmit)="submitMemberRegForm()" #resetMemberRefForm="ngForm">
       <!-- Left block -->
       <mat-card>
-        <div class="controlers-wrapper">
+        <div class="myWrapper">
           <!-- Firstname -->
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="inputs" appearance="fill">
             <input matInput placeholder="First Name" formControlName="firstname">
             <mat-error *ngIf="handleError('firstname', 'required')">
               You must provide a <strong>First name</strong>
@@ -21,7 +18,7 @@
           </mat-form-field>
 
            <!-- Lastname -->
-           <mat-form-field class="example-full-width">
+           <mat-form-field class="inputs" appearance="fill">
             <input matInput placeholder="Last Name" formControlName="lastname">
             <mat-error *ngIf="handleError('lastname', 'required')">
               You must provide a <strong>Last name</strong>
@@ -30,8 +27,8 @@
 
 
         <!-- Birthdate -->
-        <mat-form-field class="example-full-width">
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date" placeholder="Birthdate" formControlName="birthdate">
+        <mat-form-field class="inputs" appearance="fill">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" placeholder="Birthdate" formControlName="birthdate">
                 <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                 </mat-datepicker-toggle>
@@ -42,8 +39,11 @@
             </mat-form-field>
 
          <!-- Email -->
-         <mat-form-field class="example-full-width">
-                <input type="email" matInput placeholder="Email" formControlName="email">
+         <mat-form-field class="inputs" appearance="fill">
+          <input type="email" matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="handleError('email', 'email')">
+              Please enter a valid email address
+            </mat-error>
                 <mat-error *ngIf="handleError('email', 'required')">
                 You must provide <strong>email</strong>
                 </mat-error>
@@ -51,16 +51,16 @@
 
 
          <!-- Password -->
-         <mat-form-field class="example-full-width">
-            <input type="password" matInput placeholder="Password" formControlName="password">
+         <mat-form-field class="inputs" appearance="fill">
+          <input type="password" matInput placeholder="Password" formControlName="password">
             <mat-error *ngIf="handleError('password', 'required')">
             You must provide <strong>password</strong>
             </mat-error>
         </mat-form-field>
 
          <!-- Role -->
-         <mat-form-field class="example-full-width">
-            <mat-label style="color: black;">Role</mat-label>
+         <mat-form-field class="inputs" appearance="fill">
+          <mat-label style="color: black;">Role</mat-label>
             <mat-select [(ngModel)]="selected" formControlName="role">
               <mat-option [value]="roles" *ngFor="let roles of Roles">
                 {{roles}}
@@ -70,20 +70,18 @@
               </mat-error>
             </mat-form-field>
 
-            </div>
-      </mat-card>
+         
       
       <!-- Submit & Reset -->
-        <mat-card>
-            <div class="full-wrapper button-wrapper">
-            <div class="button-wrapper">
-                <button mat-flat-button color="warn" [disabled]="memberRegForm.invalid">Submit</button>
-            </div>
-            </div>
+      <mat-card>
+          <button mat-raised-button color="accent" class="mySubmit" [disabled]="memberRegForm.invalid">Submit</button>     
       </mat-card>
+      <mat-card>
+      <button mat-raised-button color="accent" class="mySubmit2" [routerLink]="['/login']">Back</button>
+      </mat-card>
+    </div>
+  </mat-card>
     </form>
 
-    <button mat-flat-button color="warn" [routerLink]="['/login']"><i class="material-icons">arrow_left</i>Cancel</button>
 
-  </div>
 </body>
