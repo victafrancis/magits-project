@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AnnouncementService } from '../../_services/announcement.service';
+import { AnnouncementService } from '../../_services/announcement/announcement.service';
 import { MatTableDataSource } from '@angular/material';
-import { Announcement } from '../../_services/announcement';
+import { Announcement } from '../../_services/announcement/announcement';
 
 @Component({
   selector: 'app-announcements',

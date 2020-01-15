@@ -1,5 +1,5 @@
-import { UserService } from '../../_services/user.service';
-import { User } from '../../_services/user';
+import { UserService } from '../../_services/user/user.service';
+import { User } from '../../_services/user/user';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
