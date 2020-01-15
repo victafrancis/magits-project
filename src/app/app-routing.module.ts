@@ -1,11 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { AddPlayerComponent } from './components/add-player/add-player.component';
-// import { PlayersListComponent } from './components/players-list/players-list.component';
-// import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-// import { EditPlayerComponent } from './components/edit-player/edit-player.component';
-// import { JoinGameComponent } from './components/join-game/join-game.component';
-// import { GamesComponent } from './components/games/games.component';
 import { LoginComponent } from './_login/login.component';
 import { PageNotFoundComponent } from './_page-not-found/page-not-found.component';
 import { adminRoutes } from './admin-module/admin.routes';
