@@ -72,7 +72,7 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 
 // add member to a course
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
-  console.log("req members: "+req.body.members);
+  console.log("req user_id: "+req.body.user_id);
 
   //find course and push member id to course members array
   Course.findByIdAndUpdate(req.params.id, {

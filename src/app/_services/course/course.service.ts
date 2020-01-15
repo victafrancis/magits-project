@@ -49,7 +49,7 @@ export class CourseService {
     )
   }
 
-  // Enrol member to course
+  // add member to a course
   EnrolMember(id, data): Observable<any> {
     let API_URL = `${this.endpoint}/register-user-to-course/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(

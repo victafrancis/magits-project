@@ -31,9 +31,6 @@ export class CourseProfileComponent implements OnInit {
         name: [data.name, [Validators.required]],
         details: [data.details, [Validators.required]],
         user_id: ['', [Validators.required]],
-        subscriptionCost: [],
-        sessionCost: [],
-        sessionLimit: []
       })
 
     })
