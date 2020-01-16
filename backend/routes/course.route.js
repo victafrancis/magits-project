@@ -20,14 +20,27 @@ courseRoute.route('/add-course').post((req, res, next) => {
   })
 });
 
-// Add Course with membership type
+// Add Course with membership type plan A
 courseRoute.route('/add-course-membership-a').post((req, res, next) => {
   let newCourse = new Object();
   newCourse.name = req.body.name;
   newCourse.details = req.body.details;
   newCourse.max_students = req.body.max_students;
 
+  let newMembership = new Object();
+  newMembership.membership_type = req.body.membership_type;
+  newMembership.cost = req.body.cost;
+  newMembership.number_of_sessions = req.body.number_of_sessions;
+
   Course.create(newCourse, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      newMembership.course_id = data._id;
+    }
+  })
+
+  Membership.create(newMembership, (error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -35,6 +48,60 @@ courseRoute.route('/add-course-membership-a').post((req, res, next) => {
     }
   })
 });
+
+// Add Course with membership type plan B
+courseRoute.route('/add-course-membership-b').post((req, res, next) => {
+  var newCourse = req.body.course;
+  var sessionMembership = req.body.session;
+  var subscriptionMembership = req.body.subscription;
+
+  Course.create(newCourse, (error, data) => {
+    if (error)  return next(error);
+
+    // add id of session and membership type if added
+    if (sessionMembership!=null) {
+      sessionMembership.course_id = data._id;
+      sessionMembership.membership_type = 'session';
+    }
+    if (subscriptionMembership!=null) {
+      subscriptionMembership.course_id = data._id;
+      subscriptionMembership.membership_type = 'subscription';
+    }
+  })
+
+  //create a session membership if added
+  if (sessionMembership!=null){
+    Membership.create(sessionMembership, (error, data) => {
+      if (error)  return next(error);
+
+      // res.json(data)
+    })
+  }
+
+  //create a subscription membership if added
+  if (subscriptionMembership!=null){
+    Membership.create(subscriptionMembership, (error, data) => {
+      if (error)  return next(error);
+
+      // res.json(data)
+    })
+  }
+
+  res.json(res);
+});
+
+// testing with data callback
+courseRoute.route('/add-course-test').post((req, res, next) => {
+  Course.create(req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      console.log(data);
+      res.json(data)
+    }
+  })
+});
+
 
 // Get all course
 courseRoute.route('/').get((req, res) => {

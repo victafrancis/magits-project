@@ -9,10 +9,10 @@ let Membership = new Schema({
   cost: {
     type: Number
   },
-  sessions_remaining: {
+  number_of_sessions: {
     type: Number
   },
-  courses: [{ type: Schema.Types.ObjectId, ref: 'Courses' }]
+  course_id: { type: Schema.Types.ObjectId, ref: 'Course' }
 }, {
   collection: 'memberships'
 })
