@@ -48,6 +48,13 @@ body{
     position: relative;
     margin-top: 15px;
 }
+.inputsHidden{
+    width: 600px;
+    display: none;
+    color: white;
+    margin : 0 auto;
+    position: relative;
+}
 
 
 
