@@ -15,7 +15,7 @@ import { from } from 'rxjs';
 
 export const APP_ROUTES: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginPageGuard] },
-  {path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent,  canActivate: [LoginPageGuard]},
   {path: 'member', component: MemberModule},
   {path: 'instructor', component: InstructorModule},
   {path: 'admin', component: AdminModule},

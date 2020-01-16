@@ -4,6 +4,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { UserService } from '../_services/user/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { PasswordValidation } from './passwordValidator';
+
 
 
 @Component({
@@ -19,7 +21,7 @@ export class RegisterComponent implements OnInit {
   selected = null;
   error = false;
   myValidator = false;
-  Roles: any = ['admin', 'instructor', 'member'];
+  //Roles: any = ['member'];
   
 
   constructor( 
@@ -41,8 +43,11 @@ export class RegisterComponent implements OnInit {
       birthdate: ['', [Validators.required]],
       email: ['', [Validators.required , Validators.email]],
       password: ['', [Validators.required]],
-      role: ['', [Validators.required]]
-    })
+      confirmPassword: ['', [Validators.required]],
+      role: ['member', [Validators.required]]
+    }, {
+      validator: PasswordValidation.MatchPassword
+    });
   }
 
   /* Get errors */

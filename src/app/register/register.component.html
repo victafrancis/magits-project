@@ -58,14 +58,16 @@
             </mat-error>
         </mat-form-field>
 
-         <!-- Role -->
+         <!-- Confirm Password -->
          <mat-form-field class="inputs" appearance="fill">
-          <mat-label style="color: black;">Role</mat-label>
-            <mat-select [(ngModel)]="selected" formControlName="role">
-              <mat-option [value]="roles" *ngFor="let roles of Roles">
-                {{roles}}
-              </mat-option></mat-select>
-              <mat-error *ngIf="handleError('role', 'required')">
+          <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+          <mat-error *ngIf="memberRegForm.controls['confirmPassword'].pristine || memberRegForm.controls['confirmPassword'].errors?.MatchPassword">Password does not match</mat-error>
+        </mat-form-field>
+
+         <!-- Role -->
+         <mat-form-field class="inputsHidden" appearance="fill" >
+          <input  matInput formControlName="role" value="member">
+          <mat-error *ngIf="handleError('role', 'required')">
                 You must provide a <strong>role </strong>
               </mat-error>
             </mat-form-field>
