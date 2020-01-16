@@ -7,7 +7,7 @@ let Membership = new Schema({
     type: String
   },
   cost: {
-    type: Double
+    type: Number
   },
   sessions_remaining: {
     type: Number

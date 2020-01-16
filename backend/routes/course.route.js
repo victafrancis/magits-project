@@ -3,15 +3,31 @@ const express = require('express');
 const app = express();
 const courseRoute = express.Router();
 
-// Course model
+// models
 let Course = require('../model/Course');
-//User model
 let User = require('../model/User');
+let Membership = require('../model/Membership')
 
 
 // Add Course
 courseRoute.route('/add-course').post((req, res, next) => {
   Course.create(req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+});
+
+// Add Course with membership type
+courseRoute.route('/add-course-membership-a').post((req, res, next) => {
+  let newCourse = new Object();
+  newCourse.name = req.body.name;
+  newCourse.details = req.body.details;
+  newCourse.max_students = req.body.max_students;
+
+  Course.create(newCourse, (error, data) => {
     if (error) {
       return next(error)
     } else {
