@@ -6,10 +6,10 @@ let Schedule = new Schema({
   day: {
     type: String
   },
-  start_time: {
+  start: {
     type: String
   },
-  end_time: {
+  end: {
     type: String
   },
   course: { type: Schema.Types.ObjectId, ref: 'Course' }

@@ -49,6 +49,7 @@ courseRoute.route('/add-course-membership-a').post((req, res, next) => {
   })
 });
 
+
 // Add Course with membership type plan B
 courseRoute.route('/add-course-membership-b').post((req, res, next) => {
   var newCourse = req.body.course;
@@ -62,30 +63,36 @@ courseRoute.route('/add-course-membership-b').post((req, res, next) => {
     if (sessionMembership!=null) {
       sessionMembership.course_id = data._id;
       sessionMembership.membership_type = 'session';
+
+      Membership.create(sessionMembership, (error, sessionData) => {
+        if (error)  return next(error);
+
+        //find Course id and set session membership ID
+        Course.findByIdAndUpdate(data._id, {
+          $set: {"session_membership_id": sessionData._id}
+        }, (error, data) => {
+          if (error)  return next(error);
+        })
+      })
     }
+
+    //create a subscription membership if added
     if (subscriptionMembership!=null) {
       subscriptionMembership.course_id = data._id;
       subscriptionMembership.membership_type = 'subscription';
+
+        Membership.create(subscriptionMembership, (error, subscriptionData) => {
+          if (error)  return next(error);
+
+          //find Course id and set subscription membership ID
+          Course.findByIdAndUpdate(data._id, {
+            $set: {"subscription_membership_id": subscriptionData._id}
+          }, (error, data) => {
+            if (error)  return next(error);
+          })
+        })
     }
   })
-
-  //create a session membership if added
-  if (sessionMembership!=null){
-    Membership.create(sessionMembership, (error, data) => {
-      if (error)  return next(error);
-
-      // res.json(data)
-    })
-  }
-
-  //create a subscription membership if added
-  if (subscriptionMembership!=null){
-    Membership.create(subscriptionMembership, (error, data) => {
-      if (error)  return next(error);
-
-      // res.json(data)
-    })
-  }
 
   res.json(res);
 });
