@@ -71,9 +71,25 @@
                   </pre> -->
                   </div>
 
-                  <mat-label>Course Schedule:</mat-label>
+          <mat-label>Instructors:&nbsp;&nbsp;</mat-label>
+          <mat-form-field class="example-full-width">
+            <mat-select [(ngModel)]="instructor" [ngModelOptions]="{standalone: true}">
+              <mat-option [value]="ins" *ngFor="let ins of instructors">
+                {{ins.firstname}} {{ins.lastname}}
+              </mat-option>
+            </mat-select>  
+          </mat-form-field>
+                  
+                
+            </div>
+        </mat-card>
+        <mat-card>
+          
+
+          <mat-label>Course Schedule:</mat-label>
                   <mat-form-field class="example-full-width">
-                    <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}">
+                    <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}" (ngModelChange)="createDays()">
+                      <!--(ngModelChange)="createDays()"  -->
                       <mat-option [value]="u" *ngFor="let u of numDays">
                         {{u}}
                       </mat-option>
@@ -81,17 +97,35 @@
                   </mat-form-field>
                   <div *ngIf="totalDays > 0">
 
-                    <div *ngFor="let i of [].constructor(totalDays); let item = index;">
-                        <mat-label>Day:</mat-label>
+                    <div *ngFor="let i of schedule; let item = index">
+                        <mat-label>Day:&nbsp;&nbsp;</mat-label>
                         <mat-form-field class="example-full-width">
-                            <mat-select [(ngModel)]="day" [ngModelOptions]="{standalone: true}">
+                            <mat-select [(ngModel)]="schedule[item].day" [ngModelOptions]="{standalone: true}">
                               <mat-option [value]="d" *ngFor="let d of Days">
                                 {{d}}
-                                <!-- how to change ngModel name from a for loop -->
                               </mat-option>
                             </mat-select>  
                           </mat-form-field>
+                          <br>
+                          <mat-label>&nbsp;&nbsp;Start:&nbsp;&nbsp;</mat-label>
+                          <mat-form-field class="example-full-width">
+                            <mat-select type="time" [(ngModel)]="schedule[item].start" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="s" *ngFor="let s of time">
+                                {{s}}
+                              </mat-option>
+                            </mat-select>  
+                          </mat-form-field>
+                          <mat-label>&nbsp;&nbsp;End:&nbsp;&nbsp;</mat-label>
+                          <mat-form-field class="example-full-width">
+                            <mat-select [(ngModel)]="schedule[item].end" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="e" *ngFor="let e of time">
+                                {{e}}
+                              </mat-option>
+                            </mat-select>  
+                          </mat-form-field>
+                      
                     </div>
+                    <button mat-flat-button color="warn" (click)="setDays()">Set Schedule</button>
                   </div>
                   
 
@@ -116,8 +150,6 @@
                         </div>
                     </div>
                 </mat-card>
-                
-            </div>
         </mat-card>
     </form>
 </div>
