@@ -10,38 +10,9 @@ let Membership = require('../model/Membership');
 let Schedule = require('../model/Schedule');
 
 
-// Add Course
-courseRoute.route('/add-course').post((req, res, next) => {
+// Add Course OLD
+courseRoute.route('/add-course-old').post((req, res, next) => {
   Course.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-});
-
-// Add Course with membership type plan A
-courseRoute.route('/add-course-membership-a').post((req, res, next) => {
-  let newCourse = new Object();
-  newCourse.name = req.body.name;
-  newCourse.details = req.body.details;
-  newCourse.max_students = req.body.max_students;
-
-  let newMembership = new Object();
-  newMembership.membership_type = req.body.membership_type;
-  newMembership.cost = req.body.cost;
-  newMembership.number_of_sessions = req.body.number_of_sessions;
-
-  Course.create(newCourse, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      newMembership.course_id = data._id;
-    }
-  })
-
-  Membership.create(newMembership, (error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -52,7 +23,7 @@ courseRoute.route('/add-course-membership-a').post((req, res, next) => {
 
 
 // Add Course with membership type plan B
-courseRoute.route('/add-course-membership-b').post((req, res, next) => {
+courseRoute.route('/add-course').post((req, res, next) => {
   var newCourse = req.body.course;
   var sessionMembership = req.body.session;
   var subscriptionMembership = req.body.subscription;
@@ -111,21 +82,9 @@ courseRoute.route('/add-course-membership-b').post((req, res, next) => {
       })
     }
 
+    res.json(data);
   })
 
-  res.json(res);
-});
-
-// testing with data callback
-courseRoute.route('/add-course-test').post((req, res, next) => {
-  Course.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      console.log(data);
-      res.json(data)
-    }
-  })
 });
 
 
