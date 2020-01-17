@@ -1,56 +1,51 @@
 <body>
- 
 
 
 
-    <h1 class="login">MAGITS Login</h1>
-    <p *ngIf="error" class="errorMsg">Wrong Credentials, try again!</p>
-    <mat-divider fxFlex="1 0"></mat-divider>
 
-
+  <h1 class="login">MAGITS Login</h1>
+  <p *ngIf="error" class="errorMsg">Wrong Credentials, try again!</p>
+  <mat-divider fxFlex="1 0"></mat-divider>
+  <div class="myDiv">
     <!-- Form -->
     <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" #resetMemberRefForm="ngForm">
       <!-- Left block -->
       <mat-card>
-        <div class="myWrapper">
 
-          <!-- Email -->
-          <mat-form-field class="inputs" appearance="outline">
-            <input type="email" matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="handleError('email', 'email')">
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="handleError('email', 'required')">
-              You must provide <strong>email</strong>
-            </mat-error>
-          </mat-form-field>
+        <!-- Email -->
+        <mat-form-field class="inputs1" appearance="outline">
+          <input type="email" matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="handleError('email', 'email')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="handleError('email', 'required')">
+            You must provide <strong>email</strong>
+          </mat-error>
+        </mat-form-field>
 
-
-          <!-- Password -->
-          <mat-form-field class="inputs" appearance="outline">
-            <input type="password" matInput placeholder="Password" formControlName="password">
-            <mat-error *ngIf="handleError('password', 'required')">
-              You must provide <strong>password</strong>
-            </mat-error>
-          </mat-form-field>
+        <!-- Password -->
+        <mat-form-field class="inputs" appearance="outline">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+          <mat-error *ngIf="handleError('password', 'required')">
+            You must provide <strong>password</strong>
+          </mat-error>
+        </mat-form-field>
 
 
-          <!-- Submit & Reset -->
-          <mat-card>
-            <button mat-raised-button color="accent" class="mySubmit" [disabled]="loginForm.invalid" >Submit</button>
-          </mat-card>
+        <!-- Submit & Reset -->
+        <mat-card>
+          <button mat-raised-button color="accent" class="mySubmit" [disabled]="loginForm.invalid">Submit</button>
+        </mat-card>
 
-          <p class="regJoin1">Not a member? 
-            <a routerLink="/register" class="regJoin2">  register here</a>
-          </p>
-        </div>
+        <p class="regJoin1">Not a member?
+          <a routerLink="/register" class="regJoin2"> register here</a>
+        </p>
       </mat-card>
 
 
     </form>
 
+  </div>
+
 
 </body>
-
-
-

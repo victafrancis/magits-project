@@ -2,13 +2,16 @@
 <!-- Title group  -->
 
 <h1 class="login">Registration</h1>
+
 <p *ngIf="error" class="errorMsg">Email already exists, try again!</p>
+<mat-divider fxFlex="1 0"></mat-divider>
+
+<div class="myDiv">
 
   <!-- Form -->
     <form [formGroup]="memberRegForm" (ngSubmit)="submitMemberRegForm()" #resetMemberRefForm="ngForm">
       <!-- Left block -->
       <mat-card>
-        <div class="myWrapper">
           <!-- Firstname -->
           <mat-form-field class="inputs" appearance="fill">
             <input matInput placeholder="First Name" formControlName="firstname">
@@ -81,9 +84,9 @@
       <mat-card>
       <button mat-raised-button color="accent" class="mySubmit2" [routerLink]="['/login']">Back</button>
       </mat-card>
-    </div>
   </mat-card>
     </form>
 
+  </div>
 
 </body>
