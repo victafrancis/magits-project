@@ -14,7 +14,9 @@ let Course = new Schema({
   },
   members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   instructors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
+  schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }],
+  session_membership_id: { type: Schema.Types.ObjectId, ref: 'Membership' },
+  subscription_membership_id: { type: Schema.Types.ObjectId, ref: 'Membership' }
 }, {
   collection: 'courses'
 })

@@ -3,14 +3,15 @@ const express = require('express');
 const app = express();
 const courseRoute = express.Router();
 
-// Course model
+// models
 let Course = require('../model/Course');
-//User model
 let User = require('../model/User');
+let Membership = require('../model/Membership');
+let Schedule = require('../model/Schedule');
 
 
-// Add Course
-courseRoute.route('/add-course').post((req, res, next) => {
+// Add Course OLD
+courseRoute.route('/add-course-old').post((req, res, next) => {
   Course.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -19,6 +20,73 @@ courseRoute.route('/add-course').post((req, res, next) => {
     }
   })
 });
+
+
+// Add Course with membership type plan B
+courseRoute.route('/add-course').post((req, res, next) => {
+  var newCourse = req.body.course;
+  var sessionMembership = req.body.session;
+  var subscriptionMembership = req.body.subscription;
+  var schedules = req.body.schedule;
+
+  Course.create(newCourse, (error, data) => {
+    if (error)  return next(error);
+
+    // add id of session and membership type if added
+    if (sessionMembership!=null) {
+      sessionMembership.course_id = data._id;
+      sessionMembership.membership_type = 'session';
+
+      Membership.create(sessionMembership, (error, sessionData) => {
+        if (error)  return next(error);
+
+        //find Course id and set session membership ID
+        Course.findByIdAndUpdate(data._id, {
+          $set: {"session_membership_id": sessionData._id}
+        }, (error, data) => {
+          if (error)  return next(error);
+        })
+      })
+    }
+
+    //create a subscription membership if added
+    if (subscriptionMembership!=null) {
+      subscriptionMembership.course_id = data._id;
+      subscriptionMembership.membership_type = 'subscription';
+
+        Membership.create(subscriptionMembership, (error, subscriptionData) => {
+          if (error)  return next(error);
+
+          //find Course id and set subscription membership ID
+          Course.findByIdAndUpdate(data._id, {
+            $set: {"subscription_membership_id": subscriptionData._id}
+          }, (error, data) => {
+            if (error)  return next(error);
+          })
+        })
+    }
+
+    //iterating through schedule array to create the schedule
+    for(schedule of schedules){
+      schedule.course_id = data._id;
+
+      Schedule.create(schedule, (error, scheduleData) => {
+        if (error)  return next(error);
+
+        //find Course id and set subscription membership ID
+        Course.findByIdAndUpdate(data._id, {
+          $push: {"schedule": scheduleData._id}
+        }, (error, data) => {
+          if (error)  return next(error);
+        })
+      })
+    }
+
+    res.json(data);
+  })
+
+});
+
 
 // Get all course
 courseRoute.route('/').get((req, res) => {
@@ -72,7 +140,7 @@ courseRoute.route('/update/:id').put((req, res, next) => {
 
 // add member to a course
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
-  console.log("req members: "+req.body.members);
+  console.log("req user_id: "+req.body.user_id);
 
   //find course and push member id to course members array
   Course.findByIdAndUpdate(req.params.id, {
