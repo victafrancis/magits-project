@@ -36,8 +36,7 @@
                     </mat-error>
                 </mat-form-field>
                 <br>
-                <!-- Checkbox for Subscription, inputCost -->
-                <!-- Checkbox for Session-based, inputCost, number of sessions -->
+               <!-- Choosing a Membership -->
                 <mat-label>Choose a membership:</mat-label>
                 <br><br>
                 <div class="container">
@@ -70,26 +69,22 @@
                   {{data | json}}
                   </pre> -->
                   </div>
-
-          <mat-label>Instructors:&nbsp;&nbsp;</mat-label>
-          <mat-form-field class="example-full-width">
-            <mat-select [(ngModel)]="instructor" [ngModelOptions]="{standalone: true}">
-              <mat-option [value]="ins" *ngFor="let ins of instructors">
-                {{ins.firstname}} {{ins.lastname}}
-              </mat-option>
-            </mat-select>  
-          </mat-form-field>
-                  
-                
+                  <!-- Get Instructor -->
+              <mat-label>Instructors:&nbsp;&nbsp;</mat-label>
+              <mat-form-field class="example-full-width">
+                <mat-select [(ngModel)]="instructor" [ngModelOptions]="{standalone: true}">
+                  <mat-option [value]="ins" *ngFor="let ins of instructors">
+                    {{ins.firstname}} {{ins.lastname}}
+                  </mat-option>
+                </mat-select>  
+              </mat-form-field>
             </div>
         </mat-card>
+        <!-- RIGHT SIDE -->
         <mat-card>
-          
-
           <mat-label>Course Schedule:</mat-label>
                   <mat-form-field class="example-full-width">
                     <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}" (ngModelChange)="createDays()">
-                      <!--(ngModelChange)="createDays()"  -->
                       <mat-option [value]="u" *ngFor="let u of numDays">
                         {{u}}
                       </mat-option>

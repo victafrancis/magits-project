@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Schedule } from './schedule';
 import { User } from 'src/app/_services/user/user';
 import { UserService } from 'src/app/_services/user/user.service';
+import { Course } from 'src/app/_services/course/course';
 
 @Component({
   selector: 'app-create-course',
@@ -42,12 +43,18 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.courseForm = this.fb.group({
-      name: ['', [Validators.required]],
-      details: ['', [Validators.required]],
-      max_students: ['', [Validators.required]],
-      subCost:['']
-      // numDays: ['', Validators.required]
+      course: Course,
+      session: {'cost': '9.99', 'number_of_sessions': '10'},
+      subscription: {'cost':'9.99' },
+      schedule: [],
     })
+
+    // this.courseForm = this.fb.group({
+    //   name: ['', [Validators.required]],
+    //   details: ['', [Validators.required]],
+    //   max_students: ['', [Validators.required]],
+    //   subCost:['']
+    // })
 
     this.instructorApi.GetInstructors().subscribe( data =>{
       this.instructors = data;
@@ -63,9 +70,10 @@ export class CreateCourseComponent implements OnInit {
   // Creates a course in the database
   submitCourseForm(){
     if(window.confirm('Are you sure you want to add this course?')){
-      this.courseApi.AddCourse(this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('\courses'))
-      });
+      // this.courseApi.AddCourse(this.courseForm.value).subscribe(res => {
+      //   this.ngZone.run(() => this.router.navigateByUrl('\courses'))
+      // });
+      console.log(this.courseForm.value);
     }
   }
 
