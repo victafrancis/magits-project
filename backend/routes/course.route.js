@@ -6,7 +6,8 @@ const courseRoute = express.Router();
 // models
 let Course = require('../model/Course');
 let User = require('../model/User');
-let Membership = require('../model/Membership')
+let Membership = require('../model/Membership');
+let Schedule = require('../model/Schedule');
 
 
 // Add Course
@@ -55,6 +56,7 @@ courseRoute.route('/add-course-membership-b').post((req, res, next) => {
   var newCourse = req.body.course;
   var sessionMembership = req.body.session;
   var subscriptionMembership = req.body.subscription;
+  var schedules = req.body.schedule;
 
   Course.create(newCourse, (error, data) => {
     if (error)  return next(error);
@@ -92,6 +94,23 @@ courseRoute.route('/add-course-membership-b').post((req, res, next) => {
           })
         })
     }
+
+    //iterating through schedule array to create the schedule
+    for(schedule of schedules){
+      schedule.course_id = data._id;
+
+      Schedule.create(schedule, (error, scheduleData) => {
+        if (error)  return next(error);
+
+        //find Course id and set subscription membership ID
+        Course.findByIdAndUpdate(data._id, {
+          $push: {"schedule": scheduleData._id}
+        }, (error, data) => {
+          if (error)  return next(error);
+        })
+      })
+    }
+
   })
 
   res.json(res);
