@@ -1,0 +1,48 @@
+<div class="title-group">
+    <span class="nav-tool-items" style="float: left;">
+        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-member">Add Member</button>
+    </span>
+    <div>
+        <h1 style="text-align: center; width: 90%;" class="mat-h1">Members</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div  class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Member ID Column -->
+        <ng-container matColumnDef="_id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element">{{element._id}}</td>
+        </ng-container>
+
+        <!-- Member First Name Column -->
+        <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+        </ng-container>
+
+        <!-- Member Last Name Column -->
+        <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastname}}</td>
+        </ng-container>
+
+        <!-- ACTION -->
+        <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <!-- Enroll Student -->
+                <button mat-raised-button color="accent" [routerLink]="['/admin/member-profile/', element._id]" >Enroll</button>&nbsp;
+                <!-- Withdraw Student -->
+                <button mat-raised-button color="warn" (click)="deleteMember(element)">Withdraw</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
