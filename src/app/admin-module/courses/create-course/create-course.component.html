@@ -47,17 +47,17 @@
                         <div *ngIf="item.label === 'Subscription' && item.checked === true">
                             <table class="example-full-width" cellspacing="0"><tr>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Monthly Subscription Cost" value="$15">
+                                  <input matInput placeholder="Monthly Subscription Cost" value="15" [(ngModel)]="subCost" [ngModelOptions]="{standalone: true}">
                                 </mat-form-field></td>
                               </tr></table>
                         </div>
                         <div *ngIf="item.label === 'Session-based' && item.checked === true">
                             <table class="example-full-width" cellspacing="0"><tr>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Session set cost" value="$10">
+                                  <input matInput placeholder="Session set cost" value="10" [(ngModel)]="sesCost" [ngModelOptions]="{standalone: true}">
                                 </mat-form-field></td>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="No. of Sessions" value="7">
+                                  <input matInput placeholder="No. of Sessions" value="7" [(ngModel)]="numSessions" [ngModelOptions]="{standalone: true}">
                                 </mat-form-field></td>
                               </tr></table>
                         </div>

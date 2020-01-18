@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Schedule } from './schedule';
 import { User } from 'src/app/_services/user/user';
 import { UserService } from 'src/app/_services/user/user.service';
-import { Course } from 'src/app/_services/course/course';
 
 @Component({
   selector: 'app-create-course',
@@ -22,6 +21,9 @@ export class CreateCourseComponent implements OnInit {
   time: any = [1,2,3,4,5,6,7,8,9,10]
   Days: any = ['Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday','Saturday','Sunday'];
   day_selected: null;
+
+  //final
+  finalData: any={};
   
   // used for schedule
   totalDays: number=0;
@@ -33,6 +35,10 @@ export class CreateCourseComponent implements OnInit {
   instructors: any=[];
   instructor: null;
 
+  sesCost:null;
+  numSessions:null;
+  subCost:null;
+
   constructor(    
     public fb: FormBuilder,
     private courseApi: CourseService,
@@ -43,18 +49,11 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.courseForm = this.fb.group({
-      course: Course,
-      session: {'cost': '9.99', 'number_of_sessions': '10'},
-      subscription: {'cost':'9.99' },
-      schedule: [],
+      name: ['', [Validators.required]],
+      details: ['', [Validators.required]],
+      max_students: ['', [Validators.required]]
     })
-
-    // this.courseForm = this.fb.group({
-    //   name: ['', [Validators.required]],
-    //   details: ['', [Validators.required]],
-    //   max_students: ['', [Validators.required]],
-    //   subCost:['']
-    // })
+    
 
     this.instructorApi.GetInstructors().subscribe( data =>{
       this.instructors = data;
@@ -70,10 +69,16 @@ export class CreateCourseComponent implements OnInit {
   // Creates a course in the database
   submitCourseForm(){
     if(window.confirm('Are you sure you want to add this course?')){
-      // this.courseApi.AddCourse(this.courseForm.value).subscribe(res => {
-      //   this.ngZone.run(() => this.router.navigateByUrl('\courses'))
-      // });
-      console.log(this.courseForm.value);
+     
+      this.finalData.course = this.courseForm.value;
+      this.finalData.schedule = this.schedule;
+      this.finalData.subscription= {cost: this.subCost}
+      this.finalData.session = {cost:this.sesCost,number_of_sessions:this.numSessions};
+      console.log(this.finalData);
+      
+       this.courseApi.AddCourse(this.finalData).subscribe(res => {
+        this.ngZone.run(() => this.router.navigateByUrl('\courses'))
+      });
     }
   }
 
@@ -101,7 +106,7 @@ export class CreateCourseComponent implements OnInit {
       for(var i = 1;i <= this.totalDays; i++ ){
         this.schedule.push(new Schedule('','',''));
       }
-      console.log(this.schedule);
+      // console.log(this.schedule);
       // console.log(`name here: ${this.schedule[0].day} start: ${this.schedule[0].start} end: ${this.schedule[0].end}`)
     }
   }
@@ -113,7 +118,7 @@ export class CreateCourseComponent implements OnInit {
         this.schedule[i-1] = new Schedule(this.schedule[i-1].day,this.schedule[i-1].start,this.schedule[i-1].end);
 
       }
-      console.log(this.schedule);
+      // console.log(this.schedule);
       // console.log(`name here: ${this.schedule[0].day} start: ${this.schedule[0].start} end: ${this.schedule[0].end}`)
 
     }
