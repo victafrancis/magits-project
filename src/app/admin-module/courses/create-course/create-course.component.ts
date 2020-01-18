@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Schedule } from './schedule';
 import { User } from 'src/app/_services/user/user';
 import { UserService } from 'src/app/_services/user/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-course',
@@ -21,18 +22,20 @@ export class CreateCourseComponent implements OnInit {
   time: any = [1,2,3,4,5,6,7,8,9,10]
   Days: any = ['Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday','Saturday','Sunday'];
   day_selected: null;
-  
+  //final data
+  finalData: any;
+
   // used for schedule
   totalDays: number=0;
   daysWithDate: Array<Object>;
   arrayLen: number;
-  schedule: Array<Schedule>=[]; 
+  schedule: Array<Schedule>=[];
 
   // used for instructor
   instructors: any=[];
   instructor: null;
 
-  constructor(    
+  constructor(
     public fb: FormBuilder,
     private courseApi: CourseService,
     private instructorApi: UserService,
@@ -63,9 +66,15 @@ export class CreateCourseComponent implements OnInit {
   // Creates a course in the database
   submitCourseForm(){
     if(window.confirm('Are you sure you want to add this course?')){
-      this.courseApi.AddCourse(this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('\courses'))
-      });
+      this.finalData.course = this.courseForm.value;
+      this.finalData.schedule = this.schedule;
+      this.finalData.subscription = null;
+      this.finalData.session = null;
+      console.log(this.data);
+
+      // this.courseApi.AddCourse(this.finalData).subscribe(res => {
+      //   this.ngZone.run(() => this.router.navigateByUrl('\courses'))
+      // });
     }
   }
 
@@ -78,7 +87,7 @@ export class CreateCourseComponent implements OnInit {
     { label: 'Session-based', checked: false },
     ];
 
-  // Detects the changes for the membership type 
+  // Detects the changes for the membership type
   onChange(event, index, item) {
       item.checked = !item.checked;
       this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
@@ -107,7 +116,6 @@ export class CreateCourseComponent implements OnInit {
       }
       console.log(this.schedule);
       // console.log(`name here: ${this.schedule[0].day} start: ${this.schedule[0].start} end: ${this.schedule[0].end}`)
-
     }
   }
 }

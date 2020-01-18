@@ -17,7 +17,7 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   // Add course
-  AddCourse(data: Course): Observable<any> {
+  AddCourse(data): Observable<any> {
     let API_URL = `${this.endpoint}/add-course`;
     return this.http.post(API_URL, data)
       .pipe(
