@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CourseService } from '../../../_services/course/course.service';
 import { Router } from '@angular/router';
 import { Schedule } from './schedule';
-import { User } from 'src/app/_services/user/user';
-import { UserService } from 'src/app/_services/user/user.service';
 
 @Component({
   selector: 'app-create-course',
