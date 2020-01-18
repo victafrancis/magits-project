@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CourseService } from '../../../_services/course/course.service';
 import { Router } from '@angular/router';
-import { Schedule } from './schedule';
+import { Schedule } from '../../../_services/schedule';
 
 @Component({
   selector: 'app-create-course',
@@ -22,19 +22,19 @@ export class CreateCourseComponent implements OnInit {
 
   //final
   finalData: any={};
-  
+
   // used for schedule
   totalDays: number=0;
   daysWithDate: Array<Object>;
   arrayLen: number;
-  schedule: Array<Schedule>=[]; 
+  schedule: Array<Schedule>=[];
 
   // membership types
   sesCost:null;
   numSessions:null;
   subCost:null;
 
-  constructor(    
+  constructor(
     public fb: FormBuilder,
     private courseApi: CourseService,
     private ngZone: NgZone,
@@ -47,7 +47,7 @@ export class CreateCourseComponent implements OnInit {
       details: ['', [Validators.required]],
       max_students: ['', [Validators.required]]
     })
-    
+
 
   }
 
@@ -59,15 +59,15 @@ export class CreateCourseComponent implements OnInit {
   // Creates a course in the database
   submitCourseForm(){
     if(window.confirm('Are you sure you want to add this course?')){
-     
+
       this.finalData.course = this.courseForm.value;
       this.finalData.schedule = this.schedule;
       this.finalData.subscription= {cost: this.subCost}
       this.finalData.session = {cost:this.sesCost,number_of_sessions:this.numSessions};
       console.log(this.finalData);
-      
+
        this.courseApi.AddCourse(this.finalData).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('\courses'))
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
       });
     }
   }
@@ -81,7 +81,7 @@ export class CreateCourseComponent implements OnInit {
     { label: 'Session-based', checked: false },
     ];
 
-  // Detects the changes for the membership type 
+  // Detects the changes for the membership type
   onChange(event, index, item) {
       item.checked = !item.checked;
       this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
@@ -96,7 +96,7 @@ export class CreateCourseComponent implements OnInit {
       for(var i = 1;i <= this.totalDays; i++ ){
         this.schedule.push(new Schedule('','',''));
       }
-     
+
     }
   }
 
@@ -107,7 +107,7 @@ export class CreateCourseComponent implements OnInit {
         this.schedule[i-1] = new Schedule(this.schedule[i-1].day,this.schedule[i-1].start,this.schedule[i-1].end);
 
       }
-     
+
     }
   }
 }
