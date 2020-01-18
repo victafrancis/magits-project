@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
+import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule } from '@angular/material';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { InstructorProfileComponent } from './instructors/instructor-profile/ins
     CommonModule,
     RouterModule.forChild(adminRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   providers:[
     RoleGuard,

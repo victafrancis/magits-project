@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoginPageGuardService } from './login-page-guard.service';
+import { LoginPageGuard } from './login-page-guard.service';
 
 describe('LoginPageGuardService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LoginPageGuardService = TestBed.get(LoginPageGuardService);
+    const service: LoginPageGuard = TestBed.get(LoginPageGuard);
     expect(service).toBeTruthy();
   });
 });

@@ -28,28 +28,101 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Number of Days-->
-                <!-- <mat-form-field>
-                    <mat-label>Number of Days</mat-label>
-                    <mat-select [(value)]="day_selected" formControlName="numDays">
-                        <mat-option [value]="day" *ngFor="let day of Days">{{day}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="handleError('numDays', 'required')">
-                        Number of days is required
+                 <!-- Course Detail -->
+                 <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Maximum No. of Students" formControlName="max_students">
+                    <mat-error *ngIf="handleError('max_students', 'required')">
+                        You must provide<strong> maximum number of students</strong>
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
+                <br>
+               <!-- Choosing a Membership -->
+                <mat-label>Choose a membership:</mat-label>
+                <br><br>
+                <div class="container">
+                    <div *ngFor="let item of data; let i = index;">
+                        <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
+                          {{item.label}}
+                        </mat-checkbox>
+                        <div *ngIf="item.label === 'Subscription' && item.checked === true">
+                            <table class="example-full-width" cellspacing="0"><tr>
+                                <td><mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Monthly Subscription Cost" value="15" [(ngModel)]="subCost" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field></td>
+                              </tr></table>
+                        </div>
+                        <div *ngIf="item.label === 'Session-based' && item.checked === true">
+                            <table class="example-full-width" cellspacing="0"><tr>
+                                <td><mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Session set cost" value="10" [(ngModel)]="sesCost" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field></td>
+                                <td><mat-form-field class="example-full-width">
+                                  <input matInput placeholder="No. of Sessions" value="7" [(ngModel)]="numSessions" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field></td>
+                              </tr></table>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <strong>Last action:</strong> {{lastAction || 'untouched' }}
+                  <h4>JSON data:</h4>
+                  <pre>
+                  {{data | json}}
+                  </pre> -->
+                  </div>
+               
+            </div>
+        </mat-card>
+        <!-- RIGHT SIDE -->
+        <mat-card>
+          <mat-label>Course Schedule:</mat-label>
+                  <mat-form-field class="example-full-width">
+                    <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}" (ngModelChange)="createDays()">
+                      <mat-option [value]="u" *ngFor="let u of numDays">
+                        {{u}}
+                      </mat-option>
+                    </mat-select>  
+                  </mat-form-field>
+                  <div *ngIf="totalDays > 0">
 
-                <!-- Submit & Reset -->
+                    <div *ngFor="let i of schedule; let item = index">
+                        <mat-label>Day:&nbsp;&nbsp;</mat-label>
+                        <mat-form-field class="example-full-width">
+                            <mat-select [(ngModel)]="schedule[item].day" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="d" *ngFor="let d of Days">
+                                {{d}}
+                              </mat-option>
+                            </mat-select>  
+                          </mat-form-field>
+                          <br>
+                          <mat-label>&nbsp;&nbsp;Start:&nbsp;&nbsp;</mat-label>
+                          <mat-form-field class="example-full-width">
+                            <mat-select type="time" [(ngModel)]="schedule[item].start" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="s" *ngFor="let s of time">
+                                {{s}}
+                              </mat-option>
+                            </mat-select>  
+                          </mat-form-field>
+                          <mat-label>&nbsp;&nbsp;End:&nbsp;&nbsp;</mat-label>
+                          <mat-form-field class="example-full-width">
+                            <mat-select [(ngModel)]="schedule[item].end" [ngModelOptions]="{standalone: true}">
+                              <mat-option [value]="e" *ngFor="let e of time">
+                                {{e}}
+                              </mat-option>
+                            </mat-select>  
+                          </mat-form-field>
+                      
+                    </div>
+                  </div>
+                  
+               <!-- Submit & Reset -->
+                <br><br>
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
                         <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Add</button>
+                            <button mat-flat-button color="warn">Create Course</button>
                         </div>
                     </div>
                 </mat-card>
-                
-            </div>
         </mat-card>
     </form>
 </div>

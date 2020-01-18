@@ -23,4 +23,11 @@ export class CoursesComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteCourse(element){
+    if(window.confirm('Are you sure you want to delete this course?')){
+      this.userApi.DeleteCourse(element._id).subscribe();
+      window.location.reload();
+    }
+  }
+
 }

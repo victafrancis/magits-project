@@ -10,30 +10,58 @@ body{
     color: darkorange;
     text-align: center;
 }
+
+.main-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.myDiv{
+    width: 60%;
+    background: #424242;
+    border: darkorange 2px solid;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.inputs1{
+        width: 100%;
+        display: block;
+        color: white;
+        position: relative;
+        max-width: 100%;
+        margin-top: 50px;
+}
 .inputs{
-    width: 600px;
+    width: 100%;
     display: block;
     color: white;
-    margin : 0 auto;
     position: relative;
+    max-width: 100%;
 }
 .myWrapper{
             padding-top: 20px;
-            margin : 0 auto;
+            margin : 20px;
             position:  absolute;
             top : 50%;
             left: 50%;
-            width: 700px;
+            width: 500px;
             height:270px;
             border:1px solid darkorange;
             transform: translate(-50%, -50%);
 }
 .mySubmit{
-    width: 600px;
+    width: auto;
     display: block;
     color: #424242 ;
     margin : 0 auto;
     position: relative;
+    
 }
 .regJoin2 {
     color: darkorange;
