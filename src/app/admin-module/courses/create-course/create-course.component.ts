@@ -31,10 +31,7 @@ export class CreateCourseComponent implements OnInit {
   arrayLen: number;
   schedule: Array<Schedule>=[]; 
 
-  // used for instructor
-  instructors: any=[];
-  instructor: null;
-
+  // membership types
   sesCost:null;
   numSessions:null;
   subCost:null;
@@ -42,7 +39,6 @@ export class CreateCourseComponent implements OnInit {
   constructor(    
     public fb: FormBuilder,
     private courseApi: CourseService,
-    private instructorApi: UserService,
     private ngZone: NgZone,
     private router: Router
   ) { }
@@ -54,10 +50,6 @@ export class CreateCourseComponent implements OnInit {
       max_students: ['', [Validators.required]]
     })
     
-
-    this.instructorApi.GetInstructors().subscribe( data =>{
-      this.instructors = data;
-    })
 
   }
 
@@ -106,8 +98,7 @@ export class CreateCourseComponent implements OnInit {
       for(var i = 1;i <= this.totalDays; i++ ){
         this.schedule.push(new Schedule('','',''));
       }
-      // console.log(this.schedule);
-      // console.log(`name here: ${this.schedule[0].day} start: ${this.schedule[0].start} end: ${this.schedule[0].end}`)
+     
     }
   }
 
@@ -118,9 +109,7 @@ export class CreateCourseComponent implements OnInit {
         this.schedule[i-1] = new Schedule(this.schedule[i-1].day,this.schedule[i-1].start,this.schedule[i-1].end);
 
       }
-      // console.log(this.schedule);
-      // console.log(`name here: ${this.schedule[0].day} start: ${this.schedule[0].start} end: ${this.schedule[0].end}`)
-
+     
     }
   }
 }

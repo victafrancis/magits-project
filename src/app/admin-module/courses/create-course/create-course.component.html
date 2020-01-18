@@ -69,15 +69,7 @@
                   {{data | json}}
                   </pre> -->
                   </div>
-                  <!-- Get Instructor -->
-              <mat-label>Instructors:&nbsp;&nbsp;</mat-label>
-              <mat-form-field class="example-full-width">
-                <mat-select [(ngModel)]="instructor" [ngModelOptions]="{standalone: true}">
-                  <mat-option [value]="ins" *ngFor="let ins of instructors">
-                    {{ins.firstname}} {{ins.lastname}}
-                  </mat-option>
-                </mat-select>  
-              </mat-form-field>
+               
             </div>
         </mat-card>
         <!-- RIGHT SIDE -->
@@ -120,23 +112,9 @@
                           </mat-form-field>
                       
                     </div>
-                    <button mat-flat-button color="warn" (click)="setDays()">Set Schedule</button>
                   </div>
                   
-
-                <!-- Number of Days-->
-                <!-- <mat-form-field>
-                    <mat-label>Number of Days</mat-label>
-                    <mat-select [(value)]="day_selected" formControlName="numDays">
-                        <mat-option [value]="day" *ngFor="let day of Days">{{day}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="handleError('numDays', 'required')">
-                        Number of days is required
-                    </mat-error>
-                </mat-form-field> -->
-
-                <!-- Submit & Reset -->
+               <!-- Submit & Reset -->
                 <br><br>
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
