@@ -23,13 +23,14 @@ import { MemberProfileComponent } from './members/member-profile/member-profile.
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule } from '@angular/material';
+import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
-    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent],
+    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

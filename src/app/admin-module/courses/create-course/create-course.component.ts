@@ -42,12 +42,12 @@ export class CreateCourseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.courseForm = this.fb.group({
       name: ['', [Validators.required]],
       details: ['', [Validators.required]],
       max_students: ['', [Validators.required]]
     })
-    
 
   }
 
@@ -67,7 +67,7 @@ export class CreateCourseComponent implements OnInit {
       console.log(this.finalData);
       
        this.courseApi.AddCourse(this.finalData).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('\courses'))
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
       });
     }
   }

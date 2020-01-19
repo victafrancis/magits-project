@@ -29,24 +29,24 @@
                   </mat-error>
               </mat-form-field>
 
-              <!-- Member List -->
+              <!-- Maximum number of members -->
               <mat-form-field class="example-full-width">
-                <mat-select [(ngModel)]="selected" formControlName="user_id">
-                  <mat-option [value]="u._id" *ngFor="let u of users">
-                    {{u.firstname}} {{u.lastname}}
-                </mat-option></mat-select>
-              </mat-form-field>
-
+                <input matInput placeholder="Maximum number of Students" formControlName="max_students">
+                <mat-error *ngIf="handleError('max_students', 'required')">
+                    You must provide<strong>student limit</strong>
+                </mat-error>
+            </mat-form-field>
 
               <!-- Submit & Reset -->
               <mat-card>
                   <div class="full-wrapper button-wrapper">
                       <div class="button-wrapper">
-                          <button mat-flat-button color="warn">Add Member</button>
+                          <button mat-flat-button color="warn">Save Edit</button>
                       </div>
                   </div>
               </mat-card>
           </div>
       </mat-card>
   </form>
+  <button mat-stroked-button routerLinkActive="active" routerLink="/admin/enroll-student">Enroll Student</button>
 </div>
