@@ -42,13 +42,12 @@ export class CreateCourseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.courseForm = this.fb.group({
       name: ['', [Validators.required]],
       details: ['', [Validators.required]],
       max_students: ['', [Validators.required]]
     })
-
-
   }
 
   /* Get errors */
