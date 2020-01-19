@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { CourseService } from '../../../_services/course/course.service';
 import { Router } from '@angular/router';
 import { Schedule } from '../../../_services/schedule';
@@ -24,7 +24,7 @@ export class CreateCourseComponent implements OnInit {
   finalData: any={};
 
   // used for schedule
-  totalDays: number=0;
+  totalDays: any=0;
   daysWithDate: Array<Object>;
   arrayLen: number;
   schedule: Array<Schedule>=[];
@@ -48,11 +48,17 @@ export class CreateCourseComponent implements OnInit {
       details: ['', [Validators.required]],
       max_students: ['', [Validators.required]]
     })
+
+    this.totalDays = new FormControl('',[Validators.required])
   }
 
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.courseForm.controls[controlName].hasError(errorName);
+  }
+
+  public handleDays = (controlName: string, errorName: string) => {
+    return this.totalDays.controls[controlName].hasError(errorName);
   }
 
   // Creates a course in the database
@@ -61,8 +67,13 @@ export class CreateCourseComponent implements OnInit {
 
       this.finalData.course = this.courseForm.value;
       this.finalData.schedule = this.schedule;
-      this.finalData.subscription= {cost: this.subCost}
-      this.finalData.session = {cost:this.sesCost,number_of_sessions:this.numSessions};
+
+      if(this.subCost != undefined || this.subCost != undefined){
+        this.finalData.subscription= {cost: this.subCost}
+      }
+      if(this.sesCost != undefined && this.numSessions != undefined){
+        this.finalData.session = {cost:this.sesCost,number_of_sessions:this.numSessions};
+      }
       console.log(this.finalData);
 
        this.courseApi.AddCourse(this.finalData).subscribe(res => {
