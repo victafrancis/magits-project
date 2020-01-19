@@ -15,6 +15,7 @@ import { Schedule } from './schedule';
 export class CreateCourseComponent implements OnInit {
 
   courseForm: FormGroup;
+  scheduleForm: FormGroup;
   numDays: any = [1,2,3,4,5,6,7];
   time: any = [1,2,3,4,5,6,7,8,9,10]
   Days: any = ['Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday','Saturday','Sunday'];
@@ -42,11 +43,21 @@ export class CreateCourseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.courseForm = this.fb.group({
-      name: ['', [Validators.required]],
-      details: ['', [Validators.required]],
+      course: ['', [Validators.required]],
+      schedule: ['', [Validators.required]],
       max_students: ['', [Validators.required]]
     })
+
+    // this.scheduleForm = this.fb.group({
+
+    // })
+    // this.courseForm = this.fb.group({
+    //   name: ['', [Validators.required]],
+    //   details: ['', [Validators.required]],
+    //   max_students: ['', [Validators.required]]
+    // })
     
 
   }
