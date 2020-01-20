@@ -168,35 +168,39 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
     }
   })
 
-  // Course.update(req.params.id,
-  //   Course.members.push(req.body.members)
-  // , (error, data) => {
-  //   if (error) {
-  //     return next(error);
-  //     console.log(error)
-  //   } else {
-  //     res.json(data)
-  //     console.log('Course successfully updated!')
-  //   }
-  // })
-
-  // Course.findById(req.params.id, {
-  //   $push: {"members": req.body.members}
-  // }, (error, data) => {
-  //   if (error) {
-  //     return next(error);
-  //     console.log(error)
-  //   } else {
-  //     res.json(data)
-  //     console.log('Course successfully updated!')
-  //   }
-  // })
-
-
 })
 
 // Delete course
 courseRoute.route('/delete-course/:id').delete((req, res, next) => {
+
+  //find course and delete the membership documents and schedules
+  Course.findById(req.params.id, (error, course) => {
+    if (error)  return next(error);
+    //delete for session membership
+    if(course.session_membership_id != null){
+      Membership.findByIdAndRemove(course.session_membership_id, (error, data) => {
+        if (error)  return next(error);
+        console.log("session membership has been deleted!");
+      })
+    }
+    //delete for subscription membership
+    if(course.subscription_membership_id != null){
+      Membership.findByIdAndRemove(course.subscription_membership_id, (error, data) => {
+        if (error)  return next(error);
+
+        console.log("subscription membership has been deleted!");
+      })
+    }
+    //delete all schedule
+    var schedules = course.schedule;
+    for (schedule of schedules){
+      Schedule.findByIdAndRemove(schedule, (error, data) => {
+        if (error)  return next(error);
+      })
+    }
+  });
+
+  //finally, delete the course
   Course.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
