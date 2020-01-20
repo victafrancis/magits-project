@@ -61,6 +61,7 @@
                                 </mat-form-field></td>
                               </tr></table>
                         </div>
+                        
                     </div>
                     <br>
                     <!-- <strong>Last action:</strong> {{lastAction || 'untouched' }}
@@ -82,6 +83,17 @@
                       </mat-option>
                     </mat-select>  
                   </mat-form-field>
+
+                  <!-- <mat-error *ngIf="handleDays('totalDays', 'required')">
+                    You must provide<strong> maximum number of students</strong>
+                </mat-error> -->
+                
+                  <!-- <div *ngIf="totalDays.invalid && (name.dirty || name.touched)"
+                        class="alert alert-danger">
+                      <div *ngIf="totalDays.errors.required">
+                        total days are required.
+                      </div>
+                    </div> -->
                   <div *ngIf="totalDays > 0">
 
                     <div *ngFor="let i of schedule; let item = index">
@@ -93,6 +105,7 @@
                               </mat-option>
                             </mat-select>  
                           </mat-form-field>
+                          
                           <br>
                           <mat-label>&nbsp;&nbsp;Start:&nbsp;&nbsp;</mat-label>
                           <mat-form-field class="example-full-width">

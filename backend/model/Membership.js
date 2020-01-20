@@ -2,22 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema
-let Course = new Schema({
-  name: {
+let Membership = new Schema({
+  membership_type: {
     type: String
   },
-  details: {
-    type: String
-  },
-  max_students: {
+  cost: {
     type: Number
   },
-  members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  instructors: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
+  number_of_sessions: {
+    type: Number
+  },
+  course_id: { type: Schema.Types.ObjectId, ref: 'Course' }
 }, {
-  collection: 'courses'
+  collection: 'memberships'
 })
 
-module.exports = mongoose.model('Course', Course)
+module.exports = mongoose.model('Membership', Membership)
 
