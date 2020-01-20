@@ -1,9 +1,14 @@
+<!-- <p>
+    <a routerLink="home" >Home</a> |
+    <button (click)="logout()"> Logout</button>
+  </p>
 
+  <router-outlet></router-outlet> -->
   <mat-toolbar color="primary" class="header">
-    <div>Dashboard</div>
+    <div>ADMIN DASHBOARD</div>
     <span class="nav-tool-items">
-      <button mat-button (click)="sidenav.toggle()"  matTooltip="Menu" class="hamburger"><mat-icon>menu</mat-icon></button>
-      <button mat-button  matTooltip="Log Out" (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
+      <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+      <button mat-raised-button color="accent" (click)="logout()"> Logout</button>
     </span>
   </mat-toolbar>
   

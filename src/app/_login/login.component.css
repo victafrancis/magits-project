@@ -3,7 +3,7 @@ body{
     padding: 1px;
 }
 .errorMsg{
-    color: tomato;
+    color: darkorange;
     text-align: center;
 }
 .login{
@@ -18,12 +18,12 @@ body{
   }
 
 .myDiv{
-    width: 55%;
+    width: 60%;
     background: #424242;
     border: darkorange 2px solid;
     color: white;
     border-radius: 1em;
-    padding: 2em;
+    padding: 1em;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -33,14 +33,16 @@ body{
         width: 100%;
         display: block;
         color: white;
+        position: relative;
+        max-width: 100%;
         margin-top: 50px;
-        margin-bottom: 15px;
-
 }
 .inputs{
     width: 100%;
     display: block;
     color: white;
+    position: relative;
+    max-width: 100%;
 }
 .myWrapper{
             padding-top: 20px;

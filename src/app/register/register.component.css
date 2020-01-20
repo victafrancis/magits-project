@@ -5,7 +5,7 @@ body{
     margin: 0;
 }
 .errorMsg{
-    color: tomato;
+    color: darkorange;
     text-align: center;
 }
 .login{
@@ -23,9 +23,9 @@ body{
 .myDiv{
     width: 50%;
     background: #424242;
-    border-bottom:2px solid darkorange;
-    border-left:2px solid darkorange;
-    border-right:2px solid darkorange;    
+    border-bottom:5px solid darkorange;
+    border-left:5px solid darkorange;
+    border-right:5px solid darkorange;    
     color: white;
     border-radius: 1em;
     padding: 2em;  

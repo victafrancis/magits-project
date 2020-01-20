@@ -36,7 +36,8 @@
                     </mat-error>
                 </mat-form-field>
                 <br>
-               <!-- Choosing a Membership -->
+                <!-- Checkbox for Subscription, inputCost -->
+                <!-- Checkbox for Session-based, inputCost, number of sessions -->
                 <mat-label>Choose a membership:</mat-label>
                 <br><br>
                 <div class="container">
@@ -47,17 +48,17 @@
                         <div *ngIf="item.label === 'Subscription' && item.checked === true">
                             <table class="example-full-width" cellspacing="0"><tr>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Monthly Subscription Cost" value="15" [(ngModel)]="subCost" [ngModelOptions]="{standalone: true}">
+                                  <input matInput placeholder="Monthly Subscription Cost" value="$15">
                                 </mat-form-field></td>
                               </tr></table>
                         </div>
                         <div *ngIf="item.label === 'Session-based' && item.checked === true">
                             <table class="example-full-width" cellspacing="0"><tr>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Session set cost" value="10" [(ngModel)]="sesCost" [ngModelOptions]="{standalone: true}">
+                                  <input matInput placeholder="Session set cost" value="$10">
                                 </mat-form-field></td>
                                 <td><mat-form-field class="example-full-width">
-                                  <input matInput placeholder="No. of Sessions" value="7" [(ngModel)]="numSessions" [ngModelOptions]="{standalone: true}">
+                                  <input matInput placeholder="No. of Sessions" value="7">
                                 </mat-form-field></td>
                               </tr></table>
                         </div>
@@ -69,14 +70,10 @@
                   {{data | json}}
                   </pre> -->
                   </div>
-               
-            </div>
-        </mat-card>
-        <!-- RIGHT SIDE -->
-        <mat-card>
-          <mat-label>Course Schedule:</mat-label>
+
+                  <mat-label>Course Schedule:</mat-label>
                   <mat-form-field class="example-full-width">
-                    <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}" (ngModelChange)="createDays()">
+                    <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}">
                       <mat-option [value]="u" *ngFor="let u of numDays">
                         {{u}}
                       </mat-option>
@@ -84,37 +81,33 @@
                   </mat-form-field>
                   <div *ngIf="totalDays > 0">
 
-                    <div *ngFor="let i of schedule; let item = index">
-                        <mat-label>Day:&nbsp;&nbsp;</mat-label>
+                    <div *ngFor="let i of [].constructor(totalDays); let item = index;">
+                        <mat-label>Day:</mat-label>
                         <mat-form-field class="example-full-width">
-                            <mat-select [(ngModel)]="schedule[item].day" [ngModelOptions]="{standalone: true}">
+                            <mat-select [(ngModel)]="day" [ngModelOptions]="{standalone: true}">
                               <mat-option [value]="d" *ngFor="let d of Days">
                                 {{d}}
+                                <!-- how to change ngModel name from a for loop -->
                               </mat-option>
                             </mat-select>  
                           </mat-form-field>
-                          <br>
-                          <mat-label>&nbsp;&nbsp;Start:&nbsp;&nbsp;</mat-label>
-                          <mat-form-field class="example-full-width">
-                            <mat-select type="time" [(ngModel)]="schedule[item].start" [ngModelOptions]="{standalone: true}">
-                              <mat-option [value]="s" *ngFor="let s of time">
-                                {{s}}
-                              </mat-option>
-                            </mat-select>  
-                          </mat-form-field>
-                          <mat-label>&nbsp;&nbsp;End:&nbsp;&nbsp;</mat-label>
-                          <mat-form-field class="example-full-width">
-                            <mat-select [(ngModel)]="schedule[item].end" [ngModelOptions]="{standalone: true}">
-                              <mat-option [value]="e" *ngFor="let e of time">
-                                {{e}}
-                              </mat-option>
-                            </mat-select>  
-                          </mat-form-field>
-                      
                     </div>
                   </div>
                   
-               <!-- Submit & Reset -->
+
+                <!-- Number of Days-->
+                <!-- <mat-form-field>
+                    <mat-label>Number of Days</mat-label>
+                    <mat-select [(value)]="day_selected" formControlName="numDays">
+                        <mat-option [value]="day" *ngFor="let day of Days">{{day}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('numDays', 'required')">
+                        Number of days is required
+                    </mat-error>
+                </mat-form-field> -->
+
+                <!-- Submit & Reset -->
                 <br><br>
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
@@ -123,6 +116,8 @@
                         </div>
                     </div>
                 </mat-card>
+                
+            </div>
         </mat-card>
     </form>
 </div>
