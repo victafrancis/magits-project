@@ -19,8 +19,6 @@ import { CourseProfileComponent } from './courses/course-profile/course-profile.
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 
-
-
 export const adminRoutes: Routes = [
   {
     path: 'admin',
