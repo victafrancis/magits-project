@@ -17,6 +17,7 @@ import { CreateAnnouncementComponent } from './announcements/create-announcement
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
+import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 
 
 
@@ -36,6 +37,7 @@ export const adminRoutes: Routes = [
       { path: 'members', component: MembersComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'announcements', component: AnnouncementsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'create-course', component: CreateCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'enroll-student', component: EnrollStudentComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-instructor', component: AddInstructorComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-member', component: AddMemberComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
