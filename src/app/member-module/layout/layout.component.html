@@ -1,9 +1,13 @@
 <mat-toolbar color="primary" class="header">
-    <div>Member Dashboard</div>
+    <div>Dashboard</div>
     <span class="nav-tool-items">
-      <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
-      <button mat-raised-button color="accent" routerLinkActive="active" routerLink="profile">View Profile</button>&nbsp;
-      <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+      <button mat-button class="hamburger"  (click)="sidenav.toggle()"  matTooltip="Menu"><mat-icon>menu</mat-icon></button>
+      <button mat-button  matTooltip="View Account" routerLink="profile"><mat-icon>account_circle</mat-icon></button>
+      <button mat-button  matTooltip="Log Out" (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
+
+     
+      <!--  <button [fxHide.xs]="true">Log Out</button> -->
+
     </span>
   </mat-toolbar>
   
