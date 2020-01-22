@@ -1,9 +1,6 @@
 <div class="title-group">
-    <span class="nav-tool-items" style="float: left;">
-        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-member">Add Member</button>
-    </span>
     <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Members</h1>
+        <h1 style="text-align: center;" class="mat-h1">Members</h1>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -36,7 +33,7 @@
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;">
                 <!-- Enroll Student -->
-                <button mat-raised-button color="accent" [routerLink]="['/admin/member-profile/', element._id]" >Submit</button>&nbsp;
+                <button mat-raised-button color="accent" (click)="enrollStudent(element)" > Enroll </button>&nbsp;
             </td>
         </ng-container>
 
