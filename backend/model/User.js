@@ -21,10 +21,15 @@ let User = new Schema({
   role: {
     type: String
   },
-  courses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+  courses: [{
+    course: {type: Schema.Types.ObjectId, ref: 'Course'},
+    membership: {type: Schema.Types.ObjectId, ref: 'Membership'},
+    sessions_remaining: Number,
+    _id: false
+  }],
   sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
   feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
-  announcements: { type: Schema.Types.ObjectId, ref: 'Announcement' }
+  announcements: [{ type: Schema.Types.ObjectId, ref: 'Announcement' }]
 }, {
   collection: 'users'
 })

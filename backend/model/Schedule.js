@@ -12,7 +12,7 @@ let Schedule = new Schema({
   end: {
     type: String
   },
-  course_id: { type: Schema.Types.ObjectId, ref: 'Course' }
+  course: { type: Schema.Types.ObjectId, ref: 'Course' }
 }, {
   collection: 'schedule'
 })
