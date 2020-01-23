@@ -23,7 +23,7 @@ export const instructorRoutes: Routes = [
       { path: 'my-courses', component: MyCoursesComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'announcements', component: AnnouncementsComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
-      { path: 'profile', component: ProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]}
+      { path: 'profile/:id', component: ProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]}
     ]
   }
 ];
