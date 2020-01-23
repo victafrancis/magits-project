@@ -10,7 +10,7 @@ import { User } from 'src/app/_services/user/user';
 })
 export class LayoutComponent implements OnInit {
 
-user: User= null;
+user: any = null;
 
   opened = true;
   @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
@@ -28,7 +28,6 @@ user: User= null;
       this.sidenav.fixedTopGap = 55;
       this.opened = true;
     }
-    
   }
 
   @HostListener('window:resize', ['$event'])
