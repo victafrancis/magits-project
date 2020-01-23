@@ -121,6 +121,17 @@ courseRoute.route('/course-members/:id').get((req, res) => {
   })
 })
 
+// Get instructors of course-------------------------------------------------------------------------------------------
+courseRoute.route('/course-instructors/:id').get((req, res) => {
+  Course.findById(req.params.id).populate('instructors').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data.instructors)
+    }
+  })
+})
+
 // Update course----------------------------------------------------------------------------------------------------
 courseRoute.route('/update/:id').put((req, res, next) => {
   console.log(req.body);
