@@ -14,6 +14,7 @@ export class CourseProfileComponent implements OnInit {
   courseForm: FormGroup;
   users: any=[];
   selected: null;
+  id: any;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -24,9 +25,9 @@ export class CourseProfileComponent implements OnInit {
     private userApi: UserService
   )
   {
-    var id = this.actRoute.snapshot.paramMap.get('id');
+    this.id = this.actRoute.snapshot.paramMap.get('id');
 
-    this.courseApi.GetCourse(id).subscribe(data => {
+    this.courseApi.GetCourse(this.id).subscribe(data => {
       this.courseForm = this.fb.group({
         name: [data.name, [Validators.required]],
         details: [data.details, [Validators.required]],

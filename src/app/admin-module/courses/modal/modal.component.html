@@ -1,14 +1,14 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Info</h1>
+        <h1 style="text-align: center;" class="mat-h1">Member Enrollment Form</h1>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
 
-<div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="courseForm" (ngSubmit)="updateCourseForm()" novalidate>
+<div class="container" style="text-align: center;">
+    <form [formGroup]="courseForm" novalidate>
         <!-- LEFT SIDE -->
         <mat-card>
             <div class="controlers-wrapper">
@@ -16,24 +16,27 @@
                 <!-- Course Name -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Course Name" formControlName="name">
-                    <mat-error *ngIf="handleError('name', 'required')">
-                        You must provide Course<strong>name</strong>
-                    </mat-error>
                 </mat-form-field>
 
                 <!-- Details -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Details" formControlName="details">
-                    <mat-error *ngIf="handleError('details', 'required')">
-                        You must provide<strong>details</strong>
-                    </mat-error>
                 </mat-form-field>
 
                 <!-- Maximum number of members -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Maximum number of Students" formControlName="max_students">
-                    <mat-error *ngIf="handleError('max_students', 'required')">
-                        You must provide<strong>student limit</strong>
+                </mat-form-field>
+
+                <!-- Membership Type -->
+                <mat-form-field>
+                    <mat-label>Membership Type</mat-label>
+                    <mat-select [(value)]="membership_selected" formControlName="user_membership">
+                        <mat-option [value]="m.type" *ngFor="let m of memberships">{{m.key}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('user_membership', 'required')">
+                        Membership is required
                     </mat-error>
                 </mat-form-field>
 
@@ -41,11 +44,8 @@
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
                         <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Update Course</button>
-                        </div>
-                        <div class="button-wrapper">
-                            <button type='button' mat-flat-button color="warn" routerLinkActive="active"
-                                [routerLink]="['/admin/enroll-student', this.id]">Enroll Student</button>
+                            <button mat-flat-button color="warn" (click)="enrollMember()"> Enroll </button>&nbsp;
+                            <button mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
                         </div>
                     </div>
                 </mat-card>
