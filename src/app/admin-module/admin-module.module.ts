@@ -22,15 +22,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
-import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule } from '@angular/material';
+import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule, MatDialogModule } from '@angular/material';
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
-
+import { ModalComponent } from './courses/modal/modal.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
-    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent],
+    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, ModalComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -38,13 +38,15 @@ import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.
     RouterModule.forChild(adminRoutes),
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers:[
     RoleGuard,
     AuthGuard,
     DatePipe
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [ModalComponent]
 })
 export class AdminModule { }

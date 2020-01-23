@@ -35,7 +35,7 @@ export const adminRoutes: Routes = [
       { path: 'members', component: MembersComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'announcements', component: AnnouncementsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'create-course', component: CreateCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'enroll-student', component: EnrollStudentComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'enroll-student/:id', component: EnrollStudentComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-instructor', component: AddInstructorComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'add-member', component: AddMemberComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
