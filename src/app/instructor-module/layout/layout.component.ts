@@ -11,12 +11,14 @@ import { User } from 'src/app/_services/user/user';
 export class LayoutComponent implements OnInit {
 
 user: any = null;
+userId: String;
 
   opened = true;
   @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
 
   constructor(private _authService: AuthService) {
     this.user = this._authService.decode();
+    this.userId = this.user.subject;
    }
 
   ngOnInit() {
