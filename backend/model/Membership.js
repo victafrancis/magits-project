@@ -12,10 +12,9 @@ let Membership = new Schema({
   number_of_sessions: {
     type: Number
   },
-  course_id: { type: Schema.Types.ObjectId, ref: 'Course' }
+  course: { type: Schema.Types.ObjectId, ref: 'Course'}
 }, {
   collection: 'memberships'
 })
-
 module.exports = mongoose.model('Membership', Membership)
 

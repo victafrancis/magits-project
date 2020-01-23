@@ -1,1 +1,31 @@
-<p>my-courses works!</p>
+<div class="title-group">
+    <div style="width: 95%;">
+        <h1 style="text-align: center;" class="mat-h1">My Courses</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Course Name Column -->
+        <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef> Course Name </th>
+            <td mat-cell *matCellDef="let element">
+                <a href="#" style="text-decoration: none; color:white;">{{element.courseName}}</a>
+            </td>
+        </ng-container>
+
+        <!-- Session Time Column -->
+        <ng-container matColumnDef="instructorName">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.instructorName}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
