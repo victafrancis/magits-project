@@ -22,7 +22,7 @@ courseRoute.route('/add-course-old').post((req, res, next) => {
 });
 
 
-// Add Course with schedule and membership type
+// Add Course with schedule and membership type---------------------------------------------------------------------
 courseRoute.route('/add-course').post((req, res, next) => {
   var newCourse = req.body.course;
   var sessionMembership = req.body.session;
@@ -88,7 +88,7 @@ courseRoute.route('/add-course').post((req, res, next) => {
 });
 
 
-// Get all course
+// Get all course------------------------------------------------------------------------------------------
 courseRoute.route('/').get((req, res) => {
   Course.find((error, data) => {
     if (error) {
@@ -99,7 +99,7 @@ courseRoute.route('/').get((req, res) => {
   })
 })
 
-// Get single course
+// Get single course------------------------------------------------------------------------------------------------
 courseRoute.route('/read-course/:id').get((req, res) => {
   Course.findById(req.params.id, (error, data) => {
     if (error) {
@@ -110,9 +110,9 @@ courseRoute.route('/read-course/:id').get((req, res) => {
   })
 })
 
-// Get members of course
+// Get members of course-------------------------------------------------------------------------------------------
 courseRoute.route('/course-members/:id').get((req, res) => {
-  Course.findById(req.params.id).populate('members').exec((error, data) => {
+  Course.findById(req.params.id).populate('members.member').exec((error, data) => {
     if (error) {
       return next(error)
     } else {
@@ -121,7 +121,18 @@ courseRoute.route('/course-members/:id').get((req, res) => {
   })
 })
 
-// Update course
+// Get instructors of course-------------------------------------------------------------------------------------------
+courseRoute.route('/course-instructors/:id').get((req, res) => {
+  Course.findById(req.params.id).populate('instructors').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data.instructors)
+    }
+  })
+})
+
+// Update course----------------------------------------------------------------------------------------------------
 courseRoute.route('/update/:id').put((req, res, next) => {
   console.log(req.body);
 
@@ -138,7 +149,7 @@ courseRoute.route('/update/:id').put((req, res, next) => {
   })
 })
 
-// register member to a course - used by both admin and instructor
+// register member to a course - used by both admin and instructor--------------------------------------------------------
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
 
   var userMembership = new Object();
@@ -186,7 +197,101 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
 
 })
 
-// Delete course
+// remove member from a course - used by both admin and instructor--------------------------------------------
+courseRoute.route('/remove-user-from-course/:id').put((req, res, next) => {
+
+  //find course and remove member from the array
+  Course.findByIdAndUpdate(req.params.id, {
+    $pull: {"members": {"member": req.body.member_id}}
+  }, (error, data) => {
+    if (error) {
+      console.log(error);
+      return next(error);
+    } else {
+
+      //find user and remove course from the array
+      User.findByIdAndUpdate(req.body.member_id, {
+        $pull: {"courses": {"course": req.params.id}}
+      }, (error, data) => {
+        if (error) {
+          console.log(error);
+          return next(error);
+        } else {
+
+        }
+      })
+
+      console.log('Member successfully removed from the course!')
+      res.json(data)
+    }
+  })
+
+})
+
+// assign instructor to a course - used by admin only-----------------------------------------------------------
+courseRoute.route('/assign-instructor-to-course/:id').put((req, res, next) => {
+
+  //find course and push instructor id to instructors array
+  Course.findByIdAndUpdate(req.params.id, {
+    $push: {"instructors": req.body.instructor_id}
+  }, (error, data) => {
+    if (error) {
+      return next(error);
+      console.log(error)
+    } else {
+
+      var cObj = new Object();
+      cObj.course = req.params.id;
+
+      //find instructor and push course id to courses
+      User.findByIdAndUpdate(req.body.instructor_id, {
+        $push: {"courses": cObj}
+      }, (error, data) => {
+        if (error) {
+          return next(error);
+          console.log(error)
+        }
+      })
+
+      console.log('Instructor successfully assigned to the course!')
+      res.json(data)
+    }
+  })
+
+})
+
+// remove instructor from a course - used by both admin only-----------------------------------------------
+courseRoute.route('/remove-instructor-from-course/:id').put((req, res, next) => {
+
+  //find course and remove instructor from the array
+  Course.findByIdAndUpdate(req.params.id, {
+    $pull: {"instructors": req.body.instructor_id}
+  }, (error, data) => {
+    if (error) {
+      console.log(error);
+      return next(error);
+    } else {
+
+      //find instructor and remove course from the array
+      User.findByIdAndUpdate(req.body.instructor_id, {
+        $pull: {"courses": {"course": req.params.id}}
+      }, (error, data) => {
+        if (error) {
+          console.log(error);
+          return next(error);
+        } else {
+
+        }
+      })
+
+      console.log('Instructor successfully removed from the course!')
+      res.json(data)
+    }
+  })
+
+})
+
+// Delete course-----------------------------------------------------------------------------------------------
 courseRoute.route('/delete-course/:id').delete((req, res, next) => {
 
   //find course and delete the membership documents and schedules
