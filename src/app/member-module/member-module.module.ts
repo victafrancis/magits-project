@@ -11,6 +11,7 @@ import { AngularMaterialModule } from '../material.module';
 import { CoursesComponent } from './courses/courses.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 
 
@@ -20,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
+    NgxQRCodeModule,
     RouterModule.forChild(memberRoutes)
   ],
   providers: [

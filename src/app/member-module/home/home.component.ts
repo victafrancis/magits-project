@@ -44,6 +44,12 @@ const ANNOUNCEMENT_DATA: Announcement[] = [
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
+//QR Code
+value = 'wwww.google.com'
+myNumberQRVersion = 9;
+
+
+
 // this is for flex grid, please no touch
   watcher: Subscription;
   columns: number = 4;
@@ -59,8 +65,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (change) {
         if (change.mqAlias == 'xs') {
           this.columns = 1;
+          this.myNumberQRVersion = 4;
+        } else if( change.mqAlias == 'sm'){
+          this.myNumberQRVersion = 5;
+        } else if( change.mqAlias == 'md'){
+          this.myNumberQRVersion = 5;
         } else {
           this.columns = 2;
+          this.myNumberQRVersion = 9;
         }
       }
     });

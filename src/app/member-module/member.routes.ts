@@ -7,7 +7,6 @@ import { SessionsComponent } from './sessions/sessions.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../_guards/auth-guard.service';
 
-
 export const memberRoutes: Routes = [
   {
     path: 'member',

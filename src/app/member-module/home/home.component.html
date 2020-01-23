@@ -2,11 +2,18 @@
 <mat-grid-list [cols]="columns" rowHeight="2:1">
     
     <mat-grid-tile >
-        QR CODE
+        <mat-card class="myCardQR">
+            <ngx-qrcode 
+            [qrc-value] = "value"
+            qrc-class = "aclass"
+            qrc-errorCorrectionLevel = "L"
+            [qrc-version] = "myNumberQRVersion">
+            </ngx-qrcode>
+        </mat-card>
     </mat-grid-tile>
 
     <mat-grid-tile>
-
+<mat-card class="myCard">
     <table mat-table [dataSource]="dataSource" class="myCourseTable">
           
         <ng-container matColumnDef="course">
@@ -18,6 +25,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+    </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
 <h1>Announcements</h1>
