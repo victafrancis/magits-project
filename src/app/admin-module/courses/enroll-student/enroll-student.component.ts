@@ -2,10 +2,10 @@ import { Component, OnInit , NgZone} from '@angular/core';
 import { MatTableDataSource, MatDialog, MatDialogModule, MatDialogConfig } from '@angular/material';
 import { UserService } from 'src/app/_services/user/user.service';
 import { User } from 'src/app/_services/user/user';
-import { Course } from '../../../_services/course/course';
 import { CourseService } from '../../../_services/course/course.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from '../modal/modal.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-enroll-student',
@@ -17,15 +17,14 @@ export class EnrollStudentComponent implements OnInit {
   Course: any;
   UserData: any = [];
   dataSource: MatTableDataSource<User>;
-  displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
+  displayedColumns: string[] = ['_id', 'name', 'Action'];
 
   constructor(
     private userApi: UserService,
     private courseApi: CourseService,
     private actRoute: ActivatedRoute,
-    private router: Router,
-    private ngZone: NgZone,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private location: Location
   ) {
 
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -48,11 +47,15 @@ export class EnrollStudentComponent implements OnInit {
   openModal(element){
     const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "45%";
-    dialogConfig.width = "55%";
+    dialogConfig.height = "35%";
+    dialogConfig.width = "30%";
     dialogConfig.data = {course_id: this.course_id, member_id: element._id};
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+  }
+
+  back(){
+    this.location.back();
   }
 }

@@ -1,6 +1,6 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center;" class="mat-h1">Course Info</h1>
+        <h1 style="text-align: center;" class="mat-h1">Member Enrollment Form</h1>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -39,13 +39,13 @@
                         Membership is required
                     </mat-error>
                 </mat-form-field>
-                {{membership_selected}}
 
                 <!-- Submit & Reset -->
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
                         <div class="button-wrapper">
-                            <button mat-flat-button color="warn" (click)="enrollMember()"> Enroll </button>
+                            <button mat-flat-button color="warn" (click)="enrollMember()"> Enroll </button>&nbsp;
+                            <button mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
                         </div>
                     </div>
                 </mat-card>

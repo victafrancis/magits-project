@@ -31,14 +31,16 @@ export class ModalComponent implements OnInit {
     this.course_id = this.recievedData.course_id;
     this.member_id = this.recievedData.member_id;
 
-    // POPULATES DISPLAY FORM
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
+      // ADDS THE MEMBERSHIP TYPE TO ARRAY IF OPTION EXISTS
       if (data.session_membership != null) {
-        this.memberships.push({'key': 'Session', 'type': data.session_membership._id});
+        this.memberships.push({ 'key': 'Session', 'type': data.session_membership._id });
       }
       if (data.subscription_membership != null) {
-        this.memberships.push({'key': 'Subscription', 'type': data.subscription_membership._id});
+        this.memberships.push({ 'key': 'Subscription', 'type': data.subscription_membership._id });
       }
+
+      // POPULATES DISPLAY FORM
       this.courseForm = this.fb.group({
         name: [{ value: data.name, disabled: true }],
         details: [{ value: data.details, disabled: true }],
@@ -62,10 +64,10 @@ export class ModalComponent implements OnInit {
     return this.courseForm.controls[controlName].hasError(errorName);
   }
 
-  enrollMember(){
-    if(this.courseForm.valid){
-      if(window.confirm('Are you sure you want to enroll this member to the course?')){
-        this.courseApi.EnrolMember(this.course_id, {'member_id':this.member_id, 'membership_id': this.membership_selected}).subscribe(res => {
+  enrollMember() {
+    if (this.courseForm.valid) {
+      if (window.confirm('Are you sure you want to enroll this member to the course?')) {
+        this.courseApi.EnrolMember(this.course_id, { 'member_id': this.member_id, 'membership_id': this.membership_selected }).subscribe(res => {
           this.closeDialog();
           this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
         });
@@ -73,7 +75,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  closeDialog(){ 
-    this.dialogRef.close({event:'close'}); 
+  closeDialog() {
+    this.dialogRef.close({ event: 'close' });
   }
 }

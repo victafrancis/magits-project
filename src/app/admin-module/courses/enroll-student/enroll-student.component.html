@@ -16,29 +16,25 @@
             <td mat-cell *matCellDef="let element">{{element._id}}</td>
         </ng-container>
 
-        <!-- Member First Name Column -->
-        <ng-container matColumnDef="firstname">
-            <th mat-header-cell *matHeaderCellDef> First Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
-        </ng-container>
-
-        <!-- Member Last Name Column -->
-        <ng-container matColumnDef="lastname">
-            <th mat-header-cell *matHeaderCellDef> Last Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.lastname}}</td>
+        <!-- Member Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Member Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstname + " " + element.lastname}} </td>
         </ng-container>
 
         <!-- ACTION -->
         <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element; let i = index;">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
                 <!-- Enroll Student -->
-                <button mat-raised-button color="accent" (click)="openModal(element)" > Enroll Student </button>&nbsp;
+                <button mat-raised-button color="warn" (click)="openModal(element)" > Enroll Member </button>&nbsp;
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    
+    <div style="text-align: center; margin-top: 3%;">
+        <button mat-raised-button color="accent" (click)="back()"> Cancel </button>&nbsp;
+    </div>
 </div>
