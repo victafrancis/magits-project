@@ -50,27 +50,9 @@ export class EnrollStudentComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "30%";
-    dialogConfig.width = "40%";
-    dialogConfig.data = {course_id: this.course_id, student_id: element._id};
+    dialogConfig.height = "45%";
+    dialogConfig.width = "55%";
+    dialogConfig.data = {course_id: this.course_id, member_id: element._id};
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
-  }
-
-
-  // ENROLLS A MEMBER TO A COURSE
-  enrollStudent(element) {
-
-    // element.courses.push(this.course_id)
-
-    // if (window.confirm('Are you sure you want to add this member to the course?')) {
-    //   // UPDATES MEMBER INFO
-    //   this.userApi.UpdateUser(element._id, element).subscribe();
-
-    //   // ADDS THE USER ID TO THE COURSE'S MEMBERS ARRAY
-    //   this.Course.members.push(element._id);
-    //   this.courseApi.UpdateCourse(this.course_id, this.Course).subscribe(res => {
-    //     this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
-    //   });
-    // }
   }
 }
