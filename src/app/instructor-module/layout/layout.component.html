@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="header">
-  <div>Dashboard</div>
+  <div class="dashboard">Dashboard</div>
   <span class="nav-tool-items">
     <button mat-button (click)="sidenav.toggle()"  matTooltip="Menu" class="hamburger"><mat-icon>menu</mat-icon></button>
     <button mat-button  matTooltip="View Account" routerLinkActive="active" 
@@ -16,17 +16,17 @@
       <a mat-list-item routerLinkActive="active" routerLink="home">
         <mat-icon>home</mat-icon> Home
       </a>
-      <a mat-list-item routerLinkActive="active" routerLink="my-courses">
-        <mat-icon>reorder</mat-icon> My Courses
-      </a>
       <a mat-list-item routerLinkActive="active" routerLink="course-list">
-        <mat-icon>reorder</mat-icon> Course List
+        <mat-icon>table_chart</mat-icon> Course List
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="my-courses">
+        <mat-icon>sports_mma</mat-icon> My Courses
       </a>
       <a mat-list-item routerLinkActive="active" routerLink="members">
-        <mat-icon>reorder</mat-icon> Members
+        <mat-icon>group</mat-icon> Members
       </a>
       <a mat-list-item routerLinkActive="active" routerLink="announcements">
-        <mat-icon>reorder</mat-icon> Announcements
+        <mat-icon>notifications</mat-icon> Announcements
       </a>
     </mat-nav-list>
   </mat-sidenav>

@@ -7,7 +7,7 @@ body{
     text-align: center;
 }
 .login{
-    color: darkorange;
+    color: #87CEEB;
     text-align: center;
 }
 
@@ -18,11 +18,12 @@ body{
   }
 
 .myDiv{
-    width: 55%;
+    max-width: 400px;
+    width: 70%;
     background: #424242;
-    border: darkorange 2px solid;
+    border: #87CEEB 2px solid;
     color: white;
-    border-radius: 1em;
+    border-radius: 2em;
     padding: 2em;
     position: absolute;
     top: 50%;
@@ -50,7 +51,7 @@ body{
             left: 50%;
             width: 500px;
             height:270px;
-            border:1px solid darkorange;
+            border:1px solid #87CEEB;
             transform: translate(-50%, -50%);
 }
 .mySubmit{
@@ -62,7 +63,7 @@ body{
     
 }
 .regJoin2 {
-    color: darkorange;
+    color: #87CEEB;
     text-align: center;
     
 
