@@ -3,18 +3,31 @@ const express = require('express');
 const app = express();
 const scheduleRoute = express.Router();
 
-// Schedule model
+// models
 let Schedule = require('../model/Schedule');
+let Course = require('../model/Course');
 
 
-// Add Schedule
-scheduleRoute.route('/add-schedule').post((req, res, next) => {
-  Schedule.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
+// Add Schedule to a course
+scheduleRoute.route('/add-schedule/:id').post((req, res, next) => {
+
+  var newSchedule = req.body;
+  newSchedule.course = req.params.id;
+
+  Schedule.create(newSchedule, (error, data) => {
+    if (error) {return next(error)}
+
+    //find course and add new schedule to the schedule array
+    Course.findByIdAndUpdate(data.course, {
+      $push: {"schedule": data._id}
+    }, (error, data) => {
+      if (error) {
+        console.log(error);
+        return next(error);
+      }
+    })
+
+    res.json(data)
   })
 });
 
@@ -59,13 +72,23 @@ scheduleRoute.route('/update/:id').put((req, res, next) => {
 // Delete schedule
 scheduleRoute.route('/delete-schedule/:id').delete((req, res, next) => {
   Schedule.findByIdAndRemove(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.status(200).json({
-        msg: data
-      })
-    }
+    if (error) {return next(error);}
+
+    //find course attached to schedule and remove schedule from that array
+    Course.findByIdAndUpdate(data.course, {
+      $pull: {"schedule": req.params.id}
+    }, (error, data) => {
+      if (error) {
+        console.log(error);
+        return next(error);
+      }
+    })
+
+    console.log("schedule deleted!")
+    res.status(200).json({
+      msg: data
+    })
+
   })
 })
 
