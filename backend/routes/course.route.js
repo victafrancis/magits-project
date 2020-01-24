@@ -121,6 +121,17 @@ courseRoute.route('/course-members/:id').get((req, res) => {
   })
 })
 
+// Get all members not enrolled to a specific course---------------------------------------------------------------------
+courseRoute.route('/members-not-enrolled-in-course/:id').get((req, res) => {
+  User.find({ "courses.course": {$ne:req.params.id}, "role":"member" } ,(error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
 // Get instructors of course-------------------------------------------------------------------------------------------
 courseRoute.route('/course-instructors/:id').get((req, res) => {
   Course.findById(req.params.id).populate('instructors').exec((error, data) => {

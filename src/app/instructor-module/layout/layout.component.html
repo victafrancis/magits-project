@@ -3,7 +3,7 @@
   <span class="nav-tool-items">
     <button mat-button (click)="sidenav.toggle()"  matTooltip="Menu" class="hamburger"><mat-icon>menu</mat-icon></button>
     <button mat-button  matTooltip="View Account" routerLinkActive="active" 
-    [routerLink]="['/instructor/profile/', user.subject]" class="myButtons"><mat-icon>account_circle</mat-icon></button>&nbsp;
+    [routerLink]="['/instructor/profile/', userId]" class="myButtons"><mat-icon>account_circle</mat-icon></button>&nbsp;
     <button mat-button  matTooltip="Log Out" (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
   </span>
 </mat-toolbar>
