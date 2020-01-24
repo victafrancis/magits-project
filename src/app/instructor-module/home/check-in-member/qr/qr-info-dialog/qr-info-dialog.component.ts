@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-qr-info-dialog',
   templateUrl: './qr-info-dialog.component.html',
   styleUrls: ['./qr-info-dialog.component.css']
 })
-export class QrInfoDialogComponent implements OnInit {
+export class QrInfoDialogComponent {
 
-  constructor() { }
+  hasDevices: boolean;
+  hasPermission: boolean;
 
-  ngOnInit() {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) readonly data: any
+  ) {
+    this.hasDevices = data.hasDevices;
+    this.hasPermission = data.hasPermission;
+   }
 
 }
