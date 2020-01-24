@@ -1,55 +1,45 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Info</h1>
+        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Info</h1>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
 
-<div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="courseForm" (ngSubmit)="updateCourseForm()" novalidate>
-        <!-- LEFT SIDE -->
-        <mat-card>
-            <div class="controlers-wrapper">
-
-                <!-- Course Name -->
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Course Name" formControlName="name">
-                    <mat-error *ngIf="handleError('name', 'required')">
-                        You must provide Course<strong>name</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <!-- Details -->
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Details" formControlName="details">
-                    <mat-error *ngIf="handleError('details', 'required')">
-                        You must provide<strong>details</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <!-- Maximum number of members -->
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Maximum number of Students" formControlName="max_students">
-                    <mat-error *ngIf="handleError('max_students', 'required')">
-                        You must provide<strong>student limit</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <!-- Submit & Reset -->
-                <mat-card>
-                    <div class="full-wrapper button-wrapper">
-                        <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Update Course</button>
-                        </div>
-                        <div class="button-wrapper">
-                            <button type='button' mat-flat-button color="warn" routerLinkActive="active"
-                                [routerLink]="['/admin/enroll-student', this.id]">Enroll Student</button>
-                        </div>
-                    </div>
-                </mat-card>
+<div class="inner-wrapper">
+    <div style="width: 25%; margin:auto;" class="controlers-wrapper">
+        <div>
+            <h3><label>Course Name:</label>&nbsp;</h3>
+            <p style="padding-left:10%;">{{course.name}}</p>
+        </div>
+        <div>
+            <h3><label>Course Instructor:</label>&nbsp;</h3>
+            <p style="padding-left:10%;">{{course.instructor}}</p>
+        </div>
+        <div>
+            <h3><label>Course Details:</label>&nbsp;</h3>
+            <p style="padding-left:10%;">{{course.details}}</p>
+        </div>
+        <div>
+            <h3><label>Course Schedule:</label>&nbsp;</h3>
+            <div *ngFor='let schedule of course.schedule'>
+                <p style="padding-left:10%;">{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}}:00 - {{schedule.end}}:00</p>
             </div>
-        </mat-card>
-    </form>
+        </div>
+    </div>
+
+    <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
+        <div class="full-wrapper button-wrapper">
+            <div class="button-wrapper">
+                <button type='button' mat-flat-button color="warn" (click)="openEditCourseModal()"> Edit Course </button>
+                <button type='button' mat-flat-button color="warn" (click)="openEditScheduleModal()"> Edit Schedule </button>
+                <button type='button' mat-flat-button color="warn" > Edit Membership </button>
+            </div>
+            <div class="button-wrapper">
+                <button type='button' mat-flat-button color="warn"> Add Instructor </button>
+                <button type='button' mat-flat-button color="warn" [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
+            </div>
+        </div>
+    </div>
 </div>

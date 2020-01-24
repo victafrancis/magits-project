@@ -3,7 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../_services/course/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from 'src/app/_services/user/user.service';
-import { User } from 'src/app/_services/user/user';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { Location } from '@angular/common';
+import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
+import { EditCourseComponent } from '../edit-course/edit-course.component';
+import { Course } from 'src/app/_services/course/course';
 
 @Component({
   selector: 'app-course-profile',
@@ -11,10 +15,8 @@ import { User } from 'src/app/_services/user/user';
   styleUrls: ['./course-profile.component.css']
 })
 export class CourseProfileComponent implements OnInit {
-  courseForm: FormGroup;
-  users: any=[];
-  selected: null;
-  id: any;
+  course_id: any;
+  course = new Course();
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -22,48 +24,51 @@ export class CourseProfileComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private userApi: UserService
+    private userApi: UserService,
+    private matDialog: MatDialog,
+    private location: Location
   )
   {
-    this.id = this.actRoute.snapshot.paramMap.get('id');
+    
+    this.course_id = this.actRoute.snapshot.paramMap.get('id');
 
-    this.courseApi.GetCourse(this.id).subscribe(data => {
-      this.courseForm = this.fb.group({
-        name: [data.name, [Validators.required]],
-        details: [data.details, [Validators.required]],
-        // user_id: ['', [Validators.required]],
-        max_students:[data.max_students, [Validators.required]]
-      })
-    })
-
-    this.userApi.GetMembers().subscribe( data =>{
-      this.users = data;
-    })
+    // GETS THE COURSE DETAILS
+    this.courseApi.GetCourse(this.course_id).subscribe(data => {
+      this.course.details = data.details;
+      this.course.instructors = data.instructors;
+      this.course.max_students = data.max_students;
+      this.course.name = data.name;
+      this.course.schedule = data.schedule;
+    });
+    console.log(this.course);
 
   }
 
   ngOnInit() {
-    this.courseForm = this.fb.group({
-        name: ['', [Validators.required]],
-        details: ['', [Validators.required]],
-        max_students:['',[Validators.required]]
-        // user_id: ['', [Validators.required]]
-    });
+
   }
 
-  updateCourseForm(){
-    var id = this.actRoute.snapshot.paramMap.get('id');
-    if(window.confirm('Are you sure you want to update?')){
-      console.log("added member: "+this.selected)
-      this.courseApi.UpdateCourse(id, this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
-      })
-    }
+
+  openEditScheduleModal(){
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.id = "edit-schedule-component";
+    dialogConfig.height = "35%";
+    dialogConfig.width = "40%";
+    dialogConfig.data = {course_id: this.course_id};
+    const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
 
-  /* Get errors */
-  public handleError = (controlName: string, errorName: string) => {
-    return this.courseForm.controls[controlName].hasError(errorName);
-  }
+  openEditCourseModal(){
+    const dialogConfig = new MatDialogConfig();
 
+    // dialogConfig.disableClose = true;
+    dialogConfig.id = "edit-course-component";
+    dialogConfig.height = "46%";
+    dialogConfig.width = "40%";
+    dialogConfig.data = {course_id: this.course_id};
+    const modalDialog = this.matDialog.open(EditCourseComponent, dialogConfig);
+  }
+  
 }

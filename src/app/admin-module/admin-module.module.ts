@@ -25,12 +25,14 @@ import { InstructorProfileComponent } from './instructors/instructor-profile/ins
 import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule, MatDialogModule } from '@angular/material';
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 import { ModalComponent } from './courses/modal/modal.component';
+import { EditScheduleComponent } from './courses/edit-schedule/edit-schedule.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
-    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, ModalComponent],
+    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, ModalComponent, EditScheduleComponent, EditCourseComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -47,6 +49,6 @@ import { ModalComponent } from './courses/modal/modal.component';
     DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalComponent]
+  entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent]
 })
 export class AdminModule { }

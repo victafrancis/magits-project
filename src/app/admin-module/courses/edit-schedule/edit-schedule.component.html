@@ -1,0 +1,55 @@
+<div class="title-group">
+    <div>
+        <h2 style="text-align: center;" class="mat-h1">Course Schedule</h2>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="inner-wrapper" style="text-align: center;" *ngFor="let schedule of course_schedule.controls, index as i">
+    <form [formGroup]="schedule" (ngSubmit)="updateSchedule()" novalidate>
+        <mat-card>
+            <h3>Schedule #{{i+1}}</h3>
+            <div class="controlers-wrapper">
+                <!-- Schedule ID-->
+                <input formControlName="id" hidden>
+
+                <!-- Day  -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Day" formControlName="day">
+                    <mat-error *ngIf="handleError('day', 'required')">
+                        You must provide a<strong> Day</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Start Time  -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Start Time" formControlName="start">
+                    <mat-error *ngIf="handleError('start', 'required')">
+                        You must provide a<strong> Start Time</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- End Time  -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="End Time" formControlName="end">
+                    <mat-error *ngIf="handleError('end', 'required')">
+                        You must provide a<strong> End Time</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit -->
+                <div class="full-wrapper button-wrapper">
+                    <div class="button-wrapper">
+                        <button mat-flat-button color="warn">Update</button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>
+<mat-divider fxFlex="1 0"></mat-divider>
+<div class="container" style="text-align: center; margin-top: 2%;">
+    <button mat-flat-button color="accent" (click)="closeDialog()">Cancel</button>
+</div>
