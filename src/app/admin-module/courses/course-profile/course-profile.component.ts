@@ -6,6 +6,8 @@ import { UserService } from 'src/app/_services/user/user.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Location } from '@angular/common';
 import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
+import { EditCourseComponent } from '../edit-course/edit-course.component';
+import { Course } from 'src/app/_services/course/course';
 
 @Component({
   selector: 'app-course-profile',
@@ -14,9 +16,7 @@ import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component'
 })
 export class CourseProfileComponent implements OnInit {
   course_id: any;
-  courseForm: FormGroup;
-  users: any=[];
-  selected: null;
+  course = new Course();
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -34,39 +34,20 @@ export class CourseProfileComponent implements OnInit {
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
-      this.courseForm = this.fb.group({
-        name: [data.name, [Validators.required]],
-        details: [data.details, [Validators.required]],
-        max_students:[data.max_students, [Validators.required]]
-      })
-    })
+      this.course.details = data.details;
+      this.course.instructors = data.instructors;
+      this.course.max_students = data.max_students;
+      this.course.name = data.name;
+      this.course.schedule = data.schedule;
+    });
+    console.log(this.course);
 
-    // GETS ALL MEMBERS NOT IN THE COURSE
-    this.userApi.GetMembers().subscribe( data =>{
-      this.users = data;
-    })
   }
 
   ngOnInit() {
-    this.courseForm = this.fb.group({
-        name: ['', [Validators.required]],
-        details: ['', [Validators.required]],
-        max_students:['',[Validators.required]]
-    });
+
   }
 
-  updateCourseForm(){
-    if(window.confirm('Are you sure you want to update?')){
-      this.courseApi.UpdateCourse(this.course_id, this.courseForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
-      })
-    }
-  }
-
-  /* Get errors */
-  public handleError = (controlName: string, errorName: string) => {
-    return this.courseForm.controls[controlName].hasError(errorName);
-  }
 
   openEditScheduleModal(){
     const dialogConfig = new MatDialogConfig();
@@ -77,6 +58,17 @@ export class CourseProfileComponent implements OnInit {
     dialogConfig.width = "40%";
     dialogConfig.data = {course_id: this.course_id};
     const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
+  }
+
+  openEditCourseModal(){
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.id = "edit-course-component";
+    dialogConfig.height = "46%";
+    dialogConfig.width = "40%";
+    dialogConfig.data = {course_id: this.course_id};
+    const modalDialog = this.matDialog.open(EditCourseComponent, dialogConfig);
   }
   
 }

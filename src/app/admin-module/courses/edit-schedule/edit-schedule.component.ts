@@ -53,6 +53,7 @@ export class EditScheduleComponent implements OnInit {
         this.scheduleApi.UpdateSchedule(schedule.id, schedule).subscribe();
       }
       this.closeDialog();
+      window.location.reload();
     }
   }
 
