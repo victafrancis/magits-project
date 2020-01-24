@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Schedule } from './schedule';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -8,31 +7,30 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Injectable({
   providedIn: 'root'
 })
+export class MembershipService {
 
-export class ScheduleService {
-
-  endpoint: string = 'http://localhost:4000/schedule';
+  endpoint: string = 'http://localhost:4000/membership';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
-  // Add schedule, id should be cousrse ID
-  AddSchedule(id, data: Schedule): Observable<any> {
-    let API_URL = `${this.endpoint}/add-schedule`;
+  // Add membership, id should be cousrse ID
+  AddMembership(id, data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/add-membership`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
       )
   }
 
-  // Get all Schedules
-  GetSchedules() {
+  // Get all Memberships
+  GetMemberships() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get Schedule
-  GetSchedule(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-schedule/${id}`;
+  // Get Membership
+  GetMembership(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-membership/${id}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -41,17 +39,17 @@ export class ScheduleService {
     )
   }
 
-  // Update Schedule
-  UpdateSchedule(id, data: Schedule): Observable<any> {
+  // Update Membership
+  UpdateMembership(id, data: any): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
 
-  // Delete Schedule
-  DeleteSchedule(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-schedule/${id}`;
+  // Delete Membership
+  DeleteMembership(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-membership/${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     )
@@ -70,5 +68,4 @@ export class ScheduleService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-
 }
