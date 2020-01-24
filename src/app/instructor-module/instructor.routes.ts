@@ -8,6 +8,7 @@ import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../_guards/auth-guard.service';
+import { CheckInMemberComponent } from './home/check-in-member/check-in-member.component';
 
 
 export const instructorRoutes: Routes = [
@@ -23,7 +24,8 @@ export const instructorRoutes: Routes = [
       { path: 'my-courses', component: MyCoursesComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'announcements', component: AnnouncementsComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
-      { path: 'profile/:id', component: ProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]}
+      { path: 'profile/:id', component: ProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'check-in-member', component: CheckInMemberComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
     ]
   }
 ];

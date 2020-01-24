@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
       // this.userId = this.userService(this.user.id)
-      console.log(this.user);
+      // console.log(this.user);
       this.announcementApi.GetAnnouncements().subscribe(data => {
       this.Announcements = data;
       this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);

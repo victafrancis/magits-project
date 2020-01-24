@@ -1,0 +1,19 @@
+<mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>Scan Qr
+        <br>
+        <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+
+        <section class="results" *ngIf="qrResultString">
+            <div>
+                <small>Result</small>
+                <strong>{{ qrResultString }}</strong>
+            </div>
+            <button mat-icon-button (click)="clearResult()">&times;</button>
+        </section>
+    <!-- Turn off Scanner Button-->
+    </mat-grid-tile>
+    <mat-grid-tile>Manual Check-in
+        <!-- input box for manual check in -->
+        <!-- submit button -->
+    </mat-grid-tile>
+</mat-grid-list>

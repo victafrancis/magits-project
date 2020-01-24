@@ -1,8 +1,8 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">My Info</h1>
+        <h1 style="text-align: center; width: 90%;" class="mat-h1">{{ instructorForm.firstname }}</h1>
     </div>
-    <br>
+    <br> 
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
@@ -42,6 +42,14 @@
                     <input matInput placeholder="Email Address" formControlName="email">
                     <mat-error *ngIf="handleError('email', 'required')">
                         You must provide a<strong> Email Address</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Email  -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Courses:" formControlName="courses">
+                    <mat-error *ngIf="handleError('courses', 'required')">
+                        You must provide a<strong> Course</strong>
                     </mat-error>
                 </mat-form-field>
 

@@ -16,16 +16,23 @@ import { AnnouncementsComponent } from './announcements/announcements.component'
 import { ProfileComponent } from './profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CheckInMemberComponent } from './home/check-in-member/check-in-member.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { QrInfoComponent } from './home/check-in-member/qr/qr-info/qr-info.component';
+import { QrInfoDialogComponent } from './home/check-in-member/qr/qr-info-dialog/qr-info-dialog.component';
+import { FormatsDialogComponent } from './home/check-in-member/qr/formats-dialog/formats-dialog.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, MembersComponent, AnnouncementsComponent, ProfileComponent],
+  declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
+    MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent, QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
     RouterModule.forChild(instructorRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ZXingScannerModule
   ],
   providers:[
     RoleGuard,

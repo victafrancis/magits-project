@@ -24,6 +24,7 @@ import { RegisterComponent } from './register/register.component';
 //LoginGuard
 import { LoginPageGuard } from './_guards/login-page-guard.service';
 import { MessageComponent } from './message/message.component'; 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { MessageComponent } from './message/message.component';
     AdminModule,//
     InstructorModule,//
     MemberModule,
+    ZXingScannerModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [LoginPageGuard],
