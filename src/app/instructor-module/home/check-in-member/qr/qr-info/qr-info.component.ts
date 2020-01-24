@@ -1,9 +1,11 @@
-import { Component, OnInit, VERSION, Input } from '@angular/core';
+import { Component, VERSION, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-qr-info',
   templateUrl: './qr-info.component.html',
-  styleUrls: ['./qr-info.component.css']
+  styleUrls: ['./qr-info.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class QrInfoComponent{
 

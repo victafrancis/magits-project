@@ -21,6 +21,15 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QrInfoComponent } from './home/check-in-member/qr/qr-info/qr-info.component';
 import { QrInfoDialogComponent } from './home/check-in-member/qr/qr-info-dialog/qr-info-dialog.component';
 import { FormatsDialogComponent } from './home/check-in-member/qr/formats-dialog/formats-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -32,7 +41,16 @@ import { FormatsDialogComponent } from './home/check-in-member/qr/formats-dialog
     CommonModule,
     RouterModule.forChild(instructorRoutes),
     ReactiveFormsModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    MatDialogModule,
+    MatListModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers:[
     RoleGuard,

@@ -1,13 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { formatsAvailable, formatNames } from '../barcode-formats';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelectionListChange } from '@angular/material/list';
 import { BarcodeFormat } from '@zxing/library';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSelectionListChange } from '@angular/material';
+import { formatsAvailable, formatNames } from '../barcode-formats';
 
 @Component({
   selector: 'app-formats-dialog',
   templateUrl: './formats-dialog.component.html',
   styleUrls: ['./formats-dialog.component.css']
 })
+
 export class FormatsDialogComponent{
   formatsAvailable = formatsAvailable;
 

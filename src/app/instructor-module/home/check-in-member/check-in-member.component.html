@@ -1,21 +1,83 @@
-<mat-grid-list cols="2" rowHeight="4:1">
-    <mat-grid-tile>Scan Qr
-        <br>
-        
-        <!-- <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+<div class="scanner-shell" [hidden]="!hasDevices">
 
-        <section class="results" *ngIf="qrResultString">
-            <div>
-                <small>Result</small>
-                <strong>{{ qrResultString }}</strong>
-            </div>
-            <button mat-icon-button (click)="clearResult()">&times;</button>
-        </section> -->
-
-    <!-- Turn off Scanner Button-->
-    </mat-grid-tile>
-    <mat-grid-tile>Manual Check-in
-        <!-- input box for manual check in -->
-        <!-- submit button -->
-    </mat-grid-tile>
-</mat-grid-list>
+    <mat-menu #appMenu="matMenu">
+      <mat-selection-list>
+        <mat-list-option checkboxPosition="start" (click)="toggleTryHarder()" [selected]="tryHarder">
+          Enable Try-harder
+        </mat-list-option>
+        <mat-list-option checkboxPosition="start" (click)="toggleTorch()" [selected]="torchEnabled"
+          *ngIf="torchAvailable$ | async">
+          Enable Torch
+        </mat-list-option>
+      </mat-selection-list>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="openFormatsDialog()">Barcode formats</button>
+      <button mat-menu-item (click)="openInfoDialog()">App info</button>
+    </mat-menu>
+  
+    <header>
+      <mat-form-field appearance="fill">
+        <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
+          <option value="" [selected]="!currentDevice">No Device Selected</option>
+          <option *ngFor="let device of availableDevices" [value]="device.deviceId"
+            [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+        </select>
+      </mat-form-field>
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </header>
+  
+    <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
+      [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+      (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+  
+    <section class="results" *ngIf="qrResultString">
+      <div>
+        <small>Result</small>
+        <strong>{{ qrResultString }}</strong>
+      </div>
+      <button mat-icon-button (click)="clearResult()">&times;</button>
+    </section>
+  
+  </div>
+  
+  <ng-container *ngIf="hasPermission === undefined">
+  
+    <h2>Waiting for permissions.</h2>
+  
+    <blockquote>
+      If your device does not has cameras, no permissions will be asked.
+    </blockquote>
+  
+  </ng-container>
+  
+  <ng-container *ngIf="hasPermission === false">
+  
+    <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
+  
+  </ng-container>
+  
+  <ng-container *ngIf="hasDevices === undefined">
+  
+    <h2>Couldn't check for devices.</h2>
+  
+    <blockquote>
+      This may be caused by some security error.
+    </blockquote>
+  
+  </ng-container>
+  
+  <ng-container *ngIf="hasDevices === false">
+  
+    <h2>No devices were found.</h2>
+  
+    <blockquote>
+      I believe your device has no media devices attached to.
+    </blockquote>
+  
+  </ng-container>
+  
+  
+  
+  
