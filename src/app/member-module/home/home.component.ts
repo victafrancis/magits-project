@@ -67,12 +67,12 @@ myNumberQRVersion = 9;
           this.columns = 1;
           this.myNumberQRVersion = 4;
         } else if( change.mqAlias == 'sm'){
-          this.myNumberQRVersion = 5;
+          this.myNumberQRVersion = 8;
         } else if( change.mqAlias == 'md'){
-          this.myNumberQRVersion = 5;
+          this.myNumberQRVersion = 10;
         } else {
           this.columns = 2;
-          this.myNumberQRVersion = 9;
+          this.myNumberQRVersion = 12;
         }
       }
     });

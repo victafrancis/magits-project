@@ -9,21 +9,28 @@ import { AuthGuard } from '../_guards/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../material.module';
 import { CoursesComponent } from './courses/courses.component';
-import { SessionsComponent } from './sessions/sessions.component';
+import { SessionsComponent, DialogOverviewSessionFeedback } from './sessions/sessions.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CourseDescriptionComponent } from './courses/course-description/course-description.component';
+
 
 
 
 @NgModule({
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent],
+  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
     NgxQRCodeModule,
+    MatDialogModule,
     RouterModule.forChild(memberRoutes)
   ],
+  bootstrap: [SessionsComponent],
+
   providers: [
     RoleGuard,
     AuthGuard

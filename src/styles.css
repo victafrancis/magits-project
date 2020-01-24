@@ -1,11 +1,8 @@
 @import url("styles2.css");
 
 
-html,body{height:100%;}
+html,body{ background-color: #626262;}
 body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
-.mat-input-element{
-  caret-color: darkorange;
-}
 
 .header{justify-content:space-between;}
 .user-profile{margin-left:15px;}
@@ -18,7 +15,7 @@ body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
 .mat-sidenav,.mat-sidenav-content{padding:15px  ;}
 .mat-list-item.active{background:rgba(0, 0, 0, .04);}
 .mat-sidenav-content{padding:25px 40px 0;}
-.mat-sidenav{background-color:#e38200;width:250px;}
+.mat-sidenav{background-color:#87CEEB;width:250px;}
 .header{position:sticky;position:-webkit-sticky;top:0;z-index:1000;}
 mat-sidenav mat-icon{margin-right:12px;}
 .hamburger{margin-top:5px;cursor:pointer;}
@@ -33,7 +30,7 @@ table.mat-table,table{width:100%;}
 .inner-wrapper mat-card{display:inline-block;margin:0 6% 0 0;vertical-align:top;width:44%;}
 .full-wrapper{width:100%;}
 .multiple-items{position:relative;}
-.multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:darkorange;position:absolute;font-size:20px;}
+.multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:#87CEEB;position:absolute;font-size:20px;}
 body .push-right{margin-right:10px;}
 .no-data{text-align:center;padding-top:30px;color:#6c75a9;}
 .button-wrapper{margin:20px 0 0 0;}
@@ -50,14 +47,14 @@ body .push-right{margin-right:10px;}
   background: #424242;
 }
 .mat-raised-button.mat-primary{
-  background-color: #e38200;
+  background-color: #87CEEB;
 }
 
 .mat-drawer-container{ 
   background: #616161}
 
   .mat-fab.mat-warn, .mat-flat-button.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn {
-    background-color:#e38200;
+    background-color:#87CEEB;
 }
 
 /* game list button color */
