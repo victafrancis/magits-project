@@ -42,10 +42,9 @@
                     <div class="full-wrapper button-wrapper">
                         <div class="button-wrapper">
                             <button mat-flat-button color="warn">Update Course</button>
-                        </div>
-                        <div class="button-wrapper">
+                            <button type='button' mat-flat-button color="warn" (click)="openEditScheduleModal()">Edit Schedule</button>
                             <button type='button' mat-flat-button color="warn" routerLinkActive="active"
-                                [routerLink]="['/admin/enroll-student', this.id]">Enroll Student</button>
+                            [routerLink]="['/admin/enroll-student', this.id]">Enroll Student</button>
                         </div>
                     </div>
                 </mat-card>

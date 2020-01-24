@@ -29,7 +29,6 @@ export const adminRoutes: Routes = [
       { path: '', redirectTo: 'courses', pathMatch: 'full',data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'home', component: HomeComponent,data: {role: 'admin'},canActivate: [RoleGuard]},
       { path: 'courses', component: CoursesComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'instructors', component: InstructorsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'sessions', component: SessionsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'members', component: MembersComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
