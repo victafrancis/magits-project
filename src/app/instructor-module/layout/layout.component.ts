@@ -1,6 +1,7 @@
 import { Component, ViewChild, HostListener, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from 'src/app/_services/auth/auth.service';
+import { User } from 'src/app/_services/user/user';
 
 @Component({
   selector: 'app-layout',
@@ -9,10 +10,16 @@ import { AuthService } from 'src/app/_services/auth/auth.service';
 })
 export class LayoutComponent implements OnInit {
 
+user: any = null;
+userId: String;
+
   opened = true;
   @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
 
-  constructor(private _authService: AuthService) { }
+  constructor(private _authService: AuthService) {
+    this.user = this._authService.decode();
+    this.userId = this.user.subject;
+   }
 
   ngOnInit() {
     console.log(window.innerWidth)

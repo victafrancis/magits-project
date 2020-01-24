@@ -14,6 +14,8 @@ import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DatePipe } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,11 +24,13 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
-    RouterModule.forChild(instructorRoutes)
+    RouterModule.forChild(instructorRoutes),
+    ReactiveFormsModule
   ],
   providers:[
     RoleGuard,
-    AuthGuard
+    AuthGuard,
+    DatePipe
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

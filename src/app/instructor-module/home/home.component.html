@@ -1,2 +1,115 @@
-<p>instructor home works!
-</p>
+<!-- <mat-grid-list cols="1" rowHeight="4:1">
+    <mat-grid-tile>Instructor Sessions for Current Day
+
+    </mat-grid-tile>
+    <mat-grid-tile>Most Recent Announcements
+        
+    </mat-grid-tile>
+</mat-grid-list> -->
+
+<!-- Instructor's Sessions -->
+
+<div class="title-group">
+    <span class="nav-tool-items" style="float: right;">
+        <button mat-raised-button color="accent" routerLinkActive="active"
+            routerLink="/admin/create-announcement">
+            <i class="material-icons">settings_overscan</i> &nbsp;
+            Check-in Member</button>
+    </span>
+    <div style="width: 95%;">
+        <h1 style="text-align: left;" class="mat-h1">Welcome Instructor {{ user.firstname }}!</h1>
+    </div>
+    <br>
+    <div style="width: 95%;">
+        <h1 style="text-align: left;" class="mat-h1">Today's Activities: &nbsp;{{myDate | date:'EEEE, MMMM d, y'}}
+        </h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="coursesDataSource" class="mat-elevation-z8">
+
+        <!-- Course Name Column -->
+        <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef> Course Name </th>
+            <td mat-cell *matCellDef="let element">
+                <a href="#" style="text-decoration: none; color:white;">{{element.courseName}}</a>
+            </td>
+        </ng-container>
+
+        <!-- Session Time Column -->
+        <ng-container matColumnDef="sessionStart">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.sessionStart}} - {{element.sessionEnd}} </td>
+        </ng-container>
+
+         <!-- Session Status Column -->
+         <ng-container matColumnDef="sessionStatus">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <!-- ngIf sessionStart is === or after time status is ready -->
+            <!-- <div *ngIf="element.sessionStart === '10:00'"> -->
+                <td mat-cell *matCellDef="let element; let i = index;"> {{element.sessionStatus}} </td>
+            <!-- </div> -->
+        </ng-container>
+
+         <!-- ACTION -->
+         <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+                <!-- place *ngIf creator === announcement creator show delete button -->
+
+                <div *ngIf= "element.sessionStatus === 'ready'">
+                    <button mat-raised-button color="warn" (click)="startSession(element)">
+                        <i class="material-icons">directions_run</i> &nbsp; Start</button>
+                </div>
+                
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="sessionColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: sessionColumns;"></tr>
+    </table>
+</div>
+<!-- Announcements Table -->
+<br><br>
+
+<div class="title-group">
+    <span class="nav-tool-items" style="float: left;">
+        <!-- placeholder for button -->
+    </span>
+    <div>
+        <h1 style="text-align: left; width: 90%;" class="mat-h1">Announcements</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="announcementDataSource" class="mat-elevation-z8">
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+        </ng-container>
+
+        <!-- Subject Column -->
+        <ng-container matColumnDef="subject">
+            <th mat-header-cell *matHeaderCellDef> Subject </th>
+            <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+        </ng-container>
+
+        <!-- Subject Column -->
+        <ng-container matColumnDef="content">
+            <th mat-header-cell *matHeaderCellDef> Subject </th>
+            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
