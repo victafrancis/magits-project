@@ -10,18 +10,6 @@ let Membership = require('../model/Membership');
 let Schedule = require('../model/Schedule');
 
 
-// Add Course OLD
-courseRoute.route('/add-course-old').post((req, res, next) => {
-  Course.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-});
-
-
 // Add Course with schedule and membership type---------------------------------------------------------------------
 courseRoute.route('/add-course').post((req, res, next) => {
   var newCourse = req.body.course;
@@ -143,7 +131,7 @@ courseRoute.route('/course-instructors/:id').get((req, res) => {
   })
 })
 
-// Update course----------------------------------------------------------------------------------------------------
+//update course----------------------------------------------------------------------------------------------------
 courseRoute.route('/update/:id').put((req, res, next) => {
   console.log(req.body);
 
@@ -159,6 +147,7 @@ courseRoute.route('/update/:id').put((req, res, next) => {
     }
   })
 })
+
 
 // register member to a course - used by both admin and instructor--------------------------------------------------------
 courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {

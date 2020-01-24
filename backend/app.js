@@ -25,6 +25,7 @@ const announcementRoute = require('../backend/routes/announcement.route')
 const feedbackRoute = require('../backend/routes/feedback.route')
 const scheduleRoute = require('../backend/routes/schedule.route')
 const sessionRoute = require('../backend/routes/session.route')
+const membershipRoute = require('../backend/routes/membership.route')
 
 const app = express();
 app.use(bodyParser.json());
@@ -41,6 +42,7 @@ app.use('/announcement', announcementRoute)
 app.use('/feedback', feedbackRoute)
 app.use('/schedule', scheduleRoute)
 app.use('/session', sessionRoute)
+app.use('/membership', membershipRoute)
 
 
 // Create port
