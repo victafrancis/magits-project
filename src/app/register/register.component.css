@@ -9,7 +9,7 @@ body{
     text-align: center;
 }
 .login{
-    color: darkorange;
+    color: #87CEEB;
     text-align: center;
 }
 .inputs{
@@ -21,11 +21,12 @@ body{
 }
 
 .myDiv{
-    width: 50%;
+    max-width: 600px;
+    width: 70%;
     background: #424242;
-    border-bottom:2px solid darkorange;
-    border-left:2px solid darkorange;
-    border-right:2px solid darkorange;    
+    border-bottom:2px solid #87CEEB;
+    border-left:2px solid #87CEEB;
+    border-right:2px solid #87CEEB;    
     color: white;
     border-radius: 1em;
     padding: 2em;  
@@ -43,9 +44,9 @@ body{
             left: 50%;
             width: 700px;
             height:600px;
-            border-bottom:5px solid darkorange;
-            border-left:5px solid darkorange;
-            border-right:5px solid darkorange;
+            border-bottom:5px solid #87CEEB;
+            border-left:5px solid #87CEEB;
+            border-right:5px solid #87CEEB;
 
             transform: translate(-50%, -50%);
 }
