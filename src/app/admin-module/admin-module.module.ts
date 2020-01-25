@@ -27,12 +27,13 @@ import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.
 import { ModalComponent } from './courses/modal/modal.component';
 import { EditScheduleComponent } from './courses/edit-schedule/edit-schedule.component';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { ViewStudentsComponent } from './courses/view-students/view-students.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
-    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, ModalComponent, EditScheduleComponent, EditCourseComponent],
+    MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
