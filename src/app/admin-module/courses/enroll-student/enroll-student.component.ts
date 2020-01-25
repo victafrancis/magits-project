@@ -34,8 +34,8 @@ export class EnrollStudentComponent implements OnInit {
       this.Course = data;
     });
 
-    // GETS ALL MEMBERS
-    this.userApi.GetMembers().subscribe(data => {
+    // GETS ALL MEMBERS NOT ENROLLED IN THIS COURSE
+    this.courseApi.GetMembersNotEnrolled(this.course_id).subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
     });

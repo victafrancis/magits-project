@@ -40,6 +40,12 @@ export class CourseService {
       catchError(this.errorMgmt)
     )
   }
+  
+  // GET ALL MEMBERS NOT ENROLLED IN THIS COURSE
+  GetMembersNotEnrolled(id){
+    let API_URL = `${this.endpoint}/members-not-enrolled-in-course/${id}`;
+    return this.http.get(API_URL);
+  }
 
   // Update course
   UpdateCourse(id, data): Observable<any> {
