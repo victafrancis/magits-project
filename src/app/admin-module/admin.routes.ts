@@ -19,6 +19,7 @@ import { CourseProfileComponent } from './courses/course-profile/course-profile.
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { ViewStudentsComponent } from './courses/view-students/view-students.component';
 
 export const adminRoutes: Routes = [
   {
@@ -42,7 +43,8 @@ export const adminRoutes: Routes = [
       { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'instructor-profile/:id', component: InstructorProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'edit-course/:id', component: EditCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
+      { path: 'edit-course/:id', component: EditCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'view-students/:id', component: ViewStudentsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
     ]
   }
 ];

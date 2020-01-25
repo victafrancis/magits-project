@@ -41,6 +41,18 @@ export class CourseService {
     )
   }
 
+  // GET ALL MEMBERS ENROLLED TO THE COURSE
+  GetMembersEnrolled(id) {
+    let API_URL = `${this.endpoint}/course-members/${id}`;
+    return this.http.get(API_URL);
+  }
+
+  // GET ALL MEMBERS NOT ENROLLED IN THIS COURSE
+  GetMembersNotEnrolled(id) {
+    let API_URL = `${this.endpoint}/members-not-enrolled-in-course/${id}`;
+    return this.http.get(API_URL);
+  }
+
   // Update course
   UpdateCourse(id, data): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
@@ -56,7 +68,13 @@ export class CourseService {
       catchError(this.errorMgmt)
     )
   }
-
+  // Delete course
+  RemoveStudent(id, data): Observable<any> {
+    var API_URL = `${this.endpoint}/remove-user-from-course/${id}`;
+    return this.http.put(API_URL, data, {headers: this.headers}).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
   // Delete course
   DeleteCourse(id): Observable<any> {
     var API_URL = `${this.endpoint}/delete-course/${id}`;
