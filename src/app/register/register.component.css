@@ -1,15 +1,15 @@
 body{
-    background-color: #424242 ;
+    background-color: #232323 ;
     padding: 1px;
-    height: auto;
+    height: 100%;
     margin: 0;
 }
 .errorMsg{
-    color: tomato;
+    color: #686667;
     text-align: center;
 }
 .login{
-    color: #87CEEB;
+    color: #008E8E;
     text-align: center;
 }
 .inputs{
@@ -23,12 +23,12 @@ body{
 .myDiv{
     max-width: 600px;
     width: 70%;
-    background: #424242;
-    border-bottom:2px solid #87CEEB;
-    border-left:2px solid #87CEEB;
-    border-right:2px solid #87CEEB;    
+    background: #232323;
+    border-bottom:2px solid #008E8E;
+    border-left:2px solid #008E8E;
+    border-right:2px solid #008E8E;    
     color: white;
-    border-radius: 1em;
+    border-radius: 0em;
     padding: 2em;  
     margin-left: auto;
     margin-right: auto;  
@@ -44,27 +44,31 @@ body{
             left: 50%;
             width: 700px;
             height:600px;
-            border-bottom:5px solid #87CEEB;
-            border-left:5px solid #87CEEB;
-            border-right:5px solid #87CEEB;
+            border-bottom:5px solid #008E8E;
+            border-left:5px solid #008E8E;
+            border-right:5px solid #008E8E;
 
             transform: translate(-50%, -50%);
 }
 .mySubmit{
     width: 100%;
     display: block;
-    color: #424242 ;
+    color: #232323 ;
     margin : 0 auto;
     position: relative;
+    background-color: #F6F6F6;
+
 }
 
 .mySubmit2{
     width: 100%;
     display: block;
-    color: #424242 ;
     margin : 0 auto;
     position: relative;
     margin-top: 15px;
+    background-color: #F6F6F6;
+    color: #232323 ;
+
 }
 .inputsHidden{
     width: 600px;
