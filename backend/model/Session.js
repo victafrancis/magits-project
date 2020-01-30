@@ -11,11 +11,18 @@ let Session = new Schema({
   start_time: {
     type: String
   },
-  duration: {
-    type: Number
+  end_time: {
+    type: String
+  },
+  open: {
+    type: Boolean
   },
   course: { type: Schema.Types.ObjectId, ref: 'Course' },
-  attendees: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  attendees:[{
+    member: {type: Schema.Types.ObjectId, ref: 'User'},
+    time: {type: Date},
+    _id: false
+  }],
   feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }]
 }, {
   collection: 'sessions'

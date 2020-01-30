@@ -19,6 +19,7 @@ let Course = new Schema({
   }],
   instructors: [{ type: Schema.Types.ObjectId, ref: 'User'}],
   schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule', autopopulate: true }],
+  sessions: [{ type: Schema.Types.ObjectId, ref: 'Sessions'}],
   session_membership: { type: Schema.Types.ObjectId, ref: 'Membership', autopopulate: true },
   subscription_membership: { type: Schema.Types.ObjectId, ref: 'Membership', autopopulate: true }
 }, {
