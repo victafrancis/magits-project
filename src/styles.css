@@ -1,7 +1,7 @@
 @import url("styles2.css");
 
 
-html,body{ background-color: #626262;}
+html,body{ background-color: #363537;}
 body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
 
 .header{justify-content:space-between;}
@@ -11,11 +11,13 @@ body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
 .nav-tool-items{display:inline-block;margin-right:13px;}
 .user-profile{margin-left:15px;cursor:pointer;}
 .hamburger{visibility:hidden !important;  margin-right: 12px; }
-
+.mat-table{
+  background-color: #232323;
+}
 .mat-sidenav,.mat-sidenav-content{padding:15px  ;}
 .mat-list-item.active{background:rgba(0, 0, 0, .04);}
 .mat-sidenav-content{padding:25px 40px 0;}
-.mat-sidenav{background-color:#87CEEB;width:250px;}
+.mat-sidenav{background-color:#008E8E;width:250px;}
 .header{position:sticky;position:-webkit-sticky;top:0;z-index:1000;}
 mat-sidenav mat-icon{margin-right:12px;}
 .hamburger{margin-top:5px;cursor:pointer;}
@@ -30,7 +32,7 @@ table.mat-table,table{width:100%;}
 .inner-wrapper mat-card{display:inline-block;margin:0 6% 0 0;vertical-align:top;width:44%;}
 .full-wrapper{width:100%;}
 .multiple-items{position:relative;}
-.multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:#87CEEB;position:absolute;font-size:20px;}
+.multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:#008E8E;position:absolute;font-size:20px;}
 body .push-right{margin-right:10px;}
 .no-data{text-align:center;padding-top:30px;color:#6c75a9;}
 .button-wrapper{margin:20px 0 0 0;}
@@ -44,17 +46,20 @@ body .push-right{margin-right:10px;}
  .hamburger{visibility:visible !important;}
 }
 .mat-toolbar.mat-primary{
-  background: #424242;
+  background: #232323;
 }
 .mat-raised-button.mat-primary{
-  background-color: #87CEEB;
+  background-color: #F6F6F6;
+  color: #232323 ;
 }
 
 .mat-drawer-container{ 
-  background: #616161}
+  background: #363537;
+
+}
 
   .mat-fab.mat-warn, .mat-flat-button.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn {
-    background-color:#87CEEB;
+    background-color:#008E8E;
 }
 
 /* game list button color */
