@@ -31,10 +31,10 @@ export class ProfileComponent implements OnInit {
         } else if( change.mqAlias == 'sm'){
           this.myNumberQRVersion = 8;
         } else if( change.mqAlias == 'md'){
-          this.myNumberQRVersion = 10;
+          this.myNumberQRVersion = 9;
         } else {
           this.columns = 2;
-          this.myNumberQRVersion = 12;
+          this.myNumberQRVersion = 11;
         }
       }
     });
