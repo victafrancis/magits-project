@@ -3,18 +3,28 @@ const express = require('express');
 const app = express();
 const sessionRoute = express.Router();
 
-// session model
+// models
 let Session = require('../model/Session');
+let Course = require('../model/Course')
 
-
-// Add Session
+// Add Session for a course
 sessionRoute.route('/add-session').post((req, res, next) => {
   Session.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
+    if (error) {return next(error)}
+
+    //add session id to course sessions array
+    Course.findByIdAndUpdate(req.body.course, {
+      $push: {"sessions": data._id}
+    }, (error, data) => {
+      if (error) {
+        return next(error);
+        console.log(error)
+      }
+    })
+
+    console.log(`Session created on ${req.body.date}`)
+    res.json(data)
+
   })
 });
 
