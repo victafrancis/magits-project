@@ -10,7 +10,7 @@ let User = require('../model/User');
 //register a User
 userRoute.route('/register').post((req, res, next) => {
 
- 
+
   let userData = req.body;
   User.findOne({email: userData.email}, (error, user) => {
     if(error){
@@ -108,7 +108,6 @@ userRoute.route('/read-user/:id').get((req, res) => {
   })
 })
 
-
 // Update user
 userRoute.route('/update/:id').put((req, res, next) => {
   User.findByIdAndUpdate(req.params.id, {
@@ -136,5 +135,18 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
     }
   })
 })
+
+// Get course details of an instructor-------------------------------------------------------------------------------------------
+userRoute.route('/instructor-get-course-details').get((req, res) => {
+  User.findById(req.body.instructor_id).populate('courses.course').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
+
 
 module.exports = userRoute;

@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
   currentDate: String;
   user: User = null;
 
-  // Session Table
-  sessionColumns: string[] = ['courseName', 'sessionStart','sessionStatus','action'];
+  // Schedule Table
+  scheduleColumns: string[] = ['courseName', 'sessionStart','sessionStatus','action'];
   coursesDataSource = courses;
 
   // Announcement Table
@@ -49,12 +49,13 @@ export class HomeComponent implements OnInit {
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
     private datePipe: DatePipe,
-    private userService: UserService
+    private userService: UserService,
+
     ) {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
-      // this.userId = this.userService(this.user.id)
-      // console.log(this.user);
+
+      //Announcements Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {
       this.Announcements = data;
       this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
@@ -70,11 +71,25 @@ export class HomeComponent implements OnInit {
   logout() {
     this._authService.logout();
   }
+
+
   deleteAnnouncement(element) {
     if (window.confirm('Are you sure you want to delete this announcement?')) {
       this.announcementApi.DeleteAnnouncement(element._id).subscribe();
       window.location.reload();
     }
+  }
+
+  //opening a Session Modal
+  openSessionInfoModal(){
+    // const dialogConfig = new MatDialogConfig();
+
+    // // dialogConfig.disableClose = true;
+    // dialogConfig.id = "edit-schedule-component";
+    // dialogConfig.height = "35%";
+    // dialogConfig.width = "40%";
+    // dialogConfig.data = {course_id: this.course_id};
+    // const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
 
 }

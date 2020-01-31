@@ -30,11 +30,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { SessionInfoComponent } from './home/session-info/session-info.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
-    MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent, QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent],
+    MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent, QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -57,6 +58,7 @@ import { MatIconModule } from '@angular/material/icon';
     AuthGuard,
     DatePipe
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [SessionInfoComponent]
 })
 export class InstructorModule { }

@@ -1,9 +1,7 @@
 <body>
 
-
-
-
   <h1 class="login">Martial Arts Gym</h1>
+  
   <p *ngIf="error" class="errorMsg">Wrong Credentials, try again!</p>
   <mat-divider fxFlex="1 0"></mat-divider>
   <div class="myDiv">
@@ -26,7 +24,7 @@
 
         <!-- Password -->
         <mat-form-field class="inputs"  appearance="fill">
-          <input type="password" matInput placeholder="don't share your password" formControlName="password">
+          <input type="password" matInput placeholder="pass****" formControlName="password">
           <mat-label>Password</mat-label>
           <mat-error *ngIf="handleError('password', 'required')">
             You must provide <strong>password</strong>
