@@ -7,7 +7,7 @@
     <br>
 </div>
 
-<div class="inner-wrapper" style="text-align: center;" *ngFor="let schedule of course_schedule.controls, index as i">
+<div class="container" style="text-align: center;" *ngFor="let schedule of course_schedule.controls, index as i">
     <form [formGroup]="schedule" (ngSubmit)="updateSchedule()" novalidate>
         <mat-card>
             <h3>Schedule #{{i+1}}</h3>
@@ -16,7 +16,7 @@
                 <input type="text" formControlName="id" hidden>
 
                 <!-- Day  -->
-                <mat-form-field class="example-full-width">
+                <mat-form-field style="width: 60%;">
                     <input matInput placeholder="Day" formControlName="day">
                     <mat-error *ngIf="handleError('day', 'required')">
                         You must provide a<strong> Day</strong>
@@ -24,7 +24,7 @@
                 </mat-form-field>
 
                 <!-- Start Time  -->
-                <mat-form-field class="example-full-width">
+                <mat-form-field style="width: 60%;">
                     <input matInput placeholder="Start Time" formControlName="start">
                     <mat-error *ngIf="handleError('start', 'required')">
                         You must provide a<strong> Start Time</strong>
@@ -32,7 +32,7 @@
                 </mat-form-field>
 
                 <!-- End Time  -->
-                <mat-form-field class="example-full-width">
+                <mat-form-field style="width: 60%;">
                     <input matInput placeholder="End Time" formControlName="end">
                     <mat-error *ngIf="handleError('end', 'required')">
                         You must provide a<strong> End Time</strong>
@@ -43,15 +43,63 @@
                 <div class="full-wrapper button-wrapper">
                     <div class="button-wrapper">
                         <button mat-flat-button color="warn">Update</button>
-                        <button type="button" mat-flat-button color="warn" (click)="deleteSchedule(schedule.value.id)">Delete</button>
+                        <button type="button" mat-flat-button color="warn"
+                            (click)="deleteSchedule(schedule.value.id)">Delete</button>
                     </div>
                 </div>
             </div>
         </mat-card>
+        <br>
+        <mat-divider fxFlex="1 0"></mat-divider>
     </form>
 </div>
-<mat-divider fxFlex="1 0"></mat-divider>
-<div class="container" style="text-align: center; margin-top: 2%;">
-    <button mat-flat-button color="warn" (click)="closeDialog()">Add Schedule</button>&nbsp;
+
+<div *ngIf="isTrue" style="margin-top: 5%; text-align: center;">
+    <h2  class="mat-h1">Schedule Creation</h2>
+    <form [formGroup]="AddScheduleForm" (ngSubmit)="addSchedule()" novalidate>
+        <mat-card>
+            <!-- Day -->
+            <mat-form-field>
+                <mat-label>Day</mat-label>
+                <mat-select [(value)]="selectedDay" formControlName="day">
+                    <mat-option [value]="day" *ngFor="let day of days">{{day}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="handleError('day', 'required')">
+                    You must provide a<strong> day</strong>
+                </mat-error>
+            </mat-form-field>&nbsp;&nbsp;
+
+            <!-- Start Time-->
+            <mat-form-field>
+                <mat-label>Start Time</mat-label>
+                <mat-select [(value)]="selectedStartTime" formControlName="start">
+                    <mat-option [value]="start_time" *ngFor="let start_time of time">{{start_time}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="handleError('start', 'required')">
+                    You must provide a<strong> Start Time</strong>
+                </mat-error>
+            </mat-form-field>&nbsp;&nbsp;
+
+            <!-- End Time-->
+            <mat-form-field>
+                <mat-label>End Time</mat-label>
+                <mat-select [(value)]="selectedEndTime" formControlName="end">
+                    <mat-option [value]="end_time" *ngFor="let end_time of time">{{end_time}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="handleError('end', 'required')">
+                    You must provide a<strong> End Time</strong>
+                </mat-error>
+            </mat-form-field>&nbsp;&nbsp;
+
+            <!-- Submit -->
+            <div style="padding: 20px;"> 
+                <button mat-flat-button color="warn"> Add </button>&nbsp;
+                <button type="button" mat-flat-button color="accent" (click)="resetForm(AddScheduleForm)"> Cancel </button>
+            </div>
+        </mat-card>
+    </form>
+</div>
+<div *ngIf="!isTrue" class="container" style="text-align: center; margin-top: 5%;">
+    <button mat-flat-button color="warn" (click)="isTrue = !isTrue">Add Schedule</button>&nbsp;
     <button mat-flat-button color="accent" (click)="closeDialog()">Cancel</button>
 </div>

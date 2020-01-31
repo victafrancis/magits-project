@@ -18,8 +18,8 @@ export class ScheduleService {
 
   // Add schedule, id should be cousrse ID
   AddSchedule(id, data: Schedule): Observable<any> {
-    let API_URL = `${this.endpoint}/add-schedule`;
-    return this.http.post(API_URL, data)
+    let API_URL = `${this.endpoint}/add-schedule/${id}`;
+    return this.http.post(API_URL, data, {headers: this.headers})
       .pipe(
         catchError(this.errorMgmt)
       )
