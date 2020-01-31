@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   
   myDate= new Date();
   currentDate: String;
-  user: User = null;
+  user: any = {};
 
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'sessionStart','sessionStatus','action'];
@@ -56,9 +56,12 @@ export class HomeComponent implements OnInit {
     ) {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
-      
+      // subject = user._id in jwt 
+
       //Schedule Table Subscriber
-      this.userApi.GetInstructorCourseDetails(this.user._id).subscribe(data => {
+      console.log(this.user.subject);
+
+      this.userApi.GetInstructorCourseDetails(this.user.subject).subscribe(data => {
         this.instructorSchedules = data;
         console.log(data);
         this.instructorDatasource = new MatTableDataSource<User>(this.instructorSchedules)
@@ -72,6 +75,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   startSession(element){

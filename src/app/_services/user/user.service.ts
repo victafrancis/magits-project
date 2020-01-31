@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Identifiers } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -77,14 +78,28 @@ export class UserService {
   }
 
   //Get Instructor Course Details for Course Schedule
-  GetInstructorCourseDetails(id): Observable<any> {
-    let API_URL = `${this.endpoint}/instructor-get-course-details/${id}`;
-    return this.http.get(API_URL, { headers: this.headers }).pipe(
-      map((res: Response) => {
-        return res || {}
-      }),
-      catchError(this.errorMgmt)
-    )
+  // GetInstructorCourseDetails(id): Observable<any> {
+  //   let API_URL = `${this.endpoint}/instructor-get-course-details/${id}`;
+  //   return this.http.get(API_URL, { headers: this.headers }).pipe(
+  //     map((res: Response) => {
+  //       return res || {}
+  //     }),
+  //     catchError(this.errorMgmt)
+  //   )
+  // }
+
+  // GetInstructorCourseDetails() {
+  //   return this.http.get(`${this.endpoint}/instructor-get-course-details`);
+  // }
+  // GetInstructorCourseDetails(data: String ){}
+
+  GetInstructorCourseDetails(data: String ): Observable<any> {
+    console.log(data);
+    let API_URL = `${this.endpoint}/instructor-get-course-details`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
   }
 
   // Error handling
