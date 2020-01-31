@@ -39,6 +39,8 @@ export class HomeComponent implements OnInit {
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'sessionStart','sessionStatus','action'];
   coursesDataSource = courses;
+  instructorSchedules: any = [];
+  instructorDatasource:MatTableDataSource<User>;
 
   // Announcement Table
   Announcements: any = [];
@@ -49,16 +51,23 @@ export class HomeComponent implements OnInit {
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
     private datePipe: DatePipe,
-    private userService: UserService,
+    private userApi: UserService,
 
     ) {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
+      
+      //Schedule Table Subscriber
+      this.userApi.GetInstructorCourseDetails(this.user._id).subscribe(data => {
+        this.instructorSchedules = data;
+        console.log(data);
+        this.instructorDatasource = new MatTableDataSource<User>(this.instructorSchedules)
+      });
 
-      //Announcements Subscriber
+      //Announcements Table Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {
-      this.Announcements = data;
-      this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
+        this.Announcements = data;
+        this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
     });
   }
 
@@ -92,4 +101,6 @@ export class HomeComponent implements OnInit {
     // const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
 
+  //try to output schedule data
+  //try to connect schedule data
 }
