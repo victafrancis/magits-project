@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Identifiers } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,14 @@ export class UserService {
   DeleteUser(id): Observable<any> {
     var API_URL = `${this.endpoint}/delete-user/${id}`;
     return this.http.delete(API_URL).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+
+  GetInstructorCourseDetails(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/instructor-get-course-details`;
+    return this.http.post(API_URL, data).pipe(
       catchError(this.errorMgmt)
     )
   }

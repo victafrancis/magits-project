@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { User } from 'src/app/_services/user/user';
 import { Identifiers } from '@angular/compiler';
 import { UserService } from 'src/app/_services/user/user.service';
+import { Course } from 'src/app/_services/course/course';
+import { Schedule } from 'src/app/_services/schedule/schedule';
 
 
 export interface Element {
@@ -31,14 +33,18 @@ const courses: Element[] = [
 
 
 export class HomeComponent implements OnInit {
-  
+
   myDate= new Date();
   currentDate: String;
-  user: User = null;
+  user: any = {};
 
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'sessionStart','sessionStatus','action'];
   coursesDataSource = courses;
+  instructorSchedules: any = [];
+  instructorDatasource:MatTableDataSource<User>;
+  courses: Array<Course>= []
+  schedules: Schedule = null;
 
   // Announcement Table
   Announcements: any = [];
@@ -49,20 +55,36 @@ export class HomeComponent implements OnInit {
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
     private datePipe: DatePipe,
-    private userService: UserService,
+    private userApi: UserService,
 
     ) {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
+      // subject = user._id in jwt
+      //Schedule Table Subscriber
 
-      //Announcements Subscriber
+      this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
+        this.instructorSchedules = data;
+        this.courses = data.courses;
+        // this.schedules = data.courses[0].schedule[0];
+        // this.courses.forEach(element => {
+        //   this.schedules.push();
+        // });
+      
+        console.log(this.courses[0]);
+        this.instructorDatasource = new MatTableDataSource<User>(this.instructorSchedules)
+
+      });
+
+      //Announcements Table Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {
-      this.Announcements = data;
-      this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
+        this.Announcements = data;
+        this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
     });
   }
 
   ngOnInit() {
+
   }
 
   startSession(element){
@@ -92,4 +114,6 @@ export class HomeComponent implements OnInit {
     // const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
 
+  //try to output schedule data
+  //try to connect schedule data
 }
