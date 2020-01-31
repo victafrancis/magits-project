@@ -1,6 +1,6 @@
 <div class="title-group">
     <div>
-        <h2 style="text-align: center;" class="mat-h1">Course Schedule</h2>
+        <h2 style="text-align: center;">Course Schedule</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -17,7 +17,9 @@
 
                 <!-- Day  -->
                 <mat-form-field style="width: 60%;">
-                    <input matInput placeholder="Day" formControlName="day">
+                    <mat-select formControlName="day">
+                        <mat-option [value]="day" *ngFor="let day of days">{{day}}</mat-option>
+                    </mat-select>
                     <mat-error *ngIf="handleError('day', 'required')">
                         You must provide a<strong> Day</strong>
                     </mat-error>
@@ -25,7 +27,9 @@
 
                 <!-- Start Time  -->
                 <mat-form-field style="width: 60%;">
-                    <input matInput placeholder="Start Time" formControlName="start">
+                    <mat-select formControlName="start">
+                        <mat-option [value]="start_time" *ngFor="let start_time of time">{{start_time}}</mat-option>
+                    </mat-select>
                     <mat-error *ngIf="handleError('start', 'required')">
                         You must provide a<strong> Start Time</strong>
                     </mat-error>
@@ -33,7 +37,9 @@
 
                 <!-- End Time  -->
                 <mat-form-field style="width: 60%;">
-                    <input matInput placeholder="End Time" formControlName="end">
+                    <mat-select formControlName="end">
+                        <mat-option [value]="end_time" *ngFor="let end_time of time">{{end_time}}</mat-option>
+                    </mat-select>
                     <mat-error *ngIf="handleError('end', 'required')">
                         You must provide a<strong> End Time</strong>
                     </mat-error>
@@ -54,6 +60,7 @@
     </form>
 </div>
 
+<!-- SCHEDULE CREATION FORM -->
 <div *ngIf="isTrue" style="margin-top: 5%; text-align: center;">
     <h2  class="mat-h1">Schedule Creation</h2>
     <form [formGroup]="AddScheduleForm" (ngSubmit)="addSchedule()" novalidate>
@@ -99,6 +106,8 @@
         </mat-card>
     </form>
 </div>
+
+<!-- BUTTON TO ADD SCHEDULE AND CLOSE MODAL-->
 <div *ngIf="!isTrue" class="container" style="text-align: center; margin-top: 5%;">
     <button mat-flat-button color="warn" (click)="isTrue = !isTrue">Add Schedule</button>&nbsp;
     <button mat-flat-button color="accent" (click)="closeDialog()">Cancel</button>
