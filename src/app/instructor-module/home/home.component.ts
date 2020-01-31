@@ -31,7 +31,7 @@ const courses: Element[] = [
 
 
 export class HomeComponent implements OnInit {
-  
+
   myDate= new Date();
   currentDate: String;
   user: any = {};
@@ -56,8 +56,7 @@ export class HomeComponent implements OnInit {
     ) {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
-      // subject = user._id in jwt 
-      this.user._id = this.user.subject;
+      // subject = user._id in jwt
       //Schedule Table Subscriber
       console.log(this.user.subject);
 
@@ -75,7 +74,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   startSession(element){

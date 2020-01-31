@@ -116,7 +116,7 @@ export class UserService {
   GetInstructorCourseDetails(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/instructor-get-course-details`;
     console.log(data);
-    return this.http.get(API_URL, data).pipe(
+    return this.http.post(API_URL, data).pipe(
       catchError(this.errorMgmt)
     )
   }
