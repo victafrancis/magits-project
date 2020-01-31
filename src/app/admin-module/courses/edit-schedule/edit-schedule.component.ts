@@ -57,6 +57,14 @@ export class EditScheduleComponent implements OnInit {
     }
   }
 
+  deleteSchedule(schedule_id){
+    if(window.confirm('Are you sure you want to remove this schedule?')){
+      this.scheduleApi.DeleteSchedule(schedule_id).subscribe();
+      window.location.reload();
+    }
+
+  }
+
   closeDialog() {
     this.dialogRef.close({ event: 'close' });
   }
