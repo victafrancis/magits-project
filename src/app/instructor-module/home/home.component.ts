@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { User } from 'src/app/_services/user/user';
 import { Identifiers } from '@angular/compiler';
 import { UserService } from 'src/app/_services/user/user.service';
+import { Course } from 'src/app/_services/course/course';
+import { Schedule } from 'src/app/_services/schedule/schedule';
 
 
 export interface Element {
@@ -41,6 +43,8 @@ export class HomeComponent implements OnInit {
   coursesDataSource = courses;
   instructorSchedules: any = [];
   instructorDatasource:MatTableDataSource<User>;
+  courses: Array<Course>= []
+  schedules: Schedule = null;
 
   // Announcement Table
   Announcements: any = [];
@@ -58,12 +62,18 @@ export class HomeComponent implements OnInit {
       this.user = this._authService.decode();
       // subject = user._id in jwt
       //Schedule Table Subscriber
-      console.log(this.user.subject);
 
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         this.instructorSchedules = data;
-        console.log(data);
+        this.courses = data.courses;
+        // this.schedules = data.courses[0].schedule[0];
+        // this.courses.forEach(element => {
+        //   this.schedules.push();
+        // });
+      
+        console.log(this.courses[0]);
         this.instructorDatasource = new MatTableDataSource<User>(this.instructorSchedules)
+
       });
 
       //Announcements Table Subscriber

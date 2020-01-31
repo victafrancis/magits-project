@@ -77,45 +77,9 @@ export class UserService {
     )
   }
 
-  //Get Instructor Course Details for Course Schedule
-  // GetInstructorCourseDetails(id): Observable<any> {
-  //   let API_URL = `${this.endpoint}/instructor-get-course-details/${id}`;
-  //   return this.http.get(API_URL, { headers: this.headers }).pipe(
-  //     map((res: Response) => {
-  //       return res || {}
-  //     }),
-  //     catchError(this.errorMgmt)
-  //   )
-  // }
-
-  // GetInstructorCourseDetails() {
-  //   return this.http.get(`${this.endpoint}/instructor-get-course-details`);
-  // }
-  // GetInstructorCourseDetails(data: String ){}
-
-  // GetInstructorCourseDetails(instructor_id: String ): Observable<any> {
-  //   console.log(instructor_id);
-  //   let API_URL = `${this.endpoint}/instructor-get-course-details`;
-  //   return this.http.get(API_URL, instructor_id)
-  //     .pipe(
-  //       catchError(this.errorMgmt)
-  //     )
-  // }
-
-  // GetInstructorCourseDetails(instructor_id: any): Observable<any> {
-  //   let API_URL = `${this.endpoint}/instructor-get-course-details`;
-  //   console.log(instructor_id);
-  //   return this.http.get(API_URL, { headers: this.headers }).pipe(
-  //     map((res: Response) => {
-  //       return res || {}
-  //     }),
-  //     catchError(this.errorMgmt)
-  //   )
-  // }
 
   GetInstructorCourseDetails(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/instructor-get-course-details`;
-    console.log(data);
     return this.http.post(API_URL, data).pipe(
       catchError(this.errorMgmt)
     )

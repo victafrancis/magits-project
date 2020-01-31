@@ -143,7 +143,6 @@ userRoute.route('/instructor-get-course-details').post((req, res) => {
     if (error) {
       return next(error)
     } else {
-      console.log(data)
       res.json(data)
     }
   })
