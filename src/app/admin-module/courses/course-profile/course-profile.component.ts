@@ -54,8 +54,8 @@ export class CourseProfileComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     dialogConfig.id = "edit-schedule-component";
-    dialogConfig.height = "35%";
-    dialogConfig.width = "40%";
+    dialogConfig.height = "40%";
+    dialogConfig.width = "30%";
     dialogConfig.data = {course_id: this.course_id};
     const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
