@@ -79,4 +79,16 @@ sessionRoute.route('/delete-session/:id').delete((req, res, next) => {
   })
 })
 
+
+//check in a member to a session------------------------------------------------------------------------------------
+sessionRoute.route('/session-check-in-member').put((req, res) => {
+  Session.find({}, (error, data) => {
+    if (error) {return next(error)}
+
+
+
+    res.json(data)
+  })
+})
+
 module.exports = sessionRoute;
