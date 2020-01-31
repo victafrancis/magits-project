@@ -57,11 +57,11 @@ export class HomeComponent implements OnInit {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.user = this._authService.decode();
       // subject = user._id in jwt 
-
+      this.user._id = this.user.subject;
       //Schedule Table Subscriber
       console.log(this.user.subject);
 
-      this.userApi.GetInstructorCourseDetails(this.user.subject).subscribe(data => {
+      this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         this.instructorSchedules = data;
         console.log(data);
         this.instructorDatasource = new MatTableDataSource<User>(this.instructorSchedules)

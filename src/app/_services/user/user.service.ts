@@ -93,13 +93,32 @@ export class UserService {
   // }
   // GetInstructorCourseDetails(data: String ){}
 
-  GetInstructorCourseDetails(data: String ): Observable<any> {
-    console.log(data);
+  // GetInstructorCourseDetails(instructor_id: String ): Observable<any> {
+  //   console.log(instructor_id);
+  //   let API_URL = `${this.endpoint}/instructor-get-course-details`;
+  //   return this.http.get(API_URL, instructor_id)
+  //     .pipe(
+  //       catchError(this.errorMgmt)
+  //     )
+  // }
+
+  // GetInstructorCourseDetails(instructor_id: any): Observable<any> {
+  //   let API_URL = `${this.endpoint}/instructor-get-course-details`;
+  //   console.log(instructor_id);
+  //   return this.http.get(API_URL, { headers: this.headers }).pipe(
+  //     map((res: Response) => {
+  //       return res || {}
+  //     }),
+  //     catchError(this.errorMgmt)
+  //   )
+  // }
+
+  GetInstructorCourseDetails(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/instructor-get-course-details`;
-    return this.http.post(API_URL, data)
-      .pipe(
-        catchError(this.errorMgmt)
-      )
+    console.log(data);
+    return this.http.get(API_URL, data).pipe(
+      catchError(this.errorMgmt)
+    )
   }
 
   // Error handling
