@@ -18,7 +18,7 @@ export class AssignInstructorComponent implements OnInit {
   course_instructors: any;
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['name', 'action'];
-  assign: false;
+  assign:boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<AssignInstructorComponent>,
