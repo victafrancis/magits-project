@@ -1,6 +1,6 @@
 <h1>Profile Information </h1>
 
-<mat-grid-list [cols]="columns" rowHeight="4:3">
+<mat-grid-list [cols]="columns" rowHeight="5:4">
     
     <mat-grid-tile >
         <mat-card class="myCardQR">
@@ -15,26 +15,74 @@
 
     <mat-grid-tile>
     <mat-card class="myCard">
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="FirstName" [disabled]="isDisabled" value="Eleanor">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="LastName" [disabled]="isDisabled" value="Rigby">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" [disabled]="isDisabled" value="erigby@gbc.ca">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input type="date" matInput placeholder="Date" [disabled]="isDisabled"  value="2019-11-12">
-        </mat-form-field>
-        <mat-icon>lock</mat-icon> <label class="clickable">Change Password</label>
-        
+
+        <form [formGroup]="userForm" (ngSubmit)="updateUserForm()" #resetUserForm="ngForm" novalidate>
+            <!-- Left block -->
+            <mat-card>
+              <div class="controlers-wrapper">
+                <!-- Member First Name -->
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="First Name" formControlName="firstname">
+                  <mat-error *ngIf="handleError('firstname', 'required')">
+                    You must provide a <strong>first name</strong>
+                  </mat-error>
+                </mat-form-field>
+      
+                <!-- Member Last Name -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" formControlName="lastname">
+                    <mat-error *ngIf="handleError('lastname', 'required')">
+                      You must provide a <strong>last name</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="handleError('email', 'required')">
+                    You must provide a <strong>email</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                  <!-- Birthdate -->
+                  <mat-form-field class="example-full-width">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="birthdate">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="handleError('birthdate', 'required')">
+                        You must provide a <strong>birthdate </strong>
+                    </mat-error>
+                  </mat-form-field>
+
+              </div>
+            </mat-card>      
+      
+            
+            <!-- Submit & Reset -->
+            <mat-card>
+              <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                  <button mat-flat-button color="warn" *ngIf="isHidden == false" [disabled]="userForm.invalid">Update</button>
+                  <button mat-button class="myButton" *ngIf="isHidden == false" (click)="myDisable()" class="myButton1">Cancel</button>
+                </div>
+              </div>
+            </mat-card>
+          </form>
+
+
         <div>
-            <button mat-button class="myButton" *ngIf="isHidden == true" (click) = "enableButton()">Edit</button>
-            <button mat-button class="myButton" *ngIf="isHidden == false" (click)="disableButton()">Cancel</button>
-            <button mat-button class="myButton1" *ngIf="isHidden == false" >Save</button>
+            <button mat-button class="myButton" *ngIf="isHidden == true" (click) = "myEnable()" >Edit</button>
         </div>
-       
+    <mat-card>
+      <mat-icon>lock</mat-icon> <label class="clickable" (click)="openDialog()" >Change Password</label>
+      <br>
+      <br>
+      <br>
+      <br>
+    </mat-card>
+
 
 
     </mat-card>
