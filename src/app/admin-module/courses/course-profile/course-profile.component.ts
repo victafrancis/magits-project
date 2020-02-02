@@ -18,6 +18,7 @@ import { AssignInstructorComponent } from '../assign-instructor/assign-instructo
 export class CourseProfileComponent implements OnInit {
   course_id: any;
   course = new Course();
+  instructors = [];
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -31,6 +32,15 @@ export class CourseProfileComponent implements OnInit {
   )
   {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
+
+    // GETS ALL COURSE INSTRUCTORS
+    this.courseApi.GetCourseInstructors(this.course_id).subscribe(data => {
+      for (const i in data) {
+        this.instructors.push(
+          {name: data[i].firstname + " " + data[i].lastname, id: data[i]._id});
+      }
+      console.log(this.instructors);
+    });
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {

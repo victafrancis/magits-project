@@ -83,6 +83,12 @@ export class CourseService {
     )
   }
 
+  // Get all instructors assigned to the course
+  GetCourseInstructors(id){
+    let API_URL = `${this.endpoint}/course-instructors/${id}`;
+    return this.http.get(API_URL);
+  }
+
   // Assign instructor to a course - ADMIN ONLY!!!
   AssignInstructor(id, data): Observable<any> {
     let API_URL = `${this.endpoint}/assign-instructor-to-course/${id}`;
