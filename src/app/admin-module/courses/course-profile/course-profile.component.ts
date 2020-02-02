@@ -39,7 +39,6 @@ export class CourseProfileComponent implements OnInit {
         this.instructors.push(
           {name: data[i].firstname + " " + data[i].lastname, id: data[i]._id});
       }
-      console.log(this.instructors);
     });
 
     // GETS THE COURSE DETAILS
