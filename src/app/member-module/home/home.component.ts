@@ -45,7 +45,10 @@ const ANNOUNCEMENT_DATA: Announcement[] = [
 
 export class HomeComponent implements OnInit, OnDestroy {
 //QR Code
-value = 'wwww.google.com'
+  
+token = this._authService.decode();
+value = this.token.subject;
+
 myNumberQRVersion = 9;
 
 

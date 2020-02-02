@@ -98,7 +98,7 @@ userRoute.route('/get-instructors').get((req, res) => {
 })
 
 // Get single user
-userRoute.route('/read-user/:id').get((req, res) => {
+userRoute.route('/read-user/:id').get((req, res, next) => {
   User.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -115,7 +115,7 @@ userRoute.route('/update/:id').put((req, res, next) => {
   }, (error, data) => {
     if (error) {
       return next(error);
-      console.log(error)
+      //console.log(error)
     } else {
       res.json(data)
       console.log('User successfully updated!')
