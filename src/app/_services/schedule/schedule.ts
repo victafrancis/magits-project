@@ -4,4 +4,6 @@ export class Schedule {
   start_time: String;
   end_time: String;
   course: String;
+  courseName: String;
+  status: String;
 }

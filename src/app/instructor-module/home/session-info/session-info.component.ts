@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-session-info',
@@ -7,14 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SessionInfoComponent implements OnInit {
 
-  constructor(
-      // @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any
-  ) {
-      // this.course_id = recievedData.course_id;
+  session_info: any;
 
+  constructor(
+      @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
+      private dialogRef: MatDialogRef<SessionInfoComponent>,
+  ) {
+      this.session_info = recievedData.session_info;
+      console.log("from SessionInfo: "+ this.session_info);
    }
 
   ngOnInit() {
   }
 
+  closeDialog() {
+    this.dialogRef.close({ event: 'close' });
+  }
 }

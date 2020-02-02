@@ -1,7 +1,7 @@
 import { User } from '../user/user';
 import { Membership } from '../membership/membership';
-import { Schedule } from '../schedule';
 import { Session } from 'protractor';
+import { Schedule } from '../schedule/schedule';
 
 export class Course {
     _id: String;
@@ -14,4 +14,5 @@ export class Course {
     sessions: [{session: Session}];
     session_membership: {membership: Membership};
     subscription_membership: {membership: Membership};
+    
  }

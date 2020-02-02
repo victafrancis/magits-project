@@ -31,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { SessionInfoComponent } from './home/session-info/session-info.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SessionInfoComponent } from './home/session-info/session-info.component
     MatSelectModule,
     MatInputModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule 
   ],
   providers:[
     RoleGuard,
