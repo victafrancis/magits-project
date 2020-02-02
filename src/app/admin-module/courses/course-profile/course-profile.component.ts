@@ -68,8 +68,8 @@ export class CourseProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.id = "edit-course-component";
-    dialogConfig.height = "46%";
-    dialogConfig.width = "40%";
+    dialogConfig.height = "30%";
+    dialogConfig.width = "25%";
     dialogConfig.data = {course_id: this.course_id};
     const modalDialog = this.matDialog.open(EditCourseComponent, dialogConfig);
   }
@@ -78,8 +78,8 @@ export class CourseProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose() = true;
     dialogConfig.id = "assign-instructor-component";
-    dialogConfig.height = "25%";
-    dialogConfig.width = "30%";
+    dialogConfig.height = "35%";
+    dialogConfig.width = "25%";
     dialogConfig.data = {course_id: this.course_id};
     const modalDialog = this.matDialog.open(AssignInstructorComponent, dialogConfig);
   }

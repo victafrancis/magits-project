@@ -96,6 +96,13 @@ export class CourseService {
       catchError(this.errorMgmt)
     )
   }
+
+  RemoveInstructor(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/remove-instructor-from-course/${id}`;
+    return this.http.put(API_URL, data, {headers: this.headers}).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
   
   // Error handling
   errorMgmt(error: HttpErrorResponse) {

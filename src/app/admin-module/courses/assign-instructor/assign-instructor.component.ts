@@ -1,10 +1,10 @@
 import { Component, OnInit, Optional, Inject, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { CourseService } from '../../../_services/course/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from 'src/app/_services/user/user.service';
-
+import { User } from '../../../_services/user/user';
 
 @Component({
   selector: 'app-assign-instructor',
@@ -15,6 +15,10 @@ export class AssignInstructorComponent implements OnInit {
   course_id: any;
   AssignInstructorForm: FormGroup;
   instructors: any;
+  course_instructors: any;
+  dataSource: MatTableDataSource<User>;
+  displayedColumns: string[] = ['name', 'action'];
+  assign: false;
 
   constructor(
     private dialogRef: MatDialogRef<AssignInstructorComponent>,
@@ -25,13 +29,18 @@ export class AssignInstructorComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router
   ) {
-    
+
     this.course_id = this.receivedData.course_id;
 
     // Gets all the instructors
     this.userApi.GetInstructors().subscribe(data => {
       this.instructors = data;
     });
+
+    this.courseApi.GetCourseInstructors(this.course_id).subscribe(data => {
+      this.course_instructors = data;
+      this.dataSource = new MatTableDataSource<User>(this.course_instructors);
+    })
   }
 
   ngOnInit() {
@@ -41,9 +50,19 @@ export class AssignInstructorComponent implements OnInit {
   }
 
   assignInstructor() {
-    console.log(this.AssignInstructorForm.value.instructor)
-    if(window.confirm('Are you sure you want to assign this instructor to this course?')){
-      this.courseApi.AssignInstructor(this.course_id, {'instructor_id': this.AssignInstructorForm.value.instructor}).subscribe();
+    if(this.AssignInstructorForm.valid){
+      if (window.confirm('Are you sure you want to assign this instructor to this course?')) {
+        this.courseApi.AssignInstructor(this.course_id, { 'instructor_id': this.AssignInstructorForm.value.instructor }).subscribe();
+        this.closeDialog();
+        window.location.reload();
+      }
+    }
+  }
+
+  // Remove Instructor
+  removeInstructor(element) {
+    if(window.confirm('Are you sure you want to remove this instructor from this course?')){
+      this.courseApi.RemoveInstructor(this.course_id, {'instructor_id': element._id}).subscribe();
       this.closeDialog();
       window.location.reload();
     }
@@ -54,8 +73,8 @@ export class AssignInstructorComponent implements OnInit {
     return this.AssignInstructorForm.controls[controlName].hasError(errorName);
   }
 
-    // closes the modal
-    closeDialog() {
-      this.dialogRef.close({ event: 'close' });
-    }
+  // closes the modal
+  closeDialog() {
+    this.dialogRef.close({ event: 'close' });
+  }
 }

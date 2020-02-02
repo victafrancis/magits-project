@@ -7,7 +7,7 @@
     <br>
 </div>
 
-<div class="inner-wrapper" style="text-align: center;">
+<div style="text-align: center;">
     <form [formGroup]="courseForm" (ngSubmit)="updateCourseForm()" novalidate>
         <!-- LEFT SIDE -->
         <div class="controlers-wrapper">
@@ -36,13 +36,9 @@
             </mat-form-field>
 
             <!-- Submit & Reset -->
-            <div class="full-wrapper button-wrapper">
-                <div class="button-wrapper">
-                    <button mat-flat-button color="warn"> Update Course </button>
-                </div>
-                <div class="button-wrapper">
-                    <button type="button" mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
-                </div>
+            <div>
+                <button class="AdminModuleButtons" mat-flat-button color="warn"> Update Course </button>&nbsp;
+                <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
             </div>
         </div>
     </form>
