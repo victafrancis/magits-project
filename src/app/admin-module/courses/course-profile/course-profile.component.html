@@ -32,14 +32,14 @@
     <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
         <div class="full-wrapper button-wrapper">
             <div class="button-wrapper">
-                <button type='button' mat-flat-button color="warn" (click)="openEditCourseModal()"> Edit Course </button>
-                <button type='button' mat-flat-button color="warn" (click)="openEditScheduleModal()"> Edit Schedule </button>
-                <button type='button' mat-flat-button color="warn" > Edit Membership </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" (click)="openEditCourseModal()"> Edit Course </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" (click)="openEditScheduleModal()"> Edit Schedule </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" > Edit Membership </button>
             </div>
             <div class="button-wrapper">
-                <button type='button' mat-flat-button color="warn"> Add Instructor </button>
-                <button type='button' mat-flat-button color="warn" [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
-                <button type='button' mat-flat-button color="warn" [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" (click)="openAssignInstructorModal()"> Assign Instructor </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn" [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
             </div>
         </div>
     </div>

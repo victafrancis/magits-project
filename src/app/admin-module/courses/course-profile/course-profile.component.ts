@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
 import { EditCourseComponent } from '../edit-course/edit-course.component';
 import { Course } from 'src/app/_services/course/course';
+import { AssignInstructorComponent } from '../assign-instructor/assign-instructor.component';
 
 @Component({
   selector: 'app-course-profile',
@@ -29,7 +30,6 @@ export class CourseProfileComponent implements OnInit {
     private location: Location
   )
   {
-    
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
 
     // GETS THE COURSE DETAILS
@@ -40,18 +40,13 @@ export class CourseProfileComponent implements OnInit {
       this.course.name = data.name;
       this.course.schedule = data.schedule;
     });
-    console.log(this.course);
-
   }
 
   ngOnInit() {
-
   }
-
 
   openEditScheduleModal(){
     const dialogConfig = new MatDialogConfig();
-
     // dialogConfig.disableClose = true;
     dialogConfig.id = "edit-schedule-component";
     dialogConfig.height = "40%";
@@ -62,7 +57,6 @@ export class CourseProfileComponent implements OnInit {
 
   openEditCourseModal(){
     const dialogConfig = new MatDialogConfig();
-
     // dialogConfig.disableClose = true;
     dialogConfig.id = "edit-course-component";
     dialogConfig.height = "46%";
@@ -71,4 +65,13 @@ export class CourseProfileComponent implements OnInit {
     const modalDialog = this.matDialog.open(EditCourseComponent, dialogConfig);
   }
   
+  openAssignInstructorModal(){
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose() = true;
+    dialogConfig.id = "assign-instructor-component";
+    dialogConfig.height = "25%";
+    dialogConfig.width = "30%";
+    dialogConfig.data = {course_id: this.course_id};
+    const modalDialog = this.matDialog.open(AssignInstructorComponent, dialogConfig);
+  }
 }

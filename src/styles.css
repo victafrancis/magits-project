@@ -4,6 +4,11 @@
 html,body{ background-color: #363537;}
 body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
 
+/* FOR ADMIN MODULE/COURSE-PROFILE COMPONENT */
+.AdminModuleButtons{
+  width: 130px;
+}
+
 .header{justify-content:space-between;}
 .user-profile{margin-left:15px;}
 .mat-sidenav-container{height:100%;display:flex;flex:1 1 auto;}

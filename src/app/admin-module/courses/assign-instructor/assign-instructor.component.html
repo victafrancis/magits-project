@@ -1,0 +1,34 @@
+<div class="title-group">
+    <div>
+        <h2 style="text-align: center;">Assign Instructor</h2>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<!-- ASSIGN INSTRUCTOR FORM -->
+<div class="container" style="text-align: center;">
+    <form [formGroup]="AssignInstructorForm" (ngSubmit)="assignInstructor()">
+
+        <!-- Instructor -->
+        <mat-form-field style="width: 60%;">
+            <mat-label>Select Instructor</mat-label>
+            <mat-select formControlName="instructor">
+                <mat-option [value]="instructor._id" *ngFor="let instructor of instructors">{{instructor.firstname + " " + instructor.lastname}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="handleError('instructor', 'required')">
+                You must provide an<strong> Instructor </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Submit -->
+        <div class="full-wrapper button-wrapper">
+            <div class="button-wrapper">
+                <button mat-flat-button color="warn"> Submit </button>
+                <button type="button" mat-flat-button color="accent" (click)="closeDialog()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

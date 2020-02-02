@@ -83,6 +83,14 @@ export class CourseService {
     )
   }
 
+  // Assign instructor to a course - ADMIN ONLY!!!
+  AssignInstructor(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/assign-instructor-to-course/${id}`;
+    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+  
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
