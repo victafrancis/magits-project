@@ -83,6 +83,27 @@ export class CourseService {
     )
   }
 
+  // Get all instructors assigned to the course
+  GetCourseInstructors(id){
+    let API_URL = `${this.endpoint}/course-instructors/${id}`;
+    return this.http.get(API_URL);
+  }
+
+  // Assign instructor to a course - ADMIN ONLY!!!
+  AssignInstructor(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/assign-instructor-to-course/${id}`;
+    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+  RemoveInstructor(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/remove-instructor-from-course/${id}`;
+    return this.http.put(API_URL, data, {headers: this.headers}).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+  
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

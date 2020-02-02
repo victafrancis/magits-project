@@ -1,0 +1,62 @@
+<div class="title-group">
+    <div *ngIf="!assign">
+        <h2 style="text-align: center;">List of Instructors</h2>
+    </div>
+    <div *ngIf="assign">
+        <h2 style="text-align: center;">Assign Instructor</h2>
+    </div>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<!-- List of Instructors -->
+<div *ngIf="!assign" class="container" style="width: 70%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Instructor Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Instructor Name </th>
+            <td mat-cell *matCellDef="let element">{{element.firstname + " " + element.lastname}}</td>
+        </ng-container>
+
+        <!-- Action -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
+                <button mat-raised-button color="warn" (click)="removeInstructor(element)">Remove</button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<!-- Assign Instructor Form -->
+<div *ngIf="assign" class="container" style="text-align: center; padding-top: 5%;">
+    <form [formGroup]="AssignInstructorForm" (ngSubmit)="assignInstructor()">
+        <!-- Instructor -->
+        <mat-form-field style="width: 50%;">
+            <mat-label>Select Instructor</mat-label>
+            <mat-select formControlName="instructor">
+                <mat-option [value]="instructor._id" *ngFor="let instructor of instructors">{{instructor.firstname + " " + instructor.lastname}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="handleError('instructor', 'required')">
+                You must provide an<strong> Instructor </strong>
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Submit -->
+        <div class="full-wrapper button-wrapper">
+            <div class="button-wrapper">
+                <button class="AdminModuleButtons" mat-flat-button color="warn"> Assign </button>
+                <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="assign = !assign">Back</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- BUTTON TO ADD SCHEDULE AND CLOSE MODAL-->
+<div *ngIf="!assign" class="container" style="text-align: center; margin-top: 5%;">
+    <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="assign = !assign">Assign Instructor</button>&nbsp;
+    <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="closeDialog()">Cancel</button>
+</div>

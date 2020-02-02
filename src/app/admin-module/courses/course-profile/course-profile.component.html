@@ -8,38 +8,60 @@
 </div>
 
 <div class="inner-wrapper">
-    <div style="width: 25%; margin:auto;" class="controlers-wrapper">
-        <div>
-            <h3><label>Course Name:</label>&nbsp;</h3>
-            <p style="padding-left:10%;">{{course.name}}</p>
-        </div>
-        <div>
-            <h3><label>Course Instructor:</label>&nbsp;</h3>
-            <p style="padding-left:10%;">{{course.instructors}}</p>
-        </div>
-        <div>
-            <h3><label>Course Details:</label>&nbsp;</h3>
-            <p style="padding-left:10%;">{{course.details}}</p>
-        </div>
-        <div>
-            <h3><label>Course Schedule:</label>&nbsp;</h3>
-            <div *ngFor='let schedule of course.schedule'>
-                <p style="padding-left:10%;">{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
-            </div>
-        </div>
+    <div style="width: 20%; text-align: center; margin:auto;" class="controlers-wrapper">
+        <table style="text-align:left;">
+            <tr>
+                <th>
+                    <h3><label>Course Name:</label>&nbsp;</h3>
+                </th>
+                <td>
+                    <p>{{course.name}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h3><label>Course Instructors:</label>&nbsp;</h3>
+
+                </th>
+                <td>
+                    <p *ngFor="let instructor of instructors">{{instructor.name}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h3><label>Course Details:</label>&nbsp;</h3>
+                </th>
+                <td>
+                    <p>{{course.details}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h3><label>Course Schedule:</label>&nbsp;</h3>
+                </th>
+                <td>
+                    <p *ngFor='let schedule of course.schedule'>{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
         <div class="full-wrapper button-wrapper">
             <div class="button-wrapper">
-                <button type='button' mat-flat-button color="warn" (click)="openEditCourseModal()"> Edit Course </button>
-                <button type='button' mat-flat-button color="warn" (click)="openEditScheduleModal()"> Edit Schedule </button>
-                <button type='button' mat-flat-button color="warn" > Edit Membership </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    (click)="openEditCourseModal()"> Edit Course </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    (click)="openEditScheduleModal()"> Edit Schedule </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"> Edit Membership </button>
             </div>
             <div class="button-wrapper">
-                <button type='button' mat-flat-button color="warn"> Add Instructor </button>
-                <button type='button' mat-flat-button color="warn" [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
-                <button type='button' mat-flat-button color="warn" [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    (click)="openAssignInstructorModal()"> Instructor </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
             </div>
         </div>
     </div>

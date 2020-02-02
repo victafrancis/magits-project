@@ -64,10 +64,12 @@ export class EditScheduleComponent implements OnInit {
 
   // adds a course schedule
   addSchedule(){
-    if(window.confirm("Are you sure you want this schedule?")){
-      this.scheduleApi.AddSchedule(this.course_id, this.AddScheduleForm.value).subscribe();
-      this.closeDialog();
-      window.location.reload();
+    if(this.AddScheduleForm.valid){
+      if(window.confirm("Are you sure you want this schedule?")){
+        this.scheduleApi.AddSchedule(this.course_id, this.AddScheduleForm.value).subscribe();
+        this.closeDialog();
+        window.location.reload();
+      }
     }
   }
 
