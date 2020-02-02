@@ -1,1 +1,10 @@
 <p>session-info works!</p>
+{{ session_info.courseName }} <br>
+{{ session_info.date }} <br>
+{{ session_info.start_time }} - {{ session_info.end_time }}<br>
+<p>Status:</p> 
+<!-- <div *ngIf="{{session_info.open }} === true">
+ <p>OPEN</p>   
+</div> -->
+<button (click)="closeDialog()"> close </button>
+

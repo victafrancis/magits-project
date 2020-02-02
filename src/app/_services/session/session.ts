@@ -1,9 +1,14 @@
+import { User } from '../user/user';
+import { Feedback } from '../feedback/feedback';
+import { Course } from '../course/course';
+
 export class Session {
   _id: String;
-  date: Date;
+  date: String;
   start_time: String;
-  duration: Number;
+  end_time: String;
+  open: Boolean;
   course: String;
-  attendees: [String];
-  feedback: [String];
+  attendees: [{member: User, time: Date}];
+  feedback: [{feedback: Feedback}];
 }

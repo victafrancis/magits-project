@@ -138,7 +138,6 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 
 // Get course details of an instructor-------------------------------------------------------------------------------------------
 userRoute.route('/instructor-get-course-details').post((req, res) => {
-  console.log(req.body.subject);
   User.findById(req.body.subject).populate('courses.course').exec((error, data) => {
     if (error) {
       return next(error)
