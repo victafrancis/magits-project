@@ -18,6 +18,7 @@ export class AnnouncementsComponent implements OnInit {
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.Announcements = data;
       this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
+      console.log(this.Announcements)
     });
   }
 

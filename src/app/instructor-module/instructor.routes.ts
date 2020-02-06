@@ -9,6 +9,9 @@ import { AnnouncementsComponent } from './announcements/announcements.component'
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../_guards/auth-guard.service';
 import { CheckInMemberComponent } from './home/check-in-member/check-in-member.component';
+import { CourseProfileComponent } from './course-list/course-profile/course-profile.component';
+import { EnrollStudentComponent } from './course-list/enroll-student/enroll-student.component';
+import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 
 
 export const instructorRoutes: Routes = [
@@ -26,6 +29,11 @@ export const instructorRoutes: Routes = [
       { path: 'announcements', component: AnnouncementsComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'profile/:id', component: ProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'check-in-member', component: CheckInMemberComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'enroll-student/:id', component: EnrollStudentComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+
+
     ]
   }
 ];
