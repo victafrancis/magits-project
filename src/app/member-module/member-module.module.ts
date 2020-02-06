@@ -10,23 +10,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../material.module';
 import { CoursesComponent } from './courses/courses.component';
 import { SessionsComponent, DialogOverviewSessionFeedback } from './sessions/sessions.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent, DialogOverviewChangePassword } from './profile/profile.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CourseDescriptionComponent } from './courses/course-description/course-description.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 
 @NgModule({
-  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback],
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent],
+  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewChangePassword],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
     CommonModule,
     NgxQRCodeModule,
     MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(memberRoutes)
   ],
   bootstrap: [SessionsComponent],

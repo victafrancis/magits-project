@@ -1,11 +1,11 @@
-body{
-    background-color: #232323 ;
+html, body{
+    background-color: #363537 ;
     padding: 1px;
     height: 100%;
     margin: 0;
 }
 .errorMsg{
-    color: #686667;
+    color: #F6F6F6;
     text-align: center;
 }
 .login{
@@ -24,16 +24,16 @@ body{
     max-width: 600px;
     width: 70%;
     background: #232323;
-    border-bottom:2px solid #008E8E;
-    border-left:2px solid #008E8E;
-    border-right:2px solid #008E8E;    
+    border:2px solid #008E8E;   
     color: white;
-    border-radius: 0em;
+    border-radius: 1em;
     padding: 2em;  
     margin-left: auto;
     margin-right: auto;  
     margin-top: 30px;
     margin-bottom: 30px;  
+    box-shadow: 0px 15px 15px #232323;
+
 }
 
 .myWrapper{

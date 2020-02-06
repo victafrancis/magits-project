@@ -21,6 +21,9 @@ export class SessionService {
     let API_URL = `${this.endpoint}/add-session`;
     return this.http.post(API_URL, data)
       .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
         catchError(this.errorMgmt)
       )
   }

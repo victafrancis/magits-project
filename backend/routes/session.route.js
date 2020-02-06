@@ -17,11 +17,12 @@ sessionRoute.route('/add-session').post((req, res, next) => {
     //add session id to course sessions array
     Course.findByIdAndUpdate(req.body.course, {
       $push: {"sessions": data._id}
-    }, (error, data) => {
+    }, (error, data,next) => {
       if (error) {
         return next(error);
         console.log(error)
       }
+    
     })
 
     console.log(`Session created on ${req.body.date}`)
@@ -31,7 +32,7 @@ sessionRoute.route('/add-session').post((req, res, next) => {
 });
 
 // Get all session
-sessionRoute.route('/').get((req, res) => {
+sessionRoute.route('/').get((req, res, next) => {
   Session.find((error, data) => {
     if (error) {
       return next(error)
@@ -42,7 +43,7 @@ sessionRoute.route('/').get((req, res) => {
 })
 
 // Get single session
-sessionRoute.route('/read-session/:id').get((req, res) => {
+sessionRoute.route('/read-session/:id').get((req, res,next) => {
   Session.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
