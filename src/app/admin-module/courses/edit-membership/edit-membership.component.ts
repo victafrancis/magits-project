@@ -34,11 +34,10 @@ export class EditMembershipComponent implements OnInit {
     this.course_id = this.receivedData.course_id;
     this.subscription_membership = this.receivedData.subscription_membership;
     this.session_membership = this.receivedData.session_membership;
-
-    console.log(this.receivedData);
   }
 
   ngOnInit() {
+    // Initializes the session form if required
     if (this.session_membership != null) {
       this.session_membership_form = this.fb.group({
         cost: [{value: this.session_membership.cost, disabled: !this.editSession}, Validators.required],
@@ -46,18 +45,26 @@ export class EditMembershipComponent implements OnInit {
       });
     }
 
+    // Initializes the subscription form if required
     if (this.subscription_membership != null) {
       this.subscription_membership_form = this.fb.group({
         cost: [{value: this.subscription_membership.cost, disabled: !this.editSubscription}, Validators.required]
       });
     }
-
   }
 
+  // Updates the session membership info
   updateSessionMembership(){
-
+    if(this.session_membership_form.valid){
+      if(window.confirm('Are you sure you want to update this membership?')){
+        this.membershipApi.UpdateMembership(this.session_membership._id, this.session_membership_form.value).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
   }
 
+  // Updates the subscription membership info
   updateSubscriptionMembership(){
     if(this.subscription_membership_form.valid){
       if(window.confirm('Are you sure you want to update this membership?')){
@@ -68,6 +75,7 @@ export class EditMembershipComponent implements OnInit {
     }
   }
 
+  // Changes the status of the session form, whether it's editable or not
   changeSessionFormStatus(){
     this.editSession = !this.editSession;
     this.session_membership_form = this.fb.group({
@@ -76,13 +84,13 @@ export class EditMembershipComponent implements OnInit {
     });
   }
 
+  // Changes the status of the subscription form, whether it's editable or not
   changeSubscriptionFormStatus(){
     this.editSubscription = !this.editSubscription;
     this.subscription_membership_form = this.fb.group({
       cost: [{value: this.subscription_membership.cost, disabled: !this.editSubscription}, Validators.required]
     });
   }
-
 
   // removes session membership from the course if subscription membership exists
   removeSessionMembership(){
@@ -106,15 +114,17 @@ export class EditMembershipComponent implements OnInit {
     }
   }
 
-
+  // closes modal
   closeModal(){
     this.dialogRef.close();
   }
   
+  // validation for session form
   public handleSession = (controlName: string, errorName: string) => {
     return this.session_membership_form.controls[controlName].hasError(errorName);
   }
 
+  // validation for subscription form
   public handleSubscription = (controlName: string, errorName: string) => {
     return this.subscription_membership_form.controls[controlName].hasError(errorName);
   }
