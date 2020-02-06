@@ -26,10 +26,12 @@ export class HomeComponent implements OnInit {
   currentTime: String='';
   time:any = null;
   user: any = {};
+  sessionDate: String='';
   
   //Session Entry
   sessionEntry: any={};
   sessionInfo: any={};
+  
 
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'start','status','action'];
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
   courses: Array<Course>= [];
   schedules: Array<Schedule>=[];
   readyStartButton: Array<any>=[]
+  sessions: any=[];
 
   // Announcement Table
   Announcements: any = [];
@@ -58,7 +61,7 @@ export class HomeComponent implements OnInit {
         this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
       this.user = this._authService.decode();
       // subject = user._id in jwt
-      console.log(this.add_minutes(this.myDate,5))
+      // console.log(this.add_minutes(this.myDate,5))
       
       
       //Schedule Table Subscriber
@@ -69,25 +72,35 @@ export class HomeComponent implements OnInit {
 
             if(data.courses[i].course.schedule[j].day === this.currentDay){
 
-              console.log(data.courses[i].course);
-              console.log(data.courses[i].course._id);
-
+              // console.log(data.courses[i].course);
+             
               this.schedules.push(data.courses[i].course.schedule[j]);
               var totalSched = this.schedules.length - 1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
+              this.schedules[totalSched].status = 'Not Started';
 
+              //Check available sessions from the database
+              this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
+
+                for (var session of sessionsData){
+                  
+                  this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
               
+                  if(this.currentDate == this.sessionDate){
+                
+                    if(session.open == true){
+                      this.schedules[totalSched].status = 'Open'
+                    }else{
+                      this.schedules[totalSched].status = 'Closed'
+                    }
+                  }
+                  
+                }
 
-            //todo: if session.open == true, set schedule status = 'On-going' 
-              //and if session.open == false, set schedule status = 'Not-Started'
+              })
 
-              // if(this.schedules[totalSched].status === ''){
-                this.schedules[totalSched].status = 'Not Started';
-              // }
-              
-
-              // start session shows if currentTime > start
-              this.readyStartButton.push()
+              // todo: start session shows if currentTime > start
+           
             }
           }
         }
