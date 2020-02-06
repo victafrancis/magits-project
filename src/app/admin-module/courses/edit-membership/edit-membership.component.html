@@ -31,7 +31,8 @@
 
             <!-- BUTTONS -->
             <div *ngIf="!editSession" class="container" style="text-align: center; margin-top: auto;">
-                <button mat-flat-button color="warn" (click)="changeSessionFormStatus()"> Edit </button>
+                <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="changeSessionFormStatus()"> Edit </button>&nbsp;
+                <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="removeSessionMembership()"> Remove </button>
             </div>
             <div *ngIf="editSession" class="container" style="text-align: center; margin-top: auto;">
                 <button mat-flat-button color="warn"> Update </button>&nbsp;
@@ -59,7 +60,8 @@
 
             <!-- BUTTONS -->
             <div *ngIf="!editSubscription" class="container" style="text-align: center; margin-top: auto;">
-                <button mat-flat-button color="warn" (click)="changeSubscriptionFormStatus()"> Edit </button>
+                <button class="AdminModuleButtons" mat-flat-button color="primary" (click)="changeSubscriptionFormStatus()"> Edit </button>&nbsp;
+                <button class="AdminModuleButtons" mat-flat-button color="primary" (click)="removeSubscriptionMembership()"> Remove </button>
             </div>
             <div *ngIf="editSubscription" class="container" style="text-align: center; margin-top: auto;">
                 <button mat-flat-button color="warn"> Update </button>&nbsp;
@@ -70,7 +72,6 @@
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
 </div>
-
 <div class="container" style="text-align: center; margin-top: 5%;">
     <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="closeModal()"> Close </button>
 </div>

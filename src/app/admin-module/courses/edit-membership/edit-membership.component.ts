@@ -11,6 +11,7 @@ import { MembershipService } from '../../../_services/membership/membership.serv
   templateUrl: './edit-membership.component.html',
   styleUrls: ['./edit-membership.component.css']
 })
+
 export class EditMembershipComponent implements OnInit {
   course_id: any;
 
@@ -27,7 +28,7 @@ export class EditMembershipComponent implements OnInit {
     private dialogRef: MatDialogRef<EditMembershipComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private receivedData: any,
     private courseApi: CourseService,
-    private MembershipService: MembershipService,
+    private membershipApi: MembershipService,
     private fb: FormBuilder
   ) {
     this.course_id = this.receivedData.course_id;
@@ -58,7 +59,13 @@ export class EditMembershipComponent implements OnInit {
   }
 
   updateSubscriptionMembership(){
-    
+    if(this.subscription_membership_form.valid){
+      if(window.confirm('Are you sure you want to update this membership?')){
+        this.membershipApi.UpdateMembership(this.subscription_membership._id, this.subscription_membership_form.value).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
   }
 
   changeSessionFormStatus(){
@@ -74,6 +81,29 @@ export class EditMembershipComponent implements OnInit {
     this.subscription_membership_form = this.fb.group({
       cost: [{value: this.subscription_membership.cost, disabled: !this.editSubscription}, Validators.required]
     });
+  }
+
+
+  // removes session membership from the course if subscription membership exists
+  removeSessionMembership(){
+    if(this.subscription_membership != null){
+      if(window.confirm('Are you sure you want to remove this membership?')){
+        this.membershipApi.DeleteMembership(this.session_membership._id).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
+  }
+
+  // removes subscription membership from the course if session membership exists
+  removeSubscriptionMembership(){
+    if(this.session_membership != null){
+      if(window.confirm('Are you sure you want to remove this membership?')){
+        this.membershipApi.DeleteMembership(this.session_membership._id).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
   }
 
 
