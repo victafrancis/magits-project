@@ -25,17 +25,25 @@ body{
 .myDiv{
     max-width: 400px;
     width: 70%;
+    border: #008E8E 0.1em solid;
     background: #232323;
-    border: #008E8E 2px solid;
     color: white;
-    border-radius: 0em;
+    border-radius: 1em;
     padding: 2em;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 15px 15px 5px #232323;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
 }
+.myDiv:hover{
+    box-shadow: 0px 50px 10px #232323;
+    margin-top: 5px;
+}
+
+
 .inputs1{
         width: 100%;
         display: block;
