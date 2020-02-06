@@ -27,7 +27,7 @@
 </div>
 
 <div class="container" style="width: 80%; margin: auto;">
-    <table *ngIf="schedules != 0" mat-table [dataSource]="scheduleDatasource" class="mat-elevation-z8">
+    <table *ngIf="schedules.length != 0" mat-table [dataSource]="scheduleDatasource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->
         <ng-container matColumnDef="courseName">
