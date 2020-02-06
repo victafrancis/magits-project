@@ -5,7 +5,7 @@ html, body{
     margin: 0;
 }
 .errorMsg{
-    color: #686667;
+    color: #F6F6F6;
     text-align: center;
 }
 .login{
@@ -26,13 +26,13 @@ html, body{
     background: #232323;
     border:2px solid #008E8E;   
     color: white;
-    border-radius: 0em;
+    border-radius: 1em;
     padding: 2em;  
     margin-left: auto;
     margin-right: auto;  
     margin-top: 30px;
     margin-bottom: 30px;  
-    box-shadow: 15px 15px 5px #232323;
+    box-shadow: 0px 15px 15px #232323;
 
 }
 
