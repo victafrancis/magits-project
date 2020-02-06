@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
   courses: Array<Course>= [];
   schedules: Array<Schedule>=[];
   readyStartButton: Array<any>=[]
+  currentCourse: String='';
   sessions: any=[];
 
   // Announcement Table
@@ -79,7 +80,7 @@ export class HomeComponent implements OnInit {
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
 
-              //Check available sessions from the database
+              //testing
               this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
 
                 for (var session of sessionsData){
@@ -87,7 +88,6 @@ export class HomeComponent implements OnInit {
                   this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
               
                   if(this.currentDate == this.sessionDate){
-                
                     if(session.open == true){
                       this.schedules[totalSched].status = 'Open'
                     }else{
@@ -96,11 +96,11 @@ export class HomeComponent implements OnInit {
                   }
                   
                 }
-
-              })
+                
+             })
 
               // todo: start session shows if currentTime > start
-           
+              this.readyStartButton.push()
             }
           }
         }
