@@ -21,6 +21,9 @@ export class SessionService {
     let API_URL = `${this.endpoint}/add-session`;
     return this.http.post(API_URL, data)
       .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
         catchError(this.errorMgmt)
       )
   }
@@ -37,6 +40,15 @@ export class SessionService {
       map((res: Response) => {
         return res || {}
       }),
+      catchError(this.errorMgmt)
+    )
+  }
+
+  //Get Sessions by Course
+  GetSessionsByCourse(data: any): Observable<any> {
+  let API_URL = `${this.endpoint}/get-session-by-course`;
+  return this.http.post(API_URL, data)
+    .pipe(
       catchError(this.errorMgmt)
     )
   }

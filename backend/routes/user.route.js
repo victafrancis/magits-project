@@ -98,7 +98,7 @@ userRoute.route('/get-instructors').get((req, res) => {
 })
 
 // Get single user
-userRoute.route('/read-user/:id').get((req, res) => {
+userRoute.route('/read-user/:id').get((req, res, next) => {
   User.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -115,7 +115,7 @@ userRoute.route('/update/:id').put((req, res, next) => {
   }, (error, data) => {
     if (error) {
       return next(error);
-      console.log(error)
+      //console.log(error)
     } else {
       res.json(data)
       console.log('User successfully updated!')
@@ -138,7 +138,6 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 
 // Get course details of an instructor-------------------------------------------------------------------------------------------
 userRoute.route('/instructor-get-course-details').post((req, res) => {
-  console.log(req.body.subject);
   User.findById(req.body.subject).populate('courses.course').exec((error, data) => {
     if (error) {
       return next(error)

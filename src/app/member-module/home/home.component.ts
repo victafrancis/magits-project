@@ -45,7 +45,10 @@ const ANNOUNCEMENT_DATA: Announcement[] = [
 
 export class HomeComponent implements OnInit, OnDestroy {
 //QR Code
-value = 'wwww.google.com'
+  
+token = this._authService.decode();
+value = this.token.subject;
+
 myNumberQRVersion = 9;
 
 
@@ -69,10 +72,10 @@ myNumberQRVersion = 9;
         } else if( change.mqAlias == 'sm'){
           this.myNumberQRVersion = 8;
         } else if( change.mqAlias == 'md'){
-          this.myNumberQRVersion = 10;
+          this.myNumberQRVersion = 9;
         } else {
           this.columns = 2;
-          this.myNumberQRVersion = 12;
+          this.myNumberQRVersion = 11;
         }
       }
     });
