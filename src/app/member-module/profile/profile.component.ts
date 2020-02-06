@@ -150,13 +150,16 @@ export class DialogOverviewChangePassword {
   userPasswordChange : FormGroup;
   token = this._authService.decode();
   value = this.token.subject;
+  error = false;
+
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewChangePassword>, public fb: FormBuilder, private userApi: UserService, private _authService: AuthService){
       this.userPasswordChange = this.fb.group({
+        currPassword: ['', [Validators.required]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]],
-      });   
+      });     
     }
 
 
@@ -165,13 +168,23 @@ export class DialogOverviewChangePassword {
   }
 
   updateUserPassword(){
-    console.log(this.userPasswordChange.value)
     var id = this.value; 
-    if (window.confirm('Are you sure you want to change password?')) {
-      this.userApi.UpdateUser(id, this.userPasswordChange.value).subscribe( res => {
-        this.onNoClick();
-      });
-    }
+    
+    
+    this.userApi.GetUser(id).subscribe(data => {
+    if(data.password == this.userPasswordChange.value.currPassword){
+        if (window.confirm('Are you sure you want to change password?')) {
+            this.userApi.UpdateUser(id, this.userPasswordChange.value).subscribe( res => {
+            this.onNoClick();
+          });
+        }
+      }else{
+        //console.log("Wrong password");
+        this.error = true;
+      }    
+    })
+
+  
   }
 
    /* Get errors */
@@ -182,6 +195,7 @@ export class DialogOverviewChangePassword {
 
  updateBookForm() {
   this.userPasswordChange = this.fb.group({
+    currPassword: ['', [Validators.required]],
     password: ['', [Validators.required]],
     confirmPassword: ['', [Validators.required]],
   },{

@@ -4,7 +4,6 @@
 <h1 class="login">Registration</h1>
 
 <p *ngIf="error" class="errorMsg">Email already exists, try again!</p>
-<mat-divider fxFlex="1 0"></mat-divider>
 
 <div class="myDiv">
 
@@ -14,7 +13,8 @@
       <mat-card>
           <!-- Firstname -->
           <mat-form-field class="inputs" appearance="fill">
-            <input matInput placeholder="First Name" formControlName="firstname">
+            <input matInput placeholder="John" formControlName="firstname">
+            <mat-label>First Name</mat-label>
             <mat-error *ngIf="handleError('firstname', 'required')">
               You must provide a <strong>First name</strong>
             </mat-error>
@@ -22,7 +22,8 @@
 
            <!-- Lastname -->
            <mat-form-field class="inputs" appearance="fill">
-            <input matInput placeholder="Last Name" formControlName="lastname">
+            <input matInput placeholder="Doe" formControlName="lastname">
+            <mat-label>Last Name</mat-label>
             <mat-error *ngIf="handleError('lastname', 'required')">
               You must provide a <strong>Last name</strong>
             </mat-error>
@@ -31,7 +32,8 @@
 
         <!-- Birthdate -->
         <mat-form-field class="inputs" appearance="fill">
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" placeholder="Birthdate" formControlName="birthdate">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" placeholder="Choose a date" formControlName="birthdate">
+          <mat-label>Birth Date</mat-label>
                 <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                 </mat-datepicker-toggle>
@@ -43,7 +45,8 @@
 
          <!-- Email -->
          <mat-form-field class="inputs" appearance="fill">
-          <input type="email" matInput placeholder="Email" formControlName="email">
+          <input type="email" matInput placeholder="example@email.com" formControlName="email">
+          <mat-label>Email</mat-label>
           <mat-error *ngIf="handleError('email', 'email')">
               Please enter a valid email address
             </mat-error>
@@ -55,7 +58,8 @@
 
          <!-- Password -->
          <mat-form-field class="inputs" appearance="fill">
-          <input type="password" matInput placeholder="Password" formControlName="password">
+          <input type="password" matInput placeholder="******" formControlName="password">
+          <mat-label>Password</mat-label>
             <mat-error *ngIf="handleError('password', 'required')">
             You must provide <strong>password</strong>
             </mat-error>
@@ -63,7 +67,8 @@
 
          <!-- Confirm Password -->
          <mat-form-field class="inputs" appearance="fill">
-          <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+          <input type="password" matInput placeholder="******" formControlName="confirmPassword">
+          <mat-label>Confirm Password</mat-label>
           <mat-error *ngIf="memberRegForm.controls['confirmPassword'].pristine || memberRegForm.controls['confirmPassword'].errors?.MatchPassword">Password does not match</mat-error>
         </mat-form-field>
 
