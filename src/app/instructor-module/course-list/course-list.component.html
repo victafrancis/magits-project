@@ -1,4 +1,5 @@
 <div class="title-group">
+   
     <div>
         <h1 style="text-align: center; width: 90%;" class="mat-h1">Courses</h1>
     </div>
@@ -26,18 +27,19 @@
 
         <!-- Members Column -->
         <ng-container matColumnDef="members">
-            <th mat-header-cell *matHeaderCellDef> Members </th>
-            <td mat-cell *matCellDef="let element"> {{element.members[0]}} </td>
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Number of Members </th>
+            <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.members.length}} </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element; let i = index;">
-                <button mat-raised-button color="accent" [routerLink]="['/admin/course-profile/', element._id]">View
-                    Info</button>
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
+                <button mat-raised-button color="accent" [routerLink]="['/instructor/course-profile/', element._id]">
+                    <i class="material-icons">pageview</i>
+                    Info
+                </button>
             </td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

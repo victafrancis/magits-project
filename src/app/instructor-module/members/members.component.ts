@@ -23,10 +23,5 @@ export class MembersComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteMember(element){
-    if(window.confirm('Are you sure you want to delete this member?')){
-      this.userApi.DeleteUser(element._id).subscribe();
-      window.location.reload();
-    }
-  }
+ 
 }

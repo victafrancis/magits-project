@@ -84,7 +84,7 @@ sessionRoute.route('/delete-session/:id').delete((req, res, next) => {
 
 
 //get sessions by course
-sessionRoute.route('/get-session-by-course').get((req, res) => {
+sessionRoute.route('/get-session-by-course').post((req, res) => {
   Session.find({course: req.body._id}, (error, sessionData) => {
     if (error) {return next(error)}
 

@@ -1,6 +1,9 @@
 <div class="title-group">
     <span class="nav-tool-items" style="float: left;">
-        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-member">Add Member</button>
+        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-member">
+            <i class="material-icons">add_circle</i> &nbsp; 
+            New Member
+        </button>
     </span>
     <div>
         <h1 style="text-align: center; width: 90%;" class="mat-h1">Members</h1>
@@ -35,8 +38,9 @@
         <ng-container matColumnDef="Action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;">
-                <button mat-raised-button color="accent" [routerLink]="['/admin/member-profile/', element._id]" >View Info</button>&nbsp;
-                <button mat-raised-button color="warn" (click)="deleteMember(element)">Delete</button>
+                <button mat-raised-button color="accent" [routerLink]="['/instructor/member-profile/', element._id]" >
+                    <i class="material-icons">pageview</i> Info
+                </button>&nbsp;
             </td>
         </ng-container>
 
