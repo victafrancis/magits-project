@@ -1,0 +1,76 @@
+<div class="title-group">
+    <div>
+        <h2 style="text-align: center;">Edit Course Membership</h2>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- SESSION MEMBERSHIP FORM -->
+<div class="container" *ngIf="session_membership != null" style="text-align: center;">
+    <h3>Session Membership</h3>
+    <form [formGroup]="session_membership_form" (ngSubmit)="updateSessionMembership()" novalidate>
+        <div class="controlers-wrapper">
+            <!-- SESSION MEMBERSHIP COST-->
+            <mat-form-field class="example-full-width" style="width: 51%;">
+                <mat-label>Session Membership Cost</mat-label>
+                <input matInput formControlName="cost">
+                <mat-error *ngIf="handleSession('cost', 'required')">
+                    You must provide a session cost
+                </mat-error>
+            </mat-form-field>
+
+            <!-- NUMBER OF SESSIONS -->
+            <mat-form-field class="example-full-width" style="width: 51%;">
+                <mat-label>Number of Sessions</mat-label>
+                <input matInput formControlName="number_of_sessions">
+                <mat-error *ngIf="handleSession('number_of_sessions', 'required')">
+                    You must provide a number of Sessions
+                </mat-error>
+            </mat-form-field>
+
+            <!-- BUTTONS -->
+            <div *ngIf="!editSession" class="container" style="text-align: center; margin-top: auto;">
+                <button mat-flat-button color="warn" (click)="changeSessionFormStatus()"> Edit </button>
+            </div>
+            <div *ngIf="editSession" class="container" style="text-align: center; margin-top: auto;">
+                <button mat-flat-button color="warn"> Update </button>&nbsp;
+                <button mat-flat-button color="accent" (click)="changeSessionFormStatus()"> Cancel </button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- SUBSCRIPTION MEMBERHSIP FORM -->
+<div class="container" *ngIf="subscription_membership != null" style="text-align: center;">
+    <h3>Subscription Membership</h3>
+    <form [formGroup]="subscription_membership_form" (ngSubmit)="updateSubscriptionMembership()" novalidate>
+        <div class="controlers-wrapper">
+            <!-- SUBSCRIPTION MEMBERSHIP COST-->
+            <mat-form-field class="example-full-width" style="width: 51%;">
+                <mat-label>Subscription Membership Cost</mat-label>
+                <input matInput formControlName="cost">
+                <mat-error *ngIf="handleSubscription('cost', 'required')">
+                    You must provide a subscription cost
+                </mat-error>
+            </mat-form-field>
+
+            <!-- BUTTONS -->
+            <div *ngIf="!editSubscription" class="container" style="text-align: center; margin-top: auto;">
+                <button mat-flat-button color="warn" (click)="changeSubscriptionFormStatus()"> Edit </button>
+            </div>
+            <div *ngIf="editSubscription" class="container" style="text-align: center; margin-top: auto;">
+                <button mat-flat-button color="warn"> Update </button>&nbsp;
+                <button mat-flat-button color="accent" (click)="changeSubscriptionFormStatus()"> Cancel </button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<div class="container" style="text-align: center; margin-top: 5%;">
+    <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="closeModal()"> Close </button>
+</div>

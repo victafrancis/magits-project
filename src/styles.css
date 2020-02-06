@@ -8,6 +8,9 @@ body{margin:0;font-family:'Roboto', sans-serif; background-color: #414141;}
 .AdminModuleButtons{
   width: 130px;
 }
+.mat-row:hover{
+  background-color: teal;
+}
 
 .header{justify-content:space-between;}
 .user-profile{margin-left:15px;}

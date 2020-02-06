@@ -9,6 +9,7 @@ import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component'
 import { EditCourseComponent } from '../edit-course/edit-course.component';
 import { Course } from 'src/app/_services/course/course';
 import { AssignInstructorComponent } from '../assign-instructor/assign-instructor.component';
+import { EditMembershipComponent } from '../edit-membership/edit-membership.component';
 
 @Component({
   selector: 'app-course-profile',
@@ -17,6 +18,8 @@ import { AssignInstructorComponent } from '../assign-instructor/assign-instructo
 })
 export class CourseProfileComponent implements OnInit {
   course_id: any;
+  session_membership: any;
+  subscription_membership: any;
   course = new Course();
   instructors = [];
 
@@ -48,6 +51,8 @@ export class CourseProfileComponent implements OnInit {
       this.course.max_students = data.max_students;
       this.course.name = data.name;
       this.course.schedule = data.schedule;
+      this.course.session_membership = data.session_membership;
+      this.course.subscription_membership = data.subscription_membership;
     });
   }
 
@@ -81,6 +86,17 @@ export class CourseProfileComponent implements OnInit {
     dialogConfig.height = "55%";
     dialogConfig.width = "35%";
     dialogConfig.data = {course_id: this.course_id};
+
     const modalDialog = this.matDialog.open(AssignInstructorComponent, dialogConfig);
+  }
+
+  openEditMembershipModal(){
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose() = true;
+    dialogConfig.id = "edit-membership-component";
+    dialogConfig.height = "55%";
+    dialogConfig.width = "35%";
+    dialogConfig.data = {course_id: this.course_id, subscription_membership: this.course.subscription_membership, session_membership: this.course.session_membership};
+    const modalDialog = this.matDialog.open(EditMembershipComponent, dialogConfig);
   }
 }
