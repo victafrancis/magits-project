@@ -15,9 +15,11 @@ import { MembershipService } from '../../../_services/membership/membership.serv
 export class EditMembershipComponent implements OnInit {
   course_id: any;
 
+  addSession: boolean = false;
   editSession: boolean = false;
   editSubscription: boolean = false;
 
+  addSubscription: boolean = false;
   subscription_membership: any;
   subscription_membership_form: FormGroup;
 
@@ -40,23 +42,45 @@ export class EditMembershipComponent implements OnInit {
     // Initializes the session form if required
     if (this.session_membership != null) {
       this.session_membership_form = this.fb.group({
-        cost: [{value: this.session_membership.cost, disabled: !this.editSession}, Validators.required],
-        number_of_sessions: [{value: this.session_membership.number_of_sessions, disabled: !this.editSession}, Validators.required]
+        cost: [{ value: this.session_membership.cost, disabled: !this.editSession }, Validators.required],
+        number_of_sessions: [{ value: this.session_membership.number_of_sessions, disabled: !this.editSession }, Validators.required]
       });
     }
 
     // Initializes the subscription form if required
     if (this.subscription_membership != null) {
       this.subscription_membership_form = this.fb.group({
-        cost: [{value: this.subscription_membership.cost, disabled: !this.editSubscription}, Validators.required]
+        cost: [{ value: this.subscription_membership.cost, disabled: !this.editSubscription }, Validators.required]
       });
     }
   }
 
+  // Adds session memberhip
+  createSessionMembership() {
+    if (this.session_membership_form.valid) {
+      if (window.confirm('Are you sure you want to add this membership type to the course?')) {
+        this.membershipApi.AddMembership(this.course_id, this.session_membership_form.value).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
+  }
+
+  // Adds subscription memberhip
+  createSubscriptionMembership() {
+    if (this.subscription_membership_form.valid) {
+      if (window.confirm('Are you sure you want to add this membership type to the course?')) {
+        this.membershipApi.AddMembership(this.course_id, this.subscription_membership_form.value).subscribe();
+        this.closeModal();
+        window.location.reload();
+      }
+    }
+  }
+
   // Updates the session membership info
-  updateSessionMembership(){
-    if(this.session_membership_form.valid){
-      if(window.confirm('Are you sure you want to update this membership?')){
+  updateSessionMembership() {
+    if (this.session_membership_form.valid) {
+      if (window.confirm('Are you sure you want to update this membership?')) {
         this.membershipApi.UpdateMembership(this.session_membership._id, this.session_membership_form.value).subscribe();
         this.closeModal();
         window.location.reload();
@@ -65,9 +89,9 @@ export class EditMembershipComponent implements OnInit {
   }
 
   // Updates the subscription membership info
-  updateSubscriptionMembership(){
-    if(this.subscription_membership_form.valid){
-      if(window.confirm('Are you sure you want to update this membership?')){
+  updateSubscriptionMembership() {
+    if (this.subscription_membership_form.valid) {
+      if (window.confirm('Are you sure you want to update this membership?')) {
         this.membershipApi.UpdateMembership(this.subscription_membership._id, this.subscription_membership_form.value).subscribe();
         this.closeModal();
         window.location.reload();
@@ -76,26 +100,26 @@ export class EditMembershipComponent implements OnInit {
   }
 
   // Changes the status of the session form, whether it's editable or not
-  changeSessionFormStatus(){
+  changeSessionFormStatus() {
     this.editSession = !this.editSession;
     this.session_membership_form = this.fb.group({
-      cost: [{value: this.session_membership.cost, disabled: !this.editSession}, Validators.required],
-      number_of_sessions: [{value: this.session_membership.number_of_sessions, disabled: !this.editSession}, Validators.required]
+      cost: [{ value: this.session_membership.cost, disabled: !this.editSession }, Validators.required],
+      number_of_sessions: [{ value: this.session_membership.number_of_sessions, disabled: !this.editSession }, Validators.required]
     });
   }
 
   // Changes the status of the subscription form, whether it's editable or not
-  changeSubscriptionFormStatus(){
+  changeSubscriptionFormStatus() {
     this.editSubscription = !this.editSubscription;
     this.subscription_membership_form = this.fb.group({
-      cost: [{value: this.subscription_membership.cost, disabled: !this.editSubscription}, Validators.required]
+      cost: [{ value: this.subscription_membership.cost, disabled: !this.editSubscription }, Validators.required]
     });
   }
 
   // removes session membership from the course if subscription membership exists
-  removeSessionMembership(){
-    if(this.subscription_membership != null){
-      if(window.confirm('Are you sure you want to remove this membership?')){
+  removeSessionMembership() {
+    if (this.subscription_membership != null) {
+      if (window.confirm('Are you sure you want to remove this membership?')) {
         this.membershipApi.DeleteMembership(this.session_membership._id).subscribe();
         this.closeModal();
         window.location.reload();
@@ -104,10 +128,10 @@ export class EditMembershipComponent implements OnInit {
   }
 
   // removes subscription membership from the course if session membership exists
-  removeSubscriptionMembership(){
-    if(this.session_membership != null){
-      if(window.confirm('Are you sure you want to remove this membership?')){
-        this.membershipApi.DeleteMembership(this.session_membership._id).subscribe();
+  removeSubscriptionMembership() {
+    if (this.subscription_membership != null) {
+      if (window.confirm('Are you sure you want to remove this membership?')) {
+        this.membershipApi.DeleteMembership(this.subscription_membership._id).subscribe();
         this.closeModal();
         window.location.reload();
       }
@@ -115,10 +139,10 @@ export class EditMembershipComponent implements OnInit {
   }
 
   // closes modal
-  closeModal(){
+  closeModal() {
     this.dialogRef.close();
   }
-  
+
   // validation for session form
   public handleSession = (controlName: string, errorName: string) => {
     return this.session_membership_form.controls[controlName].hasError(errorName);
@@ -129,5 +153,21 @@ export class EditMembershipComponent implements OnInit {
     return this.subscription_membership_form.controls[controlName].hasError(errorName);
   }
 
-  
+  addSessionMembership() {
+    this.addSession = !this.addSession;
+    this.session_membership_form = this.fb.group({
+      membership_type: ['session'],
+      cost: ['', Validators.required],
+      number_of_sessions: ['', Validators.required]
+    });
+  }
+
+  addSubscriptionMembership() {
+    this.addSubscription = !this.addSubscription;
+    this.subscription_membership_form = this.fb.group({
+      membership_type: ['subscription'],
+      cost: ['', Validators.required]
+    });
+  }
+
 }
