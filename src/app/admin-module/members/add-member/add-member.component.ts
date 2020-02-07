@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from '../../../_services/user/user.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-member',
@@ -14,7 +15,8 @@ export class AddMemberComponent implements OnInit {
     public fb: FormBuilder,
     private userApi: UserService,
     private ngZone: NgZone,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -34,11 +36,17 @@ export class AddMemberComponent implements OnInit {
   }
 
   submitMemberForm(){
-    if(window.confirm('Are you sure you want to add this member?')){
-      this.userApi.AddUser(this.memberForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/members'))
-      });
+    if(this.memberForm.valid){
+      if(window.confirm('Are you sure you want to add this member?')){
+        this.userApi.AddUser(this.memberForm.value).subscribe(res => {
+          this.ngZone.run(() => this.router.navigateByUrl('/admin/members'))
+        });
+      }
     }
   }
 
+  // Navigates to previous page
+  cancel(){
+    this.location.back();
+  }
 }

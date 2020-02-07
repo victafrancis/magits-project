@@ -45,13 +45,9 @@
 
                 <!-- Submit & Reset -->
                 <div class="container">
-                    <div *ngIf="enabled">
-                        <button class="AdminModuleButtons" type="button" mat-flat-button color="warn"
-                            (click)="instructorForm()"> Add Instructor</button>
-                    </div>
-                    <div *ngIf="!enabled">
-                        <button class="AdminModuleButtons"mat-flat-button color="warn"> Add </button>&nbsp;
-                        <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="instructorForm()"> Cancel </button>
+                    <div>
+                        <button class="AdminModuleButtons" mat-flat-button color="warn"> Add </button>&nbsp;
+                        <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="cancel()"> Cancel </button>
                     </div>
                 </div>
             </div>
