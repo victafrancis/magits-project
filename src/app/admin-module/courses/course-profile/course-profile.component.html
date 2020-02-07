@@ -44,20 +44,6 @@
                         {{schedule.end}}</p>
                 </td>
             </tr>
-            <tr>
-                <th>
-                    <h3><label>Course Memberships:</label></h3>
-                </th>
-                <div  *ngIf="course.session_membership != null">
-                    <td>Session,</td>
-                    <td> ${{course.session_membership.cost}} per session for</td>
-                    <td>{{course.session_membership.number_of_sessions}} sessions.</td>
-                </div>
-                <div *ngIf="course.subscription_membership != null">
-                    <td>Subscription, </td>
-                    <td>${{course.subscription_membership.cost}} per month.</td>
-                </div>
-            </tr>
         </table>
     </div>
 
