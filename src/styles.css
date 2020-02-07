@@ -39,7 +39,7 @@ table.mat-table,table{width:100%;}
 .multiple-items{position:relative;}
 .multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:#008E8E;position:absolute;font-size:20px;}
 body .push-right{margin-right:10px;}
-.no-data{text-align:center;padding-top:30px;color:#6c75a9;}
+.no-data{text-align:center;padding-top:30px;color:#F6F6F6;}
 .button-wrapper{margin:20px 0 0 0;}
 @media (max-width:1024px){.inner-wrapper mat-card{width:100%;}
  .mat-sidenav-content{padding:20px 20px 0;}

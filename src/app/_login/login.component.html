@@ -4,14 +4,11 @@
   
   <p *ngIf="error" class="errorMsg">Wrong Credentials, try again!</p>
   <mat-divider fxFlex="1 0"></mat-divider>
-
-
     <div class="myDiv">
       <!-- Form -->
       <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" #resetMemberRefForm="ngForm">
         <!-- Left block -->
         <mat-card>
-  
           <!-- Email -->
           <mat-form-field class="inputs1" appearance="fill">
             <input type="email" matInput placeholder="example@email.com" formControlName="email">
