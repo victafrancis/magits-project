@@ -46,7 +46,7 @@ export class AddMemberComponent implements OnInit {
   }
 
   // Navigates to previous page
-  cancel(){
+  backPressed(){
     this.location.back();
   }
 }
