@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 // Define collection and schema
 let Session = new Schema({
   date: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   start_time: {
     type: String
@@ -15,7 +16,8 @@ let Session = new Schema({
     type: String
   },
   open: {
-    type: Boolean
+    type: Boolean,
+    default: true
   },
   course: { type: Schema.Types.ObjectId, ref: 'Course' },
   attendees:[{
