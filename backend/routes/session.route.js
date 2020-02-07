@@ -22,7 +22,7 @@ sessionRoute.route('/add-session').post((req, res, next) => {
         return next(error);
         console.log(error)
       }
-    
+
     })
 
     console.log(`Session created on ${req.body.date}`)
@@ -84,11 +84,33 @@ sessionRoute.route('/delete-session/:id').delete((req, res, next) => {
 
 
 //get sessions by course
-sessionRoute.route('/get-session-by-course').get((req, res) => {
+sessionRoute.route('/get-session-by-course').post((req, res) => {
   Session.find({course: req.body._id}, (error, sessionData) => {
     if (error) {return next(error)}
 
     res.json(sessionData)
+  })
+})
+
+//get current day sessions by course
+sessionRoute.route('/get-current-day-session-by-course').post((req, res) => {
+  Session.find({course: req.body._id}, (error, sessionData) => {
+    if (error) {return error}
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    today.setHours(0,0,0,0)
+    var outData = []
+
+    //check sessions that are current day then add to outData array
+    for (var sessions of sessionData) {
+      if (sessions.date.toDateString()==today.toDateString()){
+        outData.push(sessions)
+      }
+    }
+
+
+    res.json(outData)
   })
 })
 

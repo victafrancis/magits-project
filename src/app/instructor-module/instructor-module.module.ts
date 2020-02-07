@@ -32,11 +32,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { SessionInfoComponent } from './home/session-info/session-info.component';
 import { MatTableModule } from '@angular/material/table';
+import { EnrollStudentComponent } from './course-list/enroll-student/enroll-student.component';
+import { CourseProfileComponent } from './course-list/course-profile/course-profile.component';
+import { ConfirmEnrollComponent } from './course-list/confirm-enroll/confirm-enroll.component';
+import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
-    MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent, QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent],
+    MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
+     QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
+     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -61,6 +67,6 @@ import { MatTableModule } from '@angular/material/table';
     DatePipe
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [SessionInfoComponent]
+  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent]
 })
 export class InstructorModule { }
