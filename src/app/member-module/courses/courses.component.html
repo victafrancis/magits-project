@@ -7,14 +7,14 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
-    <ng-container matColumnDef="courses">
-      <th mat-header-cell *matHeaderCellDef> Courses </th>
-      <td mat-cell class="clickable" *matCellDef="let element" routerLinkActive="active" routerLink="/member/course-description"  > {{element.courses}} </td>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Course </th>
+      <td mat-cell class="clickable" *matCellDef="let element" routerLinkActive="active" routerLink="/member/course-description"  > {{element.name}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="instructor">
+    <ng-container matColumnDef="instructors">
       <th mat-header-cell *matHeaderCellDef> Instructor </th>
-      <td mat-cell *matCellDef="let element"> {{element.instructor}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.instructors}} </td>
     </ng-container>
   
     <ng-container matColumnDef="status">

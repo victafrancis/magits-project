@@ -61,6 +61,8 @@ export class UserService {
     )
   }
 
+  
+
   // Update user
   UpdateUser(id, data: User): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
