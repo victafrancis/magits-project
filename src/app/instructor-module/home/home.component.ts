@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
   time:any = null;
   user: any = {};
   sessionDate: String='';
+  currentSchedIndex=0;
+  
   
   //Session Entry
   sessionEntry: any={};
@@ -64,6 +66,8 @@ export class HomeComponent implements OnInit {
       // subject = user._id in jwt
       // console.log(this.add_minutes(this.myDate,5))
       
+     
+
       
       //Schedule Table Subscriber
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
@@ -76,35 +80,62 @@ export class HomeComponent implements OnInit {
               // console.log(data.courses[i].course);
              
               this.schedules.push(data.courses[i].course.schedule[j]);
-              var totalSched = this.schedules.length - 1;
-              this.schedules[totalSched].courseName = data.courses[i].course.name;
-              this.schedules[totalSched].status = 'Not Started';
+              this.currentSchedIndex = this.schedules.length -1;
+
+              this.schedules[this.currentSchedIndex].courseName = data.courses[i].course.name;
+              // console.log(this.currentSchedIndex);
 
               //testing
-              this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
+            this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
+              
+                var counter = this.schedules.length;
+                console.log("counter:")
+                console.log(counter)
+                console.log(sessionsData)
+                console.log('---------------');
+                console.log('from getSessionByCourse schedules:');
+                console.log(this.schedules);
+                console.log('from getSessionByCourse sessionsData:');
+                console.log(sessionsData);
+                console.log('from getSessionByCourse currentSchedIndex:');
+                console.log(this.currentSchedIndex);
+                
 
                 for (var session of sessionsData){
-                  
+                
                   this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
-              
-                  if(this.currentDate == this.sessionDate){
-                    if(session.open == true){
-                      this.schedules[totalSched].status = 'Open'
-                    }else{
-                      this.schedules[totalSched].status = 'Closed'
+                  // console.log(this.sessionDate)
+                  // console.log(this.currentDate)
+                  if(this.currentDate === this.sessionDate){
+                    // console.log("----------------")
+                    // console.log(this.currentDate)
+                    // console.log(this.sessionDate)
+                    // var value = JSON.parse("true");
+                    // var value2 = JSON.parse("false");
+                    if(session.open == true ){
+                      this.schedules[counter].status = 'Open';
+                      // console.log("from open:"+this.schedules[this.currentSchedIndex].courseName)
+                      // console.log("from open:"+this.schedules[this.currentSchedIndex].status)
+                      // console.log("from open:"+session.open)
+                    }
+                    if(session.open == false){
+                      this.schedules[counter].status = 'Closed';
+                      // console.log("from closed:"+this.schedules[this.currentSchedIndex].courseName)
+                      // console.log("from closed:"+this.schedules[this.currentSchedIndex].status)
+                      // console.log("from closed:"+session.open)
+                      //boxing not started
                     }
                   }
                   
                 }
                 
              })
-
-              // todo: start session shows if currentTime > start
-              this.readyStartButton.push()
+             this.schedules[this.currentSchedIndex].status = 'Not Started';
             }
           }
         }
         // console.log(this.schedules)
+        
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
 
       });
@@ -127,14 +158,12 @@ export class HomeComponent implements OnInit {
       
       //Add a session entry to be added when confirmed
       this.sessionEntry.course = schedule.course;
-      this.sessionEntry.open = true;
-      this.sessionEntry.date = this.datePipe.transform(this.myDate, 'M/d/yy');
+      this.sessionEntry.open = JSON.parse("true");
+      this.sessionEntry.date = this.myDate;
       this.sessionEntry.start_time = this.datePipe.transform(this.myDate, 'h:mm a');
       this.sessionEntry.end_time = schedule.end;
       this.sessionEntry.courseName= schedule.courseName;
-
-      //todo: set the session open to true so that when the api reads again, 
-        //it will set opened sessions to on-going 
+      console.log(this.sessionEntry.date);
 
       //todo: set the session open: true to false when the session ends
 
@@ -143,8 +172,9 @@ export class HomeComponent implements OnInit {
       // console.log(this.sessionEntry);
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       console.log(this.sessionInfo);
-      // window.location.reload();
       this.openSessionInfoModal(this.sessionEntry);
+            // window.location.reload();
+
     }
   }
 
@@ -172,8 +202,79 @@ export class HomeComponent implements OnInit {
     const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
   }
 
-  //Lets Start Session Appear
+  //Adds minutes to time
   add_minutes(dt, minutes) {
     return new Date(dt.getTime() + minutes*60000);
   }
+
+
+   //Schedule Table Subscriber
+  //  this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
+
+  //   for (var i= 0 ; i < data.courses.length ; i++ ){
+  //     for( var j = 0; j < data.courses[i].course.schedule.length; j++){
+
+  //       if(data.courses[i].course.schedule[j].day === this.currentDay){
+
+  //         // console.log(data.courses[i].course);
+         
+  //         this.schedules.push(data.courses[i].course.schedule[j]);
+  //         this.currentSchedIndex = this.schedules.length -1;
+
+  //         this.schedules[this.currentSchedIndex].courseName = data.courses[i].course.name;
+  //         // console.log(this.currentSchedIndex);
+
+  //         //testing
+  //       this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
+  //           var counter = this.schedules.length;
+  //           console.log("counter:")
+  //           console.log(counter)
+  //           console.log(sessionsData)
+  //           console.log('---------------');
+  //           console.log('from getSessionByCourse schedules:');
+  //           console.log(this.schedules);
+  //           console.log('from getSessionByCourse sessionsData:');
+  //           console.log(sessionsData);
+  //           console.log('from getSessionByCourse currentSchedIndex:');
+  //           console.log(this.currentSchedIndex);
+            
+
+  //           for (var session of sessionsData){
+            
+  //             this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
+  //             // console.log(this.sessionDate)
+  //             // console.log(this.currentDate)
+  //             if(this.currentDate === this.sessionDate){
+  //               // console.log("----------------")
+  //               // console.log(this.currentDate)
+  //               // console.log(this.sessionDate)
+  //               // var value = JSON.parse("true");
+  //               // var value2 = JSON.parse("false");
+  //               if(session.open == true ){
+  //                 this.schedules[counter].status = 'Open';
+  //                 // console.log("from open:"+this.schedules[this.currentSchedIndex].courseName)
+  //                 // console.log("from open:"+this.schedules[this.currentSchedIndex].status)
+  //                 // console.log("from open:"+session.open)
+  //               }
+  //               if(session.open == false){
+  //                 this.schedules[counter].status = 'Closed';
+  //                 // console.log("from closed:"+this.schedules[this.currentSchedIndex].courseName)
+  //                 // console.log("from closed:"+this.schedules[this.currentSchedIndex].status)
+  //                 // console.log("from closed:"+session.open)
+  //                 //boxing not started
+  //               }
+  //             }
+              
+  //           }
+            
+  //        })
+  //        this.schedules[this.currentSchedIndex].status = 'Not Started';
+  //       }
+  //     }
+  //   }
+  //   // console.log(this.schedules)
+    
+  //   this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
+
+  // });
 }

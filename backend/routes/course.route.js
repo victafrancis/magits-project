@@ -64,8 +64,10 @@ courseRoute.route('/add-course').post((req, res, next) => {
         //find Course id and set subscription membership ID
         Course.findByIdAndUpdate(data._id, {
           $push: {"schedule": scheduleData._id}
-        }, (error, data) => {
-          if (error)  return next(error);
+        }, (error, data, next) => {
+          if (error)
+            return next(error);
+            console.log(error)
         })
       })
     }
