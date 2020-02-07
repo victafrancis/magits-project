@@ -64,47 +64,35 @@ export class HomeComponent implements OnInit {
       // subject = user._id in jwt
       // console.log(this.add_minutes(this.myDate,5))
       
+     
+
       
       //Schedule Table Subscriber
-      this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
 
+      
+      this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         for (var i= 0 ; i < data.courses.length ; i++ ){
           for( var j = 0; j < data.courses[i].course.schedule.length; j++){
 
             if(data.courses[i].course.schedule[j].day === this.currentDay){
 
               // console.log(data.courses[i].course);
-             
               this.schedules.push(data.courses[i].course.schedule[j]);
-              var totalSched = this.schedules.length - 1;
+              var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
 
               //testing
-              this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
-
-                for (var session of sessionsData){
-                  
-                  this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
-              
-                  if(this.currentDate == this.sessionDate){
-                    if(session.open == true){
-                      this.schedules[totalSched].status = 'Open'
-                    }else{
-                      this.schedules[totalSched].status = 'Closed'
-                    }
-                  }
-                  
-                }
-                
-             })
-
-              // todo: start session shows if currentTime > start
-              this.readyStartButton.push()
+              console.log("From get Course")
+              console.log(this.schedules.length)
+              console.log(data.courses[i].course)
+             this.getSessions(data.courses[i].course);
+            //  console.log("From Get Instructors")
             }
+            // console.log(this.schedules[i])
           }
         }
-        // console.log(this.schedules)
+        
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
 
       });
@@ -127,14 +115,12 @@ export class HomeComponent implements OnInit {
       
       //Add a session entry to be added when confirmed
       this.sessionEntry.course = schedule.course;
-      this.sessionEntry.open = true;
-      this.sessionEntry.date = this.datePipe.transform(this.myDate, 'M/d/yy');
+      this.sessionEntry.open = JSON.parse("true");
+      this.sessionEntry.date = this.myDate;
       this.sessionEntry.start_time = this.datePipe.transform(this.myDate, 'h:mm a');
       this.sessionEntry.end_time = schedule.end;
       this.sessionEntry.courseName= schedule.courseName;
-
-      //todo: set the session open to true so that when the api reads again, 
-        //it will set opened sessions to on-going 
+      console.log(this.sessionEntry.date);
 
       //todo: set the session open: true to false when the session ends
 
@@ -143,8 +129,9 @@ export class HomeComponent implements OnInit {
       // console.log(this.sessionEntry);
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       console.log(this.sessionInfo);
-      // window.location.reload();
       this.openSessionInfoModal(this.sessionEntry);
+            // window.location.reload();
+
     }
   }
 
@@ -172,8 +159,33 @@ export class HomeComponent implements OnInit {
     const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
   }
 
-  //Lets Start Session Appear
+  //Adds minutes to time
   add_minutes(dt, minutes) {
     return new Date(dt.getTime() + minutes*60000);
   }
+
+  getSessions(course: any){
+    console.log("From GetSessions")
+    console.log(course)
+    var totalSched = this.schedules.length-1;
+    console.log(totalSched)
+    this.sessionApi.GetSessionsByCourse(course).subscribe(sessionsData =>{
+      // data.courses[i].course
+      for (var session of sessionsData){
+      
+        this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
+        
+        if(this.currentDate === this.sessionDate){
+          if(session.open === true){
+            this.schedules[totalSched].status = 'Open';
+          }
+          if(session.open === false){
+            this.schedules[totalSched].status = 'Closed';
+          
+          }
+        }
+      } 
+   })
+  }
+  
 }

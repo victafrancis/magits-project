@@ -102,6 +102,9 @@ export class CheckInMemberComponent{
   //   this.qrResultString = resultString;
   // }
 
-  // check-inMember()
-  // turnOffScanner()
+  // todo: check-inMember()
+  // todo: turnOffScanner()
+  // todo: checkinManually()
+
+
 }
