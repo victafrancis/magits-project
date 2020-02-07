@@ -71,7 +71,7 @@
             <div *ngIf="!editSession" class="container" style="text-align: center; margin-top: auto;">
                 <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="changeSessionFormStatus()">
                     Edit </button>&nbsp;
-                <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="removeSessionMembership()">
+                <button *ngIf="subscription_membership != null" class="AdminModuleButtons" mat-flat-button color="warn" (click)="removeSessionMembership()">
                     Remove </button>
             </div>
             <div *ngIf="editSession" class="container" style="text-align: center; margin-top: auto;">
