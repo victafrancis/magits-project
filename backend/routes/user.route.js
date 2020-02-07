@@ -148,26 +148,6 @@ userRoute.route('/instructor-get-course-details').post((req, res) => {
   })
 })
 
-// Get course schedule details of an instructor-------------------------------------------------------------------------------------------
-userRoute.route('/instructor-get-schedule-details').post((req, res) => {
-  User.findById(req.body.subject).populate('courses.course').exec((error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-
-      for (var i= 0 ; i < data.courses.length ; i++ ){
-        for( var j = 0; j < data.courses[i].course.schedule.length; j++){
-
-          if(data.courses[i].course.schedule[j].day === this.currentDay){
-              console.log()
-          }
-        }
-      }           
-      res.json(data)
-    }
-  })
-})
-
 
 
 module.exports = userRoute;
