@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
       
      
 
-      
+      //----------------------------------------------------------------------------------------------------------------
       //Schedule Table Subscriber
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
 
@@ -86,9 +86,9 @@ export class HomeComponent implements OnInit {
               // console.log(this.currentSchedIndex);
 
               //testing
-            this.sessionApi.GetSessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
+            this.sessionApi.GetCurrentDaySessionsByCourse(data.courses[i].course).subscribe(sessionsData =>{
               
-                var counter = this.schedules.length;
+                var counter = this.schedules.length -1;
                 console.log("counter:")
                 console.log(counter)
                 console.log(sessionsData)
@@ -139,6 +139,7 @@ export class HomeComponent implements OnInit {
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
 
       });
+//---------------------------------------------------------------------------------------------------------------
 
       //Announcements Table Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {

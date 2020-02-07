@@ -85,6 +85,13 @@ export class UserService {
     )
   }
 
+  GetInstructorScheduleDetails(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/instructor-get-schedule-details`;
+    return this.http.post(API_URL, data).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

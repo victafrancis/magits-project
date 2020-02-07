@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 // user model
 let User = require('../model/User');
-
+var myDay = new Date();
+var currentDay
 
 //register a User
 userRoute.route('/register').post((req, res, next) => {
@@ -142,6 +143,26 @@ userRoute.route('/instructor-get-course-details').post((req, res) => {
     if (error) {
       return next(error)
     } else {
+      res.json(data)
+    }
+  })
+})
+
+// Get course schedule details of an instructor-------------------------------------------------------------------------------------------
+userRoute.route('/instructor-get-schedule-details').post((req, res) => {
+  User.findById(req.body.subject).populate('courses.course').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+
+      for (var i= 0 ; i < data.courses.length ; i++ ){
+        for( var j = 0; j < data.courses[i].course.schedule.length; j++){
+
+          if(data.courses[i].course.schedule[j].day === this.currentDay){
+              console.log()
+          }
+        }
+      }           
       res.json(data)
     }
   })
