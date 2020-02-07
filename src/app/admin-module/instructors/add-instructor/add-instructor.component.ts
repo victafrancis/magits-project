@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AddInstructorComponent implements OnInit {
   instructorForm: FormGroup;
-  
+  enabled: boolean = false;
+
   constructor(
     public fb: FormBuilder,
     private userApi: UserService,
@@ -19,14 +20,7 @@ export class AddInstructorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.instructorForm = this.fb.group({
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
-      birthdate: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['password'],
-      role: ['instructor']
-    });  
+    this.initializeForm();
   }
 
   /* Get errors */
@@ -35,10 +29,24 @@ export class AddInstructorComponent implements OnInit {
   }
 
   submitInstructorForm(){
-    if(window.confirm('Are you sure you want to add this instructor?')){
-      this.userApi.AddUser(this.instructorForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/instructors'))
-      });
+    if(this.instructorForm.valid){
+      if(window.confirm('Are you sure you want to add this instructor?')){
+        this.userApi.AddUser(this.instructorForm.value).subscribe(res => {
+          this.ngZone.run(() => this.router.navigateByUrl('/admin/instructors'))
+        });
+      }
     }
+  }
+
+  initializeForm(){
+    this.enabled = !this.enabled;
+    this.instructorForm = this.fb.group({
+      firstname: [{value: '', disabled: this.enabled}, [Validators.required]],
+      lastname: [{value: '', disabled: this.enabled}, [Validators.required]],
+      birthdate: [{value: '', disabled: this.enabled}, [Validators.required]],
+      email: [{value: '', disabled: this.enabled}, [Validators.required]],
+      password: ['password'],
+      role: ['instructor']
+    });  
   }
 }

@@ -44,13 +44,16 @@
                 </mat-form-field>
 
                 <!-- Submit & Reset -->
-                <mat-card>
-                    <div class="full-wrapper button-wrapper">
-                        <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Add</button>
-                        </div>
+                <div class="container">
+                    <div *ngIf="enabled">
+                        <button class="AdminModuleButtons" type="button" mat-flat-button color="warn"
+                            (click)="initializeForm()"> Add Instructor</button>
                     </div>
-                </mat-card>
+                    <div *ngIf="!enabled">
+                        <button class="AdminModuleButtons"mat-flat-button color="warn"> Add </button>&nbsp;
+                        <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="initializeForm()"> Cancel </button>
+                    </div>
+                </div>
             </div>
         </mat-card>
     </form>
