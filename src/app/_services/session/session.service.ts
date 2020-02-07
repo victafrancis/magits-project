@@ -53,6 +53,15 @@ export class SessionService {
     )
   }
 
+  //Get Sessions by Course
+  GetCurrentDaySessionsByCourse(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/get-current-day-session-by-course`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Update Session
   UpdateSession(id, data: Session): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
