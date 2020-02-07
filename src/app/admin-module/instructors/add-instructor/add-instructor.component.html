@@ -8,7 +8,7 @@
 </div>
 
 <div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="instructorForm" (ngSubmit)="submitInstructorForm()" novalidate>
+    <form [formGroup]="InstructorForm" (ngSubmit)="submitInstructorForm()" novalidate>
         <mat-card>
             <div class="controlers-wrapper">
                 <!-- First Name -->
@@ -47,11 +47,11 @@
                 <div class="container">
                     <div *ngIf="enabled">
                         <button class="AdminModuleButtons" type="button" mat-flat-button color="warn"
-                            (click)="initializeForm()"> Add Instructor</button>
+                            (click)="instructorForm()"> Add Instructor</button>
                     </div>
                     <div *ngIf="!enabled">
                         <button class="AdminModuleButtons"mat-flat-button color="warn"> Add </button>&nbsp;
-                        <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="initializeForm()"> Cancel </button>
+                        <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="instructorForm()"> Cancel </button>
                     </div>
                 </div>
             </div>
