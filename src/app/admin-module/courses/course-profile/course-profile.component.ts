@@ -54,6 +54,7 @@ export class CourseProfileComponent implements OnInit {
       this.course.session_membership = data.session_membership;
       this.course.subscription_membership = data.subscription_membership;
     });
+
   }
 
   ngOnInit() {
