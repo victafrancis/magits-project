@@ -1,6 +1,6 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Info</h1>
+        <h2 style="text-align: center;">Course Info</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -8,7 +8,7 @@
 </div>
 
 <div class="inner-wrapper">
-    <div style="width: 20%; text-align: center; margin:auto;" class="controlers-wrapper">
+    <div style="width: 50%; text-align: center; margin:auto;" class="controlers-wrapper">
         <table style="text-align:left;">
             <tr>
                 <th>
@@ -40,8 +40,23 @@
                     <h3><label>Course Schedule:</label>&nbsp;</h3>
                 </th>
                 <td>
-                    <p *ngFor='let schedule of course.schedule'>{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
+                    <p *ngFor='let schedule of course.schedule'>{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} -
+                        {{schedule.end}}</p>
                 </td>
+            </tr>
+            <tr>
+                <th>
+                    <h3><label>Course Memberships:</label></h3>
+                </th>
+                <div  *ngIf="course.session_membership != null">
+                    <td>Session,</td>
+                    <td> ${{course.session_membership.cost}} per session for</td>
+                    <td>{{course.session_membership.number_of_sessions}} sessions.</td>
+                </div>
+                <div *ngIf="course.subscription_membership != null">
+                    <td>Subscription, </td>
+                    <td>${{course.subscription_membership.cost}} per month.</td>
+                </div>
             </tr>
         </table>
     </div>
@@ -53,7 +68,8 @@
                     (click)="openEditCourseModal()"> Edit Course </button>
                 <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
                     (click)="openEditScheduleModal()"> Edit Schedule </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"> Edit Membership </button>
+                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                    (click)="openEditMembershipModal()"> Edit Membership </button>
             </div>
             <div class="button-wrapper">
                 <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
