@@ -20,7 +20,7 @@
                 <!-- SESSION MEMBERSHIP COST-->
                 <mat-form-field class="example-full-width" style="width: 51%;">
                     <mat-label>Session Membership Cost</mat-label>
-                    <input matInput formControlName="cost">
+                    <input type="number" matInput formControlName="cost">
                     <mat-error *ngIf="handleSession('cost', 'required')">
                         You must provide a session cost
                     </mat-error>
@@ -29,7 +29,7 @@
                 <!-- NUMBER OF SESSIONS -->
                 <mat-form-field class="example-full-width" style="width: 51%;">
                     <mat-label>Number of Sessions</mat-label>
-                    <input matInput formControlName="number_of_sessions">
+                    <input type="number" matInput formControlName="number_of_sessions">
                     <mat-error *ngIf="handleSession('number_of_sessions', 'required')">
                         You must provide a number of Sessions
                     </mat-error>
@@ -52,7 +52,7 @@
             <!-- SESSION MEMBERSHIP COST-->
             <mat-form-field class="example-full-width" style="width: 51%;">
                 <mat-label>Session Membership Cost</mat-label>
-                <input matInput formControlName="cost">
+                <input type="number" matInput formControlName="cost">
                 <mat-error *ngIf="handleSession('cost', 'required')">
                     You must provide a session cost
                 </mat-error>
@@ -61,7 +61,7 @@
             <!-- NUMBER OF SESSIONS -->
             <mat-form-field class="example-full-width" style="width: 51%;">
                 <mat-label>Number of Sessions</mat-label>
-                <input matInput formControlName="number_of_sessions">
+                <input type="number" matInput formControlName="number_of_sessions">
                 <mat-error *ngIf="handleSession('number_of_sessions', 'required')">
                     You must provide a number of Sessions
                 </mat-error>
@@ -100,7 +100,7 @@
                 <!-- SUBSCRIPTION MEMBERSHIP COST-->
                 <mat-form-field class="example-full-width" style="width: 51%;">
                     <mat-label>Subscription Membership Cost</mat-label>
-                    <input matInput formControlName="cost">
+                    <input type="number" matInput formControlName="cost">
                     <mat-error *ngIf="handleSubscription('cost', 'required')">
                         You must provide a subscription cost
                     </mat-error>

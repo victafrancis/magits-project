@@ -1,9 +1,7 @@
 import { Component, OnInit, Optional, Inject, NgZone } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { CourseService } from '../../../_services/course/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Course } from '../../../_services/course/course';
 import { MembershipService } from '../../../_services/membership/membership.service';
 
 @Component({
@@ -169,5 +167,4 @@ export class EditMembershipComponent implements OnInit {
       cost: ['', Validators.required]
     });
   }
-
 }
