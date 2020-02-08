@@ -1,9 +1,10 @@
 import { Component} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BarcodeFormat } from '@zxing/library';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormatsDialogComponent } from './qr/formats-dialog/formats-dialog.component';
 import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.component';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.compon
   styleUrls: ['./check-in-member.component.css']
 })
 export class CheckInMemberComponent{
-
+// -------------------------------------------------------------------------------------------------
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
 
@@ -31,12 +32,34 @@ export class CheckInMemberComponent{
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
+// ^------------------QR SCANNER----------------------------------------------------------------------
+  watcher: Subscription;
+  columns: number = 4;
+  myNumberQRVersion = 9;
 
 
   constructor(
-    private readonly _dialog: MatDialog
-  ) { }
+    private readonly _dialog: MatDialog,
+    media: MediaObserver
+  ) {
+    this.watcher = media.media$.subscribe((change: MediaChange) => {
+      if (change) {
+        if (change.mqAlias == 'xs') {
+          this.columns = 1;
+          this.myNumberQRVersion = 4;
+        } else if( change.mqAlias == 'sm'){
+          this.myNumberQRVersion = 8;
+        } else if( change.mqAlias == 'md'){
+          this.myNumberQRVersion = 9;
+        } else {
+          this.columns = 2;
+          this.myNumberQRVersion = 11;
+        }
+      }
+    });
+   }
 
+  // QR SCANNER--------------------------------------------------------------------------------------------------------------
   clearResult(): void {
     this.qrResultString = null;
   }
@@ -90,8 +113,10 @@ export class CheckInMemberComponent{
   toggleTryHarder(): void {
     this.tryHarder = !this.tryHarder;
   }
+// ----------------------------------------------------------------------------------------------------------
+  
 
-  // -------------------------
+// -------------------------
   // qrResultString: string;
 
   // clearResult(): void {

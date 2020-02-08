@@ -36,13 +36,16 @@ import { EnrollStudentComponent } from './course-list/enroll-student/enroll-stud
 import { CourseProfileComponent } from './course-list/course-profile/course-profile.component';
 import { ConfirmEnrollComponent } from './course-list/confirm-enroll/confirm-enroll.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
+import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
+import { AddMemberComponent } from './members/add-member/add-member.component';
+import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-prof.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
     MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
      QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
-     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent],
+     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, AddMemberComponent, MyCourseProfComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

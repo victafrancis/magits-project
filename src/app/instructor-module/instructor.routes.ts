@@ -12,6 +12,8 @@ import { CheckInMemberComponent } from './home/check-in-member/check-in-member.c
 import { CourseProfileComponent } from './course-list/course-profile/course-profile.component';
 import { EnrollStudentComponent } from './course-list/enroll-student/enroll-student.component';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
+import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
+import { AddMemberComponent } from '../admin-module/members/add-member/add-member.component';
 
 
 export const instructorRoutes: Routes = [
@@ -32,6 +34,9 @@ export const instructorRoutes: Routes = [
       { path: 'course-profile/:id', component: CourseProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'enroll-student/:id', component: EnrollStudentComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'add-member', component: AddMemberComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
+      { path: 'my-course-prof/:id', component: MyCoursesComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
 
 
     ]

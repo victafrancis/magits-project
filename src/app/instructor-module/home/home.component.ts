@@ -9,7 +9,6 @@ import { Course } from 'src/app/_services/course/course';
 import { Schedule } from 'src/app/_services/schedule/schedule';
 import { SessionInfoComponent } from './session-info/session-info.component';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { Session } from 'src/app/_services/session/session';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   // Announcement Table
   Announcements: any = [];
-  displayedColumns: string[] = ['date', 'subject', 'content'];
+  displayedColumns: string[] = ['date', 'user', 'content'];
   announcementDataSource: MatTableDataSource<Announcement>;
 
   constructor(
@@ -62,41 +61,27 @@ export class HomeComponent implements OnInit {
         this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
       this.user = this._authService.decode();
       // subject = user._id in jwt
-      // console.log(this.add_minutes(this.myDate,5))
-      
-     
-
       
       //Schedule Table Subscriber
-
-      
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         for (var i= 0 ; i < data.courses.length ; i++ ){
           for( var j = 0; j < data.courses[i].course.schedule.length; j++){
 
             if(data.courses[i].course.schedule[j].day === this.currentDay){
 
-              // console.log(data.courses[i].course);
               this.schedules.push(data.courses[i].course.schedule[j]);
               var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
 
-              //testing
-              console.log("From get Course")
-              console.log(this.schedules.length)
-              console.log(data.courses[i].course)
-             this.getSessions(data.courses[i].course);
-            //  console.log("From Get Instructors")
+              //Check each session status in session collections
+              this.getSessions(data.courses[i].course);
             }
-            // console.log(this.schedules[i])
           }
         }
-        
+        // console.log(this.schedules[i])
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
-
       });
-
       //Announcements Table Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {
         this.Announcements = data;
@@ -112,7 +97,6 @@ export class HomeComponent implements OnInit {
 
   startSession(schedule){
     if (window.confirm('Are you sure you want to start this session?')) {
-      
       //Add a session entry to be added when confirmed
       this.sessionEntry.course = schedule.course;
       this.sessionEntry.open = JSON.parse("true");
@@ -124,27 +108,17 @@ export class HomeComponent implements OnInit {
 
       //todo: set the session open: true to false when the session ends
 
-      // schedule.status = 'On-going';
-
       // console.log(this.sessionEntry);
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       console.log(this.sessionInfo);
-      this.openSessionInfoModal(this.sessionEntry);
-            // window.location.reload();
+      // this.openSessionInfoModal(this.sessionEntry);
+      window.location.reload();
 
     }
   }
 
   logout() {
     this._authService.logout();
-  }
-
-
-  deleteAnnouncement(element) {
-    if (window.confirm('Are you sure you want to delete this announcement?')) {
-      this.announcementApi.DeleteAnnouncement(element._id).subscribe();
-      window.location.reload();
-    }
   }
 
   //opening a Session Modal
@@ -165,12 +139,11 @@ export class HomeComponent implements OnInit {
   }
 
   getSessions(course: any){
-    console.log("From GetSessions")
-    console.log(course)
+    // console.log("From GetSessions")
+    // console.log(course)
     var totalSched = this.schedules.length-1;
-    console.log(totalSched)
+    // console.log(totalSched)
     this.sessionApi.GetSessionsByCourse(course).subscribe(sessionsData =>{
-      // data.courses[i].course
       for (var session of sessionsData){
       
         this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
