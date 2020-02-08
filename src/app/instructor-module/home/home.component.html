@@ -60,7 +60,7 @@
                     
                     <div *ngIf= "row.status === 'Not Started'">
                         <button mat-raised-button color="warn" (click)="startSession(row)">
-                            <i class="material-icons">directions_run</i> &nbsp;Start {{row.start}}<{{currentTime}}
+                            <i class="material-icons">directions_run</i> &nbsp;Start
                         </button>
                     </div>
                 <!-- </div> -->
@@ -104,9 +104,9 @@
         </ng-container>
 
         <!-- Subject Column -->
-        <ng-container matColumnDef="subject">
-            <th mat-header-cell *matHeaderCellDef> Subject </th>
-            <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+        <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef> Sender </th>
+            <td mat-cell *matCellDef="let element"> {{element.user}} </td>
         </ng-container>
 
         <!-- Subject Column -->

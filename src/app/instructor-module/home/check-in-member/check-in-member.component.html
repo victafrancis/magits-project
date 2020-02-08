@@ -1,8 +1,10 @@
-<mat-grid-list cols="2" rowHeight="1:1">
-    <mat-grid-tile>Scan Qr
-        <br>
-        
-        <div class="scanner-shell" [hidden]="!hasDevices">
+
+  <p>Scan your Qr code here:</p>
+  <mat-grid-list [cols]="columns" rowHeight="5:4">
+    <mat-grid-tile>
+        <mat-card>
+        <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
+        <!-- <div class="scanner-shell" [hidden]="!hasDevices">
 
             <mat-menu #appMenu="matMenu">
               <mat-selection-list>
@@ -80,9 +82,11 @@
               I believe your device has no media devices attached to.
             </blockquote>
           
-          </ng-container>
-
-    <!-- Turn off Scanner Button-->
+          </ng-container> -->
+<!-- -------------------------------------------------------------------------------------------------------- -->
+</mat-card>
+   
+<!-- todo: Turn off Scanner Button-->
     </mat-grid-tile>
     <mat-grid-tile>Manual Check-in
         <!-- input box for manual check in -->
