@@ -3,6 +3,7 @@ import { Course } from '../../_services/course/course';
 import { MatTableDataSource } from '@angular/material';
 import { CourseService } from '../../_services/course/course.service';
 import { UserService } from '../../_services/user/user.service';
+import { delay } from 'rxjs/operators';
 
 
 export interface Courses {
@@ -24,21 +25,33 @@ const ELEMENT_DATA: Courses[] = [
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-  DataList: any = {};
+ 
   UserData: any = [];
   dataSource: MatTableDataSource<Courses>;
   displayedColumns: string[] = ['name', 'instructors', 'status'] ;
 
   constructor(private courseApi: CourseService, private userApi: UserService) {
-    this.courseApi.GetCourses().subscribe(data => {
-      //userApi.GetUser(data['instructors']).subscribe(data1 => {
-        //this.UserData.push(data1);
-      //});
-     
-      //this.DataList.name = data;
-      this.UserData = data;
-      //console.log(this.UserData);
-      this.dataSource = new MatTableDataSource<Courses>(this.UserData);
+    this.courseApi.GetCourses().pipe(delay(500)).subscribe(data => {
+      for(let x in data){
+        let DataList: any = {};
+        let tempArr: Array<String> = [];
+        DataList.instructors = [];
+          for(let y in data[x].instructors){
+          userApi.GetUser(data[x].instructors[y]).pipe(delay(1500)).subscribe(data1 => {
+            if(y == '0'){
+              DataList.instructors += data1.firstname + " " + data1.lastname;
+            }else{
+              DataList.instructors += ", " + data1.firstname + " " + data1.lastname;
+            }            
+          })
+        }
+
+        DataList.name = data[x].name;
+        //console.log(DataList.name);
+        //console.log(DataList)
+        this.UserData.push(DataList);
+        this.dataSource = new MatTableDataSource<Courses>(this.UserData);
+      }
     });
   }
 
