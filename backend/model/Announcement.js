@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 // Define collection and schema
 let Announcement = new Schema({
   date: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   subject: {
     type: String
@@ -12,10 +13,10 @@ let Announcement = new Schema({
   content: {
     type: String
   },
-  user: { type: Schema.Types.ObjectId, ref: 'User' }
+  user: { type: Schema.Types.ObjectId, ref: 'User', autopopulate: true }
 }, {
   collection: 'announcements'
 })
-
+Announcement.plugin(require('mongoose-autopopulate'));
 module.exports = mongoose.model('Announcement', Announcement)
 
