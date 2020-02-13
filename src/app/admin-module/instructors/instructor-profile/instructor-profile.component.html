@@ -49,11 +49,11 @@
                 <div class="full-wrapper button-wrapper">
                     <div *ngIf="disabled">
                         <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="instructorForm()">Update Info</button>
+                        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="backPressed()"> Back </button>
                     </div>
                     <div *ngIf="!disabled">
                         <button class="AdminModuleButtons" mat-flat-button color="warn"> Update </button>
                         <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="instructorForm()"> Cancel </button>
-
                     </div>
                 </div>
             </div>
