@@ -8,8 +8,9 @@ body{margin:0;font-family:'Roboto', sans-serif; background-color: #363537;}
 .AdminModuleButtons{
   width: 130px;
 }
+
 .mat-row:hover{
-  background-color: teal;
+  background-color: #363537;
 }
 
 .header{justify-content:space-between;}
@@ -70,7 +71,5 @@ body .push-right{margin-right:10px;}
     background-color:#008E8E;
 }
 
-/* qr top  */
-.mat-grid-tile .mat-figure {
-  top: 20px !important;
-}
+/* game list button color */
+
