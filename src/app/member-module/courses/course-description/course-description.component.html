@@ -1,2 +1,17 @@
 <h1>Course Description</h1>
-<p>Instructor: Manny Preston</p>
+<p>Course Name: {{course.name}}</p>
+<p>Instructors: {{myIns.join(', ')}}</p>
+<p>Status: {{myStatus}} </p>
+<p>Details: {{course.details}}</p>
+<p>Schedule(s): </p>
+<ul *ngFor="let s of sched">
+    <li>
+      Day: {{s.day}}
+    </li>
+    <li>
+       Start: {{s.start}}
+    </li>
+    <li>
+        End:{{s.end}}
+    </li>
+</ul>

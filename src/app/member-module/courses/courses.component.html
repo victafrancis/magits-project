@@ -9,7 +9,7 @@
   
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Course </th>
-      <td mat-cell class="clickable" *matCellDef="let element" routerLinkActive="active" routerLink="/member/course-description"  > {{element.name}} </td>
+      <td mat-cell class="clickable" *matCellDef="let element" routerLinkActive="active" [routerLink]= "['/member/course-description', element._id]" > {{element.name}} </td>
     </ng-container>
   
     <ng-container matColumnDef="instructors">
