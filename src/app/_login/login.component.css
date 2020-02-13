@@ -39,7 +39,7 @@ body{
     -o-transition: all 0.5s ease-out;
 }
 .myDiv:hover{
-    box-shadow: 25px 25px 0px #008E8E;
+    box-shadow: 0px 45px 0px #008E8E;
     border: #232323 0.1em solid;
     margin-top: 5px;
 }
