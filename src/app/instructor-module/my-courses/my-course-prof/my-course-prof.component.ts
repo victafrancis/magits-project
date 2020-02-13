@@ -50,4 +50,8 @@ export class MyCourseProfComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  showSessions(course: any){
+    console.log(course);
+  }
 }

@@ -17,13 +17,35 @@
                 <a href="#" style="text-decoration: none; color:white;">{{element.course.name}}</a>
             </td>
         </ng-container>
-
+<!-- 
         <ng-container matColumnDef="customColumn">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let person"> 
-                <button mat-button >Sessions</button>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-raised-button color="warn" (click)="showSessions(row)">
+                    Sessions
+                </button>
             </td>
-          </ng-container>
+          </ng-container> -->
+
+          <ng-container matColumnDef="customColumn">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
+                <button mat-raised-button color="accent" [routerLink]="['/instructor/my-course-prof/', element.course._id]">
+                    <i class="material-icons">pageview</i>
+                    Info
+                </button>
+            </td>
+        </ng-container>
+
+            <!-- ACTION Sample-->
+         <!-- <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let row; let i = index;">
+                <button mat-raised-button color="warn" (click)="startSession(row)">
+                    <i class="material-icons">directions_run</i> &nbsp;Start
+                </button>
+            </td>
+        </ng-container> -->
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

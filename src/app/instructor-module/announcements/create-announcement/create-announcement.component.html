@@ -32,6 +32,7 @@
                 <!-- Content -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Content" formControlName="content">
+                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
                     <mat-error *ngIf="handleError('content', 'required')">
                         You must provide a<strong> Content</strong>
                     </mat-error>

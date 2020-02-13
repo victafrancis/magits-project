@@ -39,13 +39,16 @@ import { MemberProfileComponent } from './members/member-profile/member-profile.
 import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
 import { AddMemberComponent } from './members/add-member/add-member.component';
 import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-prof.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ManualCheckInComponent } from './home/check-in-member/manual-check-in/manual-check-in.component';
+import { SessionsComponent } from './my-courses/sessions/sessions.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
     MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
      QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
-     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, AddMemberComponent, MyCourseProfComponent],
+     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessionsComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -62,7 +65,8 @@ import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-pro
     MatInputModule,
     MatMenuModule,
     MatIconModule,
-    MatTableModule 
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
   providers:[
     RoleGuard,

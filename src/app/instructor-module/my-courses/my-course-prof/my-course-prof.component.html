@@ -1,12 +1,14 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Info</h1>
+        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Information</h1>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
 
+<!-- todo: spinner, method -->
+<!-- <md-progress-spinner style="margin:0 auto;" mode="indeterminate"></md-progress-spinner> -->
 <div class="inner-wrapper">
     <div style="width: 20%; text-align: center; margin:auto;" class="controlers-wrapper">
         <table style="text-align:left;">
@@ -50,10 +52,10 @@
         <div class="full-wrapper button-wrapper">
          
             <div class="button-wrapper">
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/instructor/enroll-student', this.course_id]"> Enroll Student </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/instructor/view-students', this.course_id]"> View Students </button>
+                    <button mat-raised-button color="warn" (click)="showSessions(course)">
+                        Sessions{{ course }}
+                    </button>
+        
             </div>
         </div>
     </div>
