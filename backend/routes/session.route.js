@@ -11,13 +11,15 @@ let Membership = require('../model/Membership')
 
 // Add Session for a course
 sessionRoute.route('/add-session').post((req, res, next) => {
+  console.log("from Backend")
+  console.log(req.body)
   Session.create(req.body, (error, data) => {
     if (error) {return next(error)}
 
     //add session id to course sessions array
     Course.findByIdAndUpdate(req.body.course, {
       $push: {"sessions": data._id}
-    }, (error, data,next) => {
+    }, (error, data, next) => {
       if (error) {
         return next(error);
         console.log(error)

@@ -7,34 +7,23 @@
     <br>
 </div>
 
-<div class="container" style="width: 80%; margin: auto;">
+<div class="container" style="width: 50%; margin: auto;">
     <table mat-table [dataSource]="courseDataSource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->
         <ng-container matColumnDef="courseName">
             <th mat-header-cell *matHeaderCellDef> Course Name </th>
             <td mat-cell *matCellDef="let element">
-                <a href="#" style="text-decoration: none; color:white;">{{element.courseName}}</a>
+                <a href="#" style="text-decoration: none; color:white;">{{element.course.name}}</a>
             </td>
         </ng-container>
 
-         <!-- Session Column -->
-         <ng-container matColumnDef="days">
-            <th mat-header-cell *matHeaderCellDef> Day </th>
-            <td mat-cell *matCellDef="let element"> {{element.day}}</td>
-        </ng-container>
-
-        <!-- Session Time Column -->
-        <ng-container matColumnDef="time">
-            <th mat-header-cell *matHeaderCellDef> Time </th>
-            <td mat-cell *matCellDef="let element"> {{element.start}} - {{element.end}} </td>
-        </ng-container>
-
-        <!-- Session Column -->
-        <ng-container matColumnDef="">
-            <th mat-header-cell *matHeaderCellDef> Sessions </th>
-            <td mat-cell *matCellDef="let element"> Previous Sessions</td>
-        </ng-container>
+        <ng-container matColumnDef="customColumn">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let person"> 
+                <button mat-button >Sessions</button>
+            </td>
+          </ng-container>
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -17,7 +17,9 @@ export class SessionService {
   constructor(private http: HttpClient) { }
 
   // Add session
-  AddSession(data: Session): Observable<any> {
+  AddSession(data: any): Observable<any> {
+    console.log("from service");
+    console.log(data);
     let API_URL = `${this.endpoint}/add-session`;
     return this.http.post(API_URL, data)
       .pipe(

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
+import { AuthService } from 'src/app/_services/auth/auth.service';
 
 @Component({
   selector: 'app-announcements',
@@ -11,14 +12,19 @@ import { AnnouncementService } from 'src/app/_services/announcement/announcement
 export class AnnouncementsComponent implements OnInit {
 
   Announcements: any = [];
-  displayedColumns: string[] = ['date', 'subject', 'content', 'action'];
+  displayedColumns: string[] = ['date', 'user', 'content', 'action'];
   dataSource: MatTableDataSource<Announcement>;
+  user: any;
 
-  constructor(private announcementApi: AnnouncementService) {
+  constructor(
+    private announcementApi: AnnouncementService,
+    private _authService: AuthService
+    ) {
     this.announcementApi.GetAnnouncements().subscribe(data => {
+      this.user = this._authService.decode();
       this.Announcements = data;
       this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
-      console.log(this.Announcements)
+      console.log(this.Announcements);
     });
   }
 

@@ -1,40 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, forkJoin } from 'rxjs';
+import { map, filter, mergeMap } from "rxjs/operators";
 import { MediaChange, MediaObserver  } from '@angular/flex-layout';
-
-
-
-
-
-
-export interface PeriodicElement {
-  course: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {course: 'Taekwondo I'},
-  {course: 'Judo II'},
-  {course: 'Tekken'},
-  {course: 'Street Brawl'},
-];
-
-
-
-export interface Announcement {
-  date: string;
-  from: string;
-  subject: string;
-}
-
-const ANNOUNCEMENT_DATA: Announcement[] = [
-  {date: '01/20/20',from: 'Kamado Tanjiro', subject: 'Class cancellation for 01/21/20. Please do not break all the routines we have built up so far.'},
-  {date: '01/20/20',from: 'Midoriya Izkuku', subject: 'Please do not forget umbrella.'},
-  {date: '01/20/20',from: 'Midoriya Izkuku', subject: 'Class is not cancelled.'},
-  {date: '01/20/20',from: 'Midoriya Izkuku', subject: 'We will have fun!'},
-
-];
-
+import { UserService } from '../../_services/user/user.service';
+import { User } from '../../_services/user/user';
+import { CourseService } from '../../_services/course/course.service';
+import { Course } from '../../_services/course/course';
+import { MatTableDataSource } from '@angular/material';
+import { Announcement } from 'src/app/_services/announcement';
+import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
+import { DatePipe } from '@angular/common'
 
 
 @Component({
@@ -45,25 +21,24 @@ const ANNOUNCEMENT_DATA: Announcement[] = [
 
 export class HomeComponent implements OnInit, OnDestroy {
 //QR Code
-  
 token = this._authService.decode();
 value = this.token.subject;
-
 myNumberQRVersion = 9;
 
+//data
+UserData: any = [];
+dataSourceMembership: MatTableDataSource<Course>;
+displayedColumnsMembership: string[] = ['name'];
 
+UserDataAnnouncement: any = [];
+dataSourceAnnouncement: MatTableDataSource<Announcement>;
+displayedColumnsAnnouncement: string[] = ['date','from','subject'];
 
 // this is for flex grid, please no touch
   watcher: Subscription;
   columns: number = 4;
 
-  displayedColumns: string[] = ['course'];
-  displayedColumns1: string[] = ['date','from','subject'];
-
-  dataSource = ELEMENT_DATA;
-  dataSource1 = ANNOUNCEMENT_DATA;
-
-  constructor(private _authService: AuthService, media: MediaObserver) {
+  constructor( public datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {
@@ -78,6 +53,27 @@ myNumberQRVersion = 9;
           this.myNumberQRVersion = 11;
         }
       }
+    });
+  
+    this.userApi.GetUser(this.value).subscribe(data => {
+      
+      if(data.courses.length > 1){
+        for(let x in data.courses){
+          courseApi.GetCourse(data.courses[x].course).subscribe(data1 => {
+          this.UserData.push(data1.name);
+          this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
+          });
+        }
+      }else{
+         courseApi.GetCourse(data.courses[0].course).subscribe(data1 => {
+          this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
+        })
+      }
+    });
+
+    this.announcementApi.GetAnnouncements().subscribe(data => {
+      this.UserDataAnnouncement = data;
+      this.dataSourceAnnouncement = new MatTableDataSource<Announcement>(this.UserDataAnnouncement);
     });
 
    }

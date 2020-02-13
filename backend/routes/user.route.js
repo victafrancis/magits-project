@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 // user model
 let User = require('../model/User');
-
+var myDay = new Date();
+var currentDay
 
 //register a User
 userRoute.route('/register').post((req, res, next) => {
