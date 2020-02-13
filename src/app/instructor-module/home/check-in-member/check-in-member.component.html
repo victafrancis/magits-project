@@ -6,6 +6,7 @@
         <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
         <div class="scanner-shell" [hidden]="!hasDevices">
 
+          <mat-card>
             <mat-menu #appMenu="matMenu">
               <mat-selection-list>
                 <mat-list-option checkboxPosition="start" (click)="toggleTryHarder()" [selected]="tryHarder">
@@ -20,8 +21,12 @@
               <button mat-menu-item (click)="openFormatsDialog()">Barcode formats</button>
               <button mat-menu-item (click)="openInfoDialog()">App info</button>
             </mat-menu>
+          </mat-card>
           
+          <mat-card>
             <header>
+              <br>
+              <br>
               <mat-form-field appearance="fill">
                 <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
                   <option value="" [selected]="!currentDevice">No Device Selected</option>
@@ -33,7 +38,8 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
             </header>
-          
+          </mat-card>
+
             <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
               [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
               (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
