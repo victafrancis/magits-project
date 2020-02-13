@@ -15,7 +15,7 @@ export class MembersComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
 
-  constructor(private userApi: UserService, private router: Router, private location: Location) {
+  constructor(private userApi: UserService, private router: Router) {
     this.userApi.GetMembers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
@@ -27,11 +27,6 @@ export class MembersComponent implements OnInit {
 
   viewInfo(element){
     this.router.navigate(['/admin/member-profile/', element._id])
-  }
-
-  // Navigates to the previous page
-  backPressed(){
-    this.location.back();
   }
 
   deleteMember(element){
