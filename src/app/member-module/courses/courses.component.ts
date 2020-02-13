@@ -56,6 +56,7 @@ export class CoursesComponent implements OnInit {
               }
             }
         })
+        DataList._id = data[x]._id;
         DataList.name = data[x].name;
         this.UserData.push(DataList);
         this.dataSource = new MatTableDataSource<Courses>(this.UserData);

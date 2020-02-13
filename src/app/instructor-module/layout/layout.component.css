@@ -7,5 +7,6 @@
 }
 
 .dashboard{
-    color:#008E8E;;
+    color:#008E8E;
+    cursor: pointer;
 }
