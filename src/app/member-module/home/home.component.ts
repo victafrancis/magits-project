@@ -38,7 +38,7 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
   watcher: Subscription;
   columns: number = 4;
 
-  constructor( private datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
+  constructor( public datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {
