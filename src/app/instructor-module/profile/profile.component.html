@@ -1,23 +1,30 @@
-<div class="title-group">
+<!-- <div class="title-group">
     <div>
         <h1 style="text-align: center; width: 90%;" class="mat-h1">My Info</h1>
     </div>
     <br> 
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
-</div>
+</div> -->
+<h1> Profile </h1>
 
+<mat-grid-list [cols]="columns" rowHeight="5:4">
+    <!-- left -->
+    <mat-grid-tile>
+        <mat-card>
+            <!-- ---------------------------------------------------------------------------------- -->
+Profile info
 <div class="inner-wrapper" style="text-align: center;">
     <form [formGroup]="instructorForm" (ngSubmit)="updateInstructorForm()" novalidate>
         <!-- LEFT SIDE -->
-        <mat-card>
+        <mat-card><br><br><br><br><br><br>
             <div class="controlers-wrapper">
 
                 <!-- First Name -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="First Name" formControlName="firstname">
                     <mat-error *ngIf="handleError('firstname', 'required')">
-                        You must provide a<strong>player name</strong>
+                        You must provide a<strong>first name</strong>
                     </mat-error>
                 </mat-form-field>
 
@@ -25,7 +32,7 @@
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Last Name" formControlName="lastname">
                     <mat-error *ngIf="handleError('lastname', 'required')">
-                        You must provide a<strong>player name</strong>
+                        You must provide a<strong>last name</strong>
                     </mat-error>
                 </mat-form-field>
 
@@ -45,13 +52,13 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Email  -->
-                <mat-form-field class="example-full-width">
+                <!-- Courses  -->
+                <!-- <mat-form-field class="example-full-width">
                     <input matInput placeholder="Courses:" formControlName="courses">
                     <mat-error *ngIf="handleError('courses', 'required')">
                         You must provide a<strong> Course</strong>
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
 
                 <!-- Submit & Reset -->
                 <mat-card>
@@ -65,3 +72,23 @@
         </mat-card>
     </form>
 </div>
+            <!-- ---------------------------------------------------------------------------------- -->
+        </mat-card>
+
+    </mat-grid-tile>
+    <!-- right -->
+    <mat-grid-tile>
+        <mat-card>
+ <!-- ---------------------------------------------------------------------------------- -->
+ Course table
+ <!-- ---------------------------------------------------------------------------------- -->
+        </mat-card>
+
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div class="footer">
+    <p>Teambits &copy; 2019-2020</p>
+  </div>
+
+

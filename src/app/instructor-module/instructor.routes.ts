@@ -15,7 +15,7 @@ import { MemberProfileComponent } from './members/member-profile/member-profile.
 import { CreateAnnouncementComponent } from './announcements/create-announcement/create-announcement.component';
 import { AddMemberComponent } from '../admin-module/members/add-member/add-member.component';
 import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-prof.component';
-import { SessionsComponent } from './my-courses/sessions/sessions.component';
+import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
 
 
 export const instructorRoutes: Routes = [
@@ -39,8 +39,7 @@ export const instructorRoutes: Routes = [
       { path: 'create-announcement', component: CreateAnnouncementComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'add-member', component: AddMemberComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
       { path: 'my-course-prof/:id', component: MyCourseProfComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
-      { path: 'sessions/:id', component: SessionsComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
-
+      { path: 'sess-info/:id', component: SessInfoComponent, data: {role: 'instructor'}, canActivate: [RoleGuard]},
     ]
   }
 ];

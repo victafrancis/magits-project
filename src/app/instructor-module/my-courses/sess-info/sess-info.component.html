@@ -1,0 +1,39 @@
+<h1>Session Information </h1>
+
+<mat-grid-list [cols]="columns" rowHeight="5:4">
+    <!-- left -->
+    <mat-grid-tile>
+        <mat-card>
+            <!------------------------------------Session info -------------------------------------------------  -->
+            <br><br>
+            Session: Course Name? <br><br>
+            Date: {{ session?.date }}<br><br>
+            Time: {{ session?.start_time }}-{{ session?.end_time }}<br><br>
+            SessionNo: 123 <br><br>
+            Session ID: {{ session?._id }}<br><br>
+            <!-- ------------------------------------------------------------------------------------------------ -->
+        </mat-card>
+
+    </mat-grid-tile>
+    <!-- right -->
+    <mat-grid-tile>
+        <mat-card>
+            <!------------------------------------Attendees Table -------------------------------------------------  -->
+            <div *ngIf="members.length != 0 ">
+                Attendees Table
+                <!-- add Attendees table here -->
+
+            </div>
+
+            <div *ngIf="members.length == 0 ">
+                No Attendees
+            </div>
+            <!-- ------------------------------------------------------------------------------------------------ -->
+        </mat-card>
+
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div class="footer">
+    <p>Teambits &copy; 2019-2020</p>
+  </div>

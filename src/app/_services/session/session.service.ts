@@ -48,6 +48,8 @@ export class SessionService {
 
   //Get Sessions by Course
   GetSessionsByCourse(data: any): Observable<any> {
+    // console.log("sessionApi")
+    // console.log(data);
   let API_URL = `${this.endpoint}/get-session-by-course`;
   return this.http.post(API_URL, data)
     .pipe(

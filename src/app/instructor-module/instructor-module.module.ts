@@ -41,14 +41,15 @@ import { AddMemberComponent } from './members/add-member/add-member.component';
 import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-prof.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManualCheckInComponent } from './home/check-in-member/manual-check-in/manual-check-in.component';
-import { SessionsComponent } from './my-courses/sessions/sessions.component';
+import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
 
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CourseListComponent, MyCoursesComponent, 
     MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
      QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
-     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessionsComponent],
+     CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, 
+     AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessInfoComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

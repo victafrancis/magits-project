@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 import { MatTableDataSource } from '@angular/material';
@@ -17,6 +17,8 @@ export class MyCoursesComponent implements OnInit {
   courseDataSource: MatTableDataSource<Schedule>;
   courses: any=[];
   user: any={};
+  
+  @Input() sessions:any =[];
 
   constructor(
     private _authService: AuthService,
