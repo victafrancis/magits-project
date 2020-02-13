@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { UserService } from '../../../_services/user/user.service';
 
 @Component({
@@ -20,15 +20,16 @@ export class InstructorProfileComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location
   ) {
     this.instructor_id = this.actRoute.snapshot.paramMap.get('id');
     this.instructorApi.GetUser(this.instructor_id).subscribe(data => {
       this.InstructorForm = this.fb.group({
-        firstname: [{value: data.firstname, disabled: this.disabled}, [Validators.required]],
-        lastname: [{value: data.lastname, disabled: this.disabled}, [Validators.required]],
-        birthdate: [{value: this.datePipe.transform(data.birthdate, 'yyyy-MM-dd'), disabled: this.disabled}, [Validators.required]],
-        email: [{value: data.email, disabled: this.disabled}, [Validators.required]]
+        firstname: [{ value: data.firstname, disabled: this.disabled }, [Validators.required]],
+        lastname: [{ value: data.lastname, disabled: this.disabled }, [Validators.required]],
+        birthdate: [{ value: this.datePipe.transform(data.birthdate, 'yyyy-MM-dd'), disabled: this.disabled }, [Validators.required]],
+        email: [{ value: data.email, disabled: this.disabled }, [Validators.required]]
       });
     });
   }
@@ -44,29 +45,35 @@ export class InstructorProfileComponent implements OnInit {
   }
 
   // reinitializes the instructor form
-  instructorForm(){
+  instructorForm() {
     this.disabled = !this.disabled;
     this.InstructorForm = this.fb.group({
-      firstname: [{value: this.InstructorForm.value.firstname, disabled: this.disabled}, [Validators.required]],
-      lastname: [{value: this.InstructorForm.value.lastname, disabled: this.disabled}, [Validators.required]],
-      birthdate: [{value: this.InstructorForm.value.birthdate, disabled: this.disabled}, [Validators.required]],
-      email: [{value: this.InstructorForm.value.email, disabled: this.disabled}, [Validators.required]]
+      firstname: [{ value: this.InstructorForm.value.firstname, disabled: this.disabled }, [Validators.required]],
+      lastname: [{ value: this.InstructorForm.value.lastname, disabled: this.disabled }, [Validators.required]],
+      birthdate: [{ value: this.InstructorForm.value.birthdate, disabled: this.disabled }, [Validators.required]],
+      email: [{ value: this.InstructorForm.value.email, disabled: this.disabled }, [Validators.required]]
     });
   }
-  
+
   // Updates the instructor info
-  updateInstructorForm(){
-    if(this.InstructorForm.valid){
-      if(window.confirm('Are you sure you want to update this instructor?')){
+  updateInstructorForm() {
+    if (this.InstructorForm.valid) {
+      if (window.confirm('Are you sure you want to update this instructor?')) {
         this.instructorApi.UpdateUser(this.instructor_id, this.InstructorForm.value).subscribe(res => {
           this.ngZone.run(() => this.router.navigateByUrl('admin/instructors'));
         });
       }
     }
   }
-  
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
     return this.InstructorForm.controls[controlName].hasError(errorName);
   }
+
+  // Navigates to the previous page
+  backPressed() {
+    this.location.back();
+  }
+
 }

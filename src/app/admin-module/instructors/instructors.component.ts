@@ -16,7 +16,7 @@ export class InstructorsComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['ID','Firstname', 'Lastname', 'Action'];
 
-  constructor(private userApi: UserService, private router: Router, private location: Location) {
+  constructor(private userApi: UserService, private router: Router) {
     this.userApi.GetInstructors().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
@@ -27,11 +27,6 @@ export class InstructorsComponent implements OnInit {
 
   viewInfo(element){
     this.router.navigate(['/admin/instructor-profile/', element._id])
-  }
-
-  // Navigates to the previous page
-  backPressed(){
-    this.location.back();
   }
 
   deleteInstructor(element){
