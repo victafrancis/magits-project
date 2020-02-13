@@ -10,6 +10,8 @@ import { Course } from '../../_services/course/course';
 import { MatTableDataSource } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
+import { DatePipe } from '@angular/common'
+
 
 @Component({
   selector: 'app-home',
@@ -36,7 +38,7 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
   watcher: Subscription;
   columns: number = 4;
 
-  constructor(private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
+  constructor( private datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {

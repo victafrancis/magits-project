@@ -3,7 +3,8 @@ import { Course } from '../../_services/course/course';
 import { MatTableDataSource } from '@angular/material';
 import { CourseService } from '../../_services/course/course.service';
 import { UserService } from '../../_services/user/user.service';
-import { delay } from 'rxjs/operators';
+import { delay, first } from 'rxjs/operators';
+import { AuthService } from 'src/app/_services/auth/auth.service';
 
 
 export interface Courses {
@@ -29,26 +30,33 @@ export class CoursesComponent implements OnInit {
   UserData: any = [];
   dataSource: MatTableDataSource<Courses>;
   displayedColumns: string[] = ['name', 'instructors', 'status'] ;
+  token = this._authService.decode();
+  value = this.token.subject;
 
-  constructor(private courseApi: CourseService, private userApi: UserService) {
-    this.courseApi.GetCourses().pipe(delay(500)).subscribe(data => {
+  constructor(private courseApi: CourseService, private userApi: UserService, private _authService: AuthService) {
+    this.courseApi.GetCourses().subscribe(data => {
       for(let x in data){
         let DataList: any = {};
         let tempArr: Array<String> = [];
         DataList.instructors = [];
+
           for(let y in data[x].instructors){
-          userApi.GetUser(data[x].instructors[y]).pipe(delay(1500)).subscribe(data1 => {
-            if(y == '0'){
-              DataList.instructors += data1.firstname + " " + data1.lastname;
-            }else{
-              DataList.instructors += ", " + data1.firstname + " " + data1.lastname;
-            }            
+          userApi.GetUser(data[x].instructors[y]).subscribe(data1 => {
+            tempArr.push(data1.firstname[0] + "." + data1.lastname)
+              DataList.instructors = tempArr;
           })
         }
-
+        DataList.status = "Not Enrolled";
+        userApi.GetUser(this.value).subscribe(data2 => {
+            //console.log(data[x]._id);
+            //console.log(data2.courses[0].course);
+            for(let z in data2.courses){
+              if(data[x]._id == data2.courses[z].course){
+                  DataList.status = "Enrolled";
+              }
+            }
+        })
         DataList.name = data[x].name;
-        //console.log(DataList.name);
-        //console.log(DataList)
         this.UserData.push(DataList);
         this.dataSource = new MatTableDataSource<Courses>(this.UserData);
       }

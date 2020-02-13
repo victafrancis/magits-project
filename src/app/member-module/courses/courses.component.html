@@ -14,7 +14,7 @@
   
     <ng-container matColumnDef="instructors">
       <th mat-header-cell *matHeaderCellDef> Instructor </th>
-      <td mat-cell *matCellDef="let element"> {{element.instructors}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.instructors.join(', ')}} </td>
     </ng-container>
   
     <ng-container matColumnDef="status">
