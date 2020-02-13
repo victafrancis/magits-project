@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AnnouncementService } from '../../../_services/announcement/announcement.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common'
+import { DatePipe, Location } from '@angular/common'
 
 @Component({
   selector: 'app-create-announcement',
@@ -20,7 +20,8 @@ export class CreateAnnouncementComponent implements OnInit {
     private announcementApi: AnnouncementService,
     private ngZone: NgZone,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -41,10 +42,16 @@ export class CreateAnnouncementComponent implements OnInit {
   }
 
   submitAnnouncementForm(){
-    if(window.confirm('Are you sure you want to send this announcement?')){
-      this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/announcements'))
-      });
+    if(this.announcementForm.valid){
+      if(window.confirm('Are you sure you want to send this announcement?')){
+        this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
+          this.ngZone.run(() => this.router.navigateByUrl('/admin/announcements'))
+        });
+      }
     }
+  }
+
+  backPressed(){
+    this.location.back();
   }
 }
