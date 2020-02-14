@@ -1,0 +1,28 @@
+<div class="inner-wrapper" style="text-align: center;">
+    <form [formGroup]="checkinForm" (ngSubmit)="submitCheckInForm()" novalidate>
+        <mat-card>
+            <div class="controlers-wrapper">
+
+                <!-- User -->
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <input matInput placeholder="User ID" formControlName="user">
+                    <mat-hint>Manual Check-in</mat-hint>
+                    <mat-error *ngIf="handleError('user', 'required')">
+                        You must provide a<strong> User </strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit & Reset -->
+                <mat-card>
+                    <div class="full-wrapper button-wrapper">
+                        <div class="button-wrapper">
+                            <button mat-flat-button color="warn">Attend
+                                <i class="material-icons">pan_tool</i>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+    </form>
+       </div>

@@ -4,8 +4,9 @@
     <mat-grid-tile>
         <mat-card>
         <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
-        <!-- <div class="scanner-shell" [hidden]="!hasDevices">
+        <div class="scanner-shell" [hidden]="!hasDevices">
 
+          <mat-card>
             <mat-menu #appMenu="matMenu">
               <mat-selection-list>
                 <mat-list-option checkboxPosition="start" (click)="toggleTryHarder()" [selected]="tryHarder">
@@ -20,8 +21,12 @@
               <button mat-menu-item (click)="openFormatsDialog()">Barcode formats</button>
               <button mat-menu-item (click)="openInfoDialog()">App info</button>
             </mat-menu>
+          </mat-card>
           
+          <mat-card>
             <header>
+              <br>
+              <br>
               <mat-form-field appearance="fill">
                 <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
                   <option value="" [selected]="!currentDevice">No Device Selected</option>
@@ -33,7 +38,8 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
             </header>
-          
+          </mat-card>
+
             <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
               [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
               (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
@@ -82,16 +88,30 @@
               I believe your device has no media devices attached to.
             </blockquote>
           
-          </ng-container> -->
+          </ng-container>
 <!-- -------------------------------------------------------------------------------------------------------- -->
 </mat-card>
-   
+       </mat-grid-tile>
+
 <!-- todo: Turn off Scanner Button-->
-    </mat-grid-tile>
-    <mat-grid-tile>Manual Check-in
+
+    <mat-grid-tile>
         <!-- input box for manual check in -->
+        <!-- <form (ngSubmit)="manualCheckIn()" novalidate> -->
+          
+
         <!-- submit button -->
-    </mat-grid-tile>
+        <!-- <mat-card>
+          <div class="full-wrapper button-wrapper">
+              <div class="button-wrapper">
+                  <button mat-flat-button color="warn">Submit</button>
+              </div>
+          </div>
+      </mat-card> -->
+        <!-- </form> -->
+        <app-manual-check-in></app-manual-check-in>
+      
+      </mat-grid-tile>
 </mat-grid-list>
 
   

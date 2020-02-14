@@ -41,7 +41,9 @@
             <td mat-cell *matCellDef="let element; let i = index;">
                 
                 <div *ngIf="user.subject === element.user">
-                <button mat-raised-button color="warn" (click)="deleteAnnouncement(element)">Delete</button>
+                <button mat-raised-button color="warn" (click)="deleteAnnouncement(element)">
+                    <i class="material-icons">delete_forever</i>
+                    Delete</button>
                 </div>
                 
             </td>

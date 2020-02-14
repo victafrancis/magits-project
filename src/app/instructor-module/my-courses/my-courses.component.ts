@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 import { MatTableDataSource } from '@angular/material';
@@ -17,6 +17,8 @@ export class MyCoursesComponent implements OnInit {
   courseDataSource: MatTableDataSource<Schedule>;
   courses: any=[];
   user: any={};
+  
+  @Input() sessions:any =[];
 
   constructor(
     private _authService: AuthService,
@@ -25,18 +27,7 @@ export class MyCoursesComponent implements OnInit {
       this.user = this._authService.decode();
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         this.courses = data.courses;
-        console.log(data.courses[0].course)
-        // for (var i= 0 ; i < data.courses.length ; i++ ){
-        //   for( var j = 0; j < data.courses[i].course.schedule.length; j++){
-          
-        //       this.courses.push(data.courses[i].course.schedule[j]);
-        //       var totalSched = this.courses.length - 1;
-        //       this.courses[totalSched].courseName = data.courses[i].course.name;
-            
-        //   }
-          
-        // }
-        // console.log(this.courses[0])
+        // console.log(data.courses)
         this.courseDataSource = new MatTableDataSource<Schedule>(this.courses);
 
       });
@@ -49,5 +40,7 @@ export class MyCoursesComponent implements OnInit {
   logout() {
     this._authService.logout();
   }
+
+ 
 
 }

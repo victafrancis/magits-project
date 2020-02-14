@@ -54,9 +54,9 @@
          <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let row; let i = index;">
-                <!-- place *ngIf creator === announcement creator show delete button -->
+               
 
-                <!-- <div *ngIf="currentTime < row.start"> -->
+                <!-- todo: <div *ngIf="currentTime < row.start"> -->
                     
                     <div *ngIf= "row.status === 'Not Started'">
                         <button mat-raised-button color="warn" (click)="startSession(row)">
@@ -73,7 +73,8 @@
 
         </tr>
     </table>
-    
+   
+
     <div *ngIf= "schedules.length == 0" style="text-align:center;">
         <p>You have no scheduled sessions for today.</p>
     </div>

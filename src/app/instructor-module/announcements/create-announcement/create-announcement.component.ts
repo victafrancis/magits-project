@@ -31,7 +31,7 @@ export class CreateAnnouncementComponent implements OnInit {
       date: ['', [Validators.required]],
       subject: ['', [Validators.required]],
       content: ['', [Validators.required]],
-      user: this.user.subject
+      user: ''
     })
 
     // this.totalDays = new FormControl('', [Validators.required])

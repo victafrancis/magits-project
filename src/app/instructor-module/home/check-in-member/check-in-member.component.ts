@@ -5,6 +5,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormatsDialogComponent } from './qr/formats-dialog/formats-dialog.component';
 import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.component';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SessionService } from 'src/app/_services/session/session.service';
+
 
 
 @Component({
@@ -13,9 +16,12 @@ import { MediaObserver, MediaChange } from '@angular/flex-layout';
   styleUrls: ['./check-in-member.component.css']
 })
 export class CheckInMemberComponent{
+
+
 // -------------------------------------------------------------------------------------------------
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
+
 
   formatsEnabled: BarcodeFormat[] = [
     BarcodeFormat.CODE_128,
@@ -33,6 +39,9 @@ export class CheckInMemberComponent{
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
 // ^------------------QR SCANNER----------------------------------------------------------------------
+
+
+//for responsive view
   watcher: Subscription;
   columns: number = 4;
   myNumberQRVersion = 9;
@@ -58,6 +67,14 @@ export class CheckInMemberComponent{
       }
     });
    }
+
+
+   ngOnInit() {
+   
+  }
+
+  /* Get errors */
+ 
 
   // QR SCANNER--------------------------------------------------------------------------------------------------------------
   clearResult(): void {

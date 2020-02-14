@@ -1,12 +1,35 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Info</h1>
+        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Information</h1>
+    </div>
+    <!-- Buttons -->
+    <div class="controlers-wrapper" style="text-align: right; margin-top:2%;">
+        <div class="full-wrapper button-wrapper">
+        
+            <div *ngIf="!show" class="button-wrapper">
+                <button mat-raised-button color="warn" (click)="showSessions(course)">
+                View Sessions
+                </button>
+            </div>
+            <div *ngIf="show" class="button-wrapper">
+                <button mat-raised-button color="warn" (click)="closeSessions(course)">
+                Close Sessions
+                </button>
+            </div>
+
+            <!-- todo: <div *ngIf="sessions.length == 0">
+                * No past sessions for this course. *
+            </div> -->
+        </div>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
 
+
+<!-- todo: spinner, method -->
+<!-- <md-progress-spinner style="margin:0 auto;" mode="indeterminate"></md-progress-spinner> -->
 <div class="inner-wrapper">
     <div style="width: 20%; text-align: center; margin:auto;" class="controlers-wrapper">
         <table style="text-align:left;">
@@ -46,15 +69,41 @@
         </table>
     </div>
 
-    <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
-        <div class="full-wrapper button-wrapper">
-         
-            <div class="button-wrapper">
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/instructor/enroll-student', this.course_id]"> Enroll Student </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/instructor/view-students', this.course_id]"> View Students </button>
-            </div>
-        </div>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <!-- ---------------------------------Sessions Table----------------------------------------------- -->
+<br>
+<div *ngIf="show">
+<div class="title-group">
+    <span class="nav-tool-items" style="float: left;">
+       <!-- placeholder -->
+    </span>
+    <div>
+        <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Sessions</h1>
     </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<div *ngIf="sessions.length != 0"class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="sessionDataSource" class="mat-elevation-z8">
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+        </ng-container>
+
+        <!-- Time Column -->
+        <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.start_time}} - {{element.end_time}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewSession(row)"></tr>
+    </table>
+</div>
+</div>
+
 </div>
