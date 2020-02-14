@@ -10,8 +10,6 @@
 <mat-card>
     <div class="container" style="width: 80%; margin: auto;">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            displayedColumns: string[] = ['id', 'date', 'start', 'end', 'attendees'];
-
             <!-- Session ID Column -->
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -53,7 +51,7 @@
             </ng-container>
             
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="openViewFeedbackModal(element)"></tr>
         </table>
     </div>
 </mat-card>

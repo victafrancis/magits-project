@@ -31,13 +31,15 @@ import { ViewStudentsComponent } from './courses/view-students/view-students.com
 import { AssignInstructorComponent } from './courses/assign-instructor/assign-instructor.component';
 import { EditMembershipComponent } from './courses/edit-membership/edit-membership.component';
 import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
+import { ViewFeedbacksComponent } from './sessions/view-feedbacks/view-feedbacks.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
     MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, 
-    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, EditMembershipComponent, CourseSessionsComponent],
+    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, 
+    EditMembershipComponent, CourseSessionsComponent, ViewFeedbacksComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -54,6 +56,7 @@ import { CourseSessionsComponent } from './sessions/course-sessions/course-sessi
     DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent, AssignInstructorComponent, EditMembershipComponent]
+  entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent, AssignInstructorComponent, 
+    EditMembershipComponent, ViewFeedbacksComponent]
 })
 export class AdminModule { }

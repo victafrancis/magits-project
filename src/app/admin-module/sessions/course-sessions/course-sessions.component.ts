@@ -4,8 +4,9 @@ import { DatePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from '../../../_services/session/session';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { CourseService } from 'src/app/_services/course/course.service';
+import { ViewFeedbacksComponent } from '../view-feedbacks/view-feedbacks.component';
 
 @Component({
   selector: 'app-course-sessions',
@@ -19,14 +20,11 @@ export class CourseSessionsComponent implements OnInit {
 
   constructor(
     private actRoute: ActivatedRoute,
-    private router: Router,
-    private ngZone: NgZone,
-    private datePipe: DatePipe,
     private location: Location,
     private sessionApi: SessionService,
-    private courseApi: CourseService
-  ) 
-  {
+    private courseApi: CourseService,
+    private matDialog: MatDialog
+  ) {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
 
     this.courseApi.GetCourse(this.course_id).subscribe(course => {
@@ -39,7 +37,17 @@ export class CourseSessionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  backPressed(){
+  backPressed() {
     this.location.back();
+  }
+
+  openViewFeedbackModal(element) {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.id = "view-feedbacks-component";
+    dialogConfig.height = "40%";
+    dialogConfig.width = "35%";
+    dialogConfig.data = { session: element};
+    const modalDialog = this.matDialog.open(ViewFeedbacksComponent, dialogConfig);
   }
 }

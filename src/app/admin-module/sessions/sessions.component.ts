@@ -32,7 +32,6 @@ export class SessionsComponent implements OnInit {
         });
         CourseData[i].instructors = temp
       }
-
       this.dataSource = new MatTableDataSource<Course>(CourseData);
     });
     
