@@ -13,7 +13,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { MembersComponent } from './members/members.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent, DialogOverviewChangePassword } from './profile/profile.component';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CheckInMemberComponent } from './home/check-in-member/check-in-member.component';
@@ -42,6 +42,7 @@ import { MyCourseProfComponent } from './my-courses/my-course-prof/my-course-pro
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManualCheckInComponent } from './home/check-in-member/manual-check-in/manual-check-in.component';
 import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
+import { ViewStudentsComponent } from './course-list/view-students/view-students.component';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
     MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
      QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
      CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, 
-     AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessInfoComponent],
+     AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessInfoComponent,DialogOverviewChangePassword, ViewStudentsComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -75,6 +76,6 @@ import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
     DatePipe
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent]
+  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent,DialogOverviewChangePassword]
 })
 export class InstructorModule { }
