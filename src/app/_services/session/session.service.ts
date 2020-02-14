@@ -75,6 +75,22 @@ export class SessionService {
       )
   }
 
+  //Close session
+  CloseSession(id): Observable<any> {
+    let API_URL = `${this.endpoint}/close-session/${id}`;
+    return this.http.put(API_URL, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+  //View Session Attendance Summary
+  ViewSessionAttendance(id): Observable<any> {
+    let API_URL = `${this.endpoint}/view-session-attendance/${id}`;
+    return this.http.get(API_URL, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Update Session
   UpdateSession(id, data: Session): Observable<any> {
     let API_URL = `${this.endpoint}/update/${id}`;
