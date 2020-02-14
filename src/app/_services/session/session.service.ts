@@ -55,9 +55,18 @@ export class SessionService {
     )
   }
 
-  //Get Sessions by Course
+  //Get current day Sessions by Course
   GetCurrentDaySessionsByCourse(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/get-current-day-session-by-course`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+  //Check in Member to a Session (reads property 'subject' which is the member ID)
+  CheckInMember(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/session-check-in-member`;
     return this.http.post(API_URL, data)
       .pipe(
         catchError(this.errorMgmt)
