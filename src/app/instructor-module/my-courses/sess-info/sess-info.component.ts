@@ -24,7 +24,7 @@ export class SessInfoComponent implements OnInit {
 
 //SessionInfo
   session_id: any;
-  session= new Session();
+  session: Session= null;
   sessionForm: FormGroup;
 
 //AttendeesTable
