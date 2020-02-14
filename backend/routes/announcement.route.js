@@ -7,26 +7,44 @@ let Announcement = require('../model/Announcement');
 let User = require('../model/User.js')
 
 
-//add an Announcement
+//create create announcement function
 announcementRoute.route('/add-announcement').post((req, res, next) => {
-  Announcement.create(req.body, (error, data) => {
-    if (error) {return next(error)}
-
-    //add announcement ID to the announcements array of User
-    User.findByIdAndUpdate(req.body.user, {
-      $push: {"announcements": data._id}
-    }, (error, data, next) => {
-      if (error) {
-        return next(error);
-        console.log(error)
-      }
-
+  Announcement.create(req.body)
+    .then(announcementData => {
+      console.log('creating announcement')
+      return User.findByIdAndUpdate(req.body.user, {
+        $push: {"announcements": announcementData._id}
+      })
     })
-
-    res.json(data)
-
-  })
+    .then((data) => {
+      console.log('second chain')
+      res.json(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 });
+
+//add an Announcement
+// announcementRoute.route('/add-announcement').post((req, res, next) => {
+//   Announcement.create(req.body, (error, data) => {
+//     if (error) {return next(error)}
+
+//     //add announcement ID to the announcements array of User
+//     User.findByIdAndUpdate(req.body.user, {
+//       $push: {"announcements": data._id}
+//     }, (error, data, next) => {
+//       if (error) {
+//         return next(error);
+//         console.log(error)
+//       }
+
+//     })
+
+//     res.json(data)
+
+//   })
+// });
 
 
 // Get all announcements
