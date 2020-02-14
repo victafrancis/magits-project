@@ -8,7 +8,7 @@
 </div>
 
 <div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="memberForm" (ngSubmit)="updateMemberForm()" novalidate>
+    <form [formGroup]="MemberForm" (ngSubmit)="updateMemberForm()" novalidate>
         <!-- LEFT SIDE -->
         <mat-card>
             <div class="controlers-wrapper">
@@ -46,13 +46,16 @@
                 </mat-form-field>
 
                 <!-- Submit & Reset -->
-                <mat-card>
-                    <div class="full-wrapper button-wrapper">
-                        <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Update</button>
-                        </div>
+                <div class="full-wrapper button-wrapper">
+                    <div *ngIf="disabled">
+                        <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="memberForm()"> Update Info </button>
+                        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="backPressed()"> Back </button>
                     </div>
-                </mat-card>
+                    <div *ngIf="!disabled">
+                        <button class="AdminModuleButtons" mat-flat-button color="warn"> Update </button>
+                        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="memberForm()"> Cancel </button>
+                    </div>
+                </div>
             </div>
         </mat-card>
     </form>

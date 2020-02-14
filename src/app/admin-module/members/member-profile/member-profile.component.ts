@@ -3,14 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../_services/user/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DatePipe } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
   styleUrls: ['./member-profile.component.css']
 })
+
 export class MemberProfileComponent implements OnInit {
-  memberForm: FormGroup;
+  MemberForm: FormGroup;
+  disabled: boolean = true;
+  member_id: any;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -18,26 +22,23 @@ export class MemberProfileComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location
   ) 
   { 
-    var id = this.actRoute.snapshot.paramMap.get('id');
-    this.memberApi.GetUser(id).subscribe(data => {
-      this.memberForm = this.fb.group({
-        firstname: [data.firstname, [Validators.required]],
-        lastname: [data.lastname, [Validators.required]],
-        birthdate: [this.datePipe.transform(data.birthdate, 'yyyy-MM-dd'), [Validators.required]],
-        email: [data.email, [Validators.required]]
+    this.member_id = this.actRoute.snapshot.paramMap.get('id');
+    this.memberApi.GetUser(this.member_id).subscribe(data => {
+      this.MemberForm = this.fb.group({
+        firstname: [{value: data.firstname, disabled: this.disabled}, [Validators.required]],
+        lastname: [{value: data.lastname, disabled: this.disabled}, [Validators.required]],
+        birthdate: [{value: this.datePipe.transform(data.birthdate, 'yyyy-MM-dd'), disabled: this.disabled}, [Validators.required]],
+        email: [{value: data.email, disabled: this.disabled}, [Validators.required]]
       });
     });
   }
 
   ngOnInit() {
-    this.MemberForm();
-  }
-
-  MemberForm(){
-    this.memberForm = this.fb.group({
+    this.MemberForm = this.fb.group({
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       birthdate: ['', [Validators.required]],
@@ -45,17 +46,35 @@ export class MemberProfileComponent implements OnInit {
     });
   }
 
+  // Enables/disables the form
+  memberForm(){
+    this.disabled = !this.disabled;
+    this.MemberForm = this.fb.group({
+      firstname: [{value: this.MemberForm.value.firstname, disabled: this.disabled}, [Validators.required]],
+      lastname: [{value: this.MemberForm.value.lastname, disabled: this.disabled}, [Validators.required]],
+      birthdate: [{value: this.MemberForm.value.birthdate, disabled: this.disabled}, [Validators.required]],
+      email: [{value: this.MemberForm.value.email, disabled: this.disabled}, [Validators.required]]
+    });
+  }
+
+  // Updates the member information
   updateMemberForm(){
-    var id = this.actRoute.snapshot.paramMap.get('id');
-    if(window.confirm('Are you sure you want to update this member?')){
-      this.memberApi.UpdateUser(id, this.memberForm.value).subscribe(res => {
-        this.ngZone.run(() => this.router.navigateByUrl('admin/members'));
-      });
+    if(this.MemberForm.valid){
+      if(window.confirm('Are you sure you want to update this member?')){
+        this.memberApi.UpdateUser(this.member_id, this.MemberForm.value).subscribe(res => {
+          this.ngZone.run(() => this.router.navigateByUrl('admin/members'));
+        });
+      }
     }
   }
   
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
-    return this.memberForm.controls[controlName].hasError(errorName);
+    return this.MemberForm.controls[controlName].hasError(errorName);
+  }
+
+  // Navigates to the previous page
+  backPressed(){
+    this.location.back();
   }
 }

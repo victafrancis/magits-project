@@ -9,6 +9,10 @@ body{margin:0;font-family:'Roboto', sans-serif; background-color: #363537;}
   width: 130px;
 }
 
+.mat-row:hover{
+  background-color: #363537;
+}
+
 .header{justify-content:space-between;}
 .user-profile{margin-left:15px;}
 .mat-sidenav-container{height:100%;display:flex;flex:1 1 auto;}

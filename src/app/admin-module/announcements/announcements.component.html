@@ -34,10 +34,10 @@
 
         <!-- ACTION -->
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element; let i = index;">
-                <button mat-raised-button color="accent">View Info</button>&nbsp;
-                <button mat-raised-button color="warn" (click)="deleteAnnouncement(element)">Delete</button>
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
+                <button class="AdminModuleButtons" mat-raised-button color="warn"
+                    (click)="deleteAnnouncement(element)">Delete</button>
             </td>
         </ng-container>
 
