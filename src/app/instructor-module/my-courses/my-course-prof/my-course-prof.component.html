@@ -7,12 +7,12 @@
         <div class="full-wrapper button-wrapper">
         
             <div *ngIf="!show" class="button-wrapper">
-                <button mat-raised-button color="warn" (click)="showSessions(course)">
+                <button mat-raised-button color="warn" (click)="showSessions()">
                 View Sessions
                 </button>
             </div>
             <div *ngIf="show" class="button-wrapper">
-                <button mat-raised-button color="warn" (click)="closeSessions(course)">
+                <button mat-raised-button color="warn" (click)="closeSessions()">
                 Close Sessions
                 </button>
             </div>
