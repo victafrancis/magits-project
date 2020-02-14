@@ -29,13 +29,14 @@ import { EditScheduleComponent } from './courses/edit-schedule/edit-schedule.com
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { ViewStudentsComponent } from './courses/view-students/view-students.component';
 import { AssignInstructorComponent } from './courses/assign-instructor/assign-instructor.component';
+import { EditMembershipComponent } from './courses/edit-membership/edit-membership.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
     MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, 
-    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent],
+    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, EditMembershipComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -52,6 +53,6 @@ import { AssignInstructorComponent } from './courses/assign-instructor/assign-in
     DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent, AssignInstructorComponent]
+  entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent, AssignInstructorComponent, EditMembershipComponent]
 })
 export class AdminModule { }

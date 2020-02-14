@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
-    console.log(window.innerWidth)
+    //console.log(window.innerWidth)
     if (window.innerWidth < 768) {
       this.sidenav.fixedTopGap = 55;
       this.opened = false;
@@ -48,7 +48,7 @@ export class LayoutComponent implements OnInit {
 
   getUser(){
     this.User = this._authService.decode()
-    console.log(this.User.subject);
+    //console.log(this.User.subject);
   }
 
   isBiggerScreen() {

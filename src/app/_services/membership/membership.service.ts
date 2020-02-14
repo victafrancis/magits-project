@@ -3,6 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Membership } from './membership';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class MembershipService {
   constructor(private http: HttpClient) { }
 
   // Add membership, id should be cousrse ID
-  AddMembership(id, data: any): Observable<any> {
-    let API_URL = `${this.endpoint}/add-membership`;
-    return this.http.post(API_URL, data)
+  AddMembership(id, data: Membership): Observable<any> {
+    let API_URL = `${this.endpoint}/add-membership/${id}`;
+    return this.http.post(API_URL, data, {headers: this.headers})
       .pipe(
         catchError(this.errorMgmt)
       )

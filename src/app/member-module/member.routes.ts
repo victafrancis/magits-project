@@ -18,7 +18,7 @@ export const memberRoutes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' , data: {role: 'member'}, canActivate: [RoleGuard]},
       { path: 'home', component: HomeComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
       { path: 'courses', component: CoursesComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
-      { path:'course-description', component: CourseDescriptionComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
+      { path:'course-description/:id', component: CourseDescriptionComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
       { path: 'sessions', component: SessionsComponent, data: {role: 'member'}, canActivate: [RoleGuard]},
       { path: 'profile', component: ProfileComponent, data: {role: 'member'}, canActivate: [RoleGuard]}
     ]
