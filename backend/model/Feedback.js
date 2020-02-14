@@ -7,7 +7,8 @@ let Feedback = new Schema({
     type: String
   },
   date: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   member: { type: Schema.Types.ObjectId, ref: 'User' },
   session: { type: Schema.Types.ObjectId, ref: 'Session' }

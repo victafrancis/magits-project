@@ -119,8 +119,21 @@ sessionRoute.route('/get-current-day-session-by-course').post((req, res) => {
   })
 })
 
+// View session attendance summary------------------------------------------------------------------------------------------------------
+sessionRoute.route('/view-session-attendance/:id').get((req, res,next) => {
+  Session.findById(req.params.id).populate('attendees.member')
+    .then(
+      function(sessionData){
+        res.json(sessionData.attendees)
+      },
+      function(err){
+        console.log(err)
+      }
+    )
+})
 
-//check in a member to a session
+
+//check in a member to a session-------------------------------------------------------------------------------------------
 sessionRoute.route('/session-check-in-member').post((req, res) => {
   var msg = new Object();
   //create new attendee
