@@ -22,7 +22,7 @@ let Session = new Schema({
   course: { type: Schema.Types.ObjectId, ref: 'Course' },
   attendees:[{
     member: {type: Schema.Types.ObjectId, ref: 'User'},
-    time: {type: Date},
+    time: {type: Date, default: Date.now},
     _id: false
   }],
   feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }]
