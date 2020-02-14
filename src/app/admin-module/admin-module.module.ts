@@ -30,13 +30,14 @@ import { EditCourseComponent } from './courses/edit-course/edit-course.component
 import { ViewStudentsComponent } from './courses/view-students/view-students.component';
 import { AssignInstructorComponent } from './courses/assign-instructor/assign-instructor.component';
 import { EditMembershipComponent } from './courses/edit-membership/edit-membership.component';
+import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
     InstructorsComponent, SessionsComponent, MembersComponent, AnnouncementsComponent, 
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
     MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, 
-    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, EditMembershipComponent],
+    ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, EditMembershipComponent, CourseSessionsComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

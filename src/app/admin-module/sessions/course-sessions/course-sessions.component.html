@@ -1,0 +1,64 @@
+<div class="title-group">
+    <div style="width: 95%;">
+        <h1 style="text-align: center;" class="mat-h1">Sessions</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<mat-card>
+    <div class="container" style="width: 80%; margin: auto;">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            displayedColumns: string[] = ['id', 'date', 'start', 'end', 'attendees'];
+
+            <!-- Session ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element._id}}
+                </td>
+            </ng-container>
+
+            <!-- Session Date Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.date | date: 'MM/dd/yyyy'}}
+                </td>
+            </ng-container>
+
+            <!-- Session Start Column -->
+            <ng-container matColumnDef="start">
+                <th mat-header-cell *matHeaderCellDef> Start </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.start_time}}
+                </td>
+            </ng-container>
+
+            <!-- Session Start Column -->
+            <ng-container matColumnDef="end">
+                <th mat-header-cell *matHeaderCellDef> End </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.end_time}}
+                </td>
+            </ng-container>
+
+            <!-- Session Attendees Column -->
+            <ng-container matColumnDef="attendees">
+                <th mat-header-cell *matHeaderCellDef> Attendees </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.attendees.length}}
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</mat-card>
+<mat-card style="text-align: center;">
+    <div class="full-wrapper button-wrapper">
+        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="backPressed()"> Back </button>
+    </div>
+</mat-card>
