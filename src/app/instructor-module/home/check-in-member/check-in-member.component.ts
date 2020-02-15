@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BarcodeFormat } from '@zxing/library';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormatsDialogComponent } from './qr/formats-dialog/formats-dialog.component';
@@ -7,6 +7,7 @@ import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.compon
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
+import { SessionInfoComponent } from '../session-info/session-info.component';
 
 
 
@@ -52,7 +53,8 @@ export class CheckInMemberComponent{
   constructor(
     private readonly _dialog: MatDialog,
     media: MediaObserver,
-    private sessionAPI: SessionService
+    private sessionAPI: SessionService,
+    private matDialog: MatDialog
   ) {
     // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
@@ -142,11 +144,23 @@ export class CheckInMemberComponent{
 //CHECKS IN MEMBER, returns an object that you can display,
 checkInMember(memberID: any){
   this.member.subject = memberID;
-  // console.log(this.member.subject);
   this.sessionAPI.CheckInMember(this.member).subscribe(data=>{
-    console.log(data);
     this.result = data;
+    if(this.result.message == undefined){
+      this.openSessionInfoModal(this.result);
+    }
   })
+}
+
+openSessionInfoModal(sess: any){
+  const dialogConfig = new MatDialogConfig();
+
+  // dialogConfig.disableClose = true;
+  dialogConfig.id = "session-info-component";
+  dialogConfig.height = "50%";
+  dialogConfig.width = "50%";
+  dialogConfig.data = {session_info: sess};
+  const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
 }
 
 useScanner(){
