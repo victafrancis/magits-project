@@ -15,3 +15,7 @@
         End:{{s.end}}
     </li>
 </ul>
+
+<button mat-button class="myEnroll" *ngIf="isHidden == true" (click)="openDialog()"  >Enroll</button>
+<button mat-button class="myEnroll" *ngIf="isHidden == false"   >Withdraw</button>
+
