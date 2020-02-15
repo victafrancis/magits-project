@@ -1,9 +1,32 @@
 
-  <p>Scan your Qr code here:</p>
-  <mat-grid-list [cols]="columns" rowHeight="5:4">
+  <h3>Check-in Member</h3>
+  <mat-grid-list [cols]="columns" rowHeight="4:4">
     <mat-grid-tile>
-        <mat-card>
+        <mat-card class="myCard">
+          <p>Scan your Qr code here:</p>
+        <!-- Button to Show Scanner------------------------------------------------------------------ -->
+
+          <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
+            <div class="full-wrapper button-wrapper">
+            
+                <div *ngIf="!show" class="button-wrapper">
+                    <button mat-raised-button color="warn" (click)="useScanner()">
+                        <i class="material-icons">visibility</i>
+                    Turn On Scanner
+                    </button>
+                </div>
+                <div *ngIf="show" class="button-wrapper">
+                    <button mat-raised-button color="warn" (click)="hideScanner()">
+                        <i class="material-icons">visibility_off</i>
+                    Turn Off Scanner
+                    </button>
+                </div>
+                <br><br>
+            </div>
+        </div>
+
         <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
+        <div *ngIf="show">
         <div class="scanner-shell" [hidden]="!hasDevices">
 
           <mat-card>
@@ -25,8 +48,6 @@
           
           <mat-card>
             <header>
-              <br>
-              <br>
               <mat-form-field appearance="fill">
                 <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
                   <option value="" [selected]="!currentDevice">No Device Selected</option>
@@ -48,12 +69,13 @@
               <div>
                 <small>Result</small>
                 <strong>{{ qrResultString }}</strong>
+                {{ result.message }}
               </div>
               <button mat-icon-button (click)="clearResult()">&times;</button>
             </section>
           
-          </div>
-          
+        </div>
+      </div>
           <ng-container *ngIf="hasPermission === undefined">
           
             <h2>Waiting for permissions.</h2>
@@ -90,27 +112,12 @@
           
           </ng-container>
 <!-- -------------------------------------------------------------------------------------------------------- -->
-</mat-card>
+
+        </mat-card>
        </mat-grid-tile>
 
-<!-- todo: Turn off Scanner Button-->
-
-    <mat-grid-tile>
-        <!-- input box for manual check in -->
-        <!-- <form (ngSubmit)="manualCheckIn()" novalidate> -->
-          
-
-        <!-- submit button -->
-        <!-- <mat-card>
-          <div class="full-wrapper button-wrapper">
-              <div class="button-wrapper">
-                  <button mat-flat-button color="warn">Submit</button>
-              </div>
-          </div>
-      </mat-card> -->
-        <!-- </form> -->
+      <mat-grid-tile>
         <app-manual-check-in></app-manual-check-in>
-      
       </mat-grid-tile>
 </mat-grid-list>
 

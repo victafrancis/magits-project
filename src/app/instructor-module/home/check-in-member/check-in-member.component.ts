@@ -16,9 +16,7 @@ import { SessionService } from 'src/app/_services/session/session.service';
   styleUrls: ['./check-in-member.component.css']
 })
 export class CheckInMemberComponent{
-
-
-// -------------------------------------------------------------------------------------------------
+// -------------QR SCANNER-------------------------------------------------------------------------------------
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
 
@@ -38,19 +36,25 @@ export class CheckInMemberComponent{
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
-// ^------------------QR SCANNER----------------------------------------------------------------------
+// ^---------------------------------------------------------------------------------------
 
-
-//for responsive view
+// WATCHER
   watcher: Subscription;
   columns: number = 4;
   myNumberQRVersion = 9;
 
+//CHECK-IN
+  member: any = {};
+  result: any = {};
+
+  show: boolean = false;
 
   constructor(
     private readonly _dialog: MatDialog,
-    media: MediaObserver
+    media: MediaObserver,
+    private sessionAPI: SessionService
   ) {
+    // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {
@@ -66,6 +70,7 @@ export class CheckInMemberComponent{
         }
       }
     });
+
    }
 
 
@@ -77,6 +82,11 @@ export class CheckInMemberComponent{
  
 
   // QR SCANNER--------------------------------------------------------------------------------------------------------------
+  onCodeResult(resultString: string) {
+    this.qrResultString = resultString;
+    this.checkInMember(this.qrResultString);
+  }
+
   clearResult(): void {
     this.qrResultString = null;
   }
@@ -86,9 +96,6 @@ export class CheckInMemberComponent{
     this.hasDevices = Boolean(devices && devices.length);
   }
 
-  onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
-  }
 
   onDeviceSelectChange(selected: string) {
     const device = this.availableDevices.find(x => x.deviceId === selected);
@@ -131,7 +138,25 @@ export class CheckInMemberComponent{
     this.tryHarder = !this.tryHarder;
   }
 // ----------------------------------------------------------------------------------------------------------
-  
+
+//CHECKS IN MEMBER, returns an object that you can display,
+checkInMember(memberID: any){
+  this.member.subject = memberID;
+  // console.log(this.member.subject);
+  this.sessionAPI.CheckInMember(this.member).subscribe(data=>{
+    console.log(data);
+    this.result = data;
+  })
+}
+
+useScanner(){
+this.show = true;
+}
+
+hideScanner(){
+  this.show = false;
+  this.hasPermission = false;
+}
 
 // -------------------------
   // qrResultString: string;
@@ -144,9 +169,9 @@ export class CheckInMemberComponent{
   //   this.qrResultString = resultString;
   // }
 
-  // todo: check-inMember()
+  
   // todo: turnOffScanner()
-  // todo: checkinManually()
+ 
 
 
 }

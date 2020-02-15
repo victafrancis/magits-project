@@ -9,18 +9,21 @@ import { SessionService } from 'src/app/_services/session/session.service';
 })
 export class ManualCheckInComponent implements OnInit {
 
-//checkin form
 checkinForm: FormGroup;
+
+//CHECK-IN
+  result: any={};
 
   constructor(
     private sessionApi: SessionService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private sessionAPI: SessionService
   ) { }
 
   ngOnInit( ) {
 
     this.checkinForm = this.fb.group({
-      user: ['', [Validators.required]]
+      subject: ['', [Validators.required]]
     })
   }
   public handleError = (controlName: string, errorName: string) => {
@@ -28,6 +31,14 @@ checkinForm: FormGroup;
   }
 
   submitCheckInForm(){
+    this.checkInMember(this.checkinForm.value)
+  }
 
+   //CHECKIN MANUALLY
+  checkInMember(member: any){
+    this.sessionAPI.CheckInMember(member).subscribe(data=>{
+      console.log(data);
+      this.result = data;
+    })
   }
 }
