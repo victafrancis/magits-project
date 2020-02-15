@@ -8,6 +8,9 @@ import { MatDialogConfig, MatDialog, MatTableDataSource } from '@angular/materia
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from 'src/app/_services/session/session';
+import { Subscription } from 'rxjs';
+import { MediaChange, MediaObserver  } from '@angular/flex-layout';
+import { User } from 'src/app/_services/user/user';
 
 @Component({
   selector: 'app-my-course-prof',
@@ -15,13 +18,25 @@ import { Session } from 'src/app/_services/session/session';
   styleUrls: ['./my-course-prof.component.css']
 })
 export class MyCourseProfComponent implements OnInit {
-  course_id: any;
-  course = new Course();
-  instructors = [];
+// WATCHER
+  myNumberQRVersion = 9;
+  watcher: Subscription;
+  columns: number = 4;
+
+//MEMBER TABLE
+  members: any = [];
+  memberDataSource: MatTableDataSource<User>;
+  memberDisplayedColumns: string[] = ['name'];
+
+//SESSION TABLE  
   sessions: any = [];
-  courseForSession: any ={};
   sessionDataSource: MatTableDataSource<Session>;
   displayedColumns: string[] = ['date', 'time'];
+
+  course_id: any;
+  course : any = {};
+  instructors = [];
+  courseForSession: any ={};
   show: Boolean = false;
 
   constructor(
@@ -33,7 +48,8 @@ export class MyCourseProfComponent implements OnInit {
     private ngZone: NgZone,
     private userApi: UserService,
     private matDialog: MatDialog,
-    private location: Location
+    private location: Location,
+    media: MediaObserver,
   )
   {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -48,18 +64,41 @@ export class MyCourseProfComponent implements OnInit {
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
-      this.course._id = data._id;
-      this.course.details = data.details;
-      this.course.instructors = data.instructors;
-      this.course.max_students = data.max_students;
-      this.course.name = data.name;
-      this.course.schedule = data.schedule;
+      this.course = data;
       this.getSessions(this.course);
+    });
+
+    //GETS MEMBERS OF THIS COURSE
+    this.courseApi.GetMembersEnrolled(this.course_id).subscribe(data => {
+      this.members = data;
+      console.log(this.members)
+      this.memberDataSource = new MatTableDataSource<User>(this.members);
+    });
+
+    //WATCHER
+    this.watcher = media.media$.subscribe((change: MediaChange) => {
+      if (change) {
+        if (change.mqAlias == 'xs') {
+          this.columns = 1;
+          this.myNumberQRVersion = 4;
+        } else if( change.mqAlias == 'sm'){
+          this.myNumberQRVersion = 8;
+        } else if( change.mqAlias == 'md'){
+          this.myNumberQRVersion = 9;
+        } else {
+          this.columns = 2;
+          this.myNumberQRVersion = 11;
+        }
+      }
     });
     
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.watcher.unsubscribe();
   }
 
   showSessions(){
@@ -68,9 +107,6 @@ export class MyCourseProfComponent implements OnInit {
 
   closeSessions(){
     this.show = false;
-  }
-
-  openSessionTable(sessionsDataSource: any){
   }
 
   getSessions(course: any){

@@ -1,109 +1,152 @@
-<div class="title-group">
-    <div>
-        <h1 style="text-align: center; width: 100%;" class="mat-h1">Course Information</h1>
-    </div>
-    <!-- Buttons -->
-    <div class="controlers-wrapper" style="text-align: right; margin-top:2%;">
-        <div class="full-wrapper button-wrapper">
+
+<h1>Course Information </h1>
+
+<mat-grid-list [cols]="columns" rowHeight="4:4" >
+    <!-- left -->
+    <mat-grid-tile>
+        <mat-card class="myCard">
+            <!-- ----------------------------------------------------------------------------- -->
+            <div style="width: 100%; text-align: center; margin:auto;" class="controlers-wrapper">
+                <table style="text-align:left;">
+                    <tr>
+                        <th>
+                            <h3><label>Course Name:</label>&nbsp;</h3>
+                        </th>
+                        <td>
+                            <p>{{course.name}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h3><label>Course Instructors:</label>&nbsp;</h3>
         
-            <div *ngIf="!show" class="button-wrapper">
-                <button mat-raised-button color="warn" (click)="showSessions()">
-                View Sessions
-                </button>
+                        </th>
+                        <td>
+                            <p *ngFor="let instructor of instructors">{{instructor.name}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h3><label>Course Details:</label>&nbsp;</h3>
+                        </th>
+                        <td>
+                            <p>{{course.details}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h3><label>Course Schedule:</label>&nbsp;</h3>
+                        </th>
+                        <td>
+                            <p *ngFor='let schedule of course.schedule'>{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div *ngIf="show" class="button-wrapper">
-                <button mat-raised-button color="warn" (click)="closeSessions()">
-                Close Sessions
-                </button>
+            <!-- Buttons -->
+            <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
+                <div class="full-wrapper button-wrapper">
+                
+                    <div *ngIf="!show" class="button-wrapper">
+                        <button mat-raised-button color="warn" (click)="showSessions()">
+                            <i class="material-icons">visibility</i>
+                        View Sessions
+                        </button>
+                    </div>
+                    <div *ngIf="show" class="button-wrapper">
+                        <button mat-raised-button color="warn" (click)="closeSessions()">
+                            <i class="material-icons">visibility_off</i>
+                        Hide Sessions
+                        </button>
+                    </div>
+                    <br><br>
+                    <!-- todo: <div *ngIf="sessions.length == 0">
+                        * No past sessions for this course. *
+                    </div> -->
+                </div>
             </div>
+                <!-- ----------------------------------------------------------------------------- -->
+        </mat-card>
 
-            <!-- todo: <div *ngIf="sessions.length == 0">
-                * No past sessions for this course. *
-            </div> -->
+    </mat-grid-tile>
+    <!-- right -->
+    <mat-grid-tile>
+        <mat-card class="myCard">
+
+            <!-- ----------------------------------------------------------------------------- -->
+                <!-- Member Table -->
+                <br>
+                
+                <div class="title-group">
+                    <span class="nav-tool-items" style="float: left;">
+                    <!-- placeholder -->
+                    </span>
+                    <div>
+                        <!-- <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Sessions</h1> -->
+                        <h3>Students</h3>
+                    </div>
+                    <br>
+                    <mat-divider fxFlex="1 0"></mat-divider>
+                    <br>
+                </div>
+    
+                <div *ngIf="sessions.length != 0"class="container" style="width: 50%; margin: auto;">
+                    <table mat-table [dataSource]="memberDataSource" class="mat-elevation-z8">
+    
+                        <!-- Date Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element">{{element.member.firstname}} {{element.member.lastname}}</td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="memberDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: memberDisplayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- ----------------------------------------------------------------------------- -->
+              
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+    <!-- Sessions Table------------------------------------------------------------------------- -->
+    <br>
+    <div *ngIf="show">
+    <div class="title-group">
+        <span class="nav-tool-items" style="float: left;">
+        <!-- placeholder -->
+        </span>
+        <div>
+            <!-- <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Sessions</h1> -->
+            <h3>Sessions</h3>
         </div>
+        <br>
+        <mat-divider fxFlex="1 0"></mat-divider>
+        <br>
     </div>
-    <br>
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
-</div>
 
+    <div *ngIf="sessions.length != 0"class="container" style="width: 50%; margin: auto;">
+        <table mat-table [dataSource]="sessionDataSource" class="mat-elevation-z8">
 
-<!-- todo: spinner, method -->
-<!-- <md-progress-spinner style="margin:0 auto;" mode="indeterminate"></md-progress-spinner> -->
-<div class="inner-wrapper">
-    <div style="width: 20%; text-align: center; margin:auto;" class="controlers-wrapper">
-        <table style="text-align:left;">
-            <tr>
-                <th>
-                    <h3><label>Course Name:</label>&nbsp;</h3>
-                </th>
-                <td>
-                    <p>{{course.name}}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h3><label>Course Instructors:</label>&nbsp;</h3>
+            <!-- Date Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+            </ng-container>
 
-                </th>
-                <td>
-                    <p *ngFor="let instructor of instructors">{{instructor.name}}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h3><label>Course Details:</label>&nbsp;</h3>
-                </th>
-                <td>
-                    <p>{{course.details}}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h3><label>Course Schedule:</label>&nbsp;</h3>
-                </th>
-                <td>
-                    <p *ngFor='let schedule of course.schedule'>{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
-                </td>
-            </tr>
+            <!-- Time Column -->
+            <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <td mat-cell *matCellDef="let element"> {{element.start_time}} - {{element.end_time}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewSession(row)"></tr>
         </table>
     </div>
-
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <!-- ---------------------------------Sessions Table----------------------------------------------- -->
-<br>
-<div *ngIf="show">
-<div class="title-group">
-    <span class="nav-tool-items" style="float: left;">
-       <!-- placeholder -->
-    </span>
-    <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Course Sessions</h1>
     </div>
-    <br>
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
-</div>
+    <!-- ----------------------------------------------------------------------------- -->
 
-<div *ngIf="sessions.length != 0"class="container" style="width: 80%; margin: auto;">
-    <table mat-table [dataSource]="sessionDataSource" class="mat-elevation-z8">
 
-        <!-- Date Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
-        </ng-container>
-
-        <!-- Time Column -->
-        <ng-container matColumnDef="time">
-            <th mat-header-cell *matHeaderCellDef> Time </th>
-            <td mat-cell *matCellDef="let element"> {{element.start_time}} - {{element.end_time}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewSession(row)"></tr>
-    </table>
-</div>
-</div>
-
-</div>
+<div class="footer">
+    <p>Teambits &copy; 2019-2020</p>
+  </div>
