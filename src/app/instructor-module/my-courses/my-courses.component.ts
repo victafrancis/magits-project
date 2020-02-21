@@ -27,7 +27,6 @@ export class MyCoursesComponent implements OnInit {
       this.user = this._authService.decode();
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         this.courses = data.courses;
-        // console.log(data.courses)
         this.courseDataSource = new MatTableDataSource<Schedule>(this.courses);
 
       });

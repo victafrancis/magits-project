@@ -7,7 +7,8 @@ import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.compon
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { SessionInfoComponent } from '../session-info/session-info.component';
+import { UserService } from 'src/app/_services/user/user.service';
+import { CourseService } from 'src/app/_services/course/course.service';
 
 
 
@@ -47,14 +48,18 @@ export class CheckInMemberComponent{
 //CHECK-IN
   member: any = {};
   result: any = {};
-
   show: boolean = false;
+  user: any ={};
+  course: any={};
+  showSessionInfo: boolean = false;
+  beforeId : string;
 
   constructor(
     private readonly _dialog: MatDialog,
     media: MediaObserver,
-    private sessionAPI: SessionService,
-    private matDialog: MatDialog
+    private sessionApi: SessionService,
+    private courseApi: CourseService,
+    private userApi: UserService
   ) {
     // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
@@ -85,8 +90,13 @@ export class CheckInMemberComponent{
 
   // QR SCANNER--------------------------------------------------------------------------------------------------------------
   onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
-    this.checkInMember(this.qrResultString);
+
+    if (this.beforeId != resultString){
+      this.qrResultString = resultString;
+      this.showSessionInfo = true;
+      this.beforeId = resultString;
+      this.checkInMember(this.qrResultString);
+    }
   }
 
   clearResult(): void {
@@ -144,23 +154,28 @@ export class CheckInMemberComponent{
 //CHECKS IN MEMBER, returns an object that you can display,
 checkInMember(memberID: any){
   this.member.subject = memberID;
-  this.sessionAPI.CheckInMember(this.member).subscribe(data=>{
+  this.sessionApi.CheckInMember(this.member).subscribe(data=>{
     this.result = data;
+
     if(this.result.message == undefined){
-      this.openSessionInfoModal(this.result);
+      this.getCourseDetail(data.course);
+      this.getUserDetails(memberID);
     }
   })
 }
 
-openSessionInfoModal(sess: any){
-  const dialogConfig = new MatDialogConfig();
+getCourseDetail(courseID: string){
+  this.courseApi.GetCourse(courseID).subscribe(courseData =>{
+    this.course = courseData;
+  })
 
-  // dialogConfig.disableClose = true;
-  dialogConfig.id = "session-info-component";
-  dialogConfig.height = "50%";
-  dialogConfig.width = "50%";
-  dialogConfig.data = {session_info: sess};
-  const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
+}
+
+getUserDetails(memberID: string){
+
+  this.userApi.GetUser(memberID).subscribe(data=>{
+    this.user = data;
+  })
 }
 
 useScanner(){
@@ -171,21 +186,5 @@ hideScanner(){
   this.show = false;
   this.hasPermission = false;
 }
-
-// -------------------------
-  // qrResultString: string;
-
-  // clearResult(): void {
-  //   this.qrResultString = null;
-  // }
-
-  // onCodeResult(resultString: string) {
-  //   this.qrResultString = resultString;
-  // }
-
-  
-  // todo: turnOffScanner()
- 
-
 
 }

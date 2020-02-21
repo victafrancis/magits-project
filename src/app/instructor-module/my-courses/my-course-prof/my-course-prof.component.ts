@@ -31,7 +31,7 @@ export class MyCourseProfComponent implements OnInit {
 //SESSION TABLE  
   sessions: any = [];
   sessionDataSource: MatTableDataSource<Session>;
-  displayedColumns: string[] = ['date', 'time'];
+  displayedColumns: string[] = ['date','day','time','attendees','feedback'];
 
   course_id: any;
   course : any = {};
@@ -107,6 +107,10 @@ export class MyCourseProfComponent implements OnInit {
 
   closeSessions(){
     this.show = false;
+  }
+
+  back(){
+    this.location.back();
   }
 
   getSessions(course: any){

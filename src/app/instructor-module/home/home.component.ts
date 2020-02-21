@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.currentDay = this.datePipe.transform(this.myDate,'EEEE');
       this.currentTime = this.datePipe.transform(this.myDate,'H:mm:ss a');
+
+      // FOR CLOCK
       setInterval(() => {
         this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
       this.user = this._authService.decode();

@@ -4,11 +4,15 @@ import { Subscription, Observable } from 'rxjs';
 import { MediaChange, MediaObserver  } from '@angular/flex-layout';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { Session } from 'inspector';
 import { MatTableDataSource } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
+import { Location } from '@angular/common';
+import { UserService } from 'src/app/_services/user/user.service';
+import { CourseService } from 'src/app/_services/course/course.service';
+import { FeedbackService } from 'src/app/_services/feedback/feedback.service';
+
 
 
 @Component({
@@ -22,15 +26,19 @@ export class SessInfoComponent implements OnInit {
   watcher: Subscription;
   columns: number = 4;
 
+//Course Info
+course: any={};
+
 //SessionInfo
   session_id: any;
   session: any;
   sessionForm: FormGroup;
 
 //AttendeesTable
-  members: any=[];
-  displayedColumns: string[] = ['name','time'];
+  attendees: any=[];
+  displayedColumns: string[] = ['member','customColumn'];
   attendeeDataSource: MatTableDataSource<User>;
+  checkInTime: any=[];
 
    constructor(
      public dialog: MatDialog, 
@@ -38,7 +46,11 @@ export class SessInfoComponent implements OnInit {
      media: MediaObserver, 
      public fb: FormBuilder, 
      private actRoute: ActivatedRoute, 
-     private sessionApi: SessionService
+     private sessionApi: SessionService,
+     private location: Location,
+     private memberApi: UserService,
+     private courseApi: CourseService,
+     private feedbackApi: FeedbackService
      ) {
 
     this.watcher = media.media$.subscribe((change: MediaChange) => {
@@ -62,12 +74,28 @@ export class SessInfoComponent implements OnInit {
     // GET SESSION INFORMATION
     this.sessionApi.GetSession(this.session_id).subscribe(data => {
         this.session = data;
-        if(data.members){
-          this.getMembersTable(data.members)
+
+     // GET COURSE NAME OF THIS SESSION
+      this.courseApi.GetCourse(data.course).subscribe(courseData=>{
+        this.course = courseData;
+      })
+
+     //todo: GET FEEDBACK FROM THIS SESSION
+
+
+        // GET SESSION ATTENDEES
+        if(data.attendees){
+          for (let index in data.attendees) { 
+
+            if(data.attendees[index].member != undefined ){
+              this.checkInTime[this.checkInTime.length] = data.attendees[index].time;
+              this.getUser(data.attendees[index].member);
+            }
+          }  
         }
-        // console.log(this.session)
-    });
-   }
+        });
+
+    }
    
 
    public handleError = (controlName: string, errorName: string) => {
@@ -82,9 +110,18 @@ export class SessInfoComponent implements OnInit {
   
   }
 
-  //GetMembersInfo
-  getMembersTable(membersfromSession:any=[]){
-    this.members = membersfromSession;
+  back(){
+    this.location.back();
+  }
+
+  getUser(id:any){
+    this.memberApi.GetUser(id).subscribe(user =>{
+      this.attendees.push(user);
+      this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
+    }) 
+
+     
+    
   }
 
 }
