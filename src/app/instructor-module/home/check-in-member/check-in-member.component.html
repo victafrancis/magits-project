@@ -1,127 +1,152 @@
 
-  <h3>Check-in Member</h3>
-  <mat-grid-list [cols]="columns" rowHeight="4:4">
-    <mat-grid-tile>
-        <mat-card class="myCard">
-          <p>Scan your Qr code here:</p>
-        <!-- Button to Show Scanner------------------------------------------------------------------ -->
+<h2 style="text-align: center;">Member Check-in</h2>
+<mat-grid-list [cols]="columns" rowHeight="4:4">
+  <mat-grid-tile>
+      <mat-card class="myCard">
+        <h3>Scan your Qr code here:</h3>
+       
+      <!-- Button to Show Scanner------------------------------------------------------------------ -->
 
-          <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
-            <div class="full-wrapper button-wrapper">
-            
-                <div *ngIf="!show" class="button-wrapper">
-                    <button mat-raised-button color="warn" (click)="useScanner()">
-                        <i class="material-icons">visibility</i>
-                    Turn On Scanner
-                    </button>
-                </div>
-                <div *ngIf="show" class="button-wrapper">
-                    <button mat-raised-button color="warn" (click)="hideScanner()">
-                        <i class="material-icons">visibility_off</i>
-                    Turn Off Scanner
-                    </button>
-                </div>
-                <br><br>
-            </div>
-        </div>
+        <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
+          <div class="full-wrapper button-wrapper">
 
-        <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
-        <div *ngIf="show">
-        <div class="scanner-shell" [hidden]="!hasDevices">
-
-          <mat-card>
-            <mat-menu #appMenu="matMenu">
-              <mat-selection-list>
-                <mat-list-option checkboxPosition="start" (click)="toggleTryHarder()" [selected]="tryHarder">
-                  Enable Try-harder
-                </mat-list-option>
-                <mat-list-option checkboxPosition="start" (click)="toggleTorch()" [selected]="torchEnabled"
-                  *ngIf="torchAvailable$ | async">
-                  Enable Torch
-                </mat-list-option>
-              </mat-selection-list>
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="openFormatsDialog()">Barcode formats</button>
-              <button mat-menu-item (click)="openInfoDialog()">App info</button>
-            </mat-menu>
-          </mat-card>
-          
-          <mat-card>
-            <header>
-              <mat-form-field appearance="fill">
-                <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
-                  <option value="" [selected]="!currentDevice">No Device Selected</option>
-                  <option *ngFor="let device of availableDevices" [value]="device.deviceId"
-                    [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
-                </select>
-              </mat-form-field>
-              <button mat-icon-button [matMenuTriggerFor]="appMenu">
-                <mat-icon>more_vert</mat-icon>
+            <div *ngIf="!show" class="button-wrapper">
+              <button mat-raised-button color="warn" (click)="useScanner()">
+                <i class="material-icons">visibility</i>
+                Turn On Scanner
               </button>
-            </header>
-          </mat-card>
+            </div>
+            <div *ngIf="show" class="button-wrapper">
+              <button mat-raised-button color="warn" (click)="hideScanner()">
+                <i class="material-icons">visibility_off</i>
+                Turn Off Scanner
+              </button>
+            </div>
+          </div>
+      </div>
 
-            <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
-              [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
-              (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
-          
-            <section class="results" *ngIf="qrResultString">
-              <div>
-                <small>Result</small>
-                <strong>{{ qrResultString }}</strong>
-                {{ result.message }}
+      <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
+      <div *ngIf="show">
+      <div class="scanner-shell" [hidden]="!hasDevices">
+
+        <mat-card>
+          <mat-menu #appMenu="matMenu">
+            <mat-selection-list>
+              <mat-list-option checkboxPosition="start" (click)="toggleTryHarder()" [selected]="tryHarder">
+                Enable Try-harder
+              </mat-list-option>
+              <mat-list-option checkboxPosition="start" (click)="toggleTorch()" [selected]="torchEnabled"
+                *ngIf="torchAvailable$ | async">
+                Enable Torch
+              </mat-list-option>
+            </mat-selection-list>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="openFormatsDialog()">Barcode formats</button>
+            <button mat-menu-item (click)="openInfoDialog()">App info</button>
+          </mat-menu>
+        </mat-card>
+        
+        <mat-card>
+          <header>
+            <mat-form-field appearance="fill">
+              <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
+                <option value="" [selected]="!currentDevice">No Device Selected</option>
+                <option *ngFor="let device of availableDevices" [value]="device.deviceId"
+                  [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+              </select>
+            </mat-form-field>
+            <button mat-icon-button [matMenuTriggerFor]="appMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </header>
+        </mat-card>
+
+          <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
+            [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+            (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+        
+        
+      </div>
+    </div>
+        <ng-container *ngIf="hasPermission === undefined">
+        
+          <h2>Waiting for permissions.</h2>
+        
+          <blockquote>
+            If your device does not has cameras, no permissions will be asked.
+          </blockquote>
+        
+        </ng-container>
+        
+        <ng-container *ngIf="hasPermission === false">
+        
+          <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
+        
+        </ng-container>
+        
+        <ng-container *ngIf="hasDevices === undefined">
+        
+          <h2>Couldn't check for devices.</h2>
+        
+          <blockquote>
+            This may be caused by some security error.
+          </blockquote>
+        
+        </ng-container>
+        
+        <ng-container *ngIf="hasDevices === false">
+        
+          <h2>No devices were found.</h2>
+        
+          <blockquote>
+            I believe your device has no media devices attached to.
+          </blockquote>
+        
+        </ng-container>
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+      </mat-card>
+      </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="myCard">
+      <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
+        <div class="full-wrapper button-wrapper">
+          <h3 style="text-align: left;">Check-in Information:</h3>
+       
+          <div class="results" *ngIf="qrResultString" >
+            <small>Result</small>
+            <strong>{{ qrResultString }}</strong>
+              {{ result.message }}
+            <button mat-icon-button (click)="clearResult()">&times;</button>
+          </div>
+
+          <div *ngIf ="showSessionInfo">
+            <div *ngIf ="result.message == undefined">
+              <div *ngIf="user && course">
+              {{ course.name }} <br>
+              {{ result.date }} <br>
+              {{ result.start_time }} - {{ result.end_time }}<br>
+              Confirmed Checked-in: {{ user.firstname }} {{ user.firstname }} 
+              Timestamp: {{ result.timestamp }}
               </div>
-              <button mat-icon-button (click)="clearResult()">&times;</button>
-            </section>
+            </div>
+          </div>
           
         </div>
       </div>
-          <ng-container *ngIf="hasPermission === undefined">
-          
-            <h2>Waiting for permissions.</h2>
-          
-            <blockquote>
-              If your device does not has cameras, no permissions will be asked.
-            </blockquote>
-          
-          </ng-container>
-          
-          <ng-container *ngIf="hasPermission === false">
-          
-            <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
-          
-          </ng-container>
-          
-          <ng-container *ngIf="hasDevices === undefined">
-          
-            <h2>Couldn't check for devices.</h2>
-          
-            <blockquote>
-              This may be caused by some security error.
-            </blockquote>
-          
-          </ng-container>
-          
-          <ng-container *ngIf="hasDevices === false">
-          
-            <h2>No devices were found.</h2>
-          
-            <blockquote>
-              I believe your device has no media devices attached to.
-            </blockquote>
-          
-          </ng-container>
-<!-- -------------------------------------------------------------------------------------------------------- -->
-
-        </mat-card>
-       </mat-grid-tile>
-
-      <mat-grid-tile>
-        <app-manual-check-in></app-manual-check-in>
-      </mat-grid-tile>
+      <br><br>
+      <mat-divider fxFlex="1 0"></mat-divider>
+      <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
+        <div class="full-wrapper button-wrapper">
+          <app-manual-check-in></app-manual-check-in>
+          <mat-divider fxFlex="1 0"></mat-divider>
+        </div>
+      </div>
+    </mat-card>
+  </mat-grid-tile>
 </mat-grid-list>
 
-  
-  
-  
-  
+
+
+

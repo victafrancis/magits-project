@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BarcodeFormat } from '@zxing/library';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormatsDialogComponent } from './qr/formats-dialog/formats-dialog.component';
@@ -7,6 +7,8 @@ import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.compon
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
+import { UserService } from 'src/app/_services/user/user.service';
+import { CourseService } from 'src/app/_services/course/course.service';
 
 
 
@@ -46,13 +48,18 @@ export class CheckInMemberComponent{
 //CHECK-IN
   member: any = {};
   result: any = {};
-
   show: boolean = false;
+  user: any ={};
+  course: any={};
+  showSessionInfo: boolean = false;
+  beforeId : string;
 
   constructor(
     private readonly _dialog: MatDialog,
     media: MediaObserver,
-    private sessionAPI: SessionService
+    private sessionApi: SessionService,
+    private courseApi: CourseService,
+    private userApi: UserService
   ) {
     // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
@@ -83,8 +90,13 @@ export class CheckInMemberComponent{
 
   // QR SCANNER--------------------------------------------------------------------------------------------------------------
   onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
-    this.checkInMember(this.qrResultString);
+
+    if (this.beforeId != resultString){
+      this.qrResultString = resultString;
+      this.showSessionInfo = true;
+      this.beforeId = resultString;
+      this.checkInMember(this.qrResultString);
+    }
   }
 
   clearResult(): void {
@@ -142,10 +154,27 @@ export class CheckInMemberComponent{
 //CHECKS IN MEMBER, returns an object that you can display,
 checkInMember(memberID: any){
   this.member.subject = memberID;
-  // console.log(this.member.subject);
-  this.sessionAPI.CheckInMember(this.member).subscribe(data=>{
-    console.log(data);
+  this.sessionApi.CheckInMember(this.member).subscribe(data=>{
     this.result = data;
+
+    if(this.result.message == undefined){
+      this.getCourseDetail(data.course);
+      this.getUserDetails(memberID);
+    }
+  })
+}
+
+getCourseDetail(courseID: string){
+  this.courseApi.GetCourse(courseID).subscribe(courseData =>{
+    this.course = courseData;
+  })
+
+}
+
+getUserDetails(memberID: string){
+
+  this.userApi.GetUser(memberID).subscribe(data=>{
+    this.user = data;
   })
 }
 
@@ -157,21 +186,5 @@ hideScanner(){
   this.show = false;
   this.hasPermission = false;
 }
-
-// -------------------------
-  // qrResultString: string;
-
-  // clearResult(): void {
-  //   this.qrResultString = null;
-  // }
-
-  // onCodeResult(resultString: string) {
-  //   this.qrResultString = resultString;
-  // }
-
-  
-  // todo: turnOffScanner()
- 
-
 
 }
