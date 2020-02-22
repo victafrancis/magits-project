@@ -75,6 +75,9 @@ export class CourseService {
       catchError(this.errorMgmt)
     )
   }
+
+
+  
   // Delete course
   DeleteCourse(id): Observable<any> {
     var API_URL = `${this.endpoint}/delete-course/${id}`;

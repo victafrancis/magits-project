@@ -46,7 +46,7 @@
   
     <ng-container matColumnDef="from">
       <th mat-header-cell *matHeaderCellDef> From </th>
-      <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="subject">

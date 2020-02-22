@@ -27,7 +27,8 @@ export class CourseDescriptionComponent implements OnInit {
   value = this.token.subject;
   isHidden = true;
 
-  constructor(public dialog: MatDialog, private actRoute: ActivatedRoute,  private courseApi: CourseService, private userApi: UserService, private _authService: AuthService, private schedApi: ScheduleService) {
+  constructor( private ngZone: NgZone,
+    private router: Router,public dialog: MatDialog, private actRoute: ActivatedRoute,  private courseApi: CourseService, private userApi: UserService, private _authService: AuthService, private schedApi: ScheduleService) {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
     
  // GETS THE COURSE DETAILS
@@ -78,6 +79,15 @@ export class CourseDescriptionComponent implements OnInit {
     });
   }
 
+  removeStudent(){
+    
+    if(window.confirm('Are you sure you want to unenroll from this course?')){
+      this.courseApi.RemoveStudent(this.course_id, {'member_id':this.value}).subscribe(res => {
+        this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
+        })
+    }
+  }
+
 }
 
 
@@ -95,6 +105,8 @@ export class DialogOverviewEnrollMember {
   course_id: any;
   member_id: any;
   memberships: any = [];
+  subscription_membership: any;
+  session_membership: any;
   membership_selected: null;
   course = new Course();
   sched : Array<Schedule> = [];
@@ -114,6 +126,9 @@ export class DialogOverviewEnrollMember {
 
       this.course_id = this.recievedData.course_id;
       this.member_id = this.recievedData.member_id;
+      this.subscription_membership = this.recievedData.subscription_membership;
+      this.session_membership = this.recievedData.session_membership;
+
 
       this.courseApi.GetCourse(this.course_id).subscribe(data => {
         this.course.details = data.details;
@@ -140,6 +155,7 @@ export class DialogOverviewEnrollMember {
           });
         }
         this.course.name = data.name;
+        
         // not used
         this.course.session_membership = data.session_membership;
         this.course.subscription_membership = data.subscription_membership;
@@ -183,6 +199,9 @@ export class DialogOverviewEnrollMember {
       }
     }
   }
+
+  
+
 
 
    /* Get errors */
