@@ -4,28 +4,20 @@
   <mat-grid-tile>
       <mat-card class="myCard">
         <h3>Scan your Qr code here:</h3>
-       
       <!-- Button to Show Scanner------------------------------------------------------------------ -->
-
-        <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
-          <div class="full-wrapper button-wrapper">
-
-            <div *ngIf="!show" class="button-wrapper">
-              <button mat-raised-button color="warn" (click)="useScanner()">
-                <i class="material-icons">visibility</i>
-                Turn On Scanner
-              </button>
-            </div>
-            <div *ngIf="show" class="button-wrapper">
-              <button mat-raised-button color="warn" (click)="hideScanner()">
-                <i class="material-icons">visibility_off</i>
-                Turn Off Scanner
-              </button>
-            </div>
+          <div *ngIf="!show" class="button-wrapper">
+            <button mat-raised-button color="warn" (click)="useScanner()">
+              <i class="material-icons">visibility</i>
+              Turn On
+            </button>
           </div>
-      </div>
-
-      <!-- --------------------------------------------QR Scanner-------------------------------------------------- -->
+          <div *ngIf="show" class="button-wrapper">
+            <button mat-raised-button color="warn" (click)="hideScanner()">
+              <i class="material-icons">visibility_off</i>
+              Turn Off
+            </button>
+          </div>
+      <!-- ---QR Scanner--------------------------------------------------------------------------- -->
       <div *ngIf="show">
       <div class="scanner-shell" [hidden]="!hasDevices">
 
@@ -115,38 +107,38 @@
           <h3 style="text-align: left;">Check-in Information:</h3>
        
           <div class="results" *ngIf="qrResultString" >
-            <small>Result</small>
-            <strong>{{ qrResultString }}</strong>
+            <div id="result">
+              <small>Result:</small><br>
+              <strong>{{ qrResultString }}</strong><br>
               {{ result.message }}
             <button mat-icon-button (click)="clearResult()">&times;</button>
+            </div>
           </div>
 
-          <div *ngIf ="showSessionInfo">
-            <div *ngIf ="result.message == undefined">
+          <div *ngIf ="showSessionInfo" >
+            <div *ngIf ="result.message == undefined" id="result">
               <div *ngIf="user && course">
               {{ course.name }} <br>
               {{ result.date }} <br>
               {{ result.start_time }} - {{ result.end_time }}<br>
-              Confirmed Checked-in: {{ user.firstname }} {{ user.firstname }} 
-              Timestamp: {{ result.timestamp }}
+              Confirmed Checked-in: {{ user.firstname }} {{ user.firstname }} <br>
+              Timestamp: {{ result.time }}
               </div>
             </div>
           </div>
-          
         </div>
       </div>
       <br><br>
       <mat-divider fxFlex="1 0"></mat-divider>
       <div class="controlers-wrapper" style="text-align: left; margin-top:2%;">
         <div class="full-wrapper button-wrapper">
-          <app-manual-check-in></app-manual-check-in>
+          <app-manual-check-in (messageToEmit)="getMessage($event)"></app-manual-check-in>
           <mat-divider fxFlex="1 0"></mat-divider>
         </div>
       </div>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-
 
 
 

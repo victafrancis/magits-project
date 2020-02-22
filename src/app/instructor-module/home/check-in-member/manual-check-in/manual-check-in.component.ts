@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
 
@@ -13,11 +13,10 @@ checkinForm: FormGroup;
 
 //CHECK-IN
   result: any={};
+  @Output() messageToEmit = new EventEmitter<any>(); //emit to parent
 
   constructor(
-    private sessionApi: SessionService,
-    public fb: FormBuilder,
-    private sessionAPI: SessionService
+    public fb: FormBuilder
   ) { }
 
   ngOnInit( ) {
@@ -36,9 +35,6 @@ checkinForm: FormGroup;
 
    //CHECKIN MANUALLY
   checkInMember(member: any){
-    this.sessionAPI.CheckInMember(member).subscribe(data=>{
-      console.log(data);
-      this.result = data;
-    })
+    this.messageToEmit.emit(member);
   }
 }

@@ -131,6 +131,12 @@ h2{
 
 
     
-
+#result{
+  background: white;
+  color: black;
+  border-radius: 25px;
+  border: 2px solid #008E8E;
+  padding: 20px;
+}
 
 
