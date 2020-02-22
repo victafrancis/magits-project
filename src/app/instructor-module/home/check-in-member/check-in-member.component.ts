@@ -93,7 +93,6 @@ export class CheckInMemberComponent{
 
     if (this.beforeId != resultString){
       this.qrResultString = resultString;
-      this.showSessionInfo = true;
       this.beforeId = resultString;
       this.checkInMember(this.qrResultString);
     }
@@ -101,6 +100,7 @@ export class CheckInMemberComponent{
 
   clearResult(): void {
     this.qrResultString = null;
+    this.beforeId = null;
   }
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
@@ -151,6 +151,12 @@ export class CheckInMemberComponent{
   }
 // ----------------------------------------------------------------------------------------------------------
 
+// MANUAL CHECKINMETHOD RECEIVE FROM CHILD
+getMessage(message: any) {
+    this.qrResultString = message.subject;
+    this.onCodeResult(message.subject);
+}
+
 //CHECKS IN MEMBER, returns an object that you can display,
 checkInMember(memberID: any){
   this.member.subject = memberID;
@@ -160,6 +166,7 @@ checkInMember(memberID: any){
     if(this.result.message == undefined){
       this.getCourseDetail(data.course);
       this.getUserDetails(memberID);
+      this.showSessionInfo = true;
     }
   })
 }
