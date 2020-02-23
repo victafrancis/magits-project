@@ -1,20 +1,23 @@
 <div class="title-group">
-    <span class="nav-tool-items" style="float: left;">
+    <div style="width: 95%;">
+        <h2 style="text-align: center;">Gym Members</h2>
+    </div>
+    <br>
+</div>
+<mat-divider fxFlex="1 0"></mat-divider>
+<br>
+<div >
+    <div class="nav-tool-items" style="width: 10%;">
         <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/instructor/add-member">
             <i class="material-icons">add_circle</i> &nbsp; 
             New Member
         </button>
-    </span>
-    <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Members</h1>
     </div>
-    <br>
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
 </div>
-
+<br>   
+<!-- Members Table -->
 <div  class="container" style="width: 80%; margin: auto;">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table *ngIf="UserData.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Member ID Column -->
         <ng-container matColumnDef="_id">
@@ -48,3 +51,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
+
+<div *ngIf ="noMembers">
+    <p style="text-align: center;">No Available Courses</p>
+</div>
+
+<mat-card *ngIf="isLoading" 
+   style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

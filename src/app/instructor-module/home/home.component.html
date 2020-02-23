@@ -73,12 +73,19 @@
 
         </tr>
     </table>
-   
-
-    <div *ngIf= "schedules.length == 0" style="text-align:center;">
-        <p>You have no scheduled sessions for today.</p>
+    
+    <div *ngIf ="noSchedules">
+        <p style="text-align: center;">You have no scheduled sessions for today.</p>
     </div>
     
+    <mat-card *ngIf="isLoading" 
+       style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner 
+        color="primary" 
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </mat-card>
+
 </div>
 <!-- Announcements Table -->
 <br><br>
@@ -95,7 +102,7 @@
     <br>
 </div>
 
-<div class="container" style="width: 80%; margin: auto;">
+<div *ngIf="Announcements" class="container" style="width: 80%; margin: auto;">
     <table mat-table [dataSource]="announcementDataSource" class="mat-elevation-z8">
 
         <!-- Date Column -->
@@ -120,3 +127,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
+
+<div *ngIf ="noAnnouncements">
+    <p style="text-align: center;">No announcements posted.</p>
+</div>
+
+<mat-card *ngIf="isLoadingAnnouncements" 
+   style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>
