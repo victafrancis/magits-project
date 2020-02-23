@@ -17,20 +17,30 @@ export class AnnouncementsComponent implements OnInit {
   dataSource: MatTableDataSource<Announcement>;
   user: any;
 
+  //LOADING
+  isLoading: boolean = false;
+  noAnnouncements: boolean = false;
+
   constructor(
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
     private userApi: UserService
     ) {
+    this.isLoading = true;
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.user = this._authService.decode();
       
       this.Announcements = data;
-      // console.log(data);
       if(this.Announcements.length > 0){
         // this.getSenderName(data)
       }
       this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
+      if(this.Announcements.length > 0){
+        this.isLoading = false;
+      }else if(this.Announcements.length == 0){
+        this.isLoading = false;
+        this.noAnnouncements = true;
+      }
     });
   }
 

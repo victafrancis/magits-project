@@ -11,35 +11,44 @@ import { Router } from '@angular/router';
 })
 export class CourseListComponent implements OnInit {
   user: any;
-  CourseData: any;
+  CourseData: any = [];
   dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = ['name', 'instructors', 'members', 'action'];
+
+  //LOADING
+  isLoading: boolean = false;
+  noCourses: boolean = false; 
 
   constructor
     (
       private courseApi: CourseService,
       private router: Router
     ) {
-
-    let CourseData = [];
+    this.isLoading = true;
 
     this.courseApi.GetCourses().subscribe(data => {
       for (const i in data) {
-        CourseData.push(data[i]);
+        this.CourseData.push(data[i]);
       }
 
       // converts the array of instructor id into their actual name
-      for (var i = 0; i < CourseData.length; i++) {
+      for (var i = 0; i < this.CourseData.length; i++) {
         let temp = [];
         this.courseApi.GetCourseInstructors(data[i]._id).subscribe(data => {
           for (const i in data) {
             temp.push(`${data[i].firstname} ${data[i].lastname}`);
           }
         });
-        CourseData[i].instructors = temp
+        this.CourseData[i].instructors = temp
       }
 
-      this.dataSource = new MatTableDataSource<Course>(CourseData);
+      this.dataSource = new MatTableDataSource<Course>(this.CourseData);
+      if(this.CourseData.length > 0){
+        this.isLoading = false;
+      }else if(this.CourseData.length == 0){
+        this.isLoading = false;
+        this.noCourses = true;
+      }
     });
 
   }

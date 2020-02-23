@@ -1,6 +1,6 @@
 <div class="title-group">
-    <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Courses</h1>
+    <div style="width: 95%;">
+        <h2 style="text-align: center;">Gym Courses</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -8,7 +8,7 @@
 </div>
 
 <div class="container" style="width: 80%; margin: auto;">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table *ngIf="CourseData.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->
         <ng-container matColumnDef="name">
@@ -44,3 +44,15 @@
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
     </table>
 </div>
+
+<div *ngIf ="noCourses">
+    <p style="text-align: center;">You have no scheduled sessions for today.</p>
+</div>
+
+<mat-card *ngIf="isLoading" 
+   style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

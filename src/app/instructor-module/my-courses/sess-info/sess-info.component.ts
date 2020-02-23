@@ -40,6 +40,10 @@ course: any={};
   attendeeDataSource: MatTableDataSource<User>;
   checkInTime: any=[];
 
+  //LOADING
+  isLoading: boolean = true;
+  noAttendees: boolean = false; 
+
    constructor(
      public dialog: MatDialog, 
      private _authService: AuthService,
@@ -92,7 +96,18 @@ course: any={};
               this.getUser(data.attendees[index].member);
             }
           }  
+        }else{
+
+          // if(data.attendees.length > 0){
+          //   this.isLoading = false;
+          // }else if(data.attendees.length == 0){
+          //   this.isLoading = false;
+          //   this.noAttendees = true;
+          // }
+    
         }
+        
+
         });
 
     }
@@ -120,8 +135,6 @@ course: any={};
       this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
     }) 
 
-     
-    
   }
 
 }

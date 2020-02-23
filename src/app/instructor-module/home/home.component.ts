@@ -46,6 +46,12 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['date', 'user', 'content'];
   announcementDataSource: MatTableDataSource<Announcement>;
 
+  //LOADING
+  isLoading: boolean = false;
+  noSchedules: boolean = false;
+  isLoadingAnnouncements: boolean = true;
+  noAnnouncements: boolean = false;  
+
   constructor(
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
@@ -54,6 +60,7 @@ export class HomeComponent implements OnInit {
     private matDialog: MatDialog,
     private sessionApi: SessionService
     ) {
+      this.isLoading = true;
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.currentDay = this.datePipe.transform(this.myDate,'EEEE');
       this.currentTime = this.datePipe.transform(this.myDate,'H:mm:ss a');
@@ -62,7 +69,6 @@ export class HomeComponent implements OnInit {
       setInterval(() => {
         this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
       this.user = this._authService.decode();
-      // subject = user._id in jwt
       
       //Schedule Table Subscriber
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
@@ -75,7 +81,7 @@ export class HomeComponent implements OnInit {
               var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
-
+              
               //Check each session status in session collections
               this.getSessions(data.courses[i].course);
             }
@@ -83,11 +89,23 @@ export class HomeComponent implements OnInit {
         }
         // console.log(this.schedules[i])
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
+        if(this.schedules.length > 0){
+          this.isLoading = false;
+        }else if(this.schedules.length == 0){
+          this.isLoading = false;
+          this.noSchedules = true;
+        }
       });
       //Announcements Table Subscriber
       this.announcementApi.GetAnnouncements().subscribe(data => {
         this.Announcements = data;
         this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
+        if(this.Announcements.length > 0){
+          this.isLoadingAnnouncements = false;
+        }else if(this.Announcements.length == 0){
+          this.isLoadingAnnouncements = false;
+          this.noAnnouncements = true;
+        }
     });
   }
 
@@ -158,8 +176,11 @@ export class HomeComponent implements OnInit {
             this.schedules[totalSched].status = 'Closed';
           
           }
+          
         }
-      } 
+      }
+
+     
    })
   }
   

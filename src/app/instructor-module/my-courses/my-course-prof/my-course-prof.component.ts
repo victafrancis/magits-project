@@ -39,6 +39,10 @@ export class MyCourseProfComponent implements OnInit {
   courseForSession: any ={};
   show: Boolean = false;
 
+  //LOADING
+  isLoading: boolean = true;
+  noMembers: boolean = false;
+
   constructor(
     private actRoute: ActivatedRoute,
     private courseApi: CourseService,
@@ -71,8 +75,13 @@ export class MyCourseProfComponent implements OnInit {
     //GETS MEMBERS OF THIS COURSE
     this.courseApi.GetMembersEnrolled(this.course_id).subscribe(data => {
       this.members = data;
-      console.log(this.members)
       this.memberDataSource = new MatTableDataSource<User>(this.members);
+      if(this.members.length > 0){
+        this.isLoading = false;
+      }else if(this.members.length == 0){
+        this.isLoading = false;
+        this.noMembers = true;
+      }
     });
 
     //WATCHER
