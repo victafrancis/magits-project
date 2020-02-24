@@ -43,6 +43,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ManualCheckInComponent } from './home/check-in-member/manual-check-in/manual-check-in.component';
 import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
 import { ViewStudentsComponent } from './course-list/view-students/view-students.component';
+import { AnnouncementInfoComponent } from './announcements/announcement-info/announcement-info.component';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { ViewStudentsComponent } from './course-list/view-students/view-students
     MembersComponent, AnnouncementsComponent, ProfileComponent, CheckInMemberComponent,
      QrInfoComponent, QrInfoDialogComponent, FormatsDialogComponent, SessionInfoComponent, EnrollStudentComponent, 
      CourseProfileComponent, ConfirmEnrollComponent, MemberProfileComponent, CreateAnnouncementComponent, 
-     AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessInfoComponent,DialogOverviewChangePassword, ViewStudentsComponent],
+     AddMemberComponent, MyCourseProfComponent, ManualCheckInComponent, SessInfoComponent,DialogOverviewChangePassword, ViewStudentsComponent, AnnouncementInfoComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
