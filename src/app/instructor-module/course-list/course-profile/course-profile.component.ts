@@ -9,6 +9,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from 'src/app/_services/user/user.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { MediaChange, MediaObserver  } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-course-profile',
@@ -16,6 +18,12 @@ import { Location } from '@angular/common';
   styleUrls: ['./course-profile.component.css']
 })
 export class CourseProfileComponent implements OnInit {
+//WATCHER
+myNumberQRVersion = 9;
+  watcher: Subscription;
+  columns: number = 4;
+
+
   course_id: any;
   course = new Course();
   instructors = [];
@@ -28,7 +36,8 @@ export class CourseProfileComponent implements OnInit {
     private ngZone: NgZone,
     private userApi: UserService,
     private matDialog: MatDialog,
-    private location: Location
+    private location: Location,
+    media: MediaObserver, 
   )
   {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -49,9 +58,31 @@ export class CourseProfileComponent implements OnInit {
       this.course.name = data.name;
       this.course.schedule = data.schedule;
     });
+
+    //WATCHER
+    this.watcher = media.media$.subscribe((change: MediaChange) => {
+      if (change) {
+        if (change.mqAlias == 'xs') {
+          this.columns = 1;
+          this.myNumberQRVersion = 4;
+        } else if( change.mqAlias == 'sm'){
+          this.myNumberQRVersion = 8;
+        } else if( change.mqAlias == 'md'){
+          this.myNumberQRVersion = 9;
+        } else {
+          this.columns = 2;
+          this.myNumberQRVersion = 11;
+        }
+      }
+    });
+
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.watcher.unsubscribe();
   }
 
 }

@@ -1,13 +1,13 @@
 <div class="title-group">
     <div style="width: 95%;">
-        <h1 style="text-align: center;" class="mat-h1">My Courses</h1>
+        <h2 style="text-align: center;">My Courses</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
 </div>
 
-<div class="container" style="width: 50%; margin: auto;">
+<div *ngIf ="courses.length != 0" class="container" style="width: 50%; margin: auto;">
     <table mat-table [dataSource]="courseDataSource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->
@@ -34,3 +34,14 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
+<div *ngIf ="noCourses">
+    <p style="text-align: center;">No Available Courses</p>
+</div>
+
+<mat-card *ngIf="isLoading" 
+   style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner 
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

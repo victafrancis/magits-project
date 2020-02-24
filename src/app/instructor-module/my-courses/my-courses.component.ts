@@ -20,6 +20,9 @@ export class MyCoursesComponent implements OnInit {
   
   @Input() sessions:any =[];
 
+  isLoading: boolean = true;
+  noCourses: boolean = false;
+
   constructor(
     private _authService: AuthService,
     private userApi: UserService
@@ -27,9 +30,13 @@ export class MyCoursesComponent implements OnInit {
       this.user = this._authService.decode();
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
         this.courses = data.courses;
-        // console.log(data.courses)
         this.courseDataSource = new MatTableDataSource<Schedule>(this.courses);
-
+        if(this.courses.length > 0){
+          this.isLoading = false;
+        }else if(this.courses.length == 0){
+          this.isLoading = false;
+          this.noCourses = true;
+        }
       });
     }
   

@@ -1,16 +1,23 @@
+<span class="nav-tool-items" style="float: right;">
+    <button mat-raised-button color="accent" (click)="back()"> Back </button>&nbsp;
+</span>
 <h1>Session Information </h1>
-
 <mat-grid-list [cols]="columns" rowHeight="5:4">
     <!-- left -->
     <mat-grid-tile>
         <mat-card>
             <!------------------------------------Session info -------------------------------------------------  -->
             <br><br>
-            Session: Course Name? <br><br>
-            Date: {{ session?.date }}<br><br>
-            Time: {{ session?.start_time }}-{{ session?.end_time }}<br><br>
-            SessionNo: 123 <br><br>
-            Session ID: {{ session?._id }}<br><br>
+            Session: {{ course?.name }}
+            <br><br>
+            Date: {{ session?.date }}
+            <br><br>
+            Time: {{ session?.start_time }}-{{ session?.end_time }}
+            <br><br>
+            SessionNo: 123
+            <br><br>
+            Session ID: {{ session?._id }}
+            <br><br>
             <!-- ------------------------------------------------------------------------------------------------ -->
         </mat-card>
 
@@ -19,13 +26,43 @@
     <mat-grid-tile>
         <mat-card>
             <!------------------------------------Attendees Table -------------------------------------------------  -->
-            <div *ngIf="members.length != 0 ">
-                Attendees Table
-                <!-- add Attendees table here -->
+            <div *ngIf="attendees.length > 0 ">
+              
+                <div class="title-group">
+                    <div>
+                        <h3 style="text-align: center; width: 90%;">
+                            Attendees
+                        </h3>
+                    </div>
+                        <br>
+                        <mat-divider fxFlex="1 0"></mat-divider>
+                        <br>
+                </div>
+            
+                <div *ngIf="attendees" class="container" style="width: 100%; margin: auto;">
+                    <table mat-table [dataSource]="attendeeDataSource" class="mat-elevation-z8">
+            
+                        <!-- Date Column -->
+                        <ng-container matColumnDef="member">
+                            <th mat-header-cell *matHeaderCellDef> Member </th>
+                            <td mat-cell *matCellDef="let element">{{element.firstname}} {{element.lastname}}</td>
+                        </ng-container> 
+            
+                        <!-- Course Information -->
+                        <ng-container matColumnDef="customColumn">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Check-in Time </th>
+                            <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
+                                {{ checkInTime[i]}}
+                            </td>
+                        </ng-container>
 
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
             </div>
 
-            <div *ngIf="members.length == 0 ">
+            <div *ngIf="attendees.length == 0 ">
                 No Attendees
             </div>
             <!-- ------------------------------------------------------------------------------------------------ -->

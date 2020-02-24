@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BarcodeFormat } from '@zxing/library';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormatsDialogComponent } from './qr/formats-dialog/formats-dialog.component';
@@ -7,6 +7,8 @@ import { QrInfoDialogComponent } from './qr/qr-info-dialog/qr-info-dialog.compon
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
+import { UserService } from 'src/app/_services/user/user.service';
+import { CourseService } from 'src/app/_services/course/course.service';
 
 
 
@@ -16,9 +18,7 @@ import { SessionService } from 'src/app/_services/session/session.service';
   styleUrls: ['./check-in-member.component.css']
 })
 export class CheckInMemberComponent{
-
-
-// -------------------------------------------------------------------------------------------------
+// -------------QR SCANNER-------------------------------------------------------------------------------------
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
 
@@ -38,19 +38,30 @@ export class CheckInMemberComponent{
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
-// ^------------------QR SCANNER----------------------------------------------------------------------
+// ^---------------------------------------------------------------------------------------
 
-
-//for responsive view
+// WATCHER
   watcher: Subscription;
   columns: number = 4;
   myNumberQRVersion = 9;
 
+//CHECK-IN
+  member: any = {};
+  result: any = {};
+  show: boolean = false;
+  user: any ={};
+  course: any={};
+  showSessionInfo: boolean = false;
+  beforeId : string;
 
   constructor(
     private readonly _dialog: MatDialog,
-    media: MediaObserver
+    media: MediaObserver,
+    private sessionApi: SessionService,
+    private courseApi: CourseService,
+    private userApi: UserService
   ) {
+    // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {
@@ -66,6 +77,7 @@ export class CheckInMemberComponent{
         }
       }
     });
+
    }
 
 
@@ -77,8 +89,18 @@ export class CheckInMemberComponent{
  
 
   // QR SCANNER--------------------------------------------------------------------------------------------------------------
+  onCodeResult(resultString: string) {
+
+    if (this.beforeId != resultString){
+      this.qrResultString = resultString;
+      this.beforeId = resultString;
+      this.checkInMember(this.qrResultString);
+    }
+  }
+
   clearResult(): void {
     this.qrResultString = null;
+    this.beforeId = null;
   }
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
@@ -86,9 +108,6 @@ export class CheckInMemberComponent{
     this.hasDevices = Boolean(devices && devices.length);
   }
 
-  onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
-  }
 
   onDeviceSelectChange(selected: string) {
     const device = this.availableDevices.find(x => x.deviceId === selected);
@@ -131,22 +150,48 @@ export class CheckInMemberComponent{
     this.tryHarder = !this.tryHarder;
   }
 // ----------------------------------------------------------------------------------------------------------
-  
 
-// -------------------------
-  // qrResultString: string;
+// MANUAL CHECKINMETHOD RECEIVE FROM CHILD
+getMessage(message: any) {
+    this.qrResultString = message.subject;
+    this.onCodeResult(message.subject);
+}
 
-  // clearResult(): void {
-  //   this.qrResultString = null;
-  // }
+//CHECKS IN MEMBER, returns an object that you can display,
+checkInMember(memberID: any){
+  this.member.subject = memberID;
+  this.sessionApi.CheckInMember(this.member).subscribe(data=>{
+    this.result = data;
 
-  // onCodeResult(resultString: string) {
-  //   this.qrResultString = resultString;
-  // }
+    if(this.result.message == undefined){
+      this.getCourseDetail(data.course);
+      this.getUserDetails(memberID);
+      this.showSessionInfo = true;
+    }
+  })
+}
 
-  // todo: check-inMember()
-  // todo: turnOffScanner()
-  // todo: checkinManually()
+getCourseDetail(courseID: string){
+  this.courseApi.GetCourse(courseID).subscribe(courseData =>{
+    this.course = courseData;
+  })
 
+}
+
+getUserDetails(memberID: string){
+
+  this.userApi.GetUser(memberID).subscribe(data=>{
+    this.user = data;
+  })
+}
+
+useScanner(){
+this.show = true;
+}
+
+hideScanner(){
+  this.show = false;
+  this.hasPermission = false;
+}
 
 }

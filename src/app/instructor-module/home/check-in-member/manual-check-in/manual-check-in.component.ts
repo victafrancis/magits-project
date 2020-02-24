@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
 
@@ -9,18 +9,20 @@ import { SessionService } from 'src/app/_services/session/session.service';
 })
 export class ManualCheckInComponent implements OnInit {
 
-//checkin form
 checkinForm: FormGroup;
 
+//CHECK-IN
+  result: any={};
+  @Output() messageToEmit = new EventEmitter<any>(); //emit to parent
+
   constructor(
-    private sessionApi: SessionService,
     public fb: FormBuilder
   ) { }
 
   ngOnInit( ) {
 
     this.checkinForm = this.fb.group({
-      user: ['', [Validators.required]]
+      subject: ['', [Validators.required]]
     })
   }
   public handleError = (controlName: string, errorName: string) => {
@@ -28,6 +30,11 @@ checkinForm: FormGroup;
   }
 
   submitCheckInForm(){
+    this.checkInMember(this.checkinForm.value)
+  }
 
+   //CHECKIN MANUALLY
+  checkInMember(member: any){
+    this.messageToEmit.emit(member);
   }
 }

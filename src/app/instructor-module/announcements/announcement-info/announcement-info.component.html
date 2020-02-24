@@ -1,0 +1,32 @@
+<span class="nav-tool-items" style="float: right;">
+    <button mat-raised-button color="accent" (click)="back()"> Back </button>&nbsp;
+</span>
+<h2>Announcement Information </h2>
+<br>
+<mat-divider fxFlex="1 0"></mat-divider>
+<br>
+<div class="container" style="width: 80%; margin: auto;">
+
+   <!------------------------------------Session info -------------------------------------------------  -->
+   <div> 
+   <mat-card>
+        <br><br>
+        <div>
+            Subject: &nbsp;<b>{{ announcement?.subject}}</b>
+            <br><br>
+            Date: &nbsp;{{ announcement?.date }}
+            <br><br>
+           
+            Sender: {{announcement.user?.firstname}}
+            
+            <br><br><br>
+            Content: <br><br>
+                &nbsp;{{ announcement?.content }}
+            <br><br>
+        </div>
+        <br><br>
+    </mat-card>
+</div>
+   <!-- ------------------------------------------------------------------------------------------------ -->
+</div>
+<mat-divider fxFlex="1 0"></mat-divider>

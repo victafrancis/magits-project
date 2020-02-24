@@ -2,13 +2,13 @@
     <form [formGroup]="checkinForm" (ngSubmit)="submitCheckInForm()" novalidate>
         <mat-card>
             <div class="controlers-wrapper">
-
+                <h3>Manual Check-in</h3>
                 <!-- User -->
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <input matInput placeholder="User ID" formControlName="user">
-                    <mat-hint>Manual Check-in</mat-hint>
-                    <mat-error *ngIf="handleError('user', 'required')">
-                        You must provide a<strong> User </strong>
+                    <input matInput placeholder="User ID" formControlName="subject">
+                    <mat-hint>Input Member ID here</mat-hint>
+                    <mat-error *ngIf="handleError('subject', 'required')">
+                        You must provide a<strong> UserID </strong>
                     </mat-error>
                 </mat-form-field>
 
@@ -22,7 +22,9 @@
                         </div>
                     </div>
                 </mat-card>
-            </div>
-        </mat-card>
+                  
+                </div>
+            </mat-card>
     </form>
        </div>
+       

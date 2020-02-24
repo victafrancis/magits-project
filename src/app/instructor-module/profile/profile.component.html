@@ -1,94 +1,83 @@
-<!-- <div class="title-group">
-    <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">My Info</h1>
-    </div>
-    <br> 
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
-</div> -->
-<h1> Profile </h1>
+<h1>Profile Information </h1>
 
 <mat-grid-list [cols]="columns" rowHeight="5:4">
-    <!-- left -->
+    
     <mat-grid-tile>
-        <mat-card>
-            <!-- ---------------------------------------------------------------------------------- -->
-Profile info
-<div class="inner-wrapper" style="text-align: center;">
-    <form [formGroup]="instructorForm" (ngSubmit)="updateInstructorForm()" novalidate>
-        <!-- LEFT SIDE -->
-        <mat-card><br><br><br><br><br><br>
-            <div class="controlers-wrapper">
+    <mat-card class="myCard">
 
-                <!-- First Name -->
+        <form [formGroup]="userForm" (ngSubmit)="updateUserForm()" #resetUserForm="ngForm" novalidate>
+            <!-- Left block -->
+            <mat-card>
+              <div class="controlers-wrapper">
+                <!-- Member First Name -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="First Name" formControlName="firstname">
-                    <mat-error *ngIf="handleError('firstname', 'required')">
-                        You must provide a<strong>first name</strong>
-                    </mat-error>
+                  <input matInput placeholder="First Name" formControlName="firstname">
+                  <mat-error *ngIf="handleError('firstname', 'required')">
+                    You must provide a <strong>first name</strong>
+                  </mat-error>
                 </mat-form-field>
-
-                <!-- Last Name -->
+      
+                <!-- Member Last Name -->
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Last Name" formControlName="lastname">
                     <mat-error *ngIf="handleError('lastname', 'required')">
-                        You must provide a<strong>last name</strong>
+                      You must provide a <strong>last name</strong>
                     </mat-error>
+                  </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="handleError('email', 'required')">
+                    You must provide a <strong>email</strong>
+                  </mat-error>
                 </mat-form-field>
 
-                <!-- Date of Birth -->
-                <mat-form-field class="example-full-width">
-                    <input type="date" matInput placeholder="Date of Birth" formControlName="birthdate">
+                  <!-- Birthdate -->
+                  <mat-form-field class="example-full-width">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="birthdate">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="handleError('birthdate', 'required')">
-                        You must provide a<strong> date of birth</strong>
+                        You must provide a <strong>birthdate </strong>
                     </mat-error>
-                </mat-form-field>
+                  </mat-form-field>
 
-                <!-- Email  -->
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email Address" formControlName="email">
-                    <mat-error *ngIf="handleError('email', 'required')">
-                        You must provide a<strong> Email Address</strong>
-                    </mat-error>
-                </mat-form-field>
+              </div>
+            </mat-card>      
+      
+            
+            <!-- Submit & Reset -->
+            <mat-card>
+              <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                  <button mat-flat-button color="warn" *ngIf="isHidden == false" [disabled]="userForm.invalid">Update</button>
+                  <button mat-button class="myButton" *ngIf="isHidden == false" (click)="myDisable()" class="myButton1">Cancel</button>
+                </div>
+              </div>
+            </mat-card>
+          </form>
 
-                <!-- Courses  -->
-                <!-- <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Courses:" formControlName="courses">
-                    <mat-error *ngIf="handleError('courses', 'required')">
-                        You must provide a<strong> Course</strong>
-                    </mat-error>
-                </mat-form-field> -->
 
-                <!-- Submit & Reset -->
-                <mat-card>
-                    <div class="full-wrapper button-wrapper">
-                        <div class="button-wrapper">
-                            <button mat-flat-button color="warn">Update</button>
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
-        </mat-card>
-    </form>
-</div>
-            <!-- ---------------------------------------------------------------------------------- -->
-        </mat-card>
+        <div>
+            <button mat-button class="myButton" *ngIf="isHidden == true" (click) = "myEnable()" >Edit</button>
+        </div>
+    <mat-card>
+      <mat-icon>lock</mat-icon> <label class="clickable" (click)="openDialog()" >Change Password</label>
+      <br>
+      <br>
+      <br>
+      <br>
+    </mat-card>
 
-    </mat-grid-tile>
-    <!-- right -->
-    <mat-grid-tile>
-        <mat-card>
- <!-- ---------------------------------------------------------------------------------- -->
- Course table
- <!-- ---------------------------------------------------------------------------------- -->
-        </mat-card>
 
+
+    </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
 
 <div class="footer">
     <p>Teambits &copy; 2019-2020</p>
   </div>
-
-

@@ -74,6 +74,7 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.UserDataAnnouncement = data;
       this.dataSourceAnnouncement = new MatTableDataSource<Announcement>(this.UserDataAnnouncement);
+      console.log(this.UserDataAnnouncement);
     });
 
    }
