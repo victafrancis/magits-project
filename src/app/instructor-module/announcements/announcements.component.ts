@@ -4,6 +4,7 @@ import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-announcements',
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/_services/user/user.service';
 export class AnnouncementsComponent implements OnInit {
 
   Announcements: any = [];
-  displayedColumns: string[] = ['date', 'user', 'content', 'action'];
+  displayedColumns: string[] = ['date', 'user', 'subject', 'action'];
   dataSource: MatTableDataSource<Announcement>;
   user: any;
 
@@ -24,17 +25,19 @@ export class AnnouncementsComponent implements OnInit {
   constructor(
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
-    private userApi: UserService
+    private userApi: UserService,
+    private router: Router
     ) {
     this.isLoading = true;
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.user = this._authService.decode();
-      
+     
       this.Announcements = data;
       if(this.Announcements.length > 0){
         // this.getSenderName(data)
       }
       this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
+      console.log(this.Announcements[0].user.firstname)
       if(this.Announcements.length > 0){
         this.isLoading = false;
       }else if(this.Announcements.length == 0){
@@ -54,22 +57,8 @@ export class AnnouncementsComponent implements OnInit {
     }
   }
 
-  //Stores the name of the User
-  // getSenderName(users: any){
-  // // console.log(user);
-  //   var totalAnnouncements = this.Announcements.length;
+  viewAnnouncement(announcement: any){
+    this.router.navigate(['/instructor/announcement-info/', announcement._id]);
+  }
 
-  //   for(var element = 0; element < totalAnnouncements; element++){
-  //       if(users[element].user == undefined){
-  //         this.Announcements[element].user = "admin";
-  //       }else{
-  //       //   this.userApi.GetUser(users[element]).subscribe(userData =>{
-  //       //     // if(userData.role == 'instructor'){
-  //       //     //   console.log(userData.firstname);
-  //       //     //   this.Announcements[element].user = userData.firstname;
-  //       //     // }
-  //       // });
-  //       }
-  //   }
-  // }
 }

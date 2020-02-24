@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { Subscription, Observable } from 'rxjs';
 import { MediaChange, MediaObserver  } from '@angular/flex-layout';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup} from "@angular/forms";
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SessionService } from 'src/app/_services/session/session.service';
@@ -48,7 +48,6 @@ course: any={};
      public dialog: MatDialog, 
      private _authService: AuthService,
      media: MediaObserver, 
-     public fb: FormBuilder, 
      private actRoute: ActivatedRoute, 
      private sessionApi: SessionService,
      private location: Location,

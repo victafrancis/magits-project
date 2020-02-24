@@ -3,6 +3,7 @@ import { AnnouncementService } from 'src/app/_services/announcement/announcement
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth/auth.service';
+import { DatePipe, Location } from '@angular/common'
 
 @Component({
   selector: 'app-create-announcement',
@@ -10,31 +11,32 @@ import { AuthService } from 'src/app/_services/auth/auth.service';
   styleUrls: ['./create-announcement.component.css']
 })
 export class CreateAnnouncementComponent implements OnInit {
-
   announcementForm: FormGroup;
+  currentDate = new Date();
   user: any;
-  currentDate= new Date();
 
   constructor(
-    private announcementApi: AnnouncementService,
     public fb: FormBuilder,
+    private announcementApi: AnnouncementService,
     private ngZone: NgZone,
     private router: Router,
+    private datePipe: DatePipe,
+    private location: Location,
     private _authService: AuthService
-) {
-  this.user = this._authService.decode();
-  console.log(this.user);
-  }
+  ) {
+    this.user = this._authService.decode();
+   }
 
   ngOnInit() {
-    this.announcementForm = this.fb.group({
-      date: ['', [Validators.required]],
-      subject: ['', [Validators.required]],
-      content: ['', [Validators.required]],
-      user: ''
-    })
+    this.AnnouncementForm();
+  }
 
-    // this.totalDays = new FormControl('', [Validators.required])
+  AnnouncementForm(){
+    this.announcementForm = this.fb.group({
+      date: [this.datePipe.transform(this.currentDate, 'yyyy-MM-dd'), [Validators.required]],
+      subject: ['', [Validators.required]],
+      content: ['', Validators.required]
+    });
   }
 
   /* Get errors */
@@ -42,19 +44,19 @@ export class CreateAnnouncementComponent implements OnInit {
     return this.announcementForm.controls[controlName].hasError(errorName);
   }
 
-  // public handleDays = (controlName: string, errorName: string) => {
-  //   return this.totalDays.controls[controlName].hasError(errorName);
-  // }
-
-  submitAnnouncementForm() {
+  submitAnnouncementForm(){
     if(this.announcementForm.valid){
-      if (window.confirm('Are you sure you want to make this announcement?')) {
-        console.log(this.announcementForm.value);
-        this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe(res => {
+      if(window.confirm('Are you sure you want to send this announcement?')){
+        this.announcementForm.value.user= this.user.subject;
+        console.log(this.announcementForm.value)
+        this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
           this.ngZone.run(() => this.router.navigateByUrl('/instructor/announcements'))
         });
       }
     }
+  }
 
+  backPressed(){
+    this.location.back();
   }
 }

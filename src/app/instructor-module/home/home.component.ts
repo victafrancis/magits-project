@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   // Announcement Table
   Announcements: any = [];
-  displayedColumns: string[] = ['date', 'user', 'content'];
+  displayedColumns: string[] = ['date', 'user', 'subject'];
   announcementDataSource: MatTableDataSource<Announcement>;
 
   //LOADING
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
 
       // FOR CLOCK
       setInterval(() => {
-        this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
+      this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
       this.user = this._authService.decode();
       
       //Schedule Table Subscriber
@@ -100,6 +100,9 @@ export class HomeComponent implements OnInit {
       this.announcementApi.GetAnnouncements().subscribe(data => {
         this.Announcements = data;
         this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
+        console.log(this.Announcements)
+        console.log(this.Announcements[0])
+        console.log(this.Announcements[0].user.firstname)
         if(this.Announcements.length > 0){
           this.isLoadingAnnouncements = false;
         }else if(this.Announcements.length == 0){
