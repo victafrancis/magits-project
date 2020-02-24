@@ -32,6 +32,7 @@ import { AssignInstructorComponent } from './courses/assign-instructor/assign-in
 import { EditMembershipComponent } from './courses/edit-membership/edit-membership.component';
 import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
 import { ViewFeedbacksComponent } from './sessions/view-feedbacks/view-feedbacks.component';
+import { ViewAnnouncementComponent } from './announcements/view-announcement/view-announcement.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
@@ -39,7 +40,7 @@ import { ViewFeedbacksComponent } from './sessions/view-feedbacks/view-feedbacks
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
     MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, 
     ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, 
-    EditMembershipComponent, CourseSessionsComponent, ViewFeedbacksComponent],
+    EditMembershipComponent, CourseSessionsComponent, ViewFeedbacksComponent, ViewAnnouncementComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -57,6 +58,6 @@ import { ViewFeedbacksComponent } from './sessions/view-feedbacks/view-feedbacks
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [ModalComponent, EditScheduleComponent, EditCourseComponent, AssignInstructorComponent, 
-    EditMembershipComponent, ViewFeedbacksComponent]
+    EditMembershipComponent, ViewFeedbacksComponent, ViewAnnouncementComponent]
 })
 export class AdminModule { }
