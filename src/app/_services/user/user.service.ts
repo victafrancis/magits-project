@@ -61,7 +61,7 @@ export class UserService {
     )
   }
 
-  
+
 
   // Update user
   UpdateUser(id, data: User): Observable<any> {
@@ -79,7 +79,16 @@ export class UserService {
     )
   }
 
+  //get all the sessions attended by a member
+  // requires json object with 'subject' containing member ID
+  GetMemberSessionsAttended(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/member-get-attended-sessions`;
+    return this.http.post(API_URL, data).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
 
+  //get the course details for the instructor
   GetInstructorCourseDetails(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/instructor-get-course-details`;
     return this.http.post(API_URL, data).pipe(

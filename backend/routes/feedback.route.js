@@ -5,17 +5,38 @@ const feedbackRoute = express.Router();
 
 // Feedback model
 let Feedback = require('../model/Feedback');
+let User = require('../model/User')
+let Session = require('../model/Session')
 
 
 // Add Feedback
 feedbackRoute.route('/add-feedback').post((req, res, next) => {
-  Feedback.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
+  var feedbackData = {}
+
+  Feedback.create(req.body)
+    .then(
+      function(data){
+        feedbackData = data
+
+        return User.findByIdAndUpdate(req.body.member, {$push: {"feedback": feedbackData._id}})
+      }
+    )
+    .then(
+      function(data){
+
+        return Session.findByIdAndUpdate(req.body.session, {$push: {"feedback": feedbackData._id}})
+      }
+    )
+    .then(
+      function(data){
+        res.json(feedbackData)
+      }
+    )
+    .catch(
+      function(error){
+        return error
+      }
+    )
 });
 
 // Get all feedback
