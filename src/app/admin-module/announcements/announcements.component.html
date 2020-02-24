@@ -17,31 +17,33 @@
         <!-- Date Column -->
         <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM/dd/yyyy'}}</td>
         </ng-container>
 
-        <!-- Subject Column -->
+
+        <!-- Sender Column -->
         <ng-container matColumnDef="subject">
-            <th mat-header-cell *matHeaderCellDef> Subject </th>
-            <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+            <th mat-header-cell *matHeaderCellDef> Sender </th>
+            <td mat-cell *matCellDef="let element"> {{element.user.firstname}} </td>
         </ng-container>
 
         <!-- Subject Column -->
         <ng-container matColumnDef="content">
             <th mat-header-cell *matHeaderCellDef> Subject </th>
-            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
         </ng-container>
 
         <!-- ACTION -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
-                <button class="AdminModuleButtons" mat-raised-button color="warn"
-                    (click)="deleteAnnouncement(element)">Delete</button>
+                <button class="AdminModuleButtons" mat-raised-button color="warn" (click)="deleteAnnouncement(element)">
+                    <i class="material-icons">delete_forever</i>
+                    Delete</button>
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewAnnouncement(element)"></tr>
     </table>
 </div>

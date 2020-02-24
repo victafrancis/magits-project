@@ -2,7 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AnnouncementService } from '../../../_services/announcement/announcement.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { DatePipe, Location } from '@angular/common'
+import { DatePipe, Location } from '@angular/common';
+import { AuthService } from '../../../_services/auth/auth.service';
 
 @Component({
   selector: 'app-create-announcement',
@@ -13,7 +14,7 @@ import { DatePipe, Location } from '@angular/common'
 export class CreateAnnouncementComponent implements OnInit {
   announcementForm: FormGroup;
   currentDate = new Date();
-  
+  user_id: any;
 
   constructor(
     public fb: FormBuilder,
@@ -21,18 +22,22 @@ export class CreateAnnouncementComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router,
     private datePipe: DatePipe,
-    private location: Location
-  ) { }
+    private location: Location,
+    private _authService: AuthService
+  ) {
+    this.user_id = this._authService.decode().subject;
+  }
 
   ngOnInit() {
     this.AnnouncementForm();
   }
 
-  AnnouncementForm(){
+  AnnouncementForm() {
     this.announcementForm = this.fb.group({
       date: [this.datePipe.transform(this.currentDate, 'yyyy-MM-dd'), [Validators.required]],
       subject: ['', [Validators.required]],
-      content: ['', Validators.required]
+      content: ['', Validators.required],
+      user: [this.user_id]
     });
   }
 
@@ -41,17 +46,17 @@ export class CreateAnnouncementComponent implements OnInit {
     return this.announcementForm.controls[controlName].hasError(errorName);
   }
 
-  submitAnnouncementForm(){
-    if(this.announcementForm.valid){
-      if(window.confirm('Are you sure you want to send this announcement?')){
-        this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
+  submitAnnouncementForm() {
+    if (this.announcementForm.valid) {
+      if (window.confirm('Are you sure you want to send this announcement?')) {
+        this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe(res => {
           this.ngZone.run(() => this.router.navigateByUrl('/admin/announcements'))
         });
       }
     }
   }
 
-  backPressed(){
+  backPressed() {
     this.location.back();
   }
 }

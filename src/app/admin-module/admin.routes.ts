@@ -20,6 +20,7 @@ import { InstructorProfileComponent } from './instructors/instructor-profile/ins
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { ViewStudentsComponent } from './courses/view-students/view-students.component';
+import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
 
 export const adminRoutes: Routes = [
   {
@@ -44,7 +45,8 @@ export const adminRoutes: Routes = [
       { path: 'member-profile/:id', component: MemberProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'instructor-profile/:id', component: InstructorProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'edit-course/:id', component: EditCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'view-students/:id', component: ViewStudentsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]}
+      { path: 'view-students/:id', component: ViewStudentsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
+      { path: 'course-sessions/:id', component: CourseSessionsComponent, data: {role: 'admin', canActivate: [RoleGuard]}}
     ]
   }
 ];

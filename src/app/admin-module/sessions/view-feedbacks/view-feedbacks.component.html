@@ -1,0 +1,22 @@
+<div class="title-group">
+    <div style="width: 95%;">
+        <h1 style="text-align: center;" class="mat-h1"> Feedbacks </h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+
+<mat-card style="width: 100%;">
+    <table *ngFor="let feedback of feedbacks">
+        <tbody>
+            <tr>
+                <td>{{feedback}}</td>
+            </tr>
+        </tbody>
+    </table>
+</mat-card>
+
+<div style="text-align: center; margin-top: 10%;">
+    <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="close()"> Close </button>
+</div>
