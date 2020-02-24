@@ -17,6 +17,12 @@ export class FeedbackService {
   constructor(private http: HttpClient) { }
 
   // Add feedback
+  // requires json format:
+  // {
+  //   "content":"content",
+  //   "member": "member id",
+  //   "session":"session id"
+  // }
   AddFeedback(data: Feedback): Observable<any> {
     let API_URL = `${this.endpoint}/add-feedback`;
     return this.http.post(API_URL, data)
@@ -25,7 +31,7 @@ export class FeedbackService {
       )
   }
 
-  // Get all Feedbacks
+  // Get all Feedback
   GetFeedbacks() {
     return this.http.get(`${this.endpoint}`);
   }
