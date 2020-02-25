@@ -38,7 +38,8 @@ export class SessionsComponent implements OnInit {
           DataList.date = data[x].date;
           DataList.start_time = data[x].start_time;
           DataList.end_time = data[x].end_time;
-          this.sent_feedback = data[x].feedback_sent;
+          //this.sent_feedback = data[x].feedback_sent;
+          DataList.boolFeedback = data[x].feedback_sent;
           //console.log(this.sent_feedback);
 
           this.courseApi.GetCourse(data[x].course_id).subscribe(data1 => {
@@ -120,10 +121,12 @@ error = false;
     this.feedbackApi.AddFeedback({'content': this.userFeedback.value.content, 'member': this.value, 'session': this.session_id}).subscribe(res => {
       this.onNoClick();
       window.alert('Successfully gave feedback. Thank You!');
+      window.location.reload();
+
     })
-    console.log(this.userFeedback.value.content);
-    console.log(this.value);
-    console.log(this.session_id);
+    //console.log(this.userFeedback.value.content);
+    //console.log(this.value);
+    //console.log(this.session_id);
 
   }
 
