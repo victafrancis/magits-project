@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator} from '@angular/material';
 import { Course } from 'src/app/_services/course/course';
 import { CourseService } from 'src/app/_services/course/course.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ export class CoursesComponent implements OnInit {
   CourseData: any;
   dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = ['name', 'instructors', 'members', 'action'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor
     (
@@ -40,6 +41,7 @@ export class CoursesComponent implements OnInit {
       }
 
       this.dataSource = new MatTableDataSource<Course>(CourseData);
+      this.dataSource.paginator = this.paginator;
     });
 
   }

@@ -1,6 +1,5 @@
-import { Component, OnInit, Optional, Inject, NgZone } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, Optional, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Feedback } from 'src/app/_services/feedback/feedback';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { UserService } from 'src/app/_services/user/user.service';
@@ -15,6 +14,8 @@ export class ViewFeedbacksComponent implements OnInit {
   feedbacks: any;
   dataSource: MatTableDataSource<Feedback>;
   displayedColumns: string[] = ['date', 'sender','content'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private dialogRef: MatDialogRef<ViewFeedbacksComponent>,
@@ -33,6 +34,8 @@ export class ViewFeedbacksComponent implements OnInit {
         });
       }
       this.dataSource = new MatTableDataSource<Feedback>(this.feedbacks);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

@@ -71,7 +71,7 @@
             <div *ngIf="!editSession" class="container" style="text-align: center; margin-top: auto;">
                 <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="changeSessionFormStatus()">
                     Edit </button>&nbsp;
-                <button *ngIf="subscription_membership != null" class="AdminModuleButtons" mat-flat-button color="warn" (click)="removeSessionMembership()">
+                <button *ngIf="subscription_membership != null" class="AdminModuleButtons" mat-flat-button color="accent" (click)="removeSessionMembership()">
                     Remove </button>
             </div>
             <div *ngIf="editSession" class="container" style="text-align: center; margin-top: auto;">
@@ -92,7 +92,7 @@
     <br>
     <!-- FORMFIELD FOR SUBSCRIPTION MEMBERSHIP CREATION -->
     <div *ngIf="subscription_membership == null">
-        <button *ngIf="!addSubscription" class="AdminModuleButtons" mat-flat-button color="primary"
+        <button *ngIf="!addSubscription" class="AdminModuleButtons" mat-flat-button color="warn"
             (click)="addSubscriptionMembership()"> Add Membership</button>
         <form *ngIf="addSubscription" [formGroup]="subscription_membership_form"
             (ngSubmit)="createSubscriptionMembership()" novalidate>
@@ -133,7 +133,7 @@
             <div *ngIf="!editSubscription" class="container" style="text-align: center; margin-top: auto;">
                 <button class="AdminModuleButtons" mat-flat-button color="warn"
                     (click)="changeSubscriptionFormStatus()"> Edit </button>&nbsp;
-                <button *ngIf="session_membership!=null" class="AdminModuleButtons" mat-flat-button color="warn"
+                <button *ngIf="session_membership!=null" class="AdminModuleButtons" mat-flat-button color="accent"
                     (click)="removeSubscriptionMembership()"> Remove </button>
             </div>
             <div *ngIf="editSubscription" class="container" style="text-align: center; margin-top: auto;">

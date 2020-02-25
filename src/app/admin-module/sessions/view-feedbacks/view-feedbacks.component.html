@@ -7,11 +7,12 @@
 </div>
 
 <div class="container" style="margin: auto;">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table matSort matSortActive="date" matSortDirection="desc" 
+    matSortDisableClear [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef style="padding-right: 5%;"> Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 5%;"> Date </th>
             <td mat-cell *matCellDef="let element" style="padding-right: 5%;"> {{element.date | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
 
@@ -30,6 +31,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
 </div>
 <div style="text-align: center; margin-top: 10%;">
     <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="close()"> Close </button>

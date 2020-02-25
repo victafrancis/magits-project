@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MemberProfileComponent } from './members/member-profile/member-profile.component';
 import { CourseProfileComponent } from './courses/course-profile/course-profile.component';
 import { InstructorProfileComponent } from './instructors/instructor-profile/instructor-profile.component';
-import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { MAT_CHECKBOX_CLICK_ACTION, MatCheckbox, MatCheckboxModule, MatDialogModule, MatSortModule } from '@angular/material';
 import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.component';
 import { ModalComponent } from './courses/modal/modal.component';
 import { EditScheduleComponent } from './courses/edit-schedule/edit-schedule.component';
@@ -49,7 +49,8 @@ import { ViewAnnouncementComponent } from './announcements/view-announcement/vie
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
   ],
   providers:[
     RoleGuard,
