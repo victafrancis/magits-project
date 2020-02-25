@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialogConfig, MatDialog } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 import { Router } from '@angular/router';
+import { AnnouncementInfoComponent } from './announcement-info/announcement-info.component';
 
 @Component({
   selector: 'app-announcements',
@@ -28,7 +29,8 @@ export class AnnouncementsComponent implements OnInit {
     private announcementApi: AnnouncementService,
     private _authService: AuthService,
     private userApi: UserService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
     ) {
     this.isLoading = true;
     this.announcementApi.GetAnnouncements().subscribe(data => {
@@ -61,8 +63,18 @@ export class AnnouncementsComponent implements OnInit {
     }
   }
 
-  viewAnnouncement(announcement: any){
-    this.router.navigate(['/instructor/announcement-info/', announcement._id]);
+  // viewAnnouncement(announcement: any){
+  //   this.router.navigate(['/instructor/announcement-info/', announcement._id]);
+  // }
+
+  viewAnnouncement(element) {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.id = "view-announcement-component";
+    dialogConfig.height = "40%";
+    dialogConfig.width = "35%";
+    dialogConfig.data = { announcement: element };
+    const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
 
 }
