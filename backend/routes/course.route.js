@@ -9,6 +9,9 @@ let User = require('../model/User');
 let Membership = require('../model/Membership');
 let Schedule = require('../model/Schedule');
 
+//import logging tool
+let Log = require('../logging')
+
 
 // Add Course with schedule and membership type---------------------------------------------------------------------
 courseRoute.route('/add-course').post((req, res, next) => {
@@ -72,6 +75,8 @@ courseRoute.route('/add-course').post((req, res, next) => {
       })
     }
 
+    //log event
+    Log.newLog("New course created by admin. Course id:" + data._id)
     res.json(data);
   })
 
@@ -144,8 +149,10 @@ courseRoute.route('/update/:id').put((req, res, next) => {
       return next(error);
       console.log(error)
     } else {
-      res.json(data)
       console.log('Course successfully updated!')
+      //Log event
+      Log.newLog("Course updated! Course id:" + req.params.id)
+      res.json(data)
     }
   })
 })
@@ -193,6 +200,8 @@ courseRoute.route('/register-user-to-course/:id').put((req, res, next) => {
       })
 
       console.log('Member successfully enrolled!')
+      //log event
+      Log.newLog("Member enrolled to a course. Member ID:"+req.body.member_id+" Course ID:"+req.params.id)
       res.json(data)
     }
   })
@@ -224,6 +233,8 @@ courseRoute.route('/remove-user-from-course/:id').put((req, res, next) => {
       })
 
       console.log('Member successfully removed from the course!')
+      //log event
+      Log.newLog("Member removed from a course. Member ID:"+req.body.member_id+" Course ID:"+req.params.id)
       res.json(data)
     }
   })
@@ -256,6 +267,8 @@ courseRoute.route('/assign-instructor-to-course/:id').put((req, res, next) => {
       })
 
       console.log('Instructor successfully assigned to the course!')
+      //log event
+      Log.newLog("Instructor assigned to a course by admin. Instructor ID:"+req.body.instructor_id+" Course ID:"+req.params.id)
       res.json(data)
     }
   })
@@ -287,6 +300,8 @@ courseRoute.route('/remove-instructor-from-course/:id').put((req, res, next) => 
       })
 
       console.log('Instructor successfully removed from the course!')
+      //log event
+      Log.newLog("Instructor removed from a course by admin. Instructor ID:"+req.body.instructor_id+" Course ID:"+req.params.id)
       res.json(data)
     }
   })
@@ -328,6 +343,9 @@ courseRoute.route('/delete-course/:id').delete((req, res, next) => {
     if (error) {
       return next(error);
     } else {
+      //log event
+      Log.newLog("Course deleted by admin. Course ID:"+req.params.id+" Course Name:"+data.name)
+
       res.status(200).json({
         msg: data
       })
