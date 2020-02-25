@@ -72,12 +72,13 @@ export class ProfileComponent implements OnInit {
    openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewChangePassword, {
       maxWidth: '450px',
+      maxHeight:'700px',
       width: '80%',
       data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 

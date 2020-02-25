@@ -70,12 +70,13 @@ export class CourseDescriptionComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewEnrollMember, {
       maxWidth: '550px',
+      maxHeight:'700px',
       width: '80%',
       data: {course_id: this.course_id, subscription_membership: this.course.subscription_membership, session_membership: this.course.session_membership},
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 
