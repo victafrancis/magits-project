@@ -1,7 +1,7 @@
 <div class="title-group">
     <span class="nav-tool-items" style="float: left;">
-        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/create-course">Create
-            Course</button>
+        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/create-course">
+            <i class="material-icons">add_circle</i>Create Course</button>
     </span>
     <div>
         <h1 style="text-align: center; width: 90%;" class="mat-h1">Courses</h1>
@@ -44,4 +44,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewInfo(element)"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
 </div>

@@ -1,20 +1,56 @@
 const express = require('express');
 const app = express();
 const announcementRoute = express.Router();
+const nodemailer = require('nodemailer');
 
 // announcement model
 let Announcement = require('../model/Announcement');
 let User = require('../model/User.js')
 
+// for sending email
+sendEmail = (sender, password, recipient, subject, text) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: sender,
+      pass: password
+    }
+  });
 
-//create create announcement function
+  var mailOptions = {
+    from: sender,
+    to: recipient,
+    subject: subject,
+    text: text
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+//create announcement function
 announcementRoute.route('/add-announcement').post((req, res, next) => {
   Announcement.create(req.body)
     .then(announcementData => {
       console.log('creating announcement')
       return User.findByIdAndUpdate(req.body.user, {
-        $push: {"announcements": announcementData._id}
+        $push: { "announcements": announcementData._id }
       })
+    })
+    .then((data) => {
+      console.log('sending announcement to emails');
+      User.find((error, users) => {
+        let emails = [];
+        for (const user of users) {
+          emails.push(user.email)
+        }
+        sendEmail(data.email, data.password, emails, req.body.subject, req.body.content);
+      });
     })
     .then((data) => {
       console.log('second chain')
@@ -72,11 +108,11 @@ announcementRoute.route('/read-announcement/:id').get((req, res) => {
 // Delete announcement
 announcementRoute.route('/delete-announcement/:id').delete((req, res, next) => {
   Announcement.findByIdAndRemove(req.params.id, (error, announcementData) => {
-    if (error) {return next(error);}
+    if (error) { return next(error); }
 
     //find user and remove announcement ID
     User.findByIdAndUpdate(announcementData.user, {
-      $pull: {"announcements": req.params.id}
+      $pull: { "announcements": req.params.id }
     }, (error, userData) => {
       if (error) {
         console.log(error);

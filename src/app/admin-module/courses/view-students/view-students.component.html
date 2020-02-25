@@ -7,7 +7,7 @@
     <br>
 </div>
 
-<div  class="container" style="width: 80%; margin: auto;">
+<div class="container" style="width: 80%; margin: auto;">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Member ID Column -->
@@ -27,7 +27,9 @@
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
             <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
                 <!-- Remove Student -->
-                <button mat-raised-button color="accent" (click)="removeStudent(element.member._id)" > Delete </button>&nbsp;
+                <button class="AdminModuleButtons" mat-raised-button color="warn"
+                    (click)="removeStudent(element.member._id)"> 
+                    <i class="material-icons"> remove_circle_outline </i> Remove </button>&nbsp;
             </td>
         </ng-container>
 
