@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class SessionsComponent implements OnInit {
   dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = ['course', 'instructors'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private courseApi: CourseService, private router: Router) {
     let CourseData = [];
@@ -33,6 +34,7 @@ export class SessionsComponent implements OnInit {
         CourseData[i].instructors = temp
       }
       this.dataSource = new MatTableDataSource<Course>(CourseData);
+      this.dataSource.paginator = this.paginator;
     });
     
   }

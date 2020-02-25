@@ -25,4 +25,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewCourse(element)"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
 </div>

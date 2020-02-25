@@ -52,8 +52,8 @@ export class EnrollStudentComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "35%";
-    dialogConfig.width = "30%";
+    dialogConfig.width = '80%';
+    dialogConfig.maxWidth= '350px';
     dialogConfig.data = {course_id: this.course_id, member_id: element._id};
     const modalDialog = this.matDialog.open(ConfirmEnrollComponent, dialogConfig);
   }

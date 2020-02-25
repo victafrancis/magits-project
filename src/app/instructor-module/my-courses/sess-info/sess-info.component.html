@@ -70,7 +70,39 @@
 
     </mat-grid-tile>
 </mat-grid-list>
+           
+<div class="title-group">
+    <div>
+        <h3 style="text-align: center; width: 90%;">
+            Feedback
+        </h3>
+    </div>
+        <mat-divider fxFlex="1 0"></mat-divider>
+        <br>
+</div>
 
+<!-- ------Feedback----------------------------------------------------------------------------------------------- -->
+<div *ngIf="feedback.length > 0 " class="container" style="width: 70%; margin: auto;">
+    <table mat-table [dataSource]="feedbackDataSource" class="mat-elevation-z8">
+
+            <!-- Date Column -->
+        <ng-container matColumnDef="content">
+            <th mat-header-cell *matHeaderCellDef> Content </th>
+            <td mat-cell *matCellDef="let element">{{element.content}}</td>
+        </ng-container> 
+        
+
+        <tr   mat-header-row *matHeaderRowDef="feedbackDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: feedbackDisplayedColumns;"></tr>
+    </table>
+</div>
+
+
+<div class="container" style="width: 50%; margin: auto;" *ngIf="feedback.length == 0 ">
+  <p>No feedback available</p>  
+</div>
+<br>
+<br>
 <div class="footer">
     <p>Teambits &copy; 2019-2020</p>
   </div>

@@ -5,19 +5,27 @@
     <br>
 </div>
 <mat-divider fxFlex="1 0"></mat-divider>
-<br>
-<div >
-    <div class="nav-tool-items" style="width: 10%;">
+
+<div  class="container" style="width: 80%; margin: auto;">
+    <div class="nav-tool-items">
+        <br/>
         <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/instructor/add-member">
             <i class="material-icons">add_circle</i> &nbsp; 
             New Member
         </button>
     </div>
+    <!-- Search filter -->
+    <div style="float: right;">
+        <mat-form-field fxFlex="40%" style="align-self: right;">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
 </div>
-<br>   
+
+
 <!-- Members Table -->
-<div  class="container" style="width: 80%; margin: auto;">
-    <table *ngIf="UserData.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div *ngIf="UserData.length > 0" class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Member ID Column -->
         <ng-container matColumnDef="_id">
@@ -50,8 +58,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10,15,20]"></mat-paginator>
 </div>
-
+<br><br>
 <div *ngIf ="noMembers">
     <p style="text-align: center;">No Available Courses</p>
 </div>

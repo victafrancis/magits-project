@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
@@ -9,6 +9,10 @@ import { Course } from 'src/app/_services/course/course';
 import { Schedule } from 'src/app/_services/schedule/schedule';
 import { SessionInfoComponent } from './session-info/session-info.component';
 import { SessionService } from 'src/app/_services/session/session.service';
+import {MatSort, MatSortable} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import { AnnouncementInfoComponent } from '../announcements/announcement-info/announcement-info.component';
+
 
 @Component({
   selector: 'app-home',
@@ -45,6 +49,8 @@ export class HomeComponent implements OnInit {
   Announcements: any = [];
   displayedColumns: string[] = ['date', 'user', 'subject'];
   announcementDataSource: MatTableDataSource<Announcement>;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
 
   //LOADING
   isLoading: boolean = false;
@@ -100,21 +106,19 @@ export class HomeComponent implements OnInit {
       this.announcementApi.GetAnnouncements().subscribe(data => {
         this.Announcements = data;
         this.announcementDataSource = new MatTableDataSource<Announcement>(this.Announcements);
-        console.log(this.Announcements)
-        console.log(this.Announcements[0])
-        console.log(this.Announcements[0].user.firstname)
         if(this.Announcements.length > 0){
           this.isLoadingAnnouncements = false;
         }else if(this.Announcements.length == 0){
           this.isLoadingAnnouncements = false;
           this.noAnnouncements = true;
         }
+        this.announcementDataSource.paginator = this.paginator;
+        this.announcementDataSource.sort = this.sort;
     });
   }
 
 
   ngOnInit() {
-   
     
   }
 
@@ -162,10 +166,8 @@ export class HomeComponent implements OnInit {
   }
 
   getSessions(course: any){
-    // console.log("From GetSessions")
-    // console.log(course)
+    
     var totalSched = this.schedules.length-1;
-    // console.log(totalSched)
     this.sessionApi.GetSessionsByCourse(course).subscribe(sessionsData =>{
       for (var session of sessionsData){
       
@@ -182,9 +184,16 @@ export class HomeComponent implements OnInit {
           
         }
       }
-
-     
    })
+  }
+
+  viewAnnouncement(element) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = "view-announcement-component";
+    dialogConfig.height = "40%";
+    dialogConfig.width = "35%";
+    dialogConfig.data = { announcement: element };
+    const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
   
 }
