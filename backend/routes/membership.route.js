@@ -8,6 +8,9 @@ let Membership = require('../model/Membership');
 let User = require('../model/User');
 let Course = require('../model/Course');
 
+//import logging tool
+let Log = require('../logging')
+
 
 // Add Membership, id is the course id where we want to add the membership
 membershipRoute.route('/add-membership/:id').post((req, res, next) => {
@@ -37,22 +40,22 @@ membershipRoute.route('/add-membership/:id').post((req, res, next) => {
         courseData.save();
       })
     }
+    //log event
+    Log.newLog('Added new membership by admin. CourseID:'+req.params.id)
     res.json(courseData)
   })
-
-
 });
 
 // Get all membership
-membershipRoute.route('/').get((req, res) => {
-  Membership.find((error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-})
+// membershipRoute.route('/').get((req, res) => {
+//   Membership.find((error, data) => {
+//     if (error) {
+//       return next(error)
+//     } else {
+//       res.json(data)
+//     }
+//   })
+// })
 
 // Get single membership
 membershipRoute.route('/read-membership/:id').get((req, res) => {
@@ -154,6 +157,8 @@ membershipRoute.route('/delete-membership/:id').delete((req, res, next) => {
       })
     }
 
+    //log event
+    Log.newLog('Membership deleted by admin. CourseID:'+data.course)
     res.status(200).json({
       msg: data
     })
