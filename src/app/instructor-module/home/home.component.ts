@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   //Session Entry
   sessionEntry: any={};
   sessionInfo: any={};
+  sessionIds: any =[];
   
 
   // Schedule Table
@@ -87,7 +88,10 @@ export class HomeComponent implements OnInit {
               var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
-              
+             
+              if(this.schedules[totalSched].status == "Not Started"){
+                this.sessionIds[totalSched] = '';
+              }
               //Check each session status in session collections
               this.getSessions(data.courses[i].course);
             }
@@ -133,14 +137,24 @@ export class HomeComponent implements OnInit {
       this.sessionEntry.courseName= schedule.courseName;
       console.log(this.sessionEntry.date);
 
-      //todo: set the session open: true to false when the session ends
-
       // console.log(this.sessionEntry);
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       console.log(this.sessionInfo);
       // this.openSessionInfoModal(this.sessionEntry);
       window.location.reload();
 
+    }
+  }
+
+  closeSession(session: any){
+    console.log(session)
+    if (window.confirm('Are you sure you want to close this session?')) {
+
+      this.sessionApi.CloseSession(session).subscribe(sessionData =>{
+        // let sessData = sessionData;
+        // console.log(sessData)
+        window.location.reload();
+      })
     }
   }
 
@@ -174,14 +188,17 @@ export class HomeComponent implements OnInit {
         this.sessionDate = this.datePipe.transform(session.date,'EEEE, MMMM d, y')
         
         if(this.currentDate === this.sessionDate){
+          
           if(session.open === true){
             this.schedules[totalSched].status = 'Open';
+            this.sessionIds[totalSched] = session._id;
           }
           if(session.open === false){
             this.schedules[totalSched].status = 'Closed';
-          
+            this.sessionIds[totalSched] = session._id;
           }
-          
+         
+          console.log(this.sessionIds);
         }
       }
    })
