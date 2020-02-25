@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
 import { UserService } from 'src/app/_services/user/user.service';
 
@@ -12,6 +12,7 @@ export class MembersComponent implements OnInit {
   UserData: any = [];
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   //LOADING
   isLoading: boolean = false;
@@ -22,6 +23,8 @@ export class MembersComponent implements OnInit {
     this.userApi.GetMembers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
+      this.dataSource.paginator = this.paginator;
+
       if(this.UserData.length > 0){
         this.isLoading = false;
       }else if(this.UserData.length == 0){
@@ -33,6 +36,9 @@ export class MembersComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
  
 }

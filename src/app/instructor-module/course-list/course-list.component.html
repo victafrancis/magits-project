@@ -4,7 +4,14 @@
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
+</div>
+<div  class="container" style="width: 80%; margin: auto;">
+    <!-- Search filter -->
+    <div style="float: right;">
+        <mat-form-field fxFlex="40%" style="align-self: right;">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
 </div>
 
 <div class="container" style="width: 80%; margin: auto;">
@@ -43,6 +50,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
 </div>
 
 <div *ngIf ="noCourses">

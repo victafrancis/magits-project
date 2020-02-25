@@ -1,5 +1,3 @@
-<!-- Instructor's Sessions -->
-
 <div class="title-group">
     <span class="nav-tool-items" style="float: right;">
         <button mat-raised-button color="accent" routerLinkActive="active"
@@ -12,13 +10,16 @@
     </div>
     <br>
     <div style="width: 95%;">
-        <h1 style="text-align: left;" class="mat-h1">Today's Activities: &nbsp;
+        <h1 style="text-align: left;" class="mat-h1">
+            Today's Activities: &nbsp;
         </h1>
         <h1 style="text-align: left;" class="mat-h1">
-            <i class="material-icons">calendar_today</i> &nbsp; {{myDate | date:'EEEE, MMMM d, y'}}
+            <i class="material-icons">calendar_today</i>
+             &nbsp; {{myDate | date:'EEEE, MMMM d, y'}}
         </h1>
         <h1 style="text-align: left;" class="mat-h1">
-            <i class="material-icons">alarm</i> &nbsp; {{time}}
+            <i class="material-icons">alarm</i>
+             &nbsp; {{time}}
         </h1>
     </div>
     <br>
@@ -102,12 +103,14 @@
     <br>
 </div>
 
-<div *ngIf="Announcements" class="container" style="width: 80%; margin: auto;">
-    <table mat-table [dataSource]="announcementDataSource" class="mat-elevation-z8">
+<div [hidden]="Announcement" class="container" style="width: 80%; margin: auto;">
+    <table mat-table matSort (matSortChange)="sortData($event)" 
+        matSortActive="date" matSortDirection="desc" matSortDisableClear 
+        [dataSource]="announcementDataSource" class="mat-elevation-z8">
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
             <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
         </ng-container>
 
@@ -126,8 +129,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
 </div>
-
+<br>
+<br>
 <div *ngIf ="noAnnouncements">
     <p style="text-align: center;">No announcements posted.</p>
 </div>
