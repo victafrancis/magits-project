@@ -63,13 +63,8 @@ export class AnnouncementsComponent implements OnInit {
     }
   }
 
-  // viewAnnouncement(announcement: any){
-  //   this.router.navigate(['/instructor/announcement-info/', announcement._id]);
-  // }
-
   viewAnnouncement(element) {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
     dialogConfig.id = "view-announcement-component";
     dialogConfig.height = "40%";
     dialogConfig.width = "35%";

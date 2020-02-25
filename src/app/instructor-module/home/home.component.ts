@@ -11,6 +11,7 @@ import { SessionInfoComponent } from './session-info/session-info.component';
 import { SessionService } from 'src/app/_services/session/session.service';
 import {MatSort, MatSortable} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import { AnnouncementInfoComponent } from '../announcements/announcement-info/announcement-info.component';
 
 
 @Component({
@@ -165,10 +166,8 @@ export class HomeComponent implements OnInit {
   }
 
   getSessions(course: any){
-    // console.log("From GetSessions")
-    // console.log(course)
+    
     var totalSched = this.schedules.length-1;
-    // console.log(totalSched)
     this.sessionApi.GetSessionsByCourse(course).subscribe(sessionsData =>{
       for (var session of sessionsData){
       
@@ -185,9 +184,16 @@ export class HomeComponent implements OnInit {
           
         }
       }
-
-     
    })
+  }
+
+  viewAnnouncement(element) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = "view-announcement-component";
+    dialogConfig.height = "40%";
+    dialogConfig.width = "35%";
+    dialogConfig.data = { announcement: element };
+    const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
   
 }
