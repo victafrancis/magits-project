@@ -1,10 +1,19 @@
 <div class="title-group">
     <div>
-        <h1 style="text-align: center;" class="mat-h1">Members</h1>
+        <h2 style="text-align: center;">Members</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
     <br>
+</div>
+
+<div  class="container" style="width: 80%; margin: auto;">
+    <!-- Search filter -->
+    <div style="float: right;">
+        <mat-form-field fxFlex="40%" style="align-self: right;">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
 </div>
 
 <div  class="container" style="width: 80%; margin: auto;">
@@ -35,7 +44,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
+
     <div style="text-align: center; margin-top: 3%;">
-        <button mat-raised-button color="accent" (click)="back()"> Cancel </button>&nbsp;
+        <button class="AdminModuleButtons" mat-raised-button color="accent" (click)="back()"> Back </button>&nbsp;
     </div>
 </div>

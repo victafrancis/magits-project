@@ -36,5 +36,7 @@ export class InstructorsComponent implements OnInit {
       window.location.reload();
     }
   }
-
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
 }

@@ -3,7 +3,6 @@ import { User } from '../../_services/user/user';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-members',
@@ -37,4 +36,9 @@ export class MembersComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+ 
 }
