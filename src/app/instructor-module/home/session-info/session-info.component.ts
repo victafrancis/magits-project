@@ -24,6 +24,8 @@ export class SessionInfoComponent implements OnInit {
         this.course = data;
       });
 
+      //GET ALL FEEDBACK FOR THIS COURSE
+      
    }
 
   ngOnInit() {

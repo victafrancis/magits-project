@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { UserService } from 'src/app/_services/user/user.service';
 import { CourseService } from 'src/app/_services/course/course.service';
 import { FeedbackService } from 'src/app/_services/feedback/feedback.service';
+import { Feedback } from 'src/app/_services/feedback/feedback';
 
 
 
@@ -34,11 +35,16 @@ course: any={};
   session: any;
   sessionForm: FormGroup;
 
-//AttendeesTable
+//Attendees Table
   attendees: any=[];
   displayedColumns: string[] = ['member','customColumn'];
   attendeeDataSource: MatTableDataSource<User>;
   checkInTime: any=[];
+
+//Feedback Table
+  feedback: any=[];
+  feedbackDisplayedColumns: string[] = ['content'];
+  feedbackDataSource: MatTableDataSource<Feedback>;
 
   //LOADING
   isLoading: boolean = true;
@@ -50,6 +56,7 @@ course: any={};
      media: MediaObserver, 
      private actRoute: ActivatedRoute, 
      private sessionApi: SessionService,
+     private sessionApi2: SessionService,
      private location: Location,
      private memberApi: UserService,
      private courseApi: CourseService,
@@ -78,36 +85,39 @@ course: any={};
     this.sessionApi.GetSession(this.session_id).subscribe(data => {
         this.session = data;
 
-     // GET COURSE NAME OF THIS SESSION
-      this.courseApi.GetCourse(data.course).subscribe(courseData=>{
-        this.course = courseData;
-      })
+    // GET COURSE NAME OF THIS SESSION
+    this.courseApi.GetCourse(data.course).subscribe(courseData=>{
+      this.course = courseData;
+    })
 
-     //todo: GET FEEDBACK FROM THIS SESSION
+    // GET FEEDBACK FROM THIS SESSION
+    this.sessionApi2.ViewSessionFeedback({session_id: this.session_id}).subscribe(feedbackData => {
+     this.feedback = feedbackData;
+     this.feedbackDataSource = new MatTableDataSource<Feedback>(this.feedback);
+    });
 
+      // GET SESSION ATTENDEES
+      if(data.attendees){
+        for (let index in data.attendees) { 
 
-        // GET SESSION ATTENDEES
-        if(data.attendees){
-          for (let index in data.attendees) { 
+          if(data.attendees[index].member != undefined ){
+            this.checkInTime[this.checkInTime.length] = data.attendees[index].time;
+            this.getUser(data.attendees[index].member);
+          }
+        }  
+      }else{
 
-            if(data.attendees[index].member != undefined ){
-              this.checkInTime[this.checkInTime.length] = data.attendees[index].time;
-              this.getUser(data.attendees[index].member);
-            }
-          }  
-        }else{
+        // if(data.attendees.length > 0){
+        //   this.isLoading = false;
+        // }else if(data.attendees.length == 0){
+        //   this.isLoading = false;
+        //   this.noAttendees = true;
+        // }
+  
+      }
+      
 
-          // if(data.attendees.length > 0){
-          //   this.isLoading = false;
-          // }else if(data.attendees.length == 0){
-          //   this.isLoading = false;
-          //   this.noAttendees = true;
-          // }
-    
-        }
-        
-
-        });
+      });
 
     }
    

@@ -9,13 +9,13 @@
     <!-- Search filter -->
     <div style="float: right;">
         <mat-form-field fxFlex="40%" style="align-self: right;">
-            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search Course">
         </mat-form-field>
     </div>
 </div>
 
-<div class="container" style="width: 80%; margin: auto;">
-    <table *ngIf="CourseData.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div *ngIf="CourseData.length > 0" class="container" style="width: 80%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->
         <ng-container matColumnDef="name">
@@ -57,6 +57,8 @@
     <p style="text-align: center;">You have no scheduled sessions for today.</p>
 </div>
 
+<div class="container" style="width: 80%; margin: auto;">
+<br><br><br><br>
 <mat-card *ngIf="isLoading" 
    style="display: flex; justify-content: center; align-items: center">
   <mat-progress-spinner 
@@ -64,3 +66,4 @@
     mode="indeterminate">
   </mat-progress-spinner>
 </mat-card>
+</div>
