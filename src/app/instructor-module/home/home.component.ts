@@ -128,20 +128,30 @@ export class HomeComponent implements OnInit {
 
   startSession(schedule){
     if (window.confirm('Are you sure you want to start this session?')) {
+      //Transform end time from string to datetime
+      var end_hour = schedule.end.slice(0,2);
+      var end_min = schedule.end.slice(3);
+      var end = new Date();
+      end.setHours(end_hour, end_min, 0);
+
       //Add a session entry to be added when confirmed
       this.sessionEntry.course = schedule.course;
       this.sessionEntry.open = JSON.parse("true");
       this.sessionEntry.date = this.myDate;
-      this.sessionEntry.start_time = this.datePipe.transform(this.myDate, 'h:mm a');
-      this.sessionEntry.end_time = schedule.end;
+      this.sessionEntry.start_time = this.myDate;
+      this.sessionEntry.end_time = end;
+      // this.sessionEntry.start_time = this.datePipe.transform(this.myDate, 'h:mm a');
+      // this.sessionEntry.end_time = this.datePipe.transform(end, 'h:mm a')
       this.sessionEntry.courseName= schedule.courseName;
       console.log(this.sessionEntry.date);
-
+      console.log(this.datePipe.transform(this.myDate, 'h:mm a'))
+      
+      console.log(this.sessionEntry);
       // console.log(this.sessionEntry);
-      this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
-      console.log(this.sessionInfo);
+      // this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
+      // console.log(this.sessionInfo);
       // this.openSessionInfoModal(this.sessionEntry);
-      window.location.reload();
+      // window.location.reload();
 
     }
   }
