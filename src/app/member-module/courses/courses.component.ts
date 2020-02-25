@@ -48,8 +48,6 @@ export class CoursesComponent implements OnInit {
         }
         DataList.status = "Not Enrolled";
         userApi.GetUser(this.value).subscribe(data2 => {
-            //console.log(data[x]._id);
-            //console.log(data2.courses[0].course);
             for(let z in data2.courses){
               if(data[x]._id == data2.courses[z].course){
                   DataList.status = "Enrolled";

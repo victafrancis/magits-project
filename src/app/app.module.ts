@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app-routing.module';
 import { InstructorModule } from './instructor-module/instructor-module.module';
 import { MemberModule } from './member-module/member-module.module';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent, DialogTermsofUse, DialogPrivacy } from './register/register.component';
 
 //LoginGuard
 import { LoginPageGuard } from './_guards/login-page-guard.service';
@@ -29,11 +29,12 @@ import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
+  entryComponents:[RegisterComponent, DialogTermsofUse, DialogPrivacy],
   declarations: [
     AppComponent,//
     LoginComponent,//
     PageNotFoundComponent, 
-    RegisterComponent, MessageComponent//
+    RegisterComponent,DialogTermsofUse,DialogPrivacy, MessageComponent//
 
   ],
   imports: [

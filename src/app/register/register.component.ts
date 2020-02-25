@@ -5,6 +5,8 @@ import { MatChipInputEvent } from '@angular/material';
 import { UserService } from '../_services/user/user.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PasswordValidation } from './passwordValidator';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 
 
 
@@ -27,6 +29,8 @@ export class RegisterComponent implements OnInit {
   constructor( 
     public fb: FormBuilder,
     private router: Router,
+    private overlay: Overlay,
+    public dialog: MatDialog,
     private ngZone: NgZone,
     private userAPI: UserService) { }
 
@@ -69,4 +73,69 @@ export class RegisterComponent implements OnInit {
       });
     }
   }
+
+ 
+  openDialog(): void {
+
+    const dialogRef = this.dialog.open(DialogTermsofUse, {
+      maxWidth: '750px',
+      maxHeight: '700px',
+      width: '80%',
+      autoFocus: false,
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialog1(): void {
+
+    const dialogRef = this.dialog.open(DialogPrivacy, {
+      maxWidth: '750px',
+      maxHeight: '700px',
+      width: '80%',
+      autoFocus: false,
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-terms-of-use',
+  templateUrl: 'dialog-terms-of-use.html',
+  styleUrls: ['./register.component.css']
+})
+
+export class DialogTermsofUse{
+  constructor( public dialogRef: MatDialogRef<DialogTermsofUse>){}
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-privacy',
+  templateUrl: 'dialog-privacy.html',
+  styleUrls: ['./register.component.css']
+})
+export class DialogPrivacy{
+  constructor( public dialogRef: MatDialogRef<DialogPrivacy>){}
+
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
