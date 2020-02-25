@@ -5,11 +5,12 @@
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
 </div>
-<div  class="container" style="margin: auto;">
+
+<div  class="container" style="width: 80%; margin: auto;">
     <!-- Search filter -->
     <div style="float: right;">
         <mat-form-field fxFlex="40%" style="align-self: right;">
-            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search Course">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
         </mat-form-field>
     </div>
 </div>
