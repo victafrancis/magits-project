@@ -1,17 +1,40 @@
 <h1 mat-dialog-title>Session Feedback</h1>
+<p *ngIf="error" class="errorMsg">Already left a feedback</p>
 <div mat-dialog-content class="myFeedBackDiv">
-  <p>Session Id: XXXX-XX</p>
-  <p>Course: Taekwondo I</p>
-  <p>Date: 11/08/19</p>
-  <p>Time: 10:00am - 12:00pm</p>
-  <mat-form-field>
-    <textarea matInput class="myTextArea" 
-    cdkTextareaAutosize
-    cdkAutosizeMinRows="1"
-    cdkAutosizeMaxRows="5"></textarea>
-  </mat-form-field>
+  <p>Course: {{courseName}}</p>
+  <p>Date: {{datePipe.transform(date,'MM/dd/yyyy')}}</p>
+  <p>Time: {{start_time}} - {{end_time}}</p>
+
+
+  <form [formGroup]="userFeedback" #resetUserForm="ngForm" novalidate>
+    <mat-card>
+      <div class="controlers-wrapper">
+                  <!-- New Password -->
+       <mat-form-field class="inputs">
+        <textarea matInput class="myTextArea" 
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        formControlName="content"
+        placeholder="Type feedback here"></textarea>          
+        <mat-error *ngIf="handleError('content', 'required')">
+          You must provide <strong>feedback</strong>
+          </mat-error>
+      </mat-form-field>
+        </div>
+    </mat-card>
+  </form>
+
 </div>
-<div mat-dialog-actions>
-    <button mat-button class="myButton">Back</button>
-    <button mat-button class="myButton">Send</button>
-</div>
+<mat-card>
+  <div class="full-wrapper button-wrapper">
+    <div class="button-wrapper">
+      <div mat-dialog-actions>
+        <button mat-button class="myButton" [disabled]="userFeedback.invalid" (click)="sendFeedback()">Send</button>
+        <button mat-button class="myButton" (click)="onNoClick()">Back</button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+

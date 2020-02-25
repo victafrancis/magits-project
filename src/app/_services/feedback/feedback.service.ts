@@ -23,7 +23,7 @@ export class FeedbackService {
   //   "member": "member id",
   //   "session":"session id"
   // }
-  AddFeedback(data: Feedback): Observable<any> {
+  AddFeedback(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/add-feedback`;
     return this.http.post(API_URL, data)
       .pipe(

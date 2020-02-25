@@ -6,29 +6,24 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
-    <ng-container matColumnDef="sessionId">
-      <th mat-header-cell *matHeaderCellDef> Session Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.sessionId}} </td>
-    </ng-container>
-  
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
+          </ng-container>
+      
     <ng-container matColumnDef="course">
       <th mat-header-cell *matHeaderCellDef> Course </th>
-      <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.courseName}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="schedule">
-        <th mat-header-cell *matHeaderCellDef> Schedule </th>
-        <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.start_time + " - " + element.end_time}} </td>
       </ng-container>
 
       <ng-container matColumnDef="sendFeedback">
-        <th mat-header-cell *matHeaderCellDef> Send Feedback </th>
-        <td class="clickable" (click)="openDialog()" mat-cell *matCellDef="let element"> {{element.sendFeedback}} </td>
+        <th mat-header-cell *matHeaderCellDef>Feedback</th>
+        <td class="clickable" (click)="openDialog()" mat-cell *matCellDef="let element" [hidden]="sent_feedback"> {{"Send"}} </td>
       </ng-container>
 
   
