@@ -82,6 +82,6 @@ import { MatSortModule } from '@angular/material/sort';
     DatePipe
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent,DialogOverviewChangePassword]
+  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent,DialogOverviewChangePassword,AnnouncementInfoComponent]
 })
 export class InstructorModule { }
