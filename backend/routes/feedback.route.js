@@ -8,6 +8,9 @@ let Feedback = require('../model/Feedback');
 let User = require('../model/User')
 let Session = require('../model/Session')
 
+//import logging tool
+let Log = require('../logging')
+
 
 // Add Feedback
 feedbackRoute.route('/add-feedback').post((req, res, next) => {
@@ -29,6 +32,8 @@ feedbackRoute.route('/add-feedback').post((req, res, next) => {
     )
     .then(
       function(data){
+        //log event
+        Log.newLog('Member added feedback for session. SessionID:'+req.body.session, req.body.member)
         res.json(feedbackData)
       }
     )

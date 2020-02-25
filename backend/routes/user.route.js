@@ -10,6 +10,9 @@ let Feedback = require('../model/Feedback')
 var myDay = new Date();
 var currentDay
 
+//import logging tool
+let Log = require('../logging')
+
 //register a User
 userRoute.route('/register').post((req, res, next) => {
 
@@ -33,6 +36,8 @@ userRoute.route('/register').post((req, res, next) => {
             lastname: user.lastname
           }
           let token = jwt.sign(payload, 'secretKey');
+          //log event
+          Log.newLog('New user created', user._id)
           res.status(200).send({token});
         });
       }
@@ -59,6 +64,8 @@ userRoute.route('/login').post((req, res, next) => {
           lastname: user.lastname
         }
         let token = jwt.sign(payload, 'secretKey');
+        //log event
+        Log.newLog('User has logged in', user._id)
         res.status(200).send({token});
       }
     }
@@ -120,8 +127,10 @@ userRoute.route('/update/:id').put((req, res, next) => {
       return next(error);
       //console.log(error)
     } else {
-      res.json(data)
       console.log('User successfully updated!')
+      //log event
+      Log.newLog('User profile updated!', data._id)
+      res.json(data)
     }
   })
 })
@@ -132,6 +141,8 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
     if (error) {
       return next(error);
     } else {
+      //log event
+      Log.newLog('User deleted! UserID:'+req.params.id)
       res.status(200).json({
         msg: data
       })

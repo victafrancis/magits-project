@@ -7,6 +7,9 @@ const nodemailer = require('nodemailer');
 let Announcement = require('../model/Announcement');
 let User = require('../model/User.js')
 
+//import logging tool
+let Log = require('../logging')
+
 // for sending email
 sendEmail = (sender, password, recipient, subject, text) => {
   var transporter = nodemailer.createTransport({
@@ -37,7 +40,6 @@ sendEmail = (sender, password, recipient, subject, text) => {
 announcementRoute.route('/add-announcement').post((req, res, next) => {
   Announcement.create(req.body)
     .then(announcementData => {
-      console.log('creating announcement')
       return User.findByIdAndUpdate(req.body.user, {
         $push: { "announcements": announcementData._id }
       })
@@ -53,7 +55,8 @@ announcementRoute.route('/add-announcement').post((req, res, next) => {
       });
     })
     .then((data) => {
-      console.log('second chain')
+      //log the event
+      Log.newLog("new announcement created",req.body.user)
       res.json(data)
     })
     .catch(err => {
@@ -120,6 +123,8 @@ announcementRoute.route('/delete-announcement/:id').delete((req, res, next) => {
       }
     })
 
+    //log the event
+    Log.newLog("announcement was deleted. Subject:"+announcementData.subject, announcementData.user)
     res.json(announcementData)
   })
 })
