@@ -17,8 +17,8 @@
 </div>
 <br>   
 
-<div [hidden]="Announcement" class="container" style="width: 80%; margin: auto;">
-    <table mat-table matSort (matSortChange)="sortData($event)" 
+<div [hidden]="!Announcements" class="container" style="width: 80%; margin: auto;">
+    <table mat-table matSort 
         matSortActive="date" matSortDirection="desc" matSortDisableClear 
         [dataSource]="dataSource" class="mat-elevation-z8">
 
