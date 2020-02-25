@@ -1,0 +1,56 @@
+
+
+<div class="title-group">
+    <div>
+        <h1 style="text-align: center;" class="mat-h1">Member Enrollment Form</h1>
+    </div>
+    <br>
+    <mat-divider fxFlex="1 0"></mat-divider>
+    <br>
+</div>
+<div class="myInfo">
+    <p>Course Name: {{course.name}}</p>
+    <p>Instructors: {{myIns.join(', ')}}</p>
+                <p>Schedule(s): </p>
+                <ul *ngFor="let s of sched">
+                    <li>
+                      Day: {{s.day}}
+                    </li>
+                    <li>
+                       Start: {{s.start}}
+                    </li>
+                    <li>
+                        End:{{s.end}}
+                    </li>
+    </ul>
+</div>
+<div class="container" style="text-align: center;">
+    <form [formGroup]="courseForm" novalidate>
+        <!-- LEFT SIDE -->
+        <mat-card>
+            <div class="controlers-wrapper">
+                <!-- Membership Type -->
+                <mat-form-field>
+                    <mat-label>Membership Type</mat-label>
+                    <mat-select [(value)]="membership_selected" formControlName="user_membership">
+                        <mat-option [value]="m.type" *ngFor="let m of memberships">{{m.key}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('user_membership', 'required')">
+                        Membership is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit & Reset -->
+                <mat-card>
+                    <div class="full-wrapper button-wrapper">
+                        <div class="button-wrapper">
+                            <button mat-flat-button color="warn" [disabled]="courseForm.invalid" (click)="enrollMember()"> Enroll </button>&nbsp;
+                            <button mat-flat-button color="accent"  (click)="closeDialog()"> Cancel </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+    </form>
+</div>

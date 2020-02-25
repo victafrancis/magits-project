@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Course } from 'src/app/_services/course/course';
 import { CourseService } from 'src/app/_services/course/course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sessions',
@@ -13,7 +14,7 @@ export class SessionsComponent implements OnInit {
   dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = ['course', 'instructors'];
 
-  constructor(private courseApi: CourseService) {
+  constructor(private courseApi: CourseService, private router: Router) {
     let CourseData = [];
     
     this.courseApi.GetCourses().subscribe(data => {
@@ -31,7 +32,6 @@ export class SessionsComponent implements OnInit {
         });
         CourseData[i].instructors = temp
       }
-
       this.dataSource = new MatTableDataSource<Course>(CourseData);
     });
     
@@ -40,8 +40,7 @@ export class SessionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  click(element) {
-    console.log(element);
+  viewCourse(element) {
+    this.router.navigate(['/admin/course-sessions/', element._id])
   }
-
 }

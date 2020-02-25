@@ -13,9 +13,7 @@
         <!-- Course Name Column -->
         <ng-container matColumnDef="course">
             <th mat-header-cell *matHeaderCellDef> Course Name </th>
-            <td mat-cell *matCellDef="let element">
-                <a href="#" style="text-decoration: none; color:white;">{{element.name}}</a>
-            </td>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <!-- Instructor Name Column -->
@@ -25,6 +23,6 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="click(row)"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewCourse(element)"></tr>
     </table>
 </div>

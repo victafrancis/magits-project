@@ -22,14 +22,14 @@ export class ModalComponent implements OnInit {
   constructor(
     // DATA PASSED TO MODAL COMPONENT
     private dialogRef: MatDialogRef<ModalComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) private receivedData: any,
     private courseApi: CourseService,
     private fb: FormBuilder,
     private ngZone: NgZone,
     private router: Router
   ) {
-    this.course_id = this.recievedData.course_id;
-    this.member_id = this.recievedData.member_id;
+    this.course_id = this.receivedData.course_id;
+    this.member_id = this.receivedData.member_id;
 
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
       // ADDS THE MEMBERSHIP TYPE TO ARRAY IF OPTION EXISTS

@@ -66,6 +66,15 @@ export class SessionService {
       )
   }
 
+  //Get all feedback by session
+  ViewSessionFeedback(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/get-feedback-by-session`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   //Check in Member to a Session (reads property 'subject' which is the member ID)
   CheckInMember(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/session-check-in-member`;
@@ -73,6 +82,22 @@ export class SessionService {
       .pipe(
         catchError(this.errorMgmt)
       )
+  }
+
+  //Close session
+  CloseSession(id): Observable<any> {
+    let API_URL = `${this.endpoint}/close-session/${id}`;
+    return this.http.put(API_URL, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+  //View Session Attendance Summary
+  ViewSessionAttendance(id): Observable<any> {
+    let API_URL = `${this.endpoint}/view-session-attendance/${id}`;
+    return this.http.get(API_URL, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
   }
 
   // Update Session

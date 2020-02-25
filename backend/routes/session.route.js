@@ -85,7 +85,7 @@ sessionRoute.route('/delete-session/:id').delete((req, res, next) => {
 })
 
 
-//get sessions by course
+//get sessions by course-------------------------------------------------------------------------------------------
 sessionRoute.route('/get-session-by-course').post((req, res) => {
   // console.log("Route")
   // console.log(req.body);
@@ -97,7 +97,25 @@ sessionRoute.route('/get-session-by-course').post((req, res) => {
   })
 })
 
-//get current day sessions by course
+
+//get all feedback by session----------------------------------------------------------------------------------------
+sessionRoute.route('/get-feedback-by-session').post((req, res) => {
+
+  Session.findById(req.body.session_id).populate('feedback').populate('attendees.member')
+  .then(
+    function(sessionData){
+
+      res.json(sessionData.feedback)
+    }
+  )
+  .catch(
+    function(error){
+      return error
+    }
+  )
+})
+
+//get current day sessions by course-------------------------------------------------------------------------------------------
 sessionRoute.route('/get-current-day-session-by-course').post((req, res) => {
   Session.find({course: req.body._id}, (error, sessionData) => {
     if (error) {return error}
@@ -119,8 +137,21 @@ sessionRoute.route('/get-current-day-session-by-course').post((req, res) => {
   })
 })
 
+// View session attendance summary-------------------------------------------------------------------------------
+sessionRoute.route('/view-session-attendance/:id').get((req, res,next) => {
+  Session.findById(req.params.id).populate('attendees.member')
+    .then(
+      function(sessionData){
+        res.json(sessionData.attendees)
+      },
+      function(err){
+        console.log(err)
+      }
+    )
+})
 
-//check in a member to a session
+
+//check in a member to a session-------------------------------------------------------------------------------------------
 sessionRoute.route('/session-check-in-member').post((req, res) => {
   var msg = new Object();
   //create new attendee

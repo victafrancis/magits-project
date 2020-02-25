@@ -13,7 +13,7 @@ import { SessionsComponent, DialogOverviewSessionFeedback } from './sessions/ses
 import { ProfileComponent, DialogOverviewChangePassword } from './profile/profile.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CourseDescriptionComponent } from './courses/course-description/course-description.component';
+import { CourseDescriptionComponent, DialogOverviewEnrollMember } from './courses/course-description/course-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
 
@@ -21,8 +21,8 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
-  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword],
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewChangePassword],
+  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword, CourseDescriptionComponent, DialogOverviewEnrollMember],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewEnrollMember, DialogOverviewChangePassword],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
