@@ -74,7 +74,8 @@ export class HomeComponent implements OnInit {
 
       // FOR CLOCK
       setInterval(() => {
-      this.time = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, 1);
+      this.time = this.datePipe.transform(new Date(), "h:mm:ss a")
+    }, 1);
       this.user = this._authService.decode();
       
       //Schedule Table Subscriber
@@ -146,7 +147,7 @@ export class HomeComponent implements OnInit {
       console.log(this.sessionEntry.date);
       console.log(this.datePipe.transform(this.myDate, 'h:mm a'))
       
-      console.log(this.sessionEntry);
+      console.log(this.sessionEntry.end_time.getHours());
       // console.log(this.sessionEntry);
       // this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       // console.log(this.sessionInfo);
