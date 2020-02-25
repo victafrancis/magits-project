@@ -1,10 +1,10 @@
 import { Course } from 'src/app/_services/course/course';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../_services/course/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from 'src/app/_services/user/user.service';
-import { MatDialogConfig, MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from 'src/app/_services/session/session';
@@ -27,17 +27,20 @@ export class MyCourseProfComponent implements OnInit {
   members: any = [];
   memberDataSource: MatTableDataSource<User>;
   memberDisplayedColumns: string[] = ['name'];
+  @ViewChild('memberPaginator', {static: true}) memberPaginator: MatPaginator;
+  
 
 //SESSION TABLE  
   sessions: any = [];
   sessionDataSource: MatTableDataSource<Session>;
   displayedColumns: string[] = ['date','day','time','attendees','feedback'];
+  // @ViewChild(MatPaginator, {static: true}) sessionPaginator: MatPaginator;
+  @ViewChild('sessionPaginator', {static: true}) sessionPaginator: MatPaginator;
 
   course_id: any;
   course : any = {};
   instructors = [];
   courseForSession: any ={};
-  show: Boolean = false;
 
   //LOADING
   isLoading: boolean = true;
@@ -82,6 +85,7 @@ export class MyCourseProfComponent implements OnInit {
         this.isLoading = false;
         this.noMembers = true;
       }
+      this.memberDataSource.paginator = this.memberPaginator;
     });
 
     //WATCHER
@@ -104,18 +108,11 @@ export class MyCourseProfComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   ngOnDestroy() {
     this.watcher.unsubscribe();
-  }
-
-  showSessions(){
-    this.show = true;
-  }
-
-  closeSessions(){
-    this.show = false;
   }
 
   back(){
@@ -127,11 +124,11 @@ export class MyCourseProfComponent implements OnInit {
     this.sessionApi.GetSessionsByCourse(this.course).subscribe(data =>{
     this.sessions = data;
     this.sessionDataSource = new MatTableDataSource<Session>(this.sessions);
+    this.sessionDataSource.paginator = this.sessionPaginator;
     });
   }
 
   viewSession(session: any){
-    // console.log(session);
     this.router.navigate(['/instructor/sess-info/', session._id]);
   }
 }

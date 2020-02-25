@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
@@ -17,6 +17,8 @@ export class AnnouncementsComponent implements OnInit {
   displayedColumns: string[] = ['date', 'user', 'subject', 'action'];
   dataSource: MatTableDataSource<Announcement>;
   user: any;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
 
   //LOADING
   isLoading: boolean = false;
@@ -34,9 +36,11 @@ export class AnnouncementsComponent implements OnInit {
      
       this.Announcements = data;
       if(this.Announcements.length > 0){
-        // this.getSenderName(data)
       }
       this.dataSource = new MatTableDataSource<Announcement>(this.Announcements);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
       console.log(this.Announcements[0].user.firstname)
       if(this.Announcements.length > 0){
         this.isLoading = false;

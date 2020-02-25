@@ -6,7 +6,7 @@
 </div>
 <mat-divider fxFlex="1 0"></mat-divider>
 <br>
-<div >
+<div class="container" style="width: 80%; margin: auto;">
     <div class="nav-tool-items" style="width: 10%;">
         <button mat-raised-button color="accent" routerLinkActive="active"
             routerLink="/instructor/create-announcement">
@@ -17,12 +17,14 @@
 </div>
 <br>   
 
-<div class="container" style="width: 80%; margin: auto;">
-    <table *ngIf="Announcements.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div [hidden]="Announcement" class="container" style="width: 80%; margin: auto;">
+    <table mat-table matSort (matSortChange)="sortData($event)" 
+        matSortActive="date" matSortDirection="desc" matSortDisableClear 
+        [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
             <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
         </ng-container>
 
@@ -40,13 +42,13 @@
 
         <!-- ACTION -->
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let element; let i = index;">
                 
                 <div *ngIf="user.subject === element.user._id">
                 <button mat-raised-button color="warn" (click)="deleteAnnouncement(element)">
                     <i class="material-icons">delete_forever</i>
-                    Delete</button>
+                </button>
                 </div>
                 
             </td>
@@ -55,8 +57,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewAnnouncement(row)"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
 </div>
-
+<br><br>
 <div *ngIf ="noAnnouncements">
     <p style="text-align: center;">No Available Courses</p>
 </div>

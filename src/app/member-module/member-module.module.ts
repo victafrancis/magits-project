@@ -15,6 +15,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CourseDescriptionComponent } from './courses/course-description/course-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -30,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(memberRoutes)
+    RouterModule.forChild(memberRoutes),
+    MatSortModule
   ],
   bootstrap: [SessionsComponent],
 
