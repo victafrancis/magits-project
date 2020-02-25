@@ -56,7 +56,7 @@ announcementRoute.route('/add-announcement').post((req, res, next) => {
     })
     .then((data) => {
       //log the event
-      Log.newLog("new announcement created",req.body.user)
+      Log.newLog("new announcement created. Subject:"+req.body.subject, req.body.user)
       res.json(data)
     })
     .catch(err => {
