@@ -44,7 +44,7 @@ export class UserService {
   GetMembers() {
     return this.http.get(`${this.endpoint}/get-members`);
   }
-  
+
   // Get all instructors
   GetInstructors() {
     return this.http.get(`${this.endpoint}/get-instructors`);
@@ -97,6 +97,14 @@ export class UserService {
   //get the course details for the instructor
   GetInstructorCourseDetails(data: any): Observable<any> {
     let API_URL = `${this.endpoint}/instructor-get-course-details`;
+    return this.http.post(API_URL, data).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
+  //get the course details for the member
+  GetMemberCourseDetails(data: any): Observable<any> {
+    let API_URL = `${this.endpoint}/member-get-course-details`;
     return this.http.post(API_URL, data).pipe(
       catchError(this.errorMgmt)
     )

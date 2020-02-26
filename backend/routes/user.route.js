@@ -233,6 +233,16 @@ userRoute.route('/instructor-get-course-details').post((req, res) => {
   })
 })
 
+// Get course details of an member-------------------------------------------------------------------------------------------
+userRoute.route('/member-get-course-details').post((req, res) => {
+  User.findById(req.body.subject).populate('courses.course').populate('courses.membership').exec((error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data.courses)
+    }
+  })
+})
 
 
 module.exports = userRoute;
