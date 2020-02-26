@@ -44,10 +44,16 @@ export class UserService {
   GetMembers() {
     return this.http.get(`${this.endpoint}/get-members`);
   }
-
+  
   // Get all instructors
   GetInstructors() {
     return this.http.get(`${this.endpoint}/get-instructors`);
+  }
+
+  // Get Instructors not in the course
+  GetInstructorsNotInCourse(id){
+    let API_URL = `${this.endpoint}/get-instructors-not-assigned-in-course/${id}`;
+    return this.http.get(API_URL);
   }
 
   // Get user

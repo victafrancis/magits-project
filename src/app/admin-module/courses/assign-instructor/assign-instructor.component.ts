@@ -33,7 +33,7 @@ export class AssignInstructorComponent implements OnInit {
     this.course_id = this.receivedData.course_id;
 
     // Gets all the instructors
-    this.userApi.GetInstructors().subscribe(data => {
+    this.userApi.GetInstructorsNotInCourse(this.course_id).subscribe(data => {
       this.instructors = data;
     });
 
