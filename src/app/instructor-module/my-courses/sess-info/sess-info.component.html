@@ -8,15 +8,15 @@
         <mat-card>
             <!--------------------------------Session info -------------------------------------------------  -->
             <br><br>
-            Session: {{ course?.name }}
+            Session: &nbsp;{{ course?.name }}
             <br><br>
-            Date: {{ session?.date | date:'EEEE, MMMM d, y' }}
+            Date: &nbsp;{{ session?.date | date:'EEEE, MMMM d, y' }}
             <br><br>
-            Time: {{ session?.start_time }}-{{ session?.end_time }}
+            Time: &nbsp;{{ session?.start_time | date:'h:mm a'}} - {{ session?.end_time | date:'h:mm a'}}
             <br><br>
-            SessionNo: 123
+            Session ID: &nbsp;{{ session?._id }}
             <br><br>
-            Session ID: {{ session?._id }}
+            Total Attendees: &nbsp;{{ attendeeDataSource?.data.length }}
             <br><br>
             <!-- --------------------------------------------------------------------------------------------- -->
         </mat-card>

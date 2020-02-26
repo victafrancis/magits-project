@@ -33,22 +33,21 @@
         <!-- Course Name Column -->
         <ng-container matColumnDef="courseName">
             <th mat-header-cell *matHeaderCellDef> Course Name </th>
-            <td mat-cell *matCellDef="let row">
-                <a href="#" style="text-decoration: none; color:white;">{{row.courseName}}</a>
+            <td mat-cell *matCellDef="let row" (click)="viewInfo(row)">
+                {{row.courseName}}
             </td>
         </ng-container>
 
         <!-- Schedule Time Column -->
         <ng-container matColumnDef="start">
-            <th mat-header-cell *matHeaderCellDef> Time </th>
-            <td mat-cell *matCellDef="let row"> {{row.start_time}} - {{row.end_time}}</td>
+            <th mat-header-cell *matHeaderCellDef > Time </th>
+            <td mat-cell *matCellDef="let row" (click)="viewInfo(row)"> {{row.start_time}} - {{row.end_time}}</td>
         </ng-container>
 
          <!-- Schedule Status Column -->
          <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
-            
-                <td mat-cell *matCellDef="let row; let i = index;"> {{row.status}} </td>
+            <td mat-cell *matCellDef="let row; let i = index;" (click)="viewInfo(row)"> {{row.status}} </td>
         </ng-container>
 
          <!-- ACTION -->

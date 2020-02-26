@@ -12,6 +12,7 @@ import { SessionService } from 'src/app/_services/session/session.service';
 import {MatSort, MatSortable} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import { AnnouncementInfoComponent } from '../announcements/announcement-info/announcement-info.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class HomeComponent implements OnInit {
   scheduleColumns: string[] = ['courseName', 'start','status','action'];
   scheduleDatasource:MatTableDataSource<Schedule>;
   courses: Array<Course>= [];
-  schedules: Array<Schedule>=[];
+  schedules: Array<any>=[];
   readyStartButton: Array<any>=[]
   currentCourse: String='';
   sessions: any=[];
@@ -53,7 +54,6 @@ export class HomeComponent implements OnInit {
   announcementDataSource: MatTableDataSource<Announcement>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort
-
   //LOADING
   isLoading: boolean = false;
   noSchedules: boolean = false;
@@ -66,7 +66,8 @@ export class HomeComponent implements OnInit {
     private datePipe: DatePipe,
     private userApi: UserService,
     private matDialog: MatDialog,
-    private sessionApi: SessionService
+    private sessionApi: SessionService,
+    private router: Router
     ) {
       this.isLoading = true;
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
@@ -90,13 +91,14 @@ export class HomeComponent implements OnInit {
           
               var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
+              this.schedules[totalSched].course_id = data.courses[i].course._id;
+              // console.log(data.courses[i].course._id)
               this.schedules[totalSched].status = 'Not Started';
               let newStart = this.datePipe.transform(this.stringToDate(data.courses[i].course.schedule[j].start), 'h:mm a');
               let newEnd = this.datePipe.transform(this.stringToDate(data.courses[i].course.schedule[j].end), 'h:mm a');
               this.schedules[totalSched].start_time = newStart;
               this.schedules[totalSched].end_time = newEnd;
-              // this.scheduleEnd[totalSched] = this.stringToDate(data.courses[i].course.schedule[j].end);
-              console.log(this.schedules[totalSched])
+
               if(this.schedules[totalSched].status == "Not Started"){
                 this.sessionIds[totalSched] = '';
               }
@@ -107,6 +109,7 @@ export class HomeComponent implements OnInit {
         }
         // console.log(this.schedules)
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
+
         if(this.schedules.length > 0){
           this.isLoading = false;
         }else if(this.schedules.length == 0){
@@ -224,6 +227,10 @@ export class HomeComponent implements OnInit {
     var end_min = time.slice(3);
     newTime.setHours(end_hour, end_min, 0);
     return newTime;
+  }
+
+  viewInfo(course: any){
+    this.router.navigate(['/instructor/my-course-prof/', course.course_id])
   }
 
 }

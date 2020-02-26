@@ -108,8 +108,7 @@
        
           <div class="results" *ngIf="qrResultString" >
             <div id="result">
-              <small>Result:</small><br>
-              <strong>{{ qrResultString }}</strong><br>
+              <br>
               {{ result.message }}
             <button mat-icon-button (click)="clearResult()"><i class="material-icons">
               highlight_off
@@ -121,10 +120,10 @@
             <div *ngIf ="result.message == undefined" id="result">
               <div *ngIf="user && course">
               {{ course.name }} <br>
-              {{ result.date }} <br>
-              {{ result.start_time }} - {{ result.end_time }}<br>
-              Confirmed Checked-in: {{ user.firstname }} {{ user.firstname }} <br>
-              Timestamp: {{ result.time }}
+              {{ result.date | date: 'MM/dd/yyyy'}} <br>
+              {{ result.start_time | date:'h:mm a'}} - {{ result.end_time | date:'h:mm a'}}<br>
+              Confirmed Checked-in: {{ user.firstname }} {{ user.lastname }} <br>
+              Timestamp: {{ result.time | date:'h:mm:ss a' }}
               </div>
             </div>
           </div>
