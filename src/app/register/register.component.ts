@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PasswordValidation } from './passwordValidator';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
+import { networkInterfaces } from 'os';
 
 
 
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   selected = null;
   error = false;
   myValidator = false;
-  //Roles: any = ['member'];
+  maxDate: Date;
   
 
   constructor( 
@@ -32,7 +33,11 @@ export class RegisterComponent implements OnInit {
     private overlay: Overlay,
     public dialog: MatDialog,
     private ngZone: NgZone,
-    private userAPI: UserService) { }
+    private userAPI: UserService) {
+      const currentDate = new Date();
+      currentDate.setFullYear(currentDate.getFullYear() - 16);
+      this.maxDate = new Date(currentDate);
+     }
 
   ngOnInit() {
     this.submitBookForm();

@@ -1,5 +1,5 @@
 body{
-    background-color: #424242 ;
+    background-color: #363537 ;
     padding: 1px;
 }
 a{
@@ -9,4 +9,7 @@ a{
 h1{
     color: #008E8E;
     margin-left: 10px;
+}
+.successDiv{
+    margin: 10px;
 }
