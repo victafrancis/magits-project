@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
   currentCourse: String='';
   sessions: any=[];
 
+
   // Announcement Table
   Announcements: any = [];
   displayedColumns: string[] = ['date', 'user', 'subject'];
@@ -86,10 +87,16 @@ export class HomeComponent implements OnInit {
             if(data.courses[i].course.schedule[j].day === this.currentDay){
 
               this.schedules.push(data.courses[i].course.schedule[j]);
+          
               var totalSched = this.schedules.length -1;
               this.schedules[totalSched].courseName = data.courses[i].course.name;
               this.schedules[totalSched].status = 'Not Started';
-             
+              let newStart = this.datePipe.transform(this.stringToDate(data.courses[i].course.schedule[j].start), 'h:mm a');
+              let newEnd = this.datePipe.transform(this.stringToDate(data.courses[i].course.schedule[j].end), 'h:mm a');
+              this.schedules[totalSched].start_time = newStart;
+              this.schedules[totalSched].end_time = newEnd;
+              // this.scheduleEnd[totalSched] = this.stringToDate(data.courses[i].course.schedule[j].end);
+              console.log(this.schedules[totalSched])
               if(this.schedules[totalSched].status == "Not Started"){
                 this.sessionIds[totalSched] = '';
               }
@@ -98,7 +105,7 @@ export class HomeComponent implements OnInit {
             }
           }
         }
-        // console.log(this.schedules[i])
+        // console.log(this.schedules)
         this.scheduleDatasource = new MatTableDataSource<Schedule>(this.schedules)
         if(this.schedules.length > 0){
           this.isLoading = false;
@@ -129,31 +136,21 @@ export class HomeComponent implements OnInit {
 
   startSession(schedule){
     if (window.confirm('Are you sure you want to start this session?')) {
-      //Transform end time from string to datetime
-      var end_hour = schedule.end.slice(0,2);
-      var end_min = schedule.end.slice(3);
-      var end = new Date();
-      end.setHours(end_hour, end_min, 0);
-
+     
       //Add a session entry to be added when confirmed
       this.sessionEntry.course = schedule.course;
       this.sessionEntry.open = JSON.parse("true");
       this.sessionEntry.date = this.myDate;
       this.sessionEntry.start_time = this.myDate;
-      this.sessionEntry.end_time = end;
-      // this.sessionEntry.start_time = this.datePipe.transform(this.myDate, 'h:mm a');
-      // this.sessionEntry.end_time = this.datePipe.transform(end, 'h:mm a')
+      // this.sessionEntry.end_time = end;
+      this.sessionEntry.end_time = this.stringToDate(schedule.end);
       this.sessionEntry.courseName= schedule.courseName;
-      console.log(this.sessionEntry.date);
-      console.log(this.datePipe.transform(this.myDate, 'h:mm a'))
-      
-      console.log(this.sessionEntry.end_time.getHours());
-      // console.log(this.sessionEntry);
-      // this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
+      console.log(this.sessionEntry);
+
+      this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       // console.log(this.sessionInfo);
       // this.openSessionInfoModal(this.sessionEntry);
-      // window.location.reload();
-
+      window.location.reload();
     }
   }
 
@@ -162,8 +159,6 @@ export class HomeComponent implements OnInit {
     if (window.confirm('Are you sure you want to close this session?')) {
 
       this.sessionApi.CloseSession(session).subscribe(sessionData =>{
-        // let sessData = sessionData;
-        // console.log(sessData)
         window.location.reload();
       })
     }
@@ -208,8 +203,6 @@ export class HomeComponent implements OnInit {
             this.schedules[totalSched].status = 'Closed';
             this.sessionIds[totalSched] = session._id;
           }
-         
-          console.log(this.sessionIds);
         }
       }
    })
@@ -224,4 +217,13 @@ export class HomeComponent implements OnInit {
     const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
   
+   //Transform end time from string to datetime
+  stringToDate(time: any){
+    var newTime = new Date();
+    var end_hour = time.slice(0,2);
+    var end_min = time.slice(3);
+    newTime.setHours(end_hour, end_min, 0);
+    return newTime;
+  }
+
 }

@@ -6,7 +6,7 @@ import { FormGroup} from "@angular/forms";
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/_services/user/user.service';
@@ -49,6 +49,8 @@ course: any={};
   //LOADING
   isLoading: boolean = true;
   noAttendees: boolean = false; 
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
    constructor(
      public dialog: MatDialog, 
@@ -142,6 +144,7 @@ course: any={};
     this.memberApi.GetUser(id).subscribe(user =>{
       this.attendees.push(user);
       this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
+      this.attendeeDataSource.paginator = this.paginator;
     }) 
 
   }
