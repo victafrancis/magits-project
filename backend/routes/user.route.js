@@ -107,6 +107,17 @@ userRoute.route('/get-instructors').get((req, res) => {
   })
 })
 
+// Get all instructors not in the course
+userRoute.route('/get-instructors-not-assigned-in-course/:id').get((req, res) => {
+  User.find({"courses.course": {$ne:req.params.id}, "role":"instructor"}, (error, data) => {
+    if (error){
+      return next(error)
+    }else{
+      res.json(data)
+    }
+  })
+});
+
 // Get single user
 userRoute.route('/read-user/:id').get((req, res, next) => {
   User.findById(req.params.id, (error, data) => {

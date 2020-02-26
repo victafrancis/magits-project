@@ -135,6 +135,7 @@ export class MyCourseProfComponent implements OnInit {
     // GETS SESSIONS OF THIS COURSE
     this.sessionApi.GetSessionsByCourse(this.course).subscribe(data =>{
     this.sessions = data;
+    console.log(data);
     this.sessionDataSource = new MatTableDataSource<Session>(this.sessions);
     this.sessionDataSource.sort = this.sort;
     this.sessionDataSource.paginator = this.sessionPaginator;
