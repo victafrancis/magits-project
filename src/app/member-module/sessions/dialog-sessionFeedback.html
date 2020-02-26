@@ -3,7 +3,7 @@
 <div mat-dialog-content class="myFeedBackDiv">
   <p>Course: {{session.course_name}}</p>
   <p>Date: {{datePipe.transform(session.date,'MM/dd/yyyy')}}</p>
-  <p>Time: {{session.start_time}} - {{session.end_time}}</p>
+  <p>Time: {{datePipe.transform(session.start_time,'h:mm a') + " - " + datePipe.transform(session.end_time,'h:mm a') }}</p>
 
 
   <form [formGroup]="userFeedback" #resetUserForm="ngForm" novalidate>
