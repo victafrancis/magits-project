@@ -21,7 +21,7 @@
   
     <ng-container matColumnDef="schedule">
         <th mat-header-cell *matHeaderCellDef> Time </th>
-        <td mat-cell *matCellDef="let element"> {{element.start_time + " - " + element.end_time}} </td>
+        <td mat-cell *matCellDef="let element"> {{datePipe.transform(element.start_time,'h:mm a') + " - " + datePipe.transform(element.end_time,'h:mm a')}} </td>
       </ng-container>
 
       <ng-container matColumnDef="sendFeedback">
