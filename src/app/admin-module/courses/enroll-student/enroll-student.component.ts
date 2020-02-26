@@ -1,5 +1,5 @@
-import { Component, OnInit , NgZone} from '@angular/core';
-import { MatTableDataSource, MatDialog, MatDialogModule, MatDialogConfig } from '@angular/material';
+import { Component, OnInit , NgZone, ViewChild} from '@angular/core';
+import { MatTableDataSource, MatDialog, MatDialogModule, MatDialogConfig, MatPaginator } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
 import { CourseService } from '../../../_services/course/course.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,6 +17,7 @@ export class EnrollStudentComponent implements OnInit {
   UserData: any = [];
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'name', 'Action'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private courseApi: CourseService,
@@ -36,6 +37,7 @@ export class EnrollStudentComponent implements OnInit {
     this.courseApi.GetMembersNotEnrolled(this.course_id).subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -55,5 +57,9 @@ export class EnrollStudentComponent implements OnInit {
 
   back(){
     this.location.back();
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 }

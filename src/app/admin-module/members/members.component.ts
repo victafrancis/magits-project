@@ -1,9 +1,8 @@
 import { UserService } from '../../_services/user/user.service';
 import { User } from '../../_services/user/user';
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-members',
@@ -14,11 +13,13 @@ export class MembersComponent implements OnInit {
   UserData: any = [];
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'firstname', 'lastname', 'Action'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private userApi: UserService, private router: Router) {
     this.userApi.GetMembers().subscribe(data => {
       this.UserData = data;
       this.dataSource = new MatTableDataSource<User>(this.UserData);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -35,4 +36,9 @@ export class MembersComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+ 
 }

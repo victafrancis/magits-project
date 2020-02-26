@@ -14,7 +14,6 @@ export class ViewAnnouncementComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) private receivedData: any
   ) {
     this.announcement = this.receivedData.announcement;
-    console.log(this.announcement)
   }
 
   ngOnInit() {

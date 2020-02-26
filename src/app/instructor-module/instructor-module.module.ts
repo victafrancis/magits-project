@@ -44,6 +44,8 @@ import { ManualCheckInComponent } from './home/check-in-member/manual-check-in/m
 import { SessInfoComponent } from './my-courses/sess-info/sess-info.component';
 import { ViewStudentsComponent } from './course-list/view-students/view-students.component';
 import { AnnouncementInfoComponent } from './announcements/announcement-info/announcement-info.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -69,7 +71,10 @@ import { AnnouncementInfoComponent } from './announcements/announcement-info/ann
     MatMenuModule,
     MatIconModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers:[
     RoleGuard,
@@ -77,6 +82,6 @@ import { AnnouncementInfoComponent } from './announcements/announcement-info/ann
     DatePipe
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent,DialogOverviewChangePassword]
+  entryComponents: [SessionInfoComponent,ConfirmEnrollComponent,DialogOverviewChangePassword,AnnouncementInfoComponent]
 })
 export class InstructorModule { }

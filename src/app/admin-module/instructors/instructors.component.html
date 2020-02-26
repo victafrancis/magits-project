@@ -1,14 +1,22 @@
 <div class="title-group">
-    <span class="nav-tool-items" style="float: left;">
-        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-instructor">Add
-            Instructor</button>
-    </span>
     <div>
-        <h1 style="text-align: center; width: 90%;" class="mat-h1">Instructors</h1>
+        <h2 style="text-align: center; width: 95%;"> Instructors </h2>
     </div>
     <br>
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
+</div>
+<mat-divider fxFlex="1 0"></mat-divider>
+<div  class="container" style="width: 80%; margin: auto;">
+    <div class="nav-tool-items">
+        <br/>
+        <button mat-raised-button color="accent" routerLinkActive="active" routerLink="/admin/add-instructor">
+            <i class="material-icons">add_circle</i> New Instructor </button>
+    </div>
+    <!-- Search filter -->
+    <div style="float: right;">
+        <mat-form-field fxFlex="40%" style="align-self: right;">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
 </div>
 
 <div class="container" style="width: 80%; margin: auto;">
@@ -17,21 +25,21 @@
         <!-- Instructor Last Name Column -->
         <ng-container matColumnDef="ID">
             <th mat-header-cell *matHeaderCellDef> ID </th>
-            <td mat-cell *matCellDef="let element"> <a href="#"
+            <td mat-cell *matCellDef="let element" (click)="viewInfo(element)"> <a href="#"
                     style="text-decoration: none; color: white;">{{element._id}}</a> </td>
         </ng-container>
 
         <!-- Instructor First Name Column -->
         <ng-container matColumnDef="Firstname">
             <th mat-header-cell *matHeaderCellDef> First Name </th>
-            <td mat-cell *matCellDef="let element"> <a href="#"
+            <td mat-cell *matCellDef="let element" (click)="viewInfo(element)"> <a href="#"
                     style="text-decoration: none; color: white;">{{element.firstname}}</a> </td>
         </ng-container>
 
         <!-- Instructor Last Name Column -->
         <ng-container matColumnDef="Lastname">
             <th mat-header-cell *matHeaderCellDef> Last Name </th>
-            <td mat-cell *matCellDef="let element"> <a href="#"
+            <td mat-cell *matCellDef="let element" (click)="viewInfo(element)"> <a href="#"
                     style="text-decoration: none; color: white;">{{element.lastname}}</a> </td>
         </ng-container>
 
@@ -46,6 +54,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewInfo(element)"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
 </div>

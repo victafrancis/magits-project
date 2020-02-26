@@ -6,12 +6,13 @@ import { FormGroup} from "@angular/forms";
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/_services/user/user.service';
 import { CourseService } from 'src/app/_services/course/course.service';
 import { FeedbackService } from 'src/app/_services/feedback/feedback.service';
+import { Feedback } from 'src/app/_services/feedback/feedback';
 
 
 
@@ -34,11 +35,20 @@ course: any={};
   session: any;
   sessionForm: FormGroup;
 
-//AttendeesTable
+//Attendees Table
   attendees: any=[];
   displayedColumns: string[] = ['member','customColumn'];
   attendeeDataSource: MatTableDataSource<User>;
   checkInTime: any=[];
+  @ViewChild('attendeePaginator', {static: true}) attendeePaginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) attendeeSort: MatSort
+  
+//Feedback Table
+  feedback: any=[];
+  feedbackDisplayedColumns: string[] = ['date','content'];
+  feedbackDataSource: MatTableDataSource<Feedback>;
+  @ViewChild('feedbackPaginator', {static: true}) feedbackPaginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
 
   //LOADING
   isLoading: boolean = true;
@@ -50,6 +60,7 @@ course: any={};
      media: MediaObserver, 
      private actRoute: ActivatedRoute, 
      private sessionApi: SessionService,
+     private sessionApi2: SessionService,
      private location: Location,
      private memberApi: UserService,
      private courseApi: CourseService,
@@ -78,36 +89,30 @@ course: any={};
     this.sessionApi.GetSession(this.session_id).subscribe(data => {
         this.session = data;
 
-     // GET COURSE NAME OF THIS SESSION
-      this.courseApi.GetCourse(data.course).subscribe(courseData=>{
-        this.course = courseData;
-      })
+    // GET COURSE NAME OF THIS SESSION
+    this.courseApi.GetCourse(data.course).subscribe(courseData=>{
+      this.course = courseData;
+    })
 
-     //todo: GET FEEDBACK FROM THIS SESSION
+    // GET FEEDBACK FROM THIS SESSION
+    this.sessionApi2.ViewSessionFeedback({session_id: this.session_id}).subscribe(feedbackData => {
+     this.feedback = feedbackData;
+     this.feedbackDataSource = new MatTableDataSource<Feedback>(this.feedback);
+     this.feedbackDataSource.sort = this.sort;
+     this.feedbackDataSource.paginator = this.feedbackPaginator;
+    });
 
+      // GET SESSION ATTENDEES
+      if(data.attendees){
+        for (let index in data.attendees) { 
 
-        // GET SESSION ATTENDEES
-        if(data.attendees){
-          for (let index in data.attendees) { 
-
-            if(data.attendees[index].member != undefined ){
-              this.checkInTime[this.checkInTime.length] = data.attendees[index].time;
-              this.getUser(data.attendees[index].member);
-            }
-          }  
-        }else{
-
-          // if(data.attendees.length > 0){
-          //   this.isLoading = false;
-          // }else if(data.attendees.length == 0){
-          //   this.isLoading = false;
-          //   this.noAttendees = true;
-          // }
-    
-        }
-        
-
-        });
+          if(data.attendees[index].member != undefined ){
+            this.checkInTime[this.checkInTime.length] = data.attendees[index].time;
+            this.getUser(data.attendees[index].member);
+          }
+        }  
+      }
+      });
 
     }
    
@@ -129,10 +134,17 @@ course: any={};
   }
 
   getUser(id:any){
-    this.memberApi.GetUser(id).subscribe(user =>{
-      this.attendees.push(user);
-      this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
-    }) 
+    if(id != undefined){
+      this.memberApi.GetUser(id).subscribe(user =>{
+        if(id == undefined){
+          user.firstname = "NaMA"
+        }
+        this.attendees.push(user);
+        this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
+        this.attendeeDataSource.paginator = this.attendeePaginator;
+      }) 
+    }
+    
 
   }
 

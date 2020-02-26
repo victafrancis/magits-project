@@ -1,10 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from '../../../_services/session/session';
-import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogConfig, MatPaginator, MatSort } from '@angular/material';
 import { CourseService } from 'src/app/_services/course/course.service';
 import { ViewFeedbacksComponent } from '../view-feedbacks/view-feedbacks.component';
 
@@ -17,6 +16,8 @@ export class CourseSessionsComponent implements OnInit {
   dataSource: MatTableDataSource<Session>;
   displayedColumns: string[] = ['id', 'date', 'start', 'end', 'attendees'];
   course_id: any;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -30,6 +31,8 @@ export class CourseSessionsComponent implements OnInit {
     this.courseApi.GetCourse(this.course_id).subscribe(course => {
       this.sessionApi.GetSessionsByCourse(course).subscribe(sessions => {
         this.dataSource = new MatTableDataSource<Session>(sessions);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     });
   }
@@ -46,7 +49,7 @@ export class CourseSessionsComponent implements OnInit {
     // dialogConfig.disableClose = true;
     dialogConfig.id = "view-feedbacks-component";
     dialogConfig.height = "40%";
-    dialogConfig.width = "35%";
+    dialogConfig.width = "45%";
     dialogConfig.data = { session: element};
     const modalDialog = this.matDialog.open(ViewFeedbacksComponent, dialogConfig);
   }

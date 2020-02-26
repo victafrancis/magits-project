@@ -7,6 +7,9 @@ const scheduleRoute = express.Router();
 let Schedule = require('../model/Schedule');
 let Course = require('../model/Course');
 
+//import logging tool
+let Log = require('../logging')
+
 
 // Add Schedule to a course
 scheduleRoute.route('/add-schedule/:id').post((req, res, next) => {
@@ -27,6 +30,8 @@ scheduleRoute.route('/add-schedule/:id').post((req, res, next) => {
       }
     })
 
+    //log event
+    Log.newLog('New schedule created by admin. CourseID:'+req.params.id)
     res.json(data)
   })
 });
@@ -63,8 +68,10 @@ scheduleRoute.route('/update/:id').put((req, res, next) => {
       return next(error);
       console.log(error)
     } else {
-      res.json(data)
       console.log('Schedule successfully updated!')
+      //log event
+      Log.newLog('Schedule updated by admin. CourseID:'+data.course)
+      res.json(data)
     }
   })
 })
@@ -85,6 +92,8 @@ scheduleRoute.route('/delete-schedule/:id').delete((req, res, next) => {
     })
 
     console.log("schedule deleted!")
+    //log event
+    Log.newLog('Schedule deleted by admin. CourseID:'+data.course)
     res.status(200).json({
       msg: data
     })

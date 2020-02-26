@@ -12,6 +12,7 @@ export class SessionInfoComponent implements OnInit {
   session_info: any;
   course: any;
 
+  
   constructor(
       @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
       private dialogRef: MatDialogRef<SessionInfoComponent>,
@@ -24,6 +25,8 @@ export class SessionInfoComponent implements OnInit {
         this.course = data;
       });
 
+      //GET ALL FEEDBACK FOR THIS COURSE
+      
    }
 
   ngOnInit() {

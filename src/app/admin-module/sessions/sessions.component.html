@@ -1,6 +1,6 @@
 <div class="title-group">
     <div style="width: 95%;">
-        <h1 style="text-align: center;" class="mat-h1">Sessions</h1>
+        <h2 style="text-align: center;">Sessions</h2>
     </div>
     <br>
     <mat-divider fxFlex="1 0"></mat-divider>
@@ -25,4 +25,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="viewCourse(element)"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
 </div>

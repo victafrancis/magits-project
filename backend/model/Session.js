@@ -10,10 +10,10 @@ let Session = new Schema({
     default: Date.now
   },
   start_time: {
-    type: String
+    type: Date
   },
   end_time: {
-    type: String
+    type: Date
   },
   open: {
     type: Boolean,

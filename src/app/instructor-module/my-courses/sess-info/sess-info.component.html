@@ -6,11 +6,11 @@
     <!-- left -->
     <mat-grid-tile>
         <mat-card>
-            <!------------------------------------Session info -------------------------------------------------  -->
+            <!--------------------------------Session info -------------------------------------------------  -->
             <br><br>
             Session: {{ course?.name }}
             <br><br>
-            Date: {{ session?.date }}
+            Date: {{ session?.date | date:'EEEE, MMMM d, y' }}
             <br><br>
             Time: {{ session?.start_time }}-{{ session?.end_time }}
             <br><br>
@@ -18,7 +18,7 @@
             <br><br>
             Session ID: {{ session?._id }}
             <br><br>
-            <!-- ------------------------------------------------------------------------------------------------ -->
+            <!-- --------------------------------------------------------------------------------------------- -->
         </mat-card>
 
     </mat-grid-tile>
@@ -26,7 +26,7 @@
     <mat-grid-tile>
         <mat-card>
             <!------------------------------------Attendees Table -------------------------------------------------  -->
-            <div *ngIf="attendees.length > 0 ">
+            <!-- <div [hidden]="!attendees"> -->
               
                 <div class="title-group">
                     <div>
@@ -39,28 +39,31 @@
                         <br>
                 </div>
             
-                <div *ngIf="attendees" class="container" style="width: 100%; margin: auto;">
-                    <table mat-table [dataSource]="attendeeDataSource" class="mat-elevation-z8">
-            
+                <div [hidden]= "!attendees" class="container" style="width: 100%; margin: auto;">
+                    <table mat-table matSort 
+                    matSortActive="date" matSortDirection="desc" matSortDisableClear 
+                    [dataSource]="attendeeDataSource" class="mat-elevation-z8">
+                        
                         <!-- Date Column -->
                         <ng-container matColumnDef="member">
                             <th mat-header-cell *matHeaderCellDef> Member </th>
                             <td mat-cell *matCellDef="let element">{{element.firstname}} {{element.lastname}}</td>
                         </ng-container> 
             
-                        <!-- Course Information -->
+                        <!-- checkInTime Column -->
                         <ng-container matColumnDef="customColumn">
-                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Check-in Time </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Check-in Time </th>
                             <td mat-cell *matCellDef="let element; let i = index;" style="text-align: center;">
-                                {{ checkInTime[i]}}
+                                {{ checkInTime[i] | date: 'h:mm:ss a'}}
                             </td>
                         </ng-container>
-
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <mat-paginator [pageSizeOptions]="[5,10,15]"></mat-paginator>
+
                     </table>
                 </div>
-            </div>
+            <!-- </div> -->
 
             <div *ngIf="attendees.length == 0 ">
                 No Attendees
@@ -70,6 +73,48 @@
 
     </mat-grid-tile>
 </mat-grid-list>
+           
+<div class="title-group">
+    <div>
+        <h3 style="text-align: center; width: 90%;">
+            Feedback
+        </h3>
+    </div>
+        <mat-divider fxFlex="1 0"></mat-divider>
+        <br>
+</div>
+
+<!-- ------Feedback----------------------------------------------------------------------------------------------- -->
+<div class="container" style="width: 70%; margin: auto;">
+
+    <table mat-table matSort 
+        matSortActive="date" matSortDirection="desc" matSortDisableClear 
+        [dataSource]="feedbackDataSource" class="mat-elevation-z8">
+
+            <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM/dd/yyyy' }} </td>
+        </ng-container>
+
+            <!-- Content Column -->
+        <ng-container matColumnDef="content">
+            <th mat-header-cell *matHeaderCellDef> Content </th>
+            <td mat-cell *matCellDef="let element">{{element.content}}</td>
+        </ng-container>
+        
+        <tr   mat-header-row *matHeaderRowDef="feedbackDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: feedbackDisplayedColumns;"></tr>
+    </table>
+    <mat-paginator #feedbackPaginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+</div>
+
+
+<!-- <div class="container" style="float: center;width: 80%; margin: auto;" *ngIf="feedback.length == 0 ">
+  <p>No feedback available</p>  
+</div> -->
+<br>
+<br>
 
 <div class="footer">
     <p>Teambits &copy; 2019-2020</p>

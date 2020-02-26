@@ -1,11 +1,8 @@
-import { Course } from 'src/app/_services/course/course';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../_services/course/course.service';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { UserService } from 'src/app/_services/user/user.service';
-import { MatDialogConfig, MatDialog, MatTableDataSource } from '@angular/material';
-import { Location } from '@angular/common';
+import { MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Location, DatePipe } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from 'src/app/_services/session/session';
 import { Subscription } from 'rxjs';
@@ -27,17 +24,21 @@ export class MyCourseProfComponent implements OnInit {
   members: any = [];
   memberDataSource: MatTableDataSource<User>;
   memberDisplayedColumns: string[] = ['name'];
+  @ViewChild('memberPaginator', {static: true}) memberPaginator: MatPaginator;
+  
 
 //SESSION TABLE  
   sessions: any = [];
   sessionDataSource: MatTableDataSource<Session>;
   displayedColumns: string[] = ['date','day','time','attendees','feedback'];
-
+  // @ViewChild(MatPaginator, {static: true}) sessionPaginator: MatPaginator;
+  @ViewChild('sessionPaginator', {static: true}) sessionPaginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
+  
   course_id: any;
   course : any = {};
   instructors = [];
   courseForSession: any ={};
-  show: Boolean = false;
 
   //LOADING
   isLoading: boolean = true;
@@ -48,12 +49,9 @@ export class MyCourseProfComponent implements OnInit {
     private courseApi: CourseService,
     private sessionApi: SessionService,
     private router: Router,
-    private fb: FormBuilder,
-    private ngZone: NgZone,
-    private userApi: UserService,
-    private matDialog: MatDialog,
     private location: Location,
     media: MediaObserver,
+    private datePipe: DatePipe
   )
   {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -68,6 +66,23 @@ export class MyCourseProfComponent implements OnInit {
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
+      
+      for (const i in data.schedule) {
+        // start
+        var start_hour = data.schedule[i].start.slice(0, 2);
+        var start_min = data.schedule[i].start.slice(3);
+        var start = new Date();
+        start.setHours(start_hour, start_min, 0);
+        data.schedule[i].start = this.datePipe.transform(start, "h:mm a");
+
+        // // end
+        var end_hour = data.schedule[i].end.slice(0, 2);
+        var end_min = data.schedule[i].end.slice(3);
+        var end = new Date();
+        end.setHours(end_hour, end_min, 0);
+        data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
+      }
+
       this.course = data;
       this.getSessions(this.course);
     });
@@ -82,6 +97,7 @@ export class MyCourseProfComponent implements OnInit {
         this.isLoading = false;
         this.noMembers = true;
       }
+      this.memberDataSource.paginator = this.memberPaginator;
     });
 
     //WATCHER
@@ -104,18 +120,11 @@ export class MyCourseProfComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   ngOnDestroy() {
     this.watcher.unsubscribe();
-  }
-
-  showSessions(){
-    this.show = true;
-  }
-
-  closeSessions(){
-    this.show = false;
   }
 
   back(){
@@ -126,12 +135,24 @@ export class MyCourseProfComponent implements OnInit {
     // GETS SESSIONS OF THIS COURSE
     this.sessionApi.GetSessionsByCourse(this.course).subscribe(data =>{
     this.sessions = data;
+    console.log(data);
     this.sessionDataSource = new MatTableDataSource<Session>(this.sessions);
+    this.sessionDataSource.sort = this.sort;
+    this.sessionDataSource.paginator = this.sessionPaginator;
     });
   }
 
   viewSession(session: any){
-    // console.log(session);
     this.router.navigate(['/instructor/sess-info/', session._id]);
   }
+
+  //Transform end time from string to datetime
+  stringToDate(time: any){
+    // console.log(time);
+   var newTime = new Date();
+   var end_hour = time.slice(0,2);
+   var end_min = time.slice(3);
+   newTime.setHours(end_hour, end_min, 0);
+   return newTime;
+ }
 }

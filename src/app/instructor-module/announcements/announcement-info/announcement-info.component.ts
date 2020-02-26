@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
-import { Location } from '@angular/common';
+import { Component, OnInit, Optional, Inject, NgZone } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+
 
 @Component({
   selector: 'app-announcement-info',
@@ -9,24 +8,21 @@ import { Location } from '@angular/common';
   styleUrls: ['./announcement-info.component.css']
 })
 export class AnnouncementInfoComponent implements OnInit {
-
-  announcement_id: any;
-  announcement: any={};
+  announcement: any;
+  
   constructor(
-    private actRoute: ActivatedRoute,
-    private announcementApi: AnnouncementService,
-    private location: Location
+    private dialogRef: MatDialogRef<AnnouncementInfoComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) private receivedData: any
+    
   ) {
-    this.announcement_id = this.actRoute.snapshot.paramMap.get('id');
-    this.announcementApi.GetAnnouncement(this.announcement_id).subscribe( announcemenData =>{
-      this.announcement =announcemenData;
-    })
-   }
+    this.announcement = this.receivedData.announcement;
+    console.log(this.announcement)
+  }
 
   ngOnInit() {
   }
 
-  back(){
-    this.location.back();
+  close() {
+    this.dialogRef.close();
   }
 }

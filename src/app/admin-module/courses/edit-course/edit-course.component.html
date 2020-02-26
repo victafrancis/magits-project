@@ -20,7 +20,7 @@
 
             <!-- Details -->
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Details" formControlName="details">
+                <textarea matInput placeholder="Details" formControlName="details"></textarea>
                 <mat-error *ngIf="handleError('details', 'required')">
                     You must provide<strong>details</strong>
                 </mat-error>
