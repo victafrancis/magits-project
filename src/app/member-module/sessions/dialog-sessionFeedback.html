@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>Session Feedback</h1>
 <p *ngIf="error" class="errorMsg">Already left a feedback</p>
 <div mat-dialog-content class="myFeedBackDiv">
-  <p>Course: {{courseName}}</p>
-  <p>Date: {{datePipe.transform(date,'MM/dd/yyyy')}}</p>
-  <p>Time: {{start_time}} - {{end_time}}</p>
+  <p>Course: {{session.course_name}}</p>
+  <p>Date: {{datePipe.transform(session.date,'MM/dd/yyyy')}}</p>
+  <p>Time: {{session.start_time}} - {{session.end_time}}</p>
 
 
   <form [formGroup]="userFeedback" #resetUserForm="ngForm" novalidate>

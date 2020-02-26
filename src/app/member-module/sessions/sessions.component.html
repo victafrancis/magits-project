@@ -26,8 +26,8 @@
 
       <ng-container matColumnDef="sendFeedback">
         <th mat-header-cell *matHeaderCellDef>Feedback</th>
-      <ng-container *matCellDef="let element">
-        <td class="clickable" (click)="openDialog()" mat-cell *ngIf="!element.boolFeedback; else noFeedBack"> {{"Send"}} </td>
+      <ng-container  *matCellDef="let element">
+        <td class="clickable" mat-cell (click)="openDialog(element)" *ngIf="!element.feedback_sent; else noFeedBack"> {{"Send"}} </td>
       </ng-container>
       <ng-template #noFeedBack>
         <td mat-cell>

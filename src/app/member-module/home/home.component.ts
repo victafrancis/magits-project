@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, Optional } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { Subscription, Observable, forkJoin } from 'rxjs';
 import { map, filter, mergeMap } from "rxjs/operators";
@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
 import { DatePipe } from '@angular/common'
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Schedule } from 'src/app/_services/schedule/schedule';
 
 
 @Component({
@@ -33,12 +35,13 @@ displayedColumnsMembership: string[] = ['name', 'membership_type','session_remai
 UserDataAnnouncement: any = [];
 dataSourceAnnouncement: MatTableDataSource<Announcement>;
 displayedColumnsAnnouncement: string[] = ['date','from','subject'];
+courseWhole: any = [];
 
 // this is for flex grid, please no touch
   watcher: Subscription;
   columns: number = 4;
 
-  constructor( public datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
+  constructor( public dialog: MatDialog, public datePipe: DatePipe, private _authService: AuthService, media: MediaObserver, private userApi: UserService, private courseApi: CourseService, private announcementApi: AnnouncementService) {
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
         if (change.mqAlias == 'xs') {
@@ -55,17 +58,11 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
       }
     });
     this.userApi.GetMemberCourseDetails({'subject': this.value}).subscribe(data => {
+      //console.log(data);
       for(let x in data){
-        let Datalist: any = {};
-        Datalist.name = data[x].course.name;
-        Datalist.mType = data[x].membership.membership_type;
-        Datalist.sess = data[x].sessions_remaining;
-        if(Datalist.sess == undefined){
-          Datalist.sess = 'monthly';
-        }
-        this.UserData.push(Datalist);
+        this.courseWhole = data;
       }
-      this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
+      this.dataSourceMembership = new MatTableDataSource<Course>(this.courseWhole);
     })
 
     
@@ -77,6 +74,22 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
     });
 
    }
+
+
+
+   openDialog(element): void {
+    const dialogRef = this.dialog.open(DialogCourseInfo, {
+      maxWidth: '350px',
+      maxHeight: '750px',
+      width: '80%',
+      data: {course: element}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log('The dialog was closed');
+    });
+  }
+
 
   ngOnDestroy() {
     this.watcher.unsubscribe();
@@ -95,3 +108,45 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
     this._authService.logout();
   }
 }
+
+
+
+@Component({
+  selector: 'dialog-course-info',
+  templateUrl: './dialog-course-info.html',
+  styleUrls: ['./home.component.css']
+})
+
+export class DialogCourseInfo {
+
+//data for modal courses
+course: any;
+sched : Array<Schedule> = [];
+ins : Array<any> = [];
+insConverted: Array<any> = [];
+//
+
+constructor(private userApi: UserService, @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any, public dialogRef: MatDialogRef<DialogCourseInfo>){
+ 
+  this.course = this.recievedData.course;
+  this.sched = this.course.course.schedule;
+  this.ins = this.course.course.instructors;
+  for(let x in this.ins){
+    let Datalist: any = {};
+    userApi.GetUser(this.ins[x]).subscribe(data => {
+      Datalist.ins = data.firstname + " " + data.lastname;
+      this.insConverted.push(Datalist);
+      //console.log(this.insConverted);
+    })
+  }
+  //console.log(this.recievedData.course);
+  //console.log(this.sched);
+
+}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+

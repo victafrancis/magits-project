@@ -23,54 +23,42 @@ export class SessionsComponent implements OnInit {
   displayedColumns: string[] = ['date', 'course', 'schedule', 'sendFeedback'];
   dataSource: MatTableDataSource<Session>;
   UserData: any = [];
-  course_id: any;
   course_name: any;
-  course_start_time: any;
-  course_end_time: any;
-  course_date: any;
-  session_id: any;
-  sent_feedback: boolean = false;
+
+
+  
+  sessionWhole: any = [];
 
   constructor(private courseApi: CourseService, public datePipe: DatePipe, public dialog: MatDialog, private userApi: UserService, private _authService: AuthService) {
 
       this.userApi.GetMemberSessionsAttended({'subject': this.value}).subscribe(data => {
         for(let x in data){
           let DataList: any = {};
-          DataList.date = data[x].date;
-          DataList.start_time = data[x].start_time;
-          DataList.end_time = data[x].end_time;
-          //this.sent_feedback = data[x].feedback_sent;
-          DataList.boolFeedback = data[x].feedback_sent;
-          //console.log(this.sent_feedback);
+          this.sessionWhole = data;
+          //console.log(this.sessionWhole);
 
           this.courseApi.GetCourse(data[x].course_id).subscribe(data1 => {
             DataList.courseName = data1.name;
             this.course_name = data1.name;
           });
 
-          this.UserData.push(DataList);
-          this.course_id = data[x].course_id;
-          this.course_start_time = data[x].start_time;
-          this.course_end_time = data[x].end_time;
-          this.course_date = data[x].date;
-          this.session_id = data[x].session_id;
-
-          this.dataSource = new MatTableDataSource<Session>(this.UserData);
+          this.dataSource = new MatTableDataSource<Session>(this.sessionWhole);
         }
-        //console.log(data);
       });
    }
 
   
-  openDialog(): void {
+  openDialog(element): void {
     const dialogRef = this.dialog.open(DialogOverviewSessionFeedback, {
       maxWidth: '350px',
+      maxHeight: '750px',
       width: '80%',
-      data: {course_id: this.course_id, courseName: this.course_name, start_time: this.course_start_time, end_time: this.course_end_time, date: this.course_date, session_id: this.session_id}
+      data: { session: element}
     });
+    //console.log(element);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   
@@ -103,17 +91,16 @@ token = this._authService.decode();
 value = this.token.subject;
 error = false;
 
+
+session: any;
+
   constructor( private router: Router,
     private ngZone: NgZone,
     private _authService: AuthService, private feedbackApi: FeedbackService , public fb: FormBuilder, public datePipe: DatePipe, @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
     public dialogRef: MatDialogRef<DialogOverviewSessionFeedback>){
 
-      this.course_id = this.recievedData.course_id;
-      this.courseName = this.recievedData.courseName;
-      this.start_time = this.recievedData.start_time;
-      this.end_time = this.recievedData.end_time;
-      this.date = this.recievedData.date;
-      this.session_id = this.recievedData.session_id
+      this.session = this.recievedData.session;
+      console.log(this.recievedData.session);
 
       this.userFeedback = this.fb.group({
         content: ['', [Validators.required]],
@@ -125,18 +112,11 @@ error = false;
   }
 
   sendFeedback(){
-    this.feedbackApi.AddFeedback({'content': this.userFeedback.value.content, 'member': this.value, 'session': this.session_id}).subscribe(res => {
+    this.feedbackApi.AddFeedback({'content': this.userFeedback.value.content, 'member': this.value, 'session': this.session.session_id}).subscribe(res => {
       this.onNoClick();
       window.alert('Successfully gave feedback. Thank You!');
       location.reload();
-      //this.ngZone.run(() => this.router.navigateByUrl('/member/sessions'));
-
-
     })
-    //console.log(this.userFeedback.value.content);
-    //console.log(this.value);
-    //console.log(this.session_id);
-
   }
 
   /* Get errors */

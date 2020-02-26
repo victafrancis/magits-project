@@ -19,17 +19,26 @@
           
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Course Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <td class="clickable" (click)="openDialog(element)" mat-cell *matCellDef="let element"> {{element.course.name}} </td>
         </ng-container>
     
         <ng-container matColumnDef="membership_type">
           <th mat-header-cell *matHeaderCellDef> Membership Type </th>
-          <td mat-cell *matCellDef="let element"> {{element.mType}} </td>
+          <td class="clickable" mat-cell *matCellDef="let element"> {{element.membership.membership_type}} </td>
         </ng-container>
 
         <ng-container matColumnDef="session_remaining">
           <th mat-header-cell *matHeaderCellDef> Session Remaining </th>
-          <td mat-cell *matCellDef="let element"> {{element.sess}} </td>
+          <ng-container *matCellDef="let element">
+            <td class="clickable"  mat-cell *ngIf="element.sessions_remaining; else sub"> {{element.sessions_remaining}} </td>
+          </ng-container>
+
+          <ng-template #sub>
+            <td mat-cell>
+              monthly
+            </td>
+          </ng-template>
+
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
@@ -50,17 +59,17 @@
   
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
+      <td class="clickable"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
     </ng-container>
   
     <ng-container matColumnDef="from">
       <th mat-header-cell *matHeaderCellDef> From </th>
-      <td mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
+      <td class="clickable" mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="subject">
       <th mat-header-cell *matHeaderCellDef> Subject </th>
-      <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+      <td class="clickable" mat-cell *matCellDef="let element"> {{element.subject}} </td>
     </ng-container>
 
   

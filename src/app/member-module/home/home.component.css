@@ -32,6 +32,10 @@ h1{
     overflow: auto;
 }
 
+.clickable{
+    cursor: pointer;
+}
+
 
 
 
