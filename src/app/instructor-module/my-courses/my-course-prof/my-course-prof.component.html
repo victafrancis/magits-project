@@ -109,18 +109,20 @@
     </div>
 
     <div [hidden]="!sessions" class="container" style="width: 50%; margin: auto;">
-        <table mat-table [dataSource]="sessionDataSource" class="mat-elevation-z8">
-
+        <table mat-table matSort 
+            matSortActive="date" matSortDirection="desc" matSortDisableClear 
+            [dataSource]="sessionDataSource" class="mat-elevation-z8">
+    
             <!-- Date Column -->
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Date </th>
-                <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let element">{{element.date | date: 'MM/dd/yyyy'}}</td>
             </ng-container>
 
             <!-- Day Column -->
             <ng-container matColumnDef="day">
                 <th mat-header-cell *matHeaderCellDef> Day </th>
-                <td mat-cell *matCellDef="let element">{{element.date | date: 'MM-dd-yyyy'}}</td>
+                <td mat-cell *matCellDef="let element">{{element.date | date: 'EEEE'}}</td>
             </ng-container>
 
             <!-- Time Column -->
