@@ -1,4 +1,4 @@
-<h1>Home</h1>
+<h1>My Courses</h1>
 
 <mat-grid-list [cols]="columns" rowHeight="5:3">
     
@@ -18,10 +18,19 @@
     <table mat-table [dataSource]="dataSourceMembership" class="myCourseTable">
           
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> My Courses </th>
-          <td mat-cell *matCellDef="let element"> {{element}} </td>
+          <th mat-header-cell *matHeaderCellDef> Course Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
     
+        <ng-container matColumnDef="membership_type">
+          <th mat-header-cell *matHeaderCellDef> Membership Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="session_remaining">
+          <th mat-header-cell *matHeaderCellDef> Session Remaining </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsMembership;"></tr>
