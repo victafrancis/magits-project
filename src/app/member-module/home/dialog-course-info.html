@@ -1,0 +1,20 @@
+<h1>{{course.course.name}}</h1>
+Instructor(s):
+<ul *ngFor="let i of insConverted">
+    <li>
+      {{i.ins}}
+    </li>
+</ul>
+
+{{course.course.details}}
+<ul *ngFor="let s of sched">
+    <li>
+      Day: {{s.day}}
+    </li>
+    <li>
+       Start: {{s.start}}
+    </li>
+    <li>
+        End:{{s.end}}
+    </li>
+</ul>

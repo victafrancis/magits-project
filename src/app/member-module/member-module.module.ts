@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent, DialogCourseInfo } from './home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
 import { memberRoutes } from './member.routes';
@@ -21,8 +21,8 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
-  entryComponents: [SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword, CourseDescriptionComponent, DialogOverviewEnrollMember],
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewEnrollMember, DialogOverviewChangePassword],
+  entryComponents: [HomeComponent, DialogCourseInfo, SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword, CourseDescriptionComponent, DialogOverviewEnrollMember],
+  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewEnrollMember, DialogOverviewChangePassword, DialogCourseInfo],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
