@@ -28,7 +28,7 @@ myNumberQRVersion = 9;
 //data
 UserData: any = [];
 dataSourceMembership: MatTableDataSource<Course>;
-displayedColumnsMembership: string[] = ['name'];
+displayedColumnsMembership: string[] = ['name', 'membership_type','session_remaining'];
 
 UserDataAnnouncement: any = [];
 dataSourceAnnouncement: MatTableDataSource<Announcement>;
@@ -54,15 +54,21 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
         }
       }
     });
-  
-    this.userApi.GetUser(this.value).subscribe(data => {
-        for(let x in data.courses){
-          courseApi.GetCourse(data.courses[x].course).subscribe(data1 => {
-          this.UserData.push(data1.name);
-          this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
-          });
+    this.userApi.GetMemberCourseDetails({'subject': this.value}).subscribe(data => {
+      for(let x in data){
+        let Datalist: any = {};
+        Datalist.name = data[x].course.name;
+        Datalist.mType = data[x].membership.membership_type;
+        Datalist.sess = data[x].sessions_remaining;
+        if(Datalist.sess == undefined){
+          Datalist.sess = 'monthly';
         }
-    });
+        this.UserData.push(Datalist);
+      }
+      this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
+    })
+
+    
 
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.UserDataAnnouncement = data;
