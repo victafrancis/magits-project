@@ -79,7 +79,7 @@ courseWhole: any = [];
 
    openDialog(element): void {
     const dialogRef = this.dialog.open(DialogCourseInfo, {
-      maxWidth: '350px',
+      maxWidth: '750px',
       maxHeight: '750px',
       width: '80%',
       data: {course: element}
