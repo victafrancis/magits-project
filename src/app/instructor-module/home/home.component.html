@@ -58,7 +58,7 @@
                
                 <!-- the older the time the greater the value -->
                 <!-- && (row.start_time > currentTime && currentTime < row.end_time) -->
-                <div *ngIf= "row.status === 'Not Started' && (row.start_time > currentTime && currentTime < row.end_time)">
+                <div *ngIf= "row.status === 'Not Started' && (row.start_time <= currentTime && currentTime < row.end_time)">
                     <button mat-raised-button color="warn" (click)="startSession(row)">
                         <i class="material-icons">directions_run</i> &nbsp;Start
                     </button>
