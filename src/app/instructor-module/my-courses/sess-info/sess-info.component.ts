@@ -6,7 +6,7 @@ import { FormGroup} from "@angular/forms";
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SessionService } from 'src/app/_services/session/session.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { User } from 'src/app/_services/user/user';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/_services/user/user.service';
@@ -40,17 +40,19 @@ course: any={};
   displayedColumns: string[] = ['member','customColumn'];
   attendeeDataSource: MatTableDataSource<User>;
   checkInTime: any=[];
-
+  @ViewChild('attendeePaginator', {static: true}) attendeePaginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) attendeeSort: MatSort
+  
 //Feedback Table
   feedback: any=[];
-  feedbackDisplayedColumns: string[] = ['content'];
+  feedbackDisplayedColumns: string[] = ['date','content'];
   feedbackDataSource: MatTableDataSource<Feedback>;
+  @ViewChild('feedbackPaginator', {static: true}) feedbackPaginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
 
   //LOADING
   isLoading: boolean = true;
   noAttendees: boolean = false; 
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
    constructor(
      public dialog: MatDialog, 
@@ -96,6 +98,8 @@ course: any={};
     this.sessionApi2.ViewSessionFeedback({session_id: this.session_id}).subscribe(feedbackData => {
      this.feedback = feedbackData;
      this.feedbackDataSource = new MatTableDataSource<Feedback>(this.feedback);
+     this.feedbackDataSource.sort = this.sort;
+     this.feedbackDataSource.paginator = this.feedbackPaginator;
     });
 
       // GET SESSION ATTENDEES
@@ -107,18 +111,7 @@ course: any={};
             this.getUser(data.attendees[index].member);
           }
         }  
-      }else{
-
-        // if(data.attendees.length > 0){
-        //   this.isLoading = false;
-        // }else if(data.attendees.length == 0){
-        //   this.isLoading = false;
-        //   this.noAttendees = true;
-        // }
-  
       }
-      
-
       });
 
     }
@@ -141,11 +134,17 @@ course: any={};
   }
 
   getUser(id:any){
-    this.memberApi.GetUser(id).subscribe(user =>{
-      this.attendees.push(user);
-      this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
-      this.attendeeDataSource.paginator = this.paginator;
-    }) 
+    if(id != undefined){
+      this.memberApi.GetUser(id).subscribe(user =>{
+        if(id == undefined){
+          user.firstname = "NaMA"
+        }
+        this.attendees.push(user);
+        this.attendeeDataSource = new MatTableDataSource<User>(this.attendees);
+        this.attendeeDataSource.paginator = this.attendeePaginator;
+      }) 
+    }
+    
 
   }
 

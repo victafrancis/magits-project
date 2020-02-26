@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../_services/course/course.service';
-import { MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
-import { Location } from '@angular/common';
+import { MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Location, DatePipe } from '@angular/common';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { Session } from 'src/app/_services/session/session';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,8 @@ export class MyCourseProfComponent implements OnInit {
   displayedColumns: string[] = ['date','day','time','attendees','feedback'];
   // @ViewChild(MatPaginator, {static: true}) sessionPaginator: MatPaginator;
   @ViewChild('sessionPaginator', {static: true}) sessionPaginator: MatPaginator;
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort
+  
   course_id: any;
   course : any = {};
   instructors = [];
@@ -50,6 +51,7 @@ export class MyCourseProfComponent implements OnInit {
     private router: Router,
     private location: Location,
     media: MediaObserver,
+    private datePipe: DatePipe
   )
   {
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -64,6 +66,23 @@ export class MyCourseProfComponent implements OnInit {
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
+      
+      for (const i in data.schedule) {
+        // start
+        var start_hour = data.schedule[i].start.slice(0, 2);
+        var start_min = data.schedule[i].start.slice(3);
+        var start = new Date();
+        start.setHours(start_hour, start_min, 0);
+        data.schedule[i].start = this.datePipe.transform(start, "h:mm a");
+
+        // // end
+        var end_hour = data.schedule[i].end.slice(0, 2);
+        var end_min = data.schedule[i].end.slice(3);
+        var end = new Date();
+        end.setHours(end_hour, end_min, 0);
+        data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
+      }
+
       this.course = data;
       this.getSessions(this.course);
     });
@@ -117,6 +136,7 @@ export class MyCourseProfComponent implements OnInit {
     this.sessionApi.GetSessionsByCourse(this.course).subscribe(data =>{
     this.sessions = data;
     this.sessionDataSource = new MatTableDataSource<Session>(this.sessions);
+    this.sessionDataSource.sort = this.sort;
     this.sessionDataSource.paginator = this.sessionPaginator;
     });
   }
@@ -124,4 +144,14 @@ export class MyCourseProfComponent implements OnInit {
   viewSession(session: any){
     this.router.navigate(['/instructor/sess-info/', session._id]);
   }
+
+  //Transform end time from string to datetime
+  stringToDate(time: any){
+    // console.log(time);
+   var newTime = new Date();
+   var end_hour = time.slice(0,2);
+   var end_min = time.slice(3);
+   newTime.setHours(end_hour, end_min, 0);
+   return newTime;
+ }
 }
