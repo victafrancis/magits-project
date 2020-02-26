@@ -8,7 +8,7 @@ import { CourseService } from '../../../_services/course/course.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from 'src/app/_services/user/user.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { MediaChange, MediaObserver  } from '@angular/flex-layout';
 
@@ -31,12 +31,7 @@ myNumberQRVersion = 9;
   constructor(
     private actRoute: ActivatedRoute,
     private courseApi: CourseService,
-    private router: Router,
-    private fb: FormBuilder,
-    private ngZone: NgZone,
-    private userApi: UserService,
-    private matDialog: MatDialog,
-    private location: Location,
+    private datePipe: DatePipe,
     media: MediaObserver, 
   )
   {
@@ -52,13 +47,40 @@ myNumberQRVersion = 9;
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
+
+      for (const i in data.schedule) {
+        // start
+        var start_hour = data.schedule[i].start.slice(0, 2);
+        var start_min = data.schedule[i].start.slice(3);
+        var start = new Date();
+        start.setHours(start_hour, start_min, 0);
+        data.schedule[i].start = this.datePipe.transform(start, "h:mm a");
+
+        // // end
+        var end_hour = data.schedule[i].end.slice(0, 2);
+        var end_min = data.schedule[i].end.slice(3);
+        var end = new Date();
+        end.setHours(end_hour, end_min, 0);
+        data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
+
+        // let newStart = this.datePipe.transform(this.stringToDate(data.schedule[i].start), 'h:mm a');
+        // let newEnd = this.datePipe.transform(this.stringToDate(data.schedule[i].end), 'h:mm a');
+        // this.course.schedule[i].start = newStart;
+        // this.course.schedule[i].end = newEnd;
+      }
+
       this.course.details = data.details;
       this.course.instructors = data.instructors;
       this.course.max_students = data.max_students;
       this.course.name = data.name;
       this.course.schedule = data.schedule;
+      console.log(this.course.schedule)
+      this.course.session_membership = data.session_membership;
+      this.course.subscription_membership = data.subscription_membership;
     });
 
+     // data.schedule[i].start = this.datePipe.transform(this.stringToDate(data.schedule[i].start), 'h:mm a');
+        // data.schedule[i].end = this.datePipe.transform(this.stringToDate(data.schedule[i].end), 'h:mm a');
     //WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
@@ -79,6 +101,16 @@ myNumberQRVersion = 9;
   }
 
   ngOnInit() {
+  }
+
+   //Transform end time from string to datetime
+   stringToDate(time: any){
+     console.log(time);
+    var newTime = new Date();
+    var end_hour = time.slice(0,2);
+    var end_min = time.slice(3);
+    newTime.setHours(end_hour, end_min, 0);
+    return newTime;
   }
 
   ngOnDestroy() {

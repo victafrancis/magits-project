@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div *ngIf="CourseData.length > 0" class="container" style="width: 80%; margin: auto;">
+<div [hidden]="!CourseData" class="container" style="width: 80%; margin: auto;">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Course Name Column -->

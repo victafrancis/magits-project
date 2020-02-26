@@ -24,7 +24,7 @@
 
 
 <!-- Members Table -->
-<div *ngIf="UserData.length > 0" class="container" style="width: 80%; margin: auto;">
+<div [hidden]="!UserData" class="container" style="width: 80%; margin: auto;">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Member ID Column -->

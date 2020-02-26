@@ -26,7 +26,7 @@
     <mat-grid-tile>
         <mat-card>
             <!------------------------------------Attendees Table -------------------------------------------------  -->
-            <div *ngIf="attendees.length > 0 ">
+            <div [hidden]="!attendees">
               
                 <div class="title-group">
                     <div>
@@ -39,7 +39,7 @@
                         <br>
                 </div>
             
-                <div *ngIf="attendees" class="container" style="width: 100%; margin: auto;">
+                <div [hidden]="!attendees" class="container" style="width: 100%; margin: auto;">
                     <table mat-table [dataSource]="attendeeDataSource" class="mat-elevation-z8">
             
                         <!-- Date Column -->
@@ -59,6 +59,7 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+                    <mat-paginator [pageSizeOptions]="[5,10,15]"></mat-paginator>
                 </div>
             </div>
 
