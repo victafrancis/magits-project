@@ -54,34 +54,18 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
         }
       }
     });
-  let Datalist: any = {};
-    // this.userApi.GetUser(this.value).subscribe(data => {
-    //     for(let x in data.courses){
-    //       courseApi.GetCourse(data.courses[x].course).subscribe(data1 => {
-    //       Datalist.name = data1.name;
-    //       this.UserData.push(Datalist);
-    //       this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
-    //       });
-    //     }
-    // });
-
-    
     this.userApi.GetMemberCourseDetails({'subject': this.value}).subscribe(data => {
-      //Datalist.name = data.course.name;
-      //console.log(data[0]);
       for(let x in data){
-        console.log(data[x]);
+        let Datalist: any = {};
         Datalist.name = data[x].course.name;
         Datalist.mType = data[x].membership.membership_type;
         Datalist.sess = data[x].sessions_remaining;
         if(Datalist.sess == undefined){
           Datalist.sess = 'monthly';
         }
-        //console.log(data[x].course.name);
         this.UserData.push(Datalist);
-        this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
-
       }
+      this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
     })
 
     
