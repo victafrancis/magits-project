@@ -32,7 +32,7 @@
 
         <!-- Birthdate -->
         <mat-form-field class="inputs" appearance="fill">
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" placeholder="Choose a date" formControlName="birthdate">
+          <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" placeholder="Choose a date" formControlName="birthdate">
           <mat-label>Birth Date</mat-label>
                 <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>

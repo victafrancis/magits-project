@@ -56,19 +56,12 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
     });
   
     this.userApi.GetUser(this.value).subscribe(data => {
-      
-      if(data.courses.length > 1){
         for(let x in data.courses){
           courseApi.GetCourse(data.courses[x].course).subscribe(data1 => {
           this.UserData.push(data1.name);
           this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
           });
         }
-      }else{
-         courseApi.GetCourse(data.courses[0].course).subscribe(data1 => {
-          this.dataSourceMembership = new MatTableDataSource<Course>(this.UserData);
-        })
-      }
     });
 
     this.announcementApi.GetAnnouncements().subscribe(data => {
