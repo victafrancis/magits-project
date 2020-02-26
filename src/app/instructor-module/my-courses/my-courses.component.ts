@@ -4,6 +4,7 @@ import { UserService } from 'src/app/_services/user/user.service';
 import { MatTableDataSource } from '@angular/material';
 import { Course } from 'src/app/_services/course/course';
 import { Schedule } from 'src/app/_services/schedule/schedule';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class MyCoursesComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    private userApi: UserService
+    private userApi: UserService,
+    private router: Router
     ) {
       this.user = this._authService.decode();
       this.userApi.GetInstructorCourseDetails(this.user).subscribe(data => {
@@ -48,6 +50,8 @@ export class MyCoursesComponent implements OnInit {
     this._authService.logout();
   }
 
- 
+  viewInfo(course: any){
+    this.router.navigate(['/instructor/my-course-prof/', course.course._id])
+  }
 
 }
