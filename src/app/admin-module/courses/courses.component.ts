@@ -16,12 +16,17 @@ export class CoursesComponent implements OnInit {
   displayedColumns: string[] = ['name', 'instructors', 'members', 'action'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+   //LOADING
+   isLoading: boolean = false;
+   noCourses: boolean = false; 
+ 
+
   constructor
     (
       private courseApi: CourseService,
       private router: Router
     ) {
-
+    this.isLoading = true;	
     let CourseData = [];
 
     this.courseApi.GetCourses().subscribe(data => {
@@ -42,6 +47,14 @@ export class CoursesComponent implements OnInit {
 
       this.dataSource = new MatTableDataSource<Course>(CourseData);
       this.dataSource.paginator = this.paginator;
+
+      if(this.dataSource.data.length > 0){
+        this.isLoading = false;
+      }else if(this.dataSource.data.length  == 0){
+        this.isLoading = false;
+        this.noCourses = true;
+      }
+
     });
 
   }
