@@ -1,4 +1,4 @@
-<h2 style="text-align: center;">Create Announcement</h2>
+<h2 style="text-align: center; width: 95%;">Create Announcement</h2>
 <br>
 <mat-divider fxFlex="1 0"></mat-divider>
 <br>
@@ -6,15 +6,8 @@
     <form [formGroup]="announcementForm" (ngSubmit)="submitAnnouncementForm()" novalidate>
         <mat-card>
             <div class="controlers-wrapper">
-
-                <!-- Date -->
-                <mat-form-field class="example-full-width">
-                    {{currentDate | date: 'MM-dd-yyyy'}}
-                    <input type="date" matInput placeholder="Date" formControlName="date" hidden>
-                    <mat-error *ngIf="handleError('date', 'required')">
-                        You must provide a<strong> date</strong>
-                    </mat-error>
-                </mat-form-field>
+                <!-- Current Date -->
+                <h2> {{currentDate | date: 'MM-dd-yyyy'}} </h2>
 
                 <!-- Subject -->
                 <mat-form-field class="example-full-width">
@@ -26,21 +19,20 @@
 
                 <!-- Content -->
                 <mat-form-field>
-                    <textarea matInput class="myTextArea" 
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="5" formControlName="content"></textarea>
+                    <textarea matInput class="myTextArea" cdkTextareaAutosize cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5" formControlName="content"></textarea>
                     <mat-error *ngIf="handleError('content', 'required')">
                         You must provide a<strong> Content</strong>
                     </mat-error>
-                  </mat-form-field>
+                </mat-form-field>
 
 
                 <!-- Submit & Reset -->
                 <div class="full-wrapper button-wrapper">
                     <div class="button-wrapper">
                         <button class="AdminModuleButtons" mat-flat-button color="warn"> Create </button>
-                        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="backPressed()"> Back </button>
+                        <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="backPressed()"> Back
+                        </button>
                     </div>
                 </div>
             </div>
