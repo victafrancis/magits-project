@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       if (change) {
         if (change.mqAlias == 'xs') {
           this.columns = 1;
-          this.myNumberQRVersion = 4;
+          this.myNumberQRVersion = 7;
         } else if( change.mqAlias == 'sm'){
           this.myNumberQRVersion = 8;
         } else if( change.mqAlias == 'md'){
