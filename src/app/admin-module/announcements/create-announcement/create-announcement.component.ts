@@ -34,7 +34,6 @@ export class CreateAnnouncementComponent implements OnInit {
 
   AnnouncementForm() {
     this.announcementForm = this.fb.group({
-      date: [this.datePipe.transform(this.currentDate, 'yyyy-MM-dd'), [Validators.required]],
       subject: ['', [Validators.required]],
       content: ['', Validators.required],
       user: [this.user_id]
