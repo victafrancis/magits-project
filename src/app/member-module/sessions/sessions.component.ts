@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Optional } from '@angular/core';
+import { Component, OnInit, Inject, Optional, NgZone } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UserService } from '../../_services/user/user.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
@@ -9,6 +9,7 @@ import { Session } from '../../_services/session/session';
 import { timingSafeEqual } from 'crypto';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { FeedbackService } from "../../_services/feedback/feedback.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sessions',
@@ -102,7 +103,9 @@ token = this._authService.decode();
 value = this.token.subject;
 error = false;
 
-  constructor(private _authService: AuthService, private feedbackApi: FeedbackService , public fb: FormBuilder, public datePipe: DatePipe, @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
+  constructor( private router: Router,
+    private ngZone: NgZone,
+    private _authService: AuthService, private feedbackApi: FeedbackService , public fb: FormBuilder, public datePipe: DatePipe, @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
     public dialogRef: MatDialogRef<DialogOverviewSessionFeedback>){
 
       this.course_id = this.recievedData.course_id;
@@ -125,7 +128,9 @@ error = false;
     this.feedbackApi.AddFeedback({'content': this.userFeedback.value.content, 'member': this.value, 'session': this.session_id}).subscribe(res => {
       this.onNoClick();
       window.alert('Successfully gave feedback. Thank You!');
-      window.location.reload();
+      location.reload();
+      //this.ngZone.run(() => this.router.navigateByUrl('/member/sessions'));
+
 
     })
     //console.log(this.userFeedback.value.content);
