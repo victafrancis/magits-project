@@ -35,13 +35,6 @@ export class SessionsComponent implements OnInit {
         for(let x in data){
           let DataList: any = {};
           this.sessionWhole = data;
-          //console.log(this.sessionWhole);
-
-          this.courseApi.GetCourse(data[x].course_id).subscribe(data1 => {
-            DataList.courseName = data1.name;
-            this.course_name = data1.name;
-          });
-
           this.dataSource = new MatTableDataSource<Session>(this.sessionWhole);
         }
       });
@@ -100,8 +93,7 @@ session: any;
     public dialogRef: MatDialogRef<DialogOverviewSessionFeedback>){
 
       this.session = this.recievedData.session;
-      console.log(this.recievedData.session);
-
+      //console.log(this.recievedData.session);
       this.userFeedback = this.fb.group({
         content: ['', [Validators.required]],
       }); 

@@ -24,13 +24,13 @@
     
         <ng-container matColumnDef="membership_type">
           <th mat-header-cell *matHeaderCellDef> Membership Type </th>
-          <td class="clickable" mat-cell *matCellDef="let element"> {{element.membership.membership_type}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.membership.membership_type}} </td>
         </ng-container>
 
         <ng-container matColumnDef="session_remaining">
           <th mat-header-cell *matHeaderCellDef> Session Remaining </th>
           <ng-container *matCellDef="let element">
-            <td class="clickable"  mat-cell *ngIf="element.sessions_remaining; else sub"> {{element.sessions_remaining}} </td>
+            <td mat-cell *ngIf="element.sessions_remaining; else sub"> {{element.sessions_remaining}} </td>
           </ng-container>
 
           <ng-template #sub>
@@ -64,12 +64,12 @@
   
     <ng-container matColumnDef="from">
       <th mat-header-cell *matHeaderCellDef> From </th>
-      <td class="clickable" mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
+      <td  mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="subject">
       <th mat-header-cell *matHeaderCellDef> Subject </th>
-      <td class="clickable" mat-cell *matCellDef="let element"> {{element.subject}} </td>
+      <td  mat-cell *matCellDef="let element"> {{element.subject}} </td>
     </ng-container>
 
   
