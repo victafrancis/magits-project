@@ -43,10 +43,10 @@ export class AnnouncementsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
-      console.log(this.Announcements[0].user.firstname)
-      if(this.Announcements.length > 0){
+
+      if(this.dataSource.data.length > 0){
         this.isLoading = false;
-      }else if(this.Announcements.length == 0){
+      }else if(this.dataSource.data.length == 0){
         this.isLoading = false;
         this.noAnnouncements = true;
       }
