@@ -24,12 +24,12 @@
     
         <ng-container matColumnDef="membership_type">
           <th mat-header-cell *matHeaderCellDef> Membership Type </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.mType}} </td>
         </ng-container>
 
         <ng-container matColumnDef="session_remaining">
           <th mat-header-cell *matHeaderCellDef> Session Remaining </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.sess}} </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
