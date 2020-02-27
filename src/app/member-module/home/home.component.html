@@ -59,7 +59,7 @@
   
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td class="clickable"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
+      <td class="clickable" (click)="openDialogAnnouncement(element)"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
     </ng-container>
   
     <ng-container matColumnDef="from">

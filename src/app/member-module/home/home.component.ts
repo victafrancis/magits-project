@@ -28,14 +28,13 @@ value = this.token.subject;
 myNumberQRVersion = 9;
 
 //data
-UserData: any = [];
+courseWhole: any = [];
 dataSourceMembership: MatTableDataSource<Course>;
 displayedColumnsMembership: string[] = ['name', 'membership_type','session_remaining'];
 
 UserDataAnnouncement: any = [];
 dataSourceAnnouncement: MatTableDataSource<Announcement>;
 displayedColumnsAnnouncement: string[] = ['date','from','subject'];
-courseWhole: any = [];
 
 // this is for flex grid, please no touch
   watcher: Subscription;
@@ -83,6 +82,19 @@ courseWhole: any = [];
       maxHeight: '750px',
       width: '80%',
       data: {course: element}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log('The dialog was closed');
+    });
+  }
+
+  openDialogAnnouncement(element): void {
+    const dialogRef = this.dialog.open(DialogAnnouncement, {
+      maxWidth: '750px',
+      maxHeight: '750px',
+      width: '80%',
+      data: {announcement: element}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -147,6 +159,29 @@ constructor(private userApi: UserService, @Optional() @Inject(MAT_DIALOG_DATA) p
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
+
+
+@Component({
+  selector: 'dialog-announcement',
+  templateUrl: './dialog-announcement.html',
+  styleUrls: ['./home.component.css']
+})
+
+export class DialogAnnouncement {
+
+announcement: any;
+
+  constructor(public datePipe: DatePipe, private userApi: UserService, @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any, public dialogRef: MatDialogRef<DialogAnnouncement>){
+    
+    this.announcement = this.recievedData.announcement;
+    //onsole.log(this.announcement);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
 
 

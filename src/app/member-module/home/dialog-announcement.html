@@ -1,0 +1,4 @@
+<h1>{{announcement.subject}}</h1>
+<p>Date: {{ datePipe.transform(announcement.date,'MM/dd/yyyy')}}</p>
+<p>From: {{announcement.user.firstname + " " + announcement.user.lastname}}</p>
+<p>{{announcement.content}}</p>
