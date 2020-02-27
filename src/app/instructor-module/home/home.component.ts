@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
       this.isLoading = true;
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.currentDay = this.datePipe.transform(this.myDate,'EEEE');
-      this.currentTime = this.datePipe.transform(this.myDate,'H:mm:ss a');
+      this.currentTime = this.datePipe.transform(this.myDate,'h:mm:ss a');
 
       // FOR CLOCK
       setInterval(() => {

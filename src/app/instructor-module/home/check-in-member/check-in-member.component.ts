@@ -101,6 +101,7 @@ export class CheckInMemberComponent{
   clearResult(): void {
     this.qrResultString = null;
     this.beforeId = null;
+    this.result.message = null;
   }
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
