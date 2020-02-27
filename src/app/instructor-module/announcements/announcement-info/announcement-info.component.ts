@@ -16,7 +16,6 @@ export class AnnouncementInfoComponent implements OnInit {
     
   ) {
     this.announcement = this.receivedData.announcement;
-    console.log(this.announcement)
   }
 
   ngOnInit() {

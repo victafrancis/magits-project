@@ -1,10 +1,13 @@
-<h1 mat-dialog-title>Announcement Info</h1>
+<div>
+<h1 mat-dialog-title>{{announcement.subject}}</h1>
 <div mat-dialog-content class="myFeedBackDiv">
-  <p>Subject: {{announcement.subject}}</p>
-  <p>Date: {{announcement.date}}</p>
   <p>Sender: {{announcement.user.firstname}}</p>
+  <mat-divider fxFlex="1 0"></mat-divider>
   <p>Content: {{announcement.content}}</p>
+  <mat-divider fxFlex="1 0"></mat-divider>
 </div>
+</div>
+<br><br>
 <div mat-dialog-actions>
     <button class="AdminModuleButtons" mat-raised-button color="warn" (click)="close()"> Close </button>
 </div>
