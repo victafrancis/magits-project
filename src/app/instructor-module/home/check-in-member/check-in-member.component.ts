@@ -53,6 +53,7 @@ export class CheckInMemberComponent{
   course: any={};
   showSessionInfo: boolean = false;
   beforeId : string;
+  checkIntime: any;
 
   constructor(
     private readonly _dialog: MatDialog,
@@ -164,6 +165,7 @@ checkInMember(memberID: any){
   this.member.subject = memberID;
   this.sessionApi.CheckInMember(this.member).subscribe(data=>{
     this.result = data;
+    this.checkIntime = new Date();
 
     if(this.result.message == undefined){
       this.getCourseDetail(data.course);

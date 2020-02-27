@@ -127,11 +127,7 @@
               {{ course.name }} <br>
               {{ result.date | date: 'MM/dd/yyyy'}} <br>
               {{ result.start_time | date:'h:mm a'}} - {{ result.end_time | date:'h:mm a'}}<br>
-              Timestamp: {{ result.time | date:'h:mm:ss a' }}
-              <button mat-icon-button (click)="clearResult()">
-                <i class="material-icons">
-                highlight_off
-                </i></button>
+              Timestamp: {{ checkIntime | date:'h:mm:ss a' }}
               </div>
             </div>
           </div>
