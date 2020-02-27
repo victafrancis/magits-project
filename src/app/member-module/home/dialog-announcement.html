@@ -1,4 +1,10 @@
-<h1>{{announcement.subject}}</h1>
-<p>Date: {{ datePipe.transform(announcement.date,'MM/dd/yyyy')}}</p>
-<p>From: {{announcement.user.firstname + " " + announcement.user.lastname}}</p>
-<p>{{announcement.content}}</p>
+<h1 mat-dialog-title>Announcement Info</h1>
+<div mat-dialog-content class="myFeedBackDiv">
+  <p>Subject: {{announcement.subject}}</p>
+  <p>Date: {{datePipe.transform(announcement.date,'MM/dd/yyyy')}}</p>
+  <p>Sender: {{announcement.user.firstname + " " + announcement.user.lastname}}</p>
+  <p>Content: {{announcement.content}}</p>
+</div>
+<div mat-dialog-actions>
+    <button class="myCancel" mat-raised-button color="warn" (click)="onNoClick()"> Close </button>
+</div>
