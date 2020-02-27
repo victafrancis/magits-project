@@ -26,9 +26,6 @@ export class SessionsComponent implements OnInit {
   UserData: any = [];
   course_name: any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-
-  
   sessionWhole: any = [];
 
   constructor(private courseApi: CourseService, public datePipe: DatePipe, public dialog: MatDialog, private userApi: UserService, private _authService: AuthService) {
@@ -43,7 +40,6 @@ export class SessionsComponent implements OnInit {
       });
    }
 
-  
   openDialog(element): void {
     const dialogRef = this.dialog.open(DialogOverviewSessionFeedback, {
       maxWidth: '350px',
@@ -51,8 +47,6 @@ export class SessionsComponent implements OnInit {
       width: '80%',
       data: { session: element}
     });
-    //console.log(element);
-
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed');
     });
@@ -96,7 +90,6 @@ session: any;
     public dialogRef: MatDialogRef<DialogOverviewSessionFeedback>){
 
       this.session = this.recievedData.session;
-      //console.log(this.recievedData.session);
       this.userFeedback = this.fb.group({
         content: ['', [Validators.required]],
       }); 
