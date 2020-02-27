@@ -27,7 +27,7 @@
         <!-- Sender Column -->
         <ng-container matColumnDef="subject">
             <th mat-header-cell *matHeaderCellDef> Sender </th>
-            <td mat-cell *matCellDef="let element"  (click)="viewAnnouncement(element)"> {{element.user.firstname}} </td>
+            <td mat-cell *matCellDef="let element"  (click)="viewAnnouncement(element)"> {{element.user.firstname + " " + element.user.lastname}} </td>
         </ng-container>
 
         <!-- Subject Column -->
