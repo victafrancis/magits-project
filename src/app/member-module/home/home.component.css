@@ -36,6 +36,13 @@ h1{
     cursor: pointer;
     color: #008E8E;
 }
+.clickable1{
+    cursor: pointer;
+}
+.myCancel{
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 
