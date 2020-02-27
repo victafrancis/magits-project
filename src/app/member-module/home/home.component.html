@@ -1,4 +1,4 @@
-<h1>My Courses</h1>
+<h1>Hello {{name}}</h1>
 
 <mat-grid-list [cols]="columns" rowHeight="5:3">
     
@@ -13,8 +13,12 @@
         </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile>
+    <mat-grid-tile style="overflow: auto;">
 <mat-card class="myCard">
+  
+  <h2>My Courses</h2>
+
+
     <table mat-table [dataSource]="dataSourceMembership" class="myCourseTable">
           
         <ng-container matColumnDef="name">
@@ -44,6 +48,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsMembership;"></tr>
       </table>
+      <br>
     </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
@@ -60,17 +65,17 @@ matSortActive="date" matSortDirection="desc" matSortDisableClear class="mat-elev
   
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-      <td class="clickable" (click)="openDialogAnnouncement(element)"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
+      <td class="clickable1" (click)="openDialogAnnouncement(element)"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
     </ng-container>
   
     <ng-container matColumnDef="from">
       <th mat-header-cell *matHeaderCellDef> From </th>
-      <td  mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
+      <td class="clickable1" (click)="openDialogAnnouncement(element)" mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="subject">
       <th mat-header-cell *matHeaderCellDef> Subject </th>
-      <td  mat-cell *matCellDef="let element"> {{element.subject}} </td>
+      <td class="clickable1" (click)="openDialogAnnouncement(element)" mat-cell *matCellDef="let element"> {{element.subject}} </td>
     </ng-container>
 
   

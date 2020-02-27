@@ -7,6 +7,9 @@ h1{
     margin-bottom: 50px;
     text-align: center;
 }
+h2{
+    text-align: center;
+}
 
 .mat-elevation-z8 td{
     padding-left: 15px;
@@ -27,14 +30,21 @@ h1{
 }
 
 .myCard{
-    width: 100%;
-    height: 100%;
+    width: 90%;
     overflow: auto;
 }
+
 
 .clickable{
     cursor: pointer;
     color: #008E8E;
+}
+.clickable1{
+    cursor: pointer;
+}
+.myCancel{
+    margin-left: auto;
+    margin-right: auto;
 }
 
 

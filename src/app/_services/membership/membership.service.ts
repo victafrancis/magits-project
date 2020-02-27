@@ -10,7 +10,7 @@ import { Membership } from './membership';
 })
 export class MembershipService {
 
-  endpoint: string = 'http://localhost:4000/membership';
+  endpoint: string = 'https://magits-backend.herokuapp.com/membership';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
