@@ -36,6 +36,7 @@ UserDataAnnouncement: any = [];
 dataSourceAnnouncement: MatTableDataSource<Announcement>;
 displayedColumnsAnnouncement: string[] = ['date','from','subject'];
 
+name: any;
 //sort & pag
 
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -62,6 +63,11 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
         }
       }
     });
+
+    this.userApi.GetUser(this.value).subscribe(nameData => {
+      this.name = nameData.firstname;
+    });
+
     this.userApi.GetMemberCourseDetails({'subject': this.value}).subscribe(data => {
       for(let x in data){
         this.courseWhole = data;
