@@ -66,8 +66,9 @@ export class AnnouncementsComponent implements OnInit {
   viewAnnouncement(element) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "view-announcement-component";
-    dialogConfig.width = '80%';
-    dialogConfig.maxWidth= '350px';
+    dialogConfig.maxHeight = "750px";
+    dialogConfig.maxWidth = "750px";
+    dialogConfig.width = "80%";
     dialogConfig.data = { announcement: element };
     const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
