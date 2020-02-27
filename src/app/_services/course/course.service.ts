@@ -11,7 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class CourseService {
 
-  endpoint: string = 'http://localhost:4000/course';
+  endpoint: string = 'https://magits-backend.herokuapp.com/course';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
@@ -77,7 +77,7 @@ export class CourseService {
   }
 
 
-  
+
   // Delete course
   DeleteCourse(id): Observable<any> {
     var API_URL = `${this.endpoint}/delete-course/${id}`;
@@ -106,7 +106,7 @@ export class CourseService {
       catchError(this.errorMgmt)
     )
   }
-  
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

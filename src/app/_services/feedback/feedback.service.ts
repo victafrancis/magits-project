@@ -11,7 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class FeedbackService {
 
-  endpoint: string = 'http://localhost:4000/feedback';
+  endpoint: string = 'https://magits-backend.herokuapp.com/feedback';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
