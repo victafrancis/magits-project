@@ -12,7 +12,7 @@ import { Identifiers } from '@angular/compiler';
 
 export class UserService {
 
-  endpoint: string = 'http://localhost:4000/user';
+  endpoint: string = 'https://magits-backend.herokuapp.com/user';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
