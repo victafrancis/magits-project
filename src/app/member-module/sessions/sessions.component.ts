@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Optional, NgZone } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject, Optional, NgZone } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UserService } from '../../_services/user/user.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
@@ -10,6 +10,7 @@ import { timingSafeEqual } from 'crypto';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { FeedbackService } from "../../_services/feedback/feedback.service";
 import { Router } from '@angular/router';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-sessions',
@@ -24,6 +25,7 @@ export class SessionsComponent implements OnInit {
   dataSource: MatTableDataSource<Session>;
   UserData: any = [];
   course_name: any;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
   
@@ -36,6 +38,7 @@ export class SessionsComponent implements OnInit {
           let DataList: any = {};
           this.sessionWhole = data;
           this.dataSource = new MatTableDataSource<Session>(this.sessionWhole);
+          this.dataSource.paginator = this.paginator;
         }
       });
    }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Course } from '../../_services/course/course';
 import { MatTableDataSource } from '@angular/material';
 import { CourseService } from '../../_services/course/course.service';
 import { UserService } from '../../_services/user/user.service';
 import { delay, first } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth/auth.service';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 export interface Courses {
@@ -33,6 +34,8 @@ export class CoursesComponent implements OnInit {
   token = this._authService.decode();
   value = this.token.subject;
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor(private courseApi: CourseService, private userApi: UserService, private _authService: AuthService) {
     this.courseApi.GetCourses().subscribe(data => {
       for(let x in data){
@@ -58,6 +61,7 @@ export class CoursesComponent implements OnInit {
         DataList.name = data[x].name;
         this.UserData.push(DataList);
         this.dataSource = new MatTableDataSource<Courses>(this.UserData);
+        this.dataSource.paginator = this.paginator;
       }
     });
   }

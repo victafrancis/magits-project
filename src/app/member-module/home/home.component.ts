@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, Optional } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, Inject, Optional } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { Subscription, Observable, forkJoin } from 'rxjs';
 import { map, filter, mergeMap } from "rxjs/operators";
@@ -7,12 +7,12 @@ import { UserService } from '../../_services/user/user.service';
 import { User } from '../../_services/user/user';
 import { CourseService } from '../../_services/course/course.service';
 import { Course } from '../../_services/course/course';
-import { MatTableDataSource } from '@angular/material';
 import { Announcement } from 'src/app/_services/announcement';
 import { AnnouncementService } from 'src/app/_services/announcement/announcement.service';
 import { DatePipe } from '@angular/common'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Schedule } from 'src/app/_services/schedule/schedule';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialogConfig, MatDialog } from '@angular/material';
 
 
 @Component({
@@ -36,6 +36,12 @@ UserDataAnnouncement: any = [];
 dataSourceAnnouncement: MatTableDataSource<Announcement>;
 displayedColumnsAnnouncement: string[] = ['date','from','subject'];
 
+//sort & pag
+
+@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+@ViewChild(MatSort, {static: true}) sort: MatSort
+
+
 // this is for flex grid, please no touch
   watcher: Subscription;
   columns: number = 4;
@@ -57,19 +63,17 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
       }
     });
     this.userApi.GetMemberCourseDetails({'subject': this.value}).subscribe(data => {
-      //console.log(data);
       for(let x in data){
         this.courseWhole = data;
       }
       this.dataSourceMembership = new MatTableDataSource<Course>(this.courseWhole);
     })
 
-    
-
     this.announcementApi.GetAnnouncements().subscribe(data => {
       this.UserDataAnnouncement = data;
       this.dataSourceAnnouncement = new MatTableDataSource<Announcement>(this.UserDataAnnouncement);
-      //console.log(this.UserDataAnnouncement);
+      this.dataSourceAnnouncement.paginator = this.paginator;
+      this.dataSourceAnnouncement.sort = this.sort;
     });
 
    }
@@ -102,26 +106,18 @@ displayedColumnsAnnouncement: string[] = ['date','from','subject'];
     });
   }
 
-
   ngOnDestroy() {
     this.watcher.unsubscribe();
   }
   //// this is for flex grid, please no touch
 
-
-
   ngOnInit() {
   }
 
-
-
-  // call to logout event
   logout() {
     this._authService.logout();
   }
 }
-
-
 
 @Component({
   selector: 'dialog-course-info',
@@ -160,7 +156,6 @@ constructor(private userApi: UserService, @Optional() @Inject(MAT_DIALOG_DATA) p
     this.dialogRef.close();
   }
 }
-
 
 @Component({
   selector: 'dialog-announcement',
