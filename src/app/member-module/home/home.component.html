@@ -52,13 +52,14 @@
 
 
 
-<table mat-table [dataSource]="dataSourceAnnouncement" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSourceAnnouncement" matSort 
+matSortActive="date" matSortDirection="desc" matSortDisableClear class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
       <td class="clickable" (click)="openDialogAnnouncement(element)"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
     </ng-container>
   
@@ -78,7 +79,7 @@
 
   </table>
 
-  <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[3, 10, 20]" showFirstLastButtons></mat-paginator>
 
   <div class="footer">
     <p>Teambits &copy; 2019-2020</p>
