@@ -1,4 +1,4 @@
-<h1>My Courses</h1>
+<h1>Hello {{name}}</h1>
 
 <mat-grid-list [cols]="columns" rowHeight="5:3">
     
@@ -13,8 +13,12 @@
         </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile>
+    <mat-grid-tile style="overflow: auto;">
 <mat-card class="myCard">
+  
+  <h2>My Courses</h2>
+
+
     <table mat-table [dataSource]="dataSourceMembership" class="myCourseTable">
           
         <ng-container matColumnDef="name">
@@ -44,6 +48,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsMembership;"></tr>
       </table>
+      <br>
     </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
