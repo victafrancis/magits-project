@@ -177,8 +177,9 @@ export class HomeComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     dialogConfig.id = "session-info-component";
-    dialogConfig.height = "50%";
-    dialogConfig.width = "50%";
+    dialogConfig.maxHeight = "750px";
+    dialogConfig.maxWidth = "750px";
+    dialogConfig.width = "80%";
     dialogConfig.data = {session_info: sess};
     const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
   }
@@ -214,8 +215,9 @@ export class HomeComponent implements OnInit {
   viewAnnouncement(element) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "view-announcement-component";
-    dialogConfig.height = "40%";
-    dialogConfig.width = "35%";
+    dialogConfig.maxHeight = "750px";
+    dialogConfig.maxWidth = "750px";
+    dialogConfig.width = "80%";
     dialogConfig.data = { announcement: element };
     const modalDialog = this.matDialog.open(AnnouncementInfoComponent, dialogConfig);
   }
