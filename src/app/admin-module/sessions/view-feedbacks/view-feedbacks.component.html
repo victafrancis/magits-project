@@ -1,24 +1,50 @@
 <div class="title-group">
-    <div style="width: 95%;">
-        <h1 style="text-align: center;" class="mat-h1"> Feedback </h1>
+    <div>
+        <h2 style="text-align: center;"> Session Info </h2>
     </div>
-    <mat-divider fxFlex="1 0"></mat-divider>
-    <br>
 </div>
-
+<mat-divider fxFlex="1 0"></mat-divider>
+<br>
 <div class="container" style="margin: auto;">
-    <table mat-table matSort matSortActive="date" matSortDirection="desc" 
-    matSortDisableClear [dataSource]="dataSource" class="mat-elevation-z8">
+    <h3 style="text-align: center; text-decoration: underline;"> Attendance </h3>
+    <table mat-table matSort matSortActive="time" matSortDirection="asc" matSortDisableClear
+        [dataSource]="dataSourceAttendees" class="mat-elevation-z8">
+        <!-- Attendee Name -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.member.firstname + " " + element.member.lastname}} </td>
+        </ng-container>
+
+        <!-- Time of Attendance -->
+        <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 5%;"> Time </th>
+            <td mat-cell *matCellDef="let element" style="padding-right: 5%;"> {{element.time | date: 'h:mm a'}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsAttendees"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumnsAttendees;"></tr>
+    </table>
+    <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 15]">
+    </mat-paginator>
+</div>
+<br>
+<mat-divider fxFlex="1 0"></mat-divider>
+<div class="container" style="margin: auto;">
+    <h3 style="text-align: center; text-decoration: underline;"> Feedback </h3>
+    <table mat-table matSort matSortActive="date" matSortDirection="desc" matSortDisableClear
+        [dataSource]="dataSourceFeedbacks" class="mat-elevation-z8">
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 5%;"> Date </th>
-            <td mat-cell *matCellDef="let element" style="padding-right: 5%;"> {{element.date | date: 'MM/dd/yyyy'}} </td>
+            <td mat-cell *matCellDef="let element" style="padding-right: 5%;"> {{element.date | date: 'MM/dd/yyyy'}}
+            </td>
         </ng-container>
 
         <!-- Sender Column -->
         <ng-container matColumnDef="sender">
-            <th mat-header-cell *matHeaderCellDef > Sender </th>
+            <th mat-header-cell *matHeaderCellDef> Sender </th>
             <td mat-cell *matCellDef="let element"> {{element.member}} </td>
         </ng-container>
 
@@ -31,9 +57,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
-
+    <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[5, 10, 15]">
+    </mat-paginator>
 </div>
-<div style="text-align: center; margin-top: 10%;">
+<br>
+<mat-divider fxFlex="1 0"></mat-divider>
+
+<div style="text-align: center; margin-top: 5%;">
     <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="close()"> Close </button>
 </div>

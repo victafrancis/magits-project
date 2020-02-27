@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatSort, MatPaginato
 import { Feedback } from 'src/app/_services/feedback/feedback';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { UserService } from 'src/app/_services/user/user.service';
+import { User } from 'src/app/_services/user/user';
 
 @Component({
   selector: 'app-view-feedbacks',
@@ -12,8 +13,14 @@ import { UserService } from 'src/app/_services/user/user.service';
 
 export class ViewFeedbacksComponent implements OnInit {
   feedbacks: any;
-  dataSource: MatTableDataSource<Feedback>;
+  attendees: any;
+
+  dataSourceFeedbacks: MatTableDataSource<Feedback>;
+  dataSourceAttendees: MatTableDataSource<User>;
+
   displayedColumns: string[] = ['date', 'sender','content'];
+  displayedColumnsAttendees: string[] = ['name', 'time'];
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -25,18 +32,24 @@ export class ViewFeedbacksComponent implements OnInit {
   ) 
   {
     this.sessionApi.ViewSessionFeedback({'session_id': this.receivedData.session._id}).subscribe(data => {
+      for (const i in data) {
+        this.userApi.GetUser(data[i].member).subscribe(member => {
+          data[i].member = member.firstname + " " + member.lastname;
+        })
+      } 
       this.feedbacks = data;
-      
-      for(var i in this.feedbacks){
-        let temp = [];
-        this.userApi.GetUser(this.feedbacks[i].member).subscribe(data => {
-          this.feedbacks[i].member = (`${data.firstname} ${data.lastname}`);
-        });
-      }
-      this.dataSource = new MatTableDataSource<Feedback>(this.feedbacks);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+      this.dataSourceFeedbacks = new MatTableDataSource<Feedback>(this.feedbacks);
+      this.dataSourceFeedbacks.paginator = this.paginator;
+      this.dataSourceFeedbacks.sort = this.sort;
+    });
+
+
+    this.sessionApi.ViewSessionAttendance(this.receivedData.session._id).subscribe(data => {
+      this.attendees = data;
+      this.dataSourceAttendees = new MatTableDataSource<any>(this.attendees);
+      this.dataSourceAttendees.paginator = this.paginator;
+      this.dataSourceAttendees.sort = this.sort;
+    });
   }
 
   ngOnInit() {
