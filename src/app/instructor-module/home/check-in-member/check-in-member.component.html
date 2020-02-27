@@ -107,23 +107,31 @@
           <h3 style="text-align: left;">Check-in Information:</h3>
        
           <div class="results" *ngIf="qrResultString" >
-            <div id="result">
+
+            <div id="result" *ngIf ="!showSessionInfo">
               <br>
               {{ result.message }}
-            <button mat-icon-button (click)="clearResult()"><i class="material-icons">
+            <button mat-icon-button (click)="clearResult()">
+              <i class="material-icons">
               highlight_off
-              </i></button>
+              </i>
+            </button>
             </div>
           </div>
 
           <div *ngIf ="showSessionInfo" >
             <div *ngIf ="result.message == undefined" id="result">
               <div *ngIf="user && course">
+              Confirmed Checked-in: {{ user.firstname }} {{ user.lastname }}
+              <i class="material-icons" style="color: #008E8E;">done</i><br>
               {{ course.name }} <br>
               {{ result.date | date: 'MM/dd/yyyy'}} <br>
               {{ result.start_time | date:'h:mm a'}} - {{ result.end_time | date:'h:mm a'}}<br>
-              Confirmed Checked-in: {{ user.firstname }} {{ user.lastname }} <br>
               Timestamp: {{ result.time | date:'h:mm:ss a' }}
+              <button mat-icon-button (click)="clearResult()">
+                <i class="material-icons">
+                highlight_off
+                </i></button>
               </div>
             </div>
           </div>

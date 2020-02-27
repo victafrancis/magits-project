@@ -55,7 +55,7 @@
             <th mat-header-cell *matHeaderCellDef> Session </th>
             <td mat-cell *matCellDef="let row; let i = index;">
                
-                <div *ngIf= "row.status === 'Not Started' && (row.start_time < currentTime && currentTime < row.end_time)">
+                <div *ngIf= "row.status === 'Not Started' && (row.start_time <= currentTime && currentTime < row.end_time)">
                     <button mat-raised-button color="warn" (click)="startSession(row)">
                         <i class="material-icons">directions_run</i> &nbsp;Start
                     </button>
