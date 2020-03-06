@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
   course_id: any;
   member_id: any;
   memberships: any = [];
-  membership_selected: null;
+  membership_selected: any;
 
   constructor(
     // DATA PASSED TO MODAL COMPONENT
@@ -34,10 +34,11 @@ export class ModalComponent implements OnInit {
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
       // ADDS THE MEMBERSHIP TYPE TO ARRAY IF OPTION EXISTS
       if (data.session_membership != null) {
-        this.memberships.push({ 'key': 'Session', 'type': data.session_membership._id });
+        this.memberships.push({ 'key': 'Session', 'type': data.session_membership._id,
+         'number_of_sessions': data.session_membership.number_of_sessions, 'cost': data.session_membership.cost});
       }
       if (data.subscription_membership != null) {
-        this.memberships.push({ 'key': 'Subscription', 'type': data.subscription_membership._id });
+        this.memberships.push({ 'key': 'Subscription', 'type': data.subscription_membership._id, 'cost': data.subscription_membership.cost});
       }
 
       // POPULATES DISPLAY FORM
@@ -67,7 +68,7 @@ export class ModalComponent implements OnInit {
   enrollMember() {
     if (this.courseForm.valid) {
       if (window.confirm('Are you sure you want to enroll this member to the course?')) {
-        this.courseApi.EnrolMember(this.course_id, { 'member_id': this.member_id, 'membership_id': this.membership_selected }).subscribe(res => {
+        this.courseApi.EnrolMember(this.course_id, { 'member_id': this.member_id, 'membership_id': this.membership_selected.type}).subscribe(res => {
           this.closeDialog();
           this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
         });
