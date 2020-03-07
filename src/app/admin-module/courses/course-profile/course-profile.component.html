@@ -22,15 +22,51 @@
                 <p *ngFor="let instructor of instructors" style="padding-left: 5%;">{{instructor.name}}</p>
             </div>
 
+            <!-- Max Students -->
+            <div>
+                <p><strong>Max Students:</strong></p>
+                <p style="padding-left: 5%;">{{course.max_students}}</p>
+            </div>
+
+            <!-- Enrolled Students -->
+            <div>
+                <p><strong>Enrolled Students:</strong></p>
+                <p style="padding-left: 5%;">{{number_of_students}}</p>
+            </div>
+
             <!-- Course Details -->
             <div>
                 <p><strong>Course Details:</strong></p>
                 <p style="padding-left: 5%;">{{course.details}}</p>
             </div>
+
             <!-- Course Schedule -->
             <div>
                 <p><strong>Schedule:</strong></p>
-                <p *ngFor='let schedule of course.schedule' style="padding-left: 5%;">{{schedule.day}}: &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>            
+                <p *ngFor='let schedule of course.schedule' style="padding-left: 5%;">{{schedule.day}}:
+                    &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
+            </div>
+
+            <!-- Memberships -->
+            <div>
+                <p><strong>Memberships:</strong></p>
+
+                <!-- Session Membership -->
+                <div *ngIf="course.session_membership != null" style="padding-left: 5%;">
+                    <p>Session Membership</p>
+                    <div style="padding-left: 5%;">
+                        <p>- Cost: ${{course.session_membership.cost}}</p>
+                        <p>- Number of Sessions: {{course.session_membership.number_of_sessions}}</p>
+                    </div>
+                </div>
+
+                <!-- Subscription Membership-->
+                <div *ngIf="course.subscription_membership != null" style="padding-left: 5%;">
+                    <p>Subscription Membership</p>
+                    <div style="padding-left: 5%;">
+                        <p>- Cost: ${{course.subscription_membership.cost}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
