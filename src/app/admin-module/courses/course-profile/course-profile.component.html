@@ -52,19 +52,19 @@
                 <p><strong>Memberships:</strong></p>
 
                 <!-- Session Membership -->
-                <div *ngIf="course.session_membership != null" style="padding-left: 5%;">
+                <div *ngIf="session_membership != null" style="padding-left: 5%;">
                     <p>Session Membership</p>
                     <div style="padding-left: 5%;">
-                        <p>- Cost: ${{course.session_membership.cost}}</p>
-                        <p>- Number of Sessions: {{course.session_membership.number_of_sessions}}</p>
+                        <p>- Cost: ${{session_membership.cost}}</p>
+                        <p>- Number of Sessions: {{session_membership.number_of_sessions}}</p>
                     </div>
                 </div>
 
                 <!-- Subscription Membership-->
-                <div *ngIf="course.subscription_membership != null" style="padding-left: 5%;">
+                <div *ngIf="subscription_membership != null" style="padding-left: 5%;">
                     <p>Subscription Membership</p>
                     <div style="padding-left: 5%;">
-                        <p>- Cost: ${{course.subscription_membership.cost}}</p>
+                        <p>- Cost: ${{subscription_membership.cost}}</p>
                     </div>
                 </div>
             </div>
