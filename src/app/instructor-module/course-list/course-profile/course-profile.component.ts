@@ -17,9 +17,11 @@ export class CourseProfileComponent implements OnInit {
 myNumberQRVersion = 9;
   watcher: Subscription;
   columns: number = 4;
-
+  number_of_students: any;
 
   course_id: any;
+  session_membership: any;
+  subscription_membership: any;
   course = new Course();
   instructors = [];
 
@@ -59,20 +61,17 @@ myNumberQRVersion = 9;
         end.setHours(end_hour, end_min, 0);
         data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
 
-        // let newStart = this.datePipe.transform(this.stringToDate(data.schedule[i].start), 'h:mm a');
-        // let newEnd = this.datePipe.transform(this.stringToDate(data.schedule[i].end), 'h:mm a');
-        // this.course.schedule[i].start = newStart;
-        // this.course.schedule[i].end = newEnd;
+
       }
 
+      this.number_of_students = data.members.length;
       this.course.details = data.details;
       this.course.instructors = data.instructors;
       this.course.max_students = data.max_students;
       this.course.name = data.name;
       this.course.schedule = data.schedule;
-      console.log(this.course.schedule)
-      this.course.session_membership = data.session_membership;
-      this.course.subscription_membership = data.subscription_membership;
+      data.session_membership == null ? this.session_membership = null : this.session_membership = data.session_membership;
+      data.subscription_membership == null ? this.subscription_membership = null : this.subscription_membership = data.subscription_membership;
     });
 
      // data.schedule[i].start = this.datePipe.transform(this.stringToDate(data.schedule[i].start), 'h:mm a');
