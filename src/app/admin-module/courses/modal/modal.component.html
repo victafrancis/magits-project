@@ -7,7 +7,7 @@
     <br>
 </div>
 
-<div class="container" style="text-align: center;">
+<div class="container" style="margin: auto; width: 80%;">
     <form [formGroup]="courseForm" novalidate>
         <!-- LEFT SIDE -->
         <mat-card>
@@ -20,7 +20,7 @@
 
                 <!-- Details -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Details" formControlName="details">
+                    <textarea matInput placeholder="Details" formControlName="details"></textarea>
                 </mat-form-field>
 
                 <!-- Maximum number of members -->
@@ -32,20 +32,29 @@
                 <mat-form-field>
                     <mat-label>Membership Type</mat-label>
                     <mat-select [(value)]="membership_selected" formControlName="user_membership">
-                        <mat-option [value]="m.type" *ngFor="let m of memberships">{{m.key}}
+                        <mat-option [value]="m" *ngFor="let m of memberships">{{m.key}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="handleError('user_membership', 'required')">
                         Membership is required
                     </mat-error>
                 </mat-form-field>
-
+                
+                <div style="margin: auto; width: 40%;" *ngIf="membership_selected != null">
+                    <div>
+                        Cost: ${{membership_selected.cost}}
+                    </div>
+                    <div *ngIf="membership_selected.key == 'Session'">
+                        Number of Sessions: {{membership_selected.number_of_sessions}}
+                    </div>
+                </div>
+                
                 <!-- Submit & Reset -->
-                <mat-card>
+                <mat-card style="text-align: center;">
                     <div class="full-wrapper button-wrapper">
                         <div class="button-wrapper">
-                            <button mat-flat-button color="warn" (click)="enrollMember()"> Enroll </button>&nbsp;
-                            <button mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
+                            <button class="AdminModuleButtons" mat-flat-button color="warn" (click)="enrollMember()"> Enroll </button>&nbsp;
+                            <button class="AdminModuleButtons" mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
                         </div>
                     </div>
                 </mat-card>

@@ -29,7 +29,11 @@
 
                 <!-- Date of Birth-->
                 <mat-form-field class="example-full-width">
-                    <input type="date" matInput placeholder="Date of Birth" formControlName="birthdate">
+                    <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="birthdate">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="handleError('birthdate', 'required')">
                         You must provide a<strong> date of birth</strong>
                     </mat-error>

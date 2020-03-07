@@ -48,7 +48,7 @@ export class CourseSessionsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.id = "view-feedbacks-component";
-    dialogConfig.height = "40%";
+    dialogConfig.height = "80%";
     dialogConfig.width = "45%";
     dialogConfig.data = { session: element};
     const modalDialog = this.matDialog.open(ViewFeedbacksComponent, dialogConfig);

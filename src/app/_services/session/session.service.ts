@@ -11,7 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class SessionService {
 
-  endpoint: string = 'http://localhost:4000/session';
+  endpoint: string = 'https://magits-backend.herokuapp.com/session';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }

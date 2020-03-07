@@ -11,7 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class AnnouncementService {
 
-  endpoint: string = 'http://localhost:4000/announcement';
+  endpoint: string = 'https://magits-backend.herokuapp.com/announcement';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
