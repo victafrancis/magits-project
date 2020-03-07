@@ -32,13 +32,22 @@
                 <mat-form-field>
                     <mat-label>Membership Type</mat-label>
                     <mat-select [(value)]="membership_selected" formControlName="user_membership">
-                        <mat-option [value]="m.type" *ngFor="let m of memberships">{{m.key}}
+                        <mat-option [value]="m" *ngFor="let m of memberships">{{m.key}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="handleError('user_membership', 'required')">
                         Membership is required
                     </mat-error>
                 </mat-form-field>
+                
+                <div style="text-align:left; margin: auto; width: 100%;" *ngIf="membership_selected != null">
+                    <div>
+                        Cost: ${{membership_selected.cost}}
+                    </div>
+                    <div *ngIf="membership_selected.key == 'Session'">
+                        Number of Sessions: {{membership_selected.number_of_sessions}}
+                    </div>
+                </div>
 
                 <!-- Submit & Reset -->
                 <mat-card>

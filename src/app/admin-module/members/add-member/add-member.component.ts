@@ -39,14 +39,14 @@ export class AddMemberComponent implements OnInit {
     if(this.memberForm.valid){
       if(window.confirm('Are you sure you want to add this member?')){
         this.userApi.AddUser(this.memberForm.value).subscribe(res => {
-          this.ngZone.run(() => this.router.navigateByUrl('/admin/members'))
+          this.ngZone.run(() => this.router.navigateByUrl('/instructor/members'))
         });
       }
     }
   }
 
   // Navigates to previous page
-  backPressed(){
+  back(){
     this.location.back();
   }
 }

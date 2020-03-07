@@ -61,4 +61,8 @@ export class EnrollStudentComponent implements OnInit {
   back(){
     this.location.back();
   }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
 }

@@ -3,6 +3,8 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Course } from 'src/app/_services/course/course';
 import { CourseService } from 'src/app/_services/course/course.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-course-list',
@@ -24,7 +26,8 @@ export class CourseListComponent implements OnInit {
   constructor
     (
       private courseApi: CourseService,
-      private router: Router
+      private router: Router,
+      private location: Location
     ) {
     this.isLoading = true;
 
@@ -74,4 +77,5 @@ export class CourseListComponent implements OnInit {
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
+
 }
