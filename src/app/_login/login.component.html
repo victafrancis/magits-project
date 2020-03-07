@@ -2,7 +2,6 @@
 
   <h1 class="login">Martial Arts Gym</h1>
   
-  <p *ngIf="error" class="errorMsg">Wrong Credentials, try again!</p>
   <mat-divider fxFlex="1 0"></mat-divider>
     <div class="myDiv">
       <!-- Form -->
@@ -10,6 +9,7 @@
         <!-- Left block -->
         <mat-card>
           <!-- Email -->
+          <p *ngIf="error" class="errorMsg" style="color: red;">Wrong Credentials, try again!</p>
           <mat-form-field class="inputs1" appearance="fill">
             <input type="email" matInput placeholder="example@email.com" formControlName="email">
             <mat-label>Email</mat-label>

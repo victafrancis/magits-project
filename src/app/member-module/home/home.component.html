@@ -15,12 +15,8 @@
 
     <mat-grid-tile style="overflow: auto;">
 <mat-card class="myCard">
-  
   <h2>My Courses</h2>
-
-
     <table mat-table [dataSource]="dataSourceMembership" class="myCourseTable">
-          
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Course Name </th>
           <td class="clickable" (click)="openDialog(element)" mat-cell *matCellDef="let element"> {{element.course.name}} </td>
