@@ -15,7 +15,7 @@ export class ConfirmEnrollComponent implements OnInit {
   course_id: any;
   member_id: any;
   memberships: any = [];
-  membership_selected: null;
+  membership_selected: any;
 
   constructor(
     // DATA PASSED TO MODAL COMPONENT
