@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     private ngZone: NgZone,
     private userAPI: UserService) {
       const currentDate = new Date();
-      currentDate.setFullYear(currentDate.getFullYear() - 16);
+      currentDate.setFullYear(currentDate.getFullYear() - 12);
       this.maxDate = new Date(currentDate);
      }
 

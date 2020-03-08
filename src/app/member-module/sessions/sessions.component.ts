@@ -103,8 +103,9 @@ session: any;
     this.feedbackApi.AddFeedback({'content': this.userFeedback.value.content, 'member': this.value, 'session': this.session.session_id}).subscribe(res => {
       this.onNoClick();
       window.alert('Successfully gave feedback. Thank You!');
-      location.reload();
-    })
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/member/sessions']);
+    });    })
   }
 
   /* Get errors */

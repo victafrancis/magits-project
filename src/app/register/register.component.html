@@ -3,7 +3,7 @@
 
 <h1 class="login">Registration</h1>
 
-<p *ngIf="error" class="errorMsg">Email already exists, try again!</p>
+<p *ngIf="error" class="errorMsg" style="color: red;">Email already exists, try again!</p>
 
 <div class="myDiv">
 
@@ -32,7 +32,7 @@
 
         <!-- Birthdate -->
         <mat-form-field class="inputs" appearance="fill">
-          <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" placeholder="Choose a date" formControlName="birthdate">
+          <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a Birthdate" formControlName="birthdate">
           <mat-label>Birth Date</mat-label>
                 <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
