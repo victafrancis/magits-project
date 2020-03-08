@@ -100,7 +100,6 @@ myNumberQRVersion = 9;
 
    //Transform end time from string to datetime
    stringToDate(time: any){
-     console.log(time);
     var newTime = new Date();
     var end_hour = time.slice(0,2);
     var end_min = time.slice(3);
