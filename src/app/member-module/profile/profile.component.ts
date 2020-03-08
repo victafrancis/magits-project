@@ -24,6 +24,9 @@ export class ProfileComponent implements OnInit {
   myNumberQRVersion = 9;
   isDisabled = true;
   isHidden = true;
+  maxDate: Date;
+  error = false;
+
 //
   watcher: Subscription;
   columns: number = 4;
@@ -37,6 +40,10 @@ export class ProfileComponent implements OnInit {
 //
 
   constructor(public dialog: MatDialog, private _authService: AuthService, media: MediaObserver, public fb: FormBuilder, private actRoute: ActivatedRoute, private userApi: UserService) {
+
+    const currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 12);
+    this.maxDate = new Date(currentDate);
 
     this.watcher = media.media$.subscribe((change: MediaChange) => {
       if (change) {
@@ -56,7 +63,12 @@ export class ProfileComponent implements OnInit {
 
     var id =  this.value;
     this.userApi.GetUser(id).subscribe(data => {
-      //console.log(data.subjects)
+      console.log(data);
+
+      if(data.password == 'password'){
+        this.error = true;
+      }
+
       this.userForm = this.fb.group({
         firstname: [data.firstname, [Validators.required]],
         lastname: [data.lastname, [Validators.required]],
@@ -155,7 +167,7 @@ export class DialogOverviewChangePassword {
 
 
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewChangePassword>, public fb: FormBuilder, private userApi: UserService, private _authService: AuthService){
+    public router: Router, public dialogRef: MatDialogRef<DialogOverviewChangePassword>, public fb: FormBuilder, private userApi: UserService, private _authService: AuthService){
       this.userPasswordChange = this.fb.group({
         currPassword: ['', [Validators.required]],
         password: ['', [Validators.required]],
@@ -177,6 +189,9 @@ export class DialogOverviewChangePassword {
         if (window.confirm('Are you sure you want to change password?')) {
             this.userApi.UpdateUser(id, this.userPasswordChange.value).subscribe( res => {
             this.onNoClick();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/member/profile']);
+          }); 
           });
         }
       }else{

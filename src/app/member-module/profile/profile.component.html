@@ -17,6 +17,8 @@
     <mat-card class="myCard">
 
         <form [formGroup]="userForm" (ngSubmit)="updateUserForm()" #resetUserForm="ngForm" novalidate>
+          <p *ngIf="error" class="errorMsg" style="color: red;"><b>Default password detected. <br>Please change your password.</b></p>
+
             <!-- Left block -->
             <mat-card>
               <div class="controlers-wrapper">
@@ -46,7 +48,7 @@
 
                   <!-- Birthdate -->
                   <mat-form-field class="example-full-width">
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="birthdate">
+                    <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a Birthdate" formControlName="birthdate">
                     <mat-datepicker-toggle matSuffix [for]="picker">
                     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
