@@ -110,7 +110,7 @@ export class CourseProfileComponent implements OnInit {
     dialogConfig.id = "edit-membership-component";
     dialogConfig.height = "55%";
     dialogConfig.width = "35%";
-    dialogConfig.data = { course_id: this.course_id, subscription_membership: this.course.subscription_membership, session_membership: this.course.session_membership };
+    dialogConfig.data = { course_id: this.course_id, subscription_membership: this.subscription_membership, session_membership: this.session_membership };
     const modalDialog = this.matDialog.open(EditMembershipComponent, dialogConfig);
   }
 }
