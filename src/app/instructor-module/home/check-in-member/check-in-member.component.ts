@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionService } from 'src/app/_services/session/session.service';
 import { UserService } from 'src/app/_services/user/user.service';
 import { CourseService } from 'src/app/_services/course/course.service';
+import { Location } from '@angular/common';
 
 
 
@@ -60,7 +61,8 @@ export class CheckInMemberComponent{
     media: MediaObserver,
     private sessionApi: SessionService,
     private courseApi: CourseService,
-    private userApi: UserService
+    private userApi: UserService,
+    private location: Location
   ) {
     // WATCHER
     this.watcher = media.media$.subscribe((change: MediaChange) => {
@@ -196,6 +198,10 @@ this.show = true;
 hideScanner(){
   this.show = false;
   this.hasPermission = false;
+}
+
+back() {
+  this.location.back();
 }
 
 }
