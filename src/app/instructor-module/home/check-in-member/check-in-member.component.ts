@@ -168,12 +168,14 @@ checkInMember(memberID: any){
   this.sessionApi.CheckInMember(this.member).subscribe(data=>{
     this.result = data;
     this.checkIntime = new Date();
-
-    if(this.result.message == undefined){
-      this.getCourseDetail(data.course);
+  
+    //show course detail and user details
+    if(this.result.message == undefined && this.result.course){
+      this.getCourseDetail(this.result.course); //data.course
       this.getUserDetails(memberID);
       this.showSessionInfo = true;
     }
+
   })
 }
 
@@ -185,7 +187,6 @@ getCourseDetail(courseID: string){
 }
 
 getUserDetails(memberID: string){
-
   this.userApi.GetUser(memberID).subscribe(data=>{
     this.user = data;
   })

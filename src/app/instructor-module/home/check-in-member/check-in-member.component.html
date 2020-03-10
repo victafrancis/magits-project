@@ -109,11 +109,20 @@
         <div class="full-wrapper button-wrapper">
           <h3 style="text-align: left;">Check-in Information:</h3>
        
-          <div class="results" *ngIf="qrResultString" >
+          <div *ngIf="qrResultString" >
 
-            <div id="result" *ngIf ="!showSessionInfo">
+            <div id="result" *ngIf ="!showSessionInfo && result.message">
               <br>
               {{ result.message }}
+              <button mat-icon-button (click)="clearResult()">
+                <i class="material-icons">
+                highlight_off
+                </i>
+              </button>
+            </div>
+            <div id="result" *ngIf ="!result.message && !result.course">
+              <br>
+              <p> No course currently in session.</p>
               <button mat-icon-button (click)="clearResult()">
                 <i class="material-icons">
                 highlight_off
