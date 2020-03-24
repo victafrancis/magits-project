@@ -6,14 +6,14 @@ const logRoute = express.Router();
 let Log = require('../model/Logs');
 
 // get all logs
-logRoute.route('/logs').get((req, res) => {
+logRoute.route('/get-logs').get((req, res, next) => {
     Log.find((error, data) => {
         if(error){
             return next(error)
         }else{
-            return res.json(data)
+            return res.json(data);
         }
-    })
-})
+    });
+});
 
 module.exports = logRoute;
