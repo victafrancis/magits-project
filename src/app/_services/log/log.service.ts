@@ -9,12 +9,12 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   providedIn: 'root'
 })
 export class LogService {
-  endpoint: string = 'http://localhost:4000/logs/get-logs';
+  endpoint: string = 'https://magits-backend.herokuapp.com/logs';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) { }
   
   GetLogs(){
-    return this.http.get(`${this.endpoint}`);
+    return this.http.get(`${this.endpoint}/get-logs`);
   }
 }
 
