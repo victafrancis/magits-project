@@ -21,6 +21,7 @@ import { EnrollStudentComponent } from './courses/enroll-student/enroll-student.
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { ViewStudentsComponent } from './courses/view-students/view-students.component';
 import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
+import { LogsComponent } from './logs/logs.component';
 
 export const adminRoutes: Routes = [
   {
@@ -46,7 +47,8 @@ export const adminRoutes: Routes = [
       { path: 'instructor-profile/:id', component: InstructorProfileComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'edit-course/:id', component: EditCourseComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
       { path: 'view-students/:id', component: ViewStudentsComponent, data: {role: 'admin'}, canActivate: [RoleGuard]},
-      { path: 'course-sessions/:id', component: CourseSessionsComponent, data: {role: 'admin', canActivate: [RoleGuard]}}
+      { path: 'course-sessions/:id', component: CourseSessionsComponent, data: {role: 'admin', canActivate: [RoleGuard]}},
+      { path: 'logs', component: LogsComponent, data: {role: 'admin', canActivate: [RoleGuard]}}
     ]
   }
 ];
