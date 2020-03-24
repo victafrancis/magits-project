@@ -33,6 +33,7 @@ import { EditMembershipComponent } from './courses/edit-membership/edit-membersh
 import { CourseSessionsComponent } from './sessions/course-sessions/course-sessions.component';
 import { ViewFeedbacksComponent } from './sessions/view-feedbacks/view-feedbacks.component';
 import { ViewAnnouncementComponent } from './announcements/view-announcement/view-announcement.component';
+import { LogsComponent } from './logs/logs.component';
 
 @NgModule({
   declarations: [HomeComponent, LayoutComponent, CoursesComponent, 
@@ -40,7 +41,7 @@ import { ViewAnnouncementComponent } from './announcements/view-announcement/vie
     CreateCourseComponent, AddInstructorComponent, AddMemberComponent, CreateAnnouncementComponent, 
     MemberProfileComponent, CourseProfileComponent, InstructorProfileComponent, EnrollStudentComponent, 
     ModalComponent, EditScheduleComponent, EditCourseComponent, ViewStudentsComponent, AssignInstructorComponent, 
-    EditMembershipComponent, CourseSessionsComponent, ViewFeedbacksComponent, ViewAnnouncementComponent],
+    EditMembershipComponent, CourseSessionsComponent, ViewFeedbacksComponent, ViewAnnouncementComponent, LogsComponent],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,

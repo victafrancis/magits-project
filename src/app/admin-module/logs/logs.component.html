@@ -1,0 +1,38 @@
+<div class="title-group">
+    <div>
+        <h2 style="text-align: center; width: 95%;"> Event Logs </h2>
+    </div>
+    <br>
+</div>
+<mat-divider fxFlex="1 0"></mat-divider>
+<br />
+<div class="container" style="width: 80%; margin: auto;">
+    <table mat-table matSort matSortActive="date" matSortDirection="desc" matSortDisableClear [dataSource]="dataSource"
+        class="mat-elevation-z8">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let element" >{{element._id}}</td>
+        </ng-container>
+
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element">{{element.date | date: 'MM/dd/yyyy hh:mm:ss:a'}} </td>
+        </ng-container>
+
+        <!-- Log Column -->
+        <ng-container matColumnDef="log">
+            <th mat-header-cell *matHeaderCellDef  style="width: 70%;"> Event Log </th>
+            <td mat-cell *matCellDef="let element"  style="width: 70%;"> {{element.log}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[15, 30, 50]"></mat-paginator>
+
+</div>
