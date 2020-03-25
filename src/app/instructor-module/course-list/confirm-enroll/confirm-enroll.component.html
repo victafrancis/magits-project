@@ -39,7 +39,7 @@
                         Membership is required
                     </mat-error>
                 </mat-form-field>
-                
+
                 <div style="text-align:left; margin: auto; width: 100%;" *ngIf="membership_selected != null">
                     <div>
                         Cost: ${{membership_selected.cost}}
@@ -48,7 +48,18 @@
                         Number of Sessions: {{membership_selected.number_of_sessions}}
                     </div>
                 </div>
-
+                <div style="text-align:left; margin: auto; width: 100%;">
+                    <p>Age limit:</p>
+                    <div *ngIf="minAge && maxAge">
+                        <p>{{minAge}} to {{maxAge}} yrs old</p>
+                    </div>
+                    <div *ngIf="minAge && !maxAge">
+                        <p>{{minAge}} yrs old</p>
+                        </div>
+                    <div *ngIf="!minAge && !maxAge">
+                        <p>For all ages</p>
+                    </div>
+                </div>
                 <!-- Submit & Reset -->
                 <mat-card>
                     <div class="full-wrapper button-wrapper">
