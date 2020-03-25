@@ -30,7 +30,7 @@ export class CourseDescriptionComponent implements OnInit {
   studCount: any;
   maxAge: any;
   minAge: any;
-
+  parentalConsent: boolean;
   sched: Array<Schedule> = [];
   myIns = [];
   myStatus = "";
@@ -77,6 +77,8 @@ export class CourseDescriptionComponent implements OnInit {
         });
       }
       // INFO GATHERING
+      console.log(data);
+      this.parentalConsent = data.parental_consent;
       this.course.name = data.name;
       this.course.session_membership = data.session_membership;
       this.sessCost = data.session_membership.cost;
