@@ -3,38 +3,47 @@
 <div mat-dialog-content class="myFeedBackDiv">
   <p>Course: {{session.course_name}}</p>
   <p>Date: {{datePipe.transform(session.date,'MM/dd/yyyy')}}</p>
-  <p>Time: {{datePipe.transform(session.start_time,'h:mm a') + " - " + datePipe.transform(session.end_time,'h:mm a') }}</p>
-
+  <p>
+    Time: {{datePipe.transform(session.start_time,'h:mm a') + " - " +
+    datePipe.transform(session.end_time,'h:mm a') }}
+  </p>
 
   <form [formGroup]="userFeedback" #resetUserForm="ngForm" novalidate>
     <mat-card>
       <div class="controlers-wrapper">
-                  <!-- New Password -->
-       <mat-form-field class="inputs">
-        <textarea matInput class="myTextArea" 
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5"
-        formControlName="content"
-        placeholder="Type feedback here"></textarea>          
-        <mat-error *ngIf="handleError('content', 'required')">
-          You must provide <strong>feedback</strong>
+        <!-- New Password -->
+        <mat-form-field class="inputs">
+          <textarea
+            matInput
+            class="myTextArea"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            formControlName="content"
+            placeholder="Type feedback here"
+          ></textarea>
+          <mat-error *ngIf="handleError('content', 'required')">
+            You must provide <strong>feedback</strong>
           </mat-error>
-      </mat-form-field>
-        </div>
+        </mat-form-field>
+      </div>
     </mat-card>
   </form>
-
 </div>
 <mat-card>
   <div class="full-wrapper button-wrapper">
     <div class="button-wrapper">
       <div mat-dialog-actions>
-        <button mat-button class="myButton" [disabled]="userFeedback.invalid" (click)="sendFeedback()">Send</button>
+        <button
+          mat-button
+          class="myButton"
+          [disabled]="userFeedback.invalid"
+          (click)="sendFeedback()"
+        >
+          Send
+        </button>
         <button mat-button class="myButton" (click)="onNoClick()">Back</button>
       </div>
     </div>
   </div>
 </mat-card>
-
-

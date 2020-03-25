@@ -1,21 +1,21 @@
 <h1>{{course.course.name}}</h1>
 Instructor(s):
 <ul *ngFor="let i of insConverted">
-    <li>
-      {{i.ins}}
-    </li>
+  <li>
+    {{i.ins}}
+  </li>
 </ul>
 
 {{course.course.details}}
-<br><br>Schedule(s):
+<br /><br />Schedule(s):
 <ul *ngFor="let s of sched">
-    <li>
-      Day: {{s.day}}
-    </li>
-    <li>
-       Start: {{s.start}}
-    </li>
-    <li>
-        End:{{s.end}}
-    </li>
+  <li>
+    Day: {{s.day}}
+  </li>
+  <li>
+    Start: {{s.start}}
+  </li>
+  <li>
+    End:{{s.end}}
+  </li>
 </ul>
