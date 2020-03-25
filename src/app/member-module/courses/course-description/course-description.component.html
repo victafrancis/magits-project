@@ -1,8 +1,7 @@
-<h1>Course Description</h1>
+<h1>Course Details</h1>
 <p>Status: <b>{{myStatus}}</b> </p>
 <p>Course Name: {{course.name}}</p>
-<p>Details: {{course.details}}</p>
-
+Age Limit: {{minAge}} <div style="display: inline;" *ngIf="maxAge"> - {{maxAge}}</div>
 <p>Instructors: {{myIns.join(', ')}}</p>
 <p>Students: {{studCount}}/{{course.max_students}}</p>
 <p>Schedule(s): </p>
@@ -17,6 +16,8 @@
         End:{{s.end}}
     </li>
 </ul>
+<h1>Description</h1>
+<p>{{course.details}}</p>
 
 <h1>Cost</h1>
 <p>Subscription: {{subCost | currency:'CAD'}}</p> 

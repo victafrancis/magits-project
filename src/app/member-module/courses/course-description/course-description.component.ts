@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../_services/course/course.service';
 import { Course } from 'src/app/_services/course/course';
 import { Schedule } from 'src/app/_services/schedule/schedule';
+import { DatePipe } from '@angular/common';
 
 import { UserService } from '../../../_services/user/user.service';
 import { AuthService } from 'src/app/_services/auth/auth.service';
@@ -24,6 +25,9 @@ export class CourseDescriptionComponent implements OnInit {
   sessCost: any;
   numberSess: any;
   studCount: any;
+  maxAge: any;
+  minAge: any;
+
   sched : Array<Schedule> = [];
   myIns = [];
   myStatus = "";
@@ -62,6 +66,7 @@ export class CourseDescriptionComponent implements OnInit {
     });
   }
   this.course.name = data.name;
+  
   // not used
   this.course.session_membership = data.session_membership;
   this.sessCost = data.session_membership.cost;
@@ -70,7 +75,10 @@ export class CourseDescriptionComponent implements OnInit {
   this.course.subscription_membership = data.subscription_membership;
   this.subCost = data.subscription_membership.cost;
   this.course.max_students = data.max_students;
-  console.log(data);
+  this.maxAge = data.age_max;
+  this.minAge = data.age_min;
+  //console.log(data);
+  //console.log(data.age_max);
   });
   }
   ngOnInit() {
@@ -110,7 +118,7 @@ export class DialogOverviewEnrollMember {
   token = this._authService.decode();
   value = this.token.subject;
   error = false;
-
+  age: any;
   courseForm: FormGroup;
   course_id: any;
   member_id: any;
@@ -123,7 +131,8 @@ export class DialogOverviewEnrollMember {
   myIns = [];
   myStatus = "";
   studCount: any;
-
+  maxAge: any;
+  minAge: any;
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewEnrollMember>, 
@@ -133,6 +142,7 @@ export class DialogOverviewEnrollMember {
     private courseApi: CourseService,
     private ngZone: NgZone,
     private router: Router,
+    private datePipe: DatePipe,
     private schedApi: ScheduleService){
 
       this.course_id = this.recievedData.course_id;
@@ -158,6 +168,11 @@ export class DialogOverviewEnrollMember {
                       this.myStatus = "Enrolled";
                     }
                   }
+                  //birthdate
+              var timeDiff = Math.abs(Date.now() - new Date(data2.birthdate).getTime());
+              this.age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+              //console.log(this.age);
+              //console.log(data2.birthdate);
           })
         this.course.schedule = data.schedule[0]._id;
         for(let y in data.schedule){
@@ -172,7 +187,8 @@ export class DialogOverviewEnrollMember {
         this.course.subscription_membership = data.subscription_membership;
         this.course.max_students = data.max_students;
         this.studCount = data.members.length;
-
+        this.maxAge = data.age_max;
+        this.minAge = data.age_min;
         });
         
 
@@ -208,10 +224,14 @@ export class DialogOverviewEnrollMember {
         if(this.studCount>=this.course.max_students){
           window.alert('Fail: Course is full!')
         }else{
-          this.courseApi.EnrolMember(this.course_id, { 'member_id': this.value, 'membership_id': this.membership_selected }).subscribe(res => {
-            this.closeDialog();
-            this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
-          });
+          if(this.age > this.maxAge || this.age < this.minAge){
+            window.alert('Fail: Your age does not fit the requirement!');
+          }else{
+            this.courseApi.EnrolMember(this.course_id, { 'member_id': this.value, 'membership_id': this.membership_selected }).subscribe(res => {
+              this.closeDialog();
+              this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
+            });
+          }
         }
       }
     }
