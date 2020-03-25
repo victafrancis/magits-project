@@ -20,6 +20,10 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
 export class CourseDescriptionComponent implements OnInit {
   course_id: any;
   course = new Course();
+  subCost: any;
+  sessCost: any;
+  numberSess: any;
+  studCount: any;
   sched : Array<Schedule> = [];
   myIns = [];
   myStatus = "";
@@ -60,8 +64,13 @@ export class CourseDescriptionComponent implements OnInit {
   this.course.name = data.name;
   // not used
   this.course.session_membership = data.session_membership;
+  this.sessCost = data.session_membership.cost;
+  this.numberSess = data.session_membership.number_of_sessions;
+  this.studCount = data.members.length;
   this.course.subscription_membership = data.subscription_membership;
+  this.subCost = data.subscription_membership.cost;
   this.course.max_students = data.max_students;
+  console.log(data);
   });
   }
   ngOnInit() {
@@ -113,6 +122,7 @@ export class DialogOverviewEnrollMember {
   sched : Array<Schedule> = [];
   myIns = [];
   myStatus = "";
+  studCount: any;
 
 
   constructor(
@@ -157,10 +167,12 @@ export class DialogOverviewEnrollMember {
         }
         this.course.name = data.name;
         
-        // not used
+        // used: number of student
         this.course.session_membership = data.session_membership;
         this.course.subscription_membership = data.subscription_membership;
         this.course.max_students = data.max_students;
+        this.studCount = data.members.length;
+
         });
         
 
@@ -193,10 +205,14 @@ export class DialogOverviewEnrollMember {
   enrollMember() {
     if (this.courseForm.valid) {
       if (window.confirm('Are you sure you want to enroll this member to the course?')) {
-        this.courseApi.EnrolMember(this.course_id, { 'member_id': this.value, 'membership_id': this.membership_selected }).subscribe(res => {
-          this.closeDialog();
-          this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
-        });
+        if(this.studCount>=this.course.max_students){
+          window.alert('Fail: Course is full!')
+        }else{
+          this.courseApi.EnrolMember(this.course_id, { 'member_id': this.value, 'membership_id': this.membership_selected }).subscribe(res => {
+            this.closeDialog();
+            this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
+          });
+        }
       }
     }
   }
