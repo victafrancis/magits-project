@@ -1,36 +1,51 @@
-<h1>Hello {{name}}</h1>
+<h1>Hello {{ name }}</h1>
 
 <mat-grid-list [cols]="columns" rowHeight="5:3">
-    
-    <mat-grid-tile >
-        <mat-card class="myCardQR">
-            <ngx-qrcode 
-            [qrc-value] = "value"
-            qrc-class = "aclass"
-            qrc-errorCorrectionLevel = "L"
-            [qrc-version] = "myNumberQRVersion">
-            </ngx-qrcode>
-        </mat-card>
-    </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card class="myCardQR">
+      <ngx-qrcode
+        [qrc-value]="value"
+        qrc-class="aclass"
+        qrc-errorCorrectionLevel="L"
+        [qrc-version]="myNumberQRVersion"
+      >
+      </ngx-qrcode>
+    </mat-card>
+  </mat-grid-tile>
 
-    <mat-grid-tile style="overflow: auto;">
-<mat-card class="myCard">
-  <h2>My Courses</h2>
-    <table mat-table [dataSource]="dataSourceMembership" class="myCourseTable">
+  <mat-grid-tile style="overflow: auto;">
+    <mat-card class="myCard">
+      <h2>My Courses</h2>
+      <table
+        mat-table
+        [dataSource]="dataSourceMembership"
+        class="myCourseTable"
+      >
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Course Name </th>
-          <td class="clickable" (click)="openDialog(element)" mat-cell *matCellDef="let element"> {{element.course.name}} </td>
+          <th mat-header-cell *matHeaderCellDef>Course Name</th>
+          <td
+            class="clickable"
+            (click)="openDialog(element)"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.course.name }}
+          </td>
         </ng-container>
-    
+
         <ng-container matColumnDef="membership_type">
-          <th mat-header-cell *matHeaderCellDef> Membership Type </th>
-          <td mat-cell *matCellDef="let element"> {{element.membership.membership_type}} </td>
+          <th mat-header-cell *matHeaderCellDef>Membership Type</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.membership.membership_type }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="session_remaining">
-          <th mat-header-cell *matHeaderCellDef> Session Remaining </th>
+          <th mat-header-cell *matHeaderCellDef>Session Remaining</th>
           <ng-container *matCellDef="let element">
-            <td mat-cell *ngIf="element.sessions_remaining; else sub"> {{element.sessions_remaining}} </td>
+            <td mat-cell *ngIf="element.sessions_remaining; else sub">
+              {{ element.sessions_remaining }}
+            </td>
           </ng-container>
 
           <ng-template #sub>
@@ -38,50 +53,81 @@
               monthly
             </td>
           </ng-template>
-
         </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership;"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsMembership;"></tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsMembership"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumnsMembership"
+        ></tr>
       </table>
-      <br>
+
+      <br />
     </mat-card>
-    </mat-grid-tile>
+  </mat-grid-tile>
 </mat-grid-list>
 
 <h1>Announcements</h1>
 
-
-
-<table mat-table [dataSource]="dataSourceAnnouncement" matSort 
-matSortActive="date" matSortDirection="desc" matSortDisableClear class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
+<table
+  mat-table
+  [dataSource]="dataSourceAnnouncement"
+  matSort
+  matSortActive="date"
+  matSortDirection="desc"
+  matSortDisableClear
+  class="mat-elevation-z8"
+>
+  <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-      <td class="clickable1" (click)="openDialogAnnouncement(element)"  mat-cell *matCellDef="let element"> {{ datePipe.transform(element.date,'MM/dd/yyyy')}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="from">
-      <th mat-header-cell *matHeaderCellDef> From </th>
-      <td class="clickable1" (click)="openDialogAnnouncement(element)" mat-cell *matCellDef="let element"> {{element.user.firstname + " " + element.user.lastname}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="subject">
-      <th mat-header-cell *matHeaderCellDef> Subject </th>
-      <td class="clickable1" (click)="openDialogAnnouncement(element)" mat-cell *matCellDef="let element"> {{element.subject}} </td>
-    </ng-container>
 
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumnsAnnouncement"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnsAnnouncement;"></tr>
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+    <td
+      class="clickable1"
+      (click)="openDialogAnnouncement(element)"
+      mat-cell
+      *matCellDef="let element"
+    >
+      {{ datePipe.transform(element.date, "MM/dd/yyyy") }}
+    </td>
+  </ng-container>
 
-  </table>
+  <ng-container matColumnDef="from">
+    <th mat-header-cell *matHeaderCellDef>From</th>
+    <td
+      class="clickable1"
+      (click)="openDialogAnnouncement(element)"
+      mat-cell
+      *matCellDef="let element"
+    >
+      {{ element.user.firstname + " " + element.user.lastname }}
+    </td>
+  </ng-container>
 
-  <mat-paginator style="background-color: #232323;" class="mat-elevation-z8" [pageSizeOptions]="[3, 10, 20]" showFirstLastButtons></mat-paginator>
+  <ng-container matColumnDef="subject">
+    <th mat-header-cell *matHeaderCellDef>Subject</th>
+    <td
+      class="clickable1"
+      (click)="openDialogAnnouncement(element)"
+      mat-cell
+      *matCellDef="let element"
+    >
+      {{ element.subject }}
+    </td>
+  </ng-container>
 
-  <div class="footer">
-    <p>Teambits &copy; 2019-2020</p>
-  </div>
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsAnnouncement"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsAnnouncement"></tr>
+</table>
+
+<mat-paginator
+  style="background-color: #232323;"
+  class="mat-elevation-z8"
+  [pageSizeOptions]="[3, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>
+
+<div class="footer">
+  <p>Teambits &copy; 2019-2020</p>
+</div>

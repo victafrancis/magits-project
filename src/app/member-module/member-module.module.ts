@@ -1,28 +1,60 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HomeComponent, DialogCourseInfo, DialogAnnouncement } from './home/home.component';
-import { LayoutComponent } from './layout/layout.component';
-import { RouterModule } from '@angular/router';
-import { memberRoutes } from './member.routes';
-import { RoleGuard } from '../_guards/role-guard.service';
-import { AuthGuard } from '../_guards/auth-guard.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from '../material.module';
-import { CoursesComponent } from './courses/courses.component';
-import { SessionsComponent, DialogOverviewSessionFeedback } from './sessions/sessions.component';
-import { ProfileComponent, DialogOverviewChangePassword } from './profile/profile.component';
-import { NgxQRCodeModule } from 'ngx-qrcode2';
-import {MatDialogModule} from '@angular/material/dialog';
-import { CourseDescriptionComponent, DialogOverviewEnrollMember } from './courses/course-description/course-description.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSortModule } from '@angular/material/sort';
-
-
-
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+  HomeComponent,
+  DialogCourseInfo,
+  DialogAnnouncement
+} from "./home/home.component";
+import { LayoutComponent } from "./layout/layout.component";
+import { RouterModule } from "@angular/router";
+import { memberRoutes } from "./member.routes";
+import { RoleGuard } from "../_guards/role-guard.service";
+import { AuthGuard } from "../_guards/auth-guard.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AngularMaterialModule } from "../material.module";
+import { CoursesComponent } from "./courses/courses.component";
+import {
+  SessionsComponent,
+  DialogOverviewSessionFeedback
+} from "./sessions/sessions.component";
+import {
+  ProfileComponent,
+  DialogOverviewChangePassword
+} from "./profile/profile.component";
+import { NgxQRCodeModule } from "ngx-qrcode2";
+import { MatDialogModule } from "@angular/material/dialog";
+import {
+  CourseDescriptionComponent,
+  DialogOverviewEnrollMember
+} from "./courses/course-description/course-description.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
-  entryComponents: [HomeComponent, DialogCourseInfo, DialogAnnouncement, SessionsComponent, DialogOverviewSessionFeedback, ProfileComponent, DialogOverviewChangePassword, CourseDescriptionComponent, DialogOverviewEnrollMember],
-  declarations: [HomeComponent, LayoutComponent, CoursesComponent, SessionsComponent, ProfileComponent, DialogOverviewSessionFeedback, CourseDescriptionComponent, DialogOverviewEnrollMember, DialogOverviewChangePassword, DialogCourseInfo, DialogAnnouncement],
+  entryComponents: [
+    HomeComponent,
+    DialogCourseInfo,
+    DialogAnnouncement,
+    SessionsComponent,
+    DialogOverviewSessionFeedback,
+    ProfileComponent,
+    DialogOverviewChangePassword,
+    CourseDescriptionComponent,
+    DialogOverviewEnrollMember
+  ],
+  declarations: [
+    HomeComponent,
+    LayoutComponent,
+    CoursesComponent,
+    SessionsComponent,
+    ProfileComponent,
+    DialogOverviewSessionFeedback,
+    CourseDescriptionComponent,
+    DialogOverviewEnrollMember,
+    DialogOverviewChangePassword,
+    DialogCourseInfo,
+    DialogAnnouncement
+  ],
   imports: [
     BrowserAnimationsModule,
     AngularMaterialModule,
@@ -36,10 +68,7 @@ import { MatSortModule } from '@angular/material/sort';
   ],
   bootstrap: [SessionsComponent],
 
-  providers: [
-    RoleGuard,
-    AuthGuard
-  ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  providers: [RoleGuard, AuthGuard],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MemberModule { }
+export class MemberModule {}

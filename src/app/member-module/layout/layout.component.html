@@ -1,35 +1,55 @@
 <mat-toolbar color="primary" class="header">
-    <div class="dashboard" routerLinkActive="active" [routerLink]="['/member/home']">Dashboard</div>
-    <span class="nav-tool-items">
-      <button mat-button class="hamburger"  (click)="sidenav.toggle()"  matTooltip="Menu"><mat-icon>menu</mat-icon></button>
-      <button mat-button  matTooltip="View Account" routerLink="profile"><mat-icon>account_circle</mat-icon></button>
-      <button mat-button  matTooltip="Log Out" (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
+  <div
+    class="dashboard"
+    routerLinkActive="active"
+    [routerLink]="['/member/home']"
+  >
+    Dashboard
+  </div>
+  <span class="nav-tool-items">
+    <button
+      mat-button
+      class="hamburger"
+      (click)="sidenav.toggle()"
+      matTooltip="Menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button matTooltip="View Account" routerLink="profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button matTooltip="Log Out" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
 
-     
-      <!--  <button [fxHide.xs]="true">Log Out</button> -->
+    <!--  <button [fxHide.xs]="true">Log Out</button> -->
+  </span>
+</mat-toolbar>
 
-    </span>
-  </mat-toolbar>
-  
-  <mat-sidenav-container>
-    <!-- Sidenav -->
-    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
-      [fixedTopGap]>
-      <mat-nav-list>
-        <a mat-list-item routerLinkActive="active" routerLink="home">
-          <mat-icon>home</mat-icon> Home
-        </a>
-        <a mat-list-item routerLinkActive="active" routerLink="courses">
-          <mat-icon>table_chart</mat-icon> Explore Courses
-        </a>
-        <a mat-list-item routerLinkActive="active" routerLink="sessions">
-          <mat-icon>watch</mat-icon> My Sessions
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-  
-    <!-- Main content -->
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+<mat-sidenav-container>
+  <!-- Sidenav -->
+  <mat-sidenav
+    #sidenav
+    [mode]="isBiggerScreen() ? 'over' : 'side'"
+    [(opened)]="opened"
+    [fixedInViewport]="true"
+    [fixedTopGap]
+  >
+    <mat-nav-list>
+      <a mat-list-item routerLinkActive="active" routerLink="home">
+        <mat-icon>home</mat-icon> Home
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="courses">
+        <mat-icon>table_chart</mat-icon> Explore Courses
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="sessions">
+        <mat-icon>watch</mat-icon> My Sessions
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
