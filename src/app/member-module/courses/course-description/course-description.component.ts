@@ -65,9 +65,8 @@ export class CourseDescriptionComponent implements OnInit {
       this.sched.push(data3);
     });
   }
+  // INFO GATHERING
   this.course.name = data.name;
-  
-  // not used
   this.course.session_membership = data.session_membership;
   this.sessCost = data.session_membership.cost;
   this.numberSess = data.session_membership.number_of_sessions;
@@ -77,10 +76,9 @@ export class CourseDescriptionComponent implements OnInit {
   this.course.max_students = data.max_students;
   this.maxAge = data.age_max;
   this.minAge = data.age_min;
-  //console.log(data);
-  //console.log(data.age_max);
   });
   }
+  
   ngOnInit() {
   }
 
@@ -91,22 +89,20 @@ export class CourseDescriptionComponent implements OnInit {
       width: '80%',
       data: {course_id: this.course_id, subscription_membership: this.course.subscription_membership, session_membership: this.course.session_membership},
     });
-
     dialogRef.afterClosed().subscribe(result => {
       //console.log('The dialog was closed');
     });
   }
 
   removeStudent(){
-    
     if(window.confirm('Are you sure you want to unenroll from this course?')){
       this.courseApi.RemoveStudent(this.course_id, {'member_id':this.value}).subscribe(res => {
         this.ngZone.run(() => this.router.navigateByUrl('/member/courses'))
         })
     }
   }
-
 }
+
 
 
 @Component({
@@ -144,13 +140,10 @@ export class DialogOverviewEnrollMember {
     private router: Router,
     private datePipe: DatePipe,
     private schedApi: ScheduleService){
-
       this.course_id = this.recievedData.course_id;
       this.member_id = this.recievedData.member_id;
       this.subscription_membership = this.recievedData.subscription_membership;
       this.session_membership = this.recievedData.session_membership;
-
-
       this.courseApi.GetCourse(this.course_id).subscribe(data => {
         this.course.details = data.details;
         this.course.instructors = data.instructors;
@@ -161,6 +154,7 @@ export class DialogOverviewEnrollMember {
               this.myIns = tempArr;
             })
           } 
+          //CHECK USER IF ENROLLED
           this.myStatus = "Not Enrolled";
               userApi.GetUser(this.value).subscribe(data2 => {
                   for(let z in data2.courses){
@@ -168,11 +162,10 @@ export class DialogOverviewEnrollMember {
                       this.myStatus = "Enrolled";
                     }
                   }
-                  //birthdate
+              //BIRTHDATE
               var timeDiff = Math.abs(Date.now() - new Date(data2.birthdate).getTime());
               this.age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
-              //console.log(this.age);
-              //console.log(data2.birthdate);
+
           })
         this.course.schedule = data.schedule[0]._id;
         for(let y in data.schedule){
@@ -180,9 +173,8 @@ export class DialogOverviewEnrollMember {
             this.sched.push(data3);
           });
         }
+        //INFO GATEHRING
         this.course.name = data.name;
-        
-        // used: number of student
         this.course.session_membership = data.session_membership;
         this.course.subscription_membership = data.subscription_membership;
         this.course.max_students = data.max_students;
