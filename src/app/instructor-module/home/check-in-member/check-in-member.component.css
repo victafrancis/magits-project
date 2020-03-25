@@ -8,23 +8,31 @@ h1{
   text-align: left;
 }
 h2{
-  margin-top: 50px;
-  margin-bottom: 50px;
   text-align: center;
 }
+
+/*  added */
+.mat-elevation-z8 td{ 
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.mat-elevation-z8{
+  margin-bottom: 50px;
+}
+.myCourseTable{
+  width: 100%;
+  height: 100%;
+}
+/* ------------ */
 .footer{
   text-align: center;
   margin-bottom: 50px;
-  margin-top: 50px;
 }
 
 .myCard{
-  width: 100%;
-  height: 100%;
+  width: 90%;
   overflow: auto;
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .example-full-width{
@@ -32,13 +40,25 @@ h2{
 }
 
 
-.clickable{
+/* .clickable{
   cursor: pointer;
   padding-left: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
   color: #008E8E;
   margin-bottom: 50px;
+} */
+
+.clickable{
+  cursor: pointer;
+  color: #008E8E;
+}
+.clickable1{
+  cursor: pointer;
+}
+.myCancel{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .myButton{

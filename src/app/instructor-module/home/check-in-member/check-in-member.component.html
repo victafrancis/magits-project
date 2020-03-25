@@ -111,7 +111,7 @@
        
           <div *ngIf="qrResultString" >
 
-            <div id="result" *ngIf ="!showSessionInfo && result.message">
+            <div id="result" *ngIf ="result.message">
               <br>
               {{ result.message }}
               <button mat-icon-button (click)="clearResult()">
@@ -132,7 +132,7 @@
           </div>
 
           <div *ngIf ="showSessionInfo" >
-            <div *ngIf ="result.message == undefined" id="result">
+            <div *ngIf ="!result.message && result.course" id="result">
               <div *ngIf="user && course">
               Confirmed Checked-in: {{ user.firstname }} {{ user.lastname }}
               <i class="material-icons" style="color: #008E8E;">done</i>
