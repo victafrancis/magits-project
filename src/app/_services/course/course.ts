@@ -8,6 +8,8 @@ export class Course {
     name: String;
     details: String;
     max_students: Number;
+    age_min: Number;
+    age_max: Number;
     members: [{ user: User, membership: Membership}];
     instructors: [{user: User}];
     schedule: [{schedule: Schedule}];
