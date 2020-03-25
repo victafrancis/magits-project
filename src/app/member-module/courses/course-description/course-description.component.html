@@ -22,6 +22,10 @@ Age Limit: {{minAge}} <div style="display: inline;" *ngIf="maxAge"> - {{maxAge}}
 <h1>Cost</h1>
 <p>Subscription: {{subCost | currency:'CAD'}}</p>
 <p>Session: {{sessCost | currency:'CAD' }} for <b>{{numberSess}}</b> sessions</p>
-
+<br>
+<div *ngIf="parentalConsent" style="border: 2px solid teal; padding: 3em; margin-bottom: 1em;">
+  <h1>Parental Consent</h1>
+  <p>Please bring your parental consent letter in your first session.</p>
+</div>
 <button mat-button class="myEnroll" *ngIf="isHidden == true" (click)="openDialog()">Enroll</button>
 <button mat-button class="myEnroll" *ngIf="isHidden == false" (click)="removeStudent()">Withdraw</button>
