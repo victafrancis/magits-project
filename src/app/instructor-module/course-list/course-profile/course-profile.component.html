@@ -51,6 +51,20 @@
                         <td><p>{{course.max_students}}</p></td>
                     </tr>
 
+                    <tr>
+                        <th><label>Age limit:</label>&nbsp;</th>
+
+                        <div *ngIf="course.age_min && course.age_max">
+                        <td><p>{{course.age_min}} to {{course.age_max}} yrs old</p></td>
+                        </div>
+                        <div *ngIf="course.age_min && !course.age_max">
+                            <td><p>{{course.age_min}} yrs old</p></td>
+                            </div>
+                        <div *ngIf="!course.age_min && !course.age_max">
+                            <td><p>For all ages.</p></td>
+                        </div>
+                    </tr>
+
                      <!-- Enrolled Students -->
                     <tr>
                         <th><label>Enrolled Students:</label>&nbsp;</th>

@@ -70,6 +70,8 @@ myNumberQRVersion = 9;
       this.course.max_students = data.max_students;
       this.course.name = data.name;
       this.course.schedule = data.schedule;
+      this.course.age_min = data.age_min;
+      this.course.age_max = data.age_max;
       data.session_membership == null ? this.session_membership = null : this.session_membership = data.session_membership;
       data.subscription_membership == null ? this.subscription_membership = null : this.subscription_membership = data.subscription_membership;
     });

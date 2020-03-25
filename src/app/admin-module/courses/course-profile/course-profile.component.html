@@ -40,6 +40,20 @@
                 <p style="padding-left: 5%;">{{course.details}}</p>
             </div>
 
+             <!-- Course Age Limit -->
+            <div>
+                <p><strong>Age limit:</strong></p>
+                <div *ngIf="course.age_min && course.age_max">
+                    <p style="padding-left: 5%;">{{course.age_min}} to {{course.age_max}} yrs old</p>
+                </div>
+                <div *ngIf="course.age_min && !course.age_max">
+                    <p style="padding-left: 5%;">{{course.age_min}} yrs old</p>
+                </div>
+                <div *ngIf="!course.age_min && !course.age_max">
+                    <p style="padding-left: 5%;">For all ages.</p>
+                </div>
+            </div>
+
             <!-- Course Schedule -->
             <div>
                 <p><strong>Schedule:</strong></p>
