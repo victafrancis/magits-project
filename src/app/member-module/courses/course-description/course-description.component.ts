@@ -154,8 +154,7 @@ export class DialogOverviewEnrollMember {
               this.myIns = tempArr;
             })
           } 
-          //CHECK USER IF ENROLLED
-          this.myStatus = "Not Enrolled";
+
               userApi.GetUser(this.value).subscribe(data2 => {
                   for(let z in data2.courses){
                     if(data._id == data2.courses[z].course){
@@ -165,7 +164,8 @@ export class DialogOverviewEnrollMember {
               //BIRTHDATE
               var timeDiff = Math.abs(Date.now() - new Date(data2.birthdate).getTime());
               this.age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
-
+              //CHECK USER IF ENROLLED
+              this.myStatus = "Not Enrolled";
           })
         this.course.schedule = data.schedule[0]._id;
         for(let y in data.schedule){
