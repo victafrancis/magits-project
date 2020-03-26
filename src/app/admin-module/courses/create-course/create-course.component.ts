@@ -17,7 +17,10 @@ export class CreateCourseComponent implements OnInit {
           '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
           '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00',];
   Days: any = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  day_selected: null;
+  // day_selected: null;
+  minimum_age: number = 7;
+  maximum_age: number = 80;
+  check: boolean = false;
 
   //final
   finalData: any = {};
@@ -41,11 +44,13 @@ export class CreateCourseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.courseForm = this.fb.group({
       name: ['', [Validators.required]],
       details: ['', [Validators.required]],
-      max_students: ['', [Validators.required]]
+      max_students: ['', [Validators.required]],
+      min_age: [this.minimum_age],
+      max_age: [this.maximum_age],
+      parental_consent: [this.check]
     })
 
     this.totalDays = new FormControl('', [Validators.required])
@@ -64,16 +69,16 @@ export class CreateCourseComponent implements OnInit {
   submitCourseForm() {
     if(this.courseForm.valid){
       if (window.confirm('Are you sure you want to add this course?')) {
+
         this.finalData.course = this.courseForm.value;
         this.finalData.schedule = this.schedule;
-  
+        
         if (this.subCost != undefined || this.subCost != undefined) {
           this.finalData.subscription = { cost: this.subCost }
         }
         if (this.sesCost != undefined && this.numSessions != undefined) {
           this.finalData.session = { cost: this.sesCost, number_of_sessions: this.numSessions };
         }
-        console.log(this.finalData);
   
         this.courseApi.AddCourse(this.finalData).subscribe(res => {
           this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))

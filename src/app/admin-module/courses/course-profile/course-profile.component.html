@@ -43,13 +43,13 @@
              <!-- Course Age Limit -->
             <div>
                 <p><strong>Age limit:</strong></p>
-                <div *ngIf="course.age_min && course.age_max">
-                    <p style="padding-left: 5%;">{{course.age_min}} to {{course.age_max}} yrs old</p>
+                <div *ngIf="course.min_age && course.max_age">
+                    <p style="padding-left: 5%;">{{course.min_age}} to {{course.max_age}} yrs old</p>
                 </div>
-                <div *ngIf="course.age_min && !course.age_max">
-                    <p style="padding-left: 5%;">{{course.age_min}} yrs old</p>
+                <div *ngIf="course.min_age && !course.max_age">
+                    <p style="padding-left: 5%;">{{course.min_age}} yrs old</p>
                 </div>
-                <div *ngIf="!course.age_min && !course.age_max">
+                <div *ngIf="!course.min_age && !course.max_age">
                     <p style="padding-left: 5%;">For all ages.</p>
                 </div>
             </div>

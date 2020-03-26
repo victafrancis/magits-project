@@ -28,7 +28,19 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- Course Detail -->
+        <!-- Minimum Age -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Minimum Age" type="number" min="7" max="80" formControlName="min_age"
+            onkeypress="return false;">
+        </mat-form-field>
+
+        <!-- Maximum Age -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Maximum Age" type="number" min="7" max="80" formControlName="max_age"
+            onkeypress="return false;">
+        </mat-form-field>
+
+        <!-- Max Students -->
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Maximum No. of Students" formControlName="max_students">
           <mat-error *ngIf="handleError('max_students', 'required')">
@@ -36,6 +48,7 @@
           </mat-error>
         </mat-form-field>
         <br>
+
         <!-- Choosing a Membership -->
         <mat-label>Choose a membership:</mat-label>
         <br><br>
@@ -51,8 +64,7 @@
 
                     <mat-form-field style="width: 30%; text-align: center;">
                       <mat-label>Monthly Subscription Cost</mat-label>
-                      <input matInput [(ngModel)]="subCost"
-                        [ngModelOptions]="{standalone: true}">
+                      <input matInput [(ngModel)]="subCost" [ngModelOptions]="{standalone: true}">
                     </mat-form-field>
                   </td>
                 </tr>
@@ -62,13 +74,13 @@
               <table class="example-full-width" cellspacing="0">
                 <tr>
                   <td>
-                    <mat-form-field >
+                    <mat-form-field>
                       <input matInput placeholder="Session set cost" [(ngModel)]="sesCost"
                         [ngModelOptions]="{standalone: true}">
                     </mat-form-field>
                   </td>
                   <td>
-                    <mat-form-field >
+                    <mat-form-field>
                       <input matInput placeholder="No. of Sessions" [(ngModel)]="numSessions"
                         [ngModelOptions]="{standalone: true}">
                     </mat-form-field>
@@ -84,6 +96,13 @@
 
     <!-- RIGHT SIDE -->
     <mat-card>
+      <br>
+
+      <!-- Parent's Consent -->
+      <mat-checkbox formControlName="parental_consent" [(NgModel)]="check">Needs Parental Consent</mat-checkbox>
+      <br><br><br>
+
+      <!-- Schedule -->
       <mat-form-field class="example-full-width">
         <mat-label>Course Schedule:</mat-label>
         <mat-select [(ngModel)]="totalDays" [ngModelOptions]="{standalone: true}" (ngModelChange)="createDays()">
