@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
       // this.sessionEntry.end_time = end;
       this.sessionEntry.end_time = this.stringToDate(schedule.end);
       this.sessionEntry.courseName= schedule.courseName;
-      console.log(this.sessionEntry);
+      //console.log(this.sessionEntry);
 
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       // console.log(this.sessionInfo);
@@ -157,7 +157,6 @@ export class HomeComponent implements OnInit {
   }
 
   closeSession(session: any){
-    console.log(session)
     if (window.confirm('Are you sure you want to close this session?')) {
 
       this.sessionApi.CloseSession(session).subscribe(sessionData =>{
@@ -173,12 +172,11 @@ export class HomeComponent implements OnInit {
   //opening a Session Modal
   openSessionInfoModal(sess: any){
     const dialogConfig = new MatDialogConfig();
-
     // dialogConfig.disableClose = true;
     dialogConfig.id = "session-info-component";
-    dialogConfig.maxHeight = "750px";
-    dialogConfig.maxWidth = "750px";
-    dialogConfig.width = "80%";
+    dialogConfig.maxWidth= '550px';
+    dialogConfig.maxHeight='700px';
+    dialogConfig.width= '80%';
     dialogConfig.data = {session_info: sess};
     const modalDialog = this.matDialog.open(SessionInfoComponent, dialogConfig);
   }

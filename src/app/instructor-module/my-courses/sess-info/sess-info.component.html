@@ -16,7 +16,12 @@
             <br><br>
             Session ID: &nbsp;{{ session?._id }}
             <br><br>
-            Total Attendees: &nbsp;{{ attendeeDataSource?.data.length }}
+            <div *ngIf="attendees.length == ''">
+                Total Attendees: &nbsp;{{ attendees.length }}
+            </div>
+            <div *ngIf="attendees.length != ''">
+                Total Attendees: &nbsp;{{ attendees.length }}
+            </div>
             <br><br>
             <!-- --------------------------------------------------------------------------------------------- -->
         </mat-card>
@@ -59,10 +64,6 @@
                     </table>
                     <mat-paginator #attendeePaginator [pageSizeOptions]="[5,10,15]"></mat-paginator>
                 </div>
-
-            <div *ngIf="attendees.length == 0 ">
-                No Attendees
-            </div>
             <!-- ------------------------------------------------------------------------------------------------ -->
         </mat-card>
 

@@ -1,6 +1,8 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { CourseService } from 'src/app/_services/course/course.service';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-session-info',
@@ -16,7 +18,8 @@ export class SessionInfoComponent implements OnInit {
   constructor(
       @Optional() @Inject(MAT_DIALOG_DATA) private recievedData: any,
       private dialogRef: MatDialogRef<SessionInfoComponent>,
-      private courseApi: CourseService
+      private courseApi: CourseService,
+      private datePipe: DatePipe
   ) {
       this.session_info = recievedData.session_info;
 
@@ -31,7 +34,7 @@ export class SessionInfoComponent implements OnInit {
   }
 
   closeDialog() {
-    window.location.reload();
     this.dialogRef.close({ event: 'close' });
+    window.location.reload();
   }
 }

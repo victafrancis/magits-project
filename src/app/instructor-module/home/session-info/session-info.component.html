@@ -1,5 +1,21 @@
-{{ course.name }} <br>
-{{ session_info.date }} <br>
-{{ session_info.start_time }} - {{ session_info.end_time }}<br>
-<button (click)="closeDialog()"> close </button>
+<h1>Session Started for: </h1>
+<mat-grid-list [cols]="columns" rowHeight="5:4">
+    <!-- left -->
+    <mat-grid-tile>
+        <mat-card>
+            <!--------------------------------Session info -------------------------------------------------  -->
+        
+            Session: &nbsp;{{ course?.name }}
+            <br><br>
+            Date: &nbsp;{{ session_info?.date | date:'EEEE, MMMM d, y' }}
+            <br><br>
+            Time: &nbsp;{{ session_info?.start_time | date:'h:mm a'}} - {{ session_info?.end_time | date:'h:mm a'}}
+            <br><br>
+            <button (click)="closeDialog()"> close </button>
+            <br><br>
+            <!-- --------------------------------------------------------------------------------------------- -->
+        </mat-card>
+
+    </mat-grid-tile>
+</mat-grid-list>
 
