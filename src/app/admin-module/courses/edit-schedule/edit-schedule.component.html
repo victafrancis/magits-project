@@ -82,7 +82,7 @@
                     You must provide a<strong> day</strong>
                 </mat-error>
             </mat-form-field>&nbsp;&nbsp;
-
+            <br>
             <!-- Start Time-->
             <mat-form-field>
                 <mat-label>Start Time</mat-label>
@@ -93,6 +93,7 @@
                     You must provide a<strong> Start Time</strong>
                 </mat-error>
             </mat-form-field>&nbsp;&nbsp;
+            <br>
 
             <!-- End Time-->
             <mat-form-field>
@@ -104,12 +105,14 @@
                     You must provide a<strong> End Time</strong>
                 </mat-error>
             </mat-form-field>&nbsp;&nbsp;
-
+            <br>
+            <br>
+            <div *ngIf="err" style="color: rgb(255, 39, 10);">Start Time must be Less Than End Time!</div>
+            <br>
             <!-- Submit -->
             <div style="padding: 20px;">
-                <button mat-flat-button color="warn"> Add </button>&nbsp;
-                <button type="button" mat-flat-button color="accent" (click)="resetForm(AddScheduleForm)"> Cancel
-                </button>
+                <button mat-flat-button color="warn" class="AdminModuleButtons"> Add </button>&nbsp;
+                <button type="button" mat-flat-button color="accent" (click)="resetForm(AddScheduleForm)" class="AdminModuleButtons"> Cancel </button>
             </div>
         </mat-card>
     </form>

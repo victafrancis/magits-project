@@ -14,7 +14,8 @@ export class EditScheduleComponent implements OnInit {
   form: FormGroup;
   course_schedule = new FormArray([]);
   course_id: any;
-  
+  err: boolean = false;
+
   // REQUIRED FOR ADDING NEW SCHEDULE
   AddScheduleForm: FormGroup;
   isTrue: boolean = false;
@@ -64,12 +65,20 @@ export class EditScheduleComponent implements OnInit {
 
   // adds a course schedule
   addSchedule(){
-    if(this.AddScheduleForm.valid){
-      if(window.confirm("Are you sure you want this schedule?")){
-        this.scheduleApi.AddSchedule(this.course_id, this.AddScheduleForm.value).subscribe();
-        this.closeDialog();
-        window.location.reload();
+    var start = this.AddScheduleForm.value.start.split(':')[0];
+    var end = this.AddScheduleForm.value.end.split(':')[0];
+
+    if(start < end){
+      this.err = false;
+      if(this.AddScheduleForm.valid){
+        if(window.confirm("Are you sure you want this schedule?")){
+          this.scheduleApi.AddSchedule(this.course_id, this.AddScheduleForm.value).subscribe();
+          this.closeDialog();
+          window.location.reload();
+        }
       }
+    }else{
+      this.err = true;
     }
   }
 

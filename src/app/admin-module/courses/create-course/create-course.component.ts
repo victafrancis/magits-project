@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { CourseService } from '../../../_services/course/course.service';
 import { Router } from '@angular/router';
 import { Schedule } from '../../../_services/schedule';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-create-course',
@@ -31,6 +32,8 @@ export class CreateCourseComponent implements OnInit {
   arrayLen: number;
   schedule: Array<Schedule> = [];
 
+  checkSchedule: boolean[] = []
+
   // membership types
   sesCost: null;
   numSessions: null;
@@ -47,7 +50,7 @@ export class CreateCourseComponent implements OnInit {
     this.courseForm = this.fb.group({
       name: ['', [Validators.required]],
       details: ['', [Validators.required]],
-      max_students: ['', [Validators.required]],
+      max_students: [25, [Validators.required]],
       min_age: [this.minimum_age],
       max_age: [this.maximum_age],
       parental_consent: [this.check]
@@ -67,25 +70,34 @@ export class CreateCourseComponent implements OnInit {
 
   // Creates a course in the database
   submitCourseForm() {
-    if(this.courseForm.valid){
-      if (window.confirm('Are you sure you want to add this course?')) {
-
-        this.finalData.course = this.courseForm.value;
-        this.finalData.schedule = this.schedule;
-        
-        if (this.subCost != undefined || this.subCost != undefined) {
-          this.finalData.subscription = { cost: this.subCost }
-        }
-        if (this.sesCost != undefined && this.numSessions != undefined) {
-          this.finalData.session = { cost: this.sesCost, number_of_sessions: this.numSessions };
-        }
-  
-        this.courseApi.AddCourse(this.finalData).subscribe(res => {
-          this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
-        });
+    var schedCheck: boolean = true;
+    for (const c of this.checkSchedule) {
+      if(c){
+        schedCheck = false;
+        break;
       }
     }
 
+    if(schedCheck){
+      if(this.courseForm.valid){
+        if (window.confirm('Are you sure you want to add this course?')) {
+  
+          this.finalData.course = this.courseForm.value;
+          this.finalData.schedule = this.schedule;
+          
+          if (this.subCost != undefined || this.subCost != undefined) {
+            this.finalData.subscription = { cost: this.subCost }
+          }
+          if (this.sesCost != undefined && this.numSessions != undefined) {
+            this.finalData.session = { cost: this.sesCost, number_of_sessions: this.numSessions };
+          }
+    
+          this.courseApi.AddCourse(this.finalData).subscribe(res => {
+            this.ngZone.run(() => this.router.navigateByUrl('/admin/courses'))
+          });
+        }
+      }
+    }
   }
 
   // test
@@ -111,8 +123,15 @@ export class CreateCourseComponent implements OnInit {
       this.schedule = [];
       for (var i = 1; i <= this.totalDays; i++) {
         this.schedule.push(new Schedule('', '', ''));
+        this.checkSchedule.push(false);
       }
     }
+  }
+
+  CheckSchedule(start, end, index){
+    var s = start.split(':')[0]
+    var e = end.split(':')[0]
+    s < e? this.checkSchedule[index] = false : this.checkSchedule[index] = true;
   }
 
   // Sets the values of the Schedule

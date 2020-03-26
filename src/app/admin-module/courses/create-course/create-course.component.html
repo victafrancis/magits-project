@@ -29,20 +29,20 @@
         </mat-form-field>
 
         <!-- Minimum Age -->
-        <mat-form-field class="example-full-width">
+        <mat-form-field style="width: 25%; margin-right: 10%;">
           <input matInput placeholder="Minimum Age" type="number" min="7" max="80" formControlName="min_age"
             onkeypress="return false;">
         </mat-form-field>
 
         <!-- Maximum Age -->
-        <mat-form-field class="example-full-width">
+        <mat-form-field style="width: 25%; margin-right: 10%;">
           <input matInput placeholder="Maximum Age" type="number" min="7" max="80" formControlName="max_age"
             onkeypress="return false;">
         </mat-form-field>
 
         <!-- Max Students -->
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Maximum No. of Students" formControlName="max_students">
+        <mat-form-field style="width: 25%;">
+          <input matInput placeholder="Maximum Students" type="number" formControlName="max_students">
           <mat-error *ngIf="handleError('max_students', 'required')">
             You must provide<strong> maximum number of students</strong>
           </mat-error>
@@ -114,6 +114,7 @@
 
       <div *ngIf="totalDays > 0">
         <div *ngFor="let i of schedule; let item = index">
+          <!-- DAY -->
           <mat-form-field style="margin-right: 2%;">
             <mat-label>Day</mat-label>
             <mat-select [(ngModel)]="schedule[item].day" [ngModelOptions]="{standalone: true}">
@@ -136,13 +137,17 @@
           <!-- END TIME -->
           <mat-form-field>
             <mat-label>End Time</mat-label>
-            <mat-select [(ngModel)]="schedule[item].end" [ngModelOptions]="{standalone: true}">
+            <mat-select [(ngModel)]="schedule[item].end" [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="CheckSchedule(schedule[item].start, schedule[item].end, item)">
               <mat-option [value]="e" *ngFor="let e of time">
                 {{e}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <div *ngIf="checkSchedule[item]" style="color: #FF6347;"> Start time must be less than End Time!</div>
+          <br>
         </div>
+        <br>
       </div>
     </mat-card>
 

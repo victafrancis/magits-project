@@ -9,99 +9,107 @@
 
 <div class="inner-wrapper">
     <div style="width: 50%; margin:auto;" class="controlers-wrapper">
-        <div style="padding-left: 10%;">
-            <!-- Course Name -->
-            <div>
-                <p style="display:inline-block; margin-right: 10px;"><strong>Course Name:</strong></p>
-                <p style="display:inline-block;">{{course.name}}</p>
-            </div>
-
-            <!-- Instructors -->
-            <div>
-                <p><strong>Instructors:</strong></p>
-                <p *ngFor="let instructor of instructors" style="padding-left: 5%;">{{instructor.name}}</p>
-            </div>
-
-            <!-- Max Students -->
-            <div>
-                <p><strong>Max Students:</strong></p>
-                <p style="padding-left: 5%;">{{course.max_students}}</p>
-            </div>
-
-            <!-- Enrolled Students -->
-            <div>
-                <p><strong>Enrolled Students:</strong></p>
-                <p style="padding-left: 5%;">{{number_of_students}}</p>
-            </div>
-
-            <!-- Course Details -->
-            <div>
-                <p><strong>Course Details:</strong></p>
-                <p style="padding-left: 5%;">{{course.details}}</p>
-            </div>
-
-             <!-- Course Age Limit -->
-            <div>
-                <p><strong>Age limit:</strong></p>
-                <div *ngIf="course.min_age && course.max_age">
-                    <p style="padding-left: 5%;">{{course.min_age}} to {{course.max_age}} yrs old</p>
+        <div style="border: darkcyan solid 2px;">
+            <div style="padding: 5%;">
+                <!-- Course Name -->
+                <div>
+                    <p><strong>Course Name:</strong></p>
+                    <p style="padding-left: 5%;">{{course.name}}</p>
                 </div>
-                <div *ngIf="course.min_age && !course.max_age">
-                    <p style="padding-left: 5%;">{{course.min_age}} yrs old</p>
+                
+                <!-- Parental Consent -->
+                <div *ngIf="course.parental_consent">
+                    <p><strong>Requirement:</strong></p>
+                    <p style="padding-left: 5%;">Parental consent is required for this Course.</p>
                 </div>
-                <div *ngIf="!course.min_age && !course.max_age">
-                    <p style="padding-left: 5%;">For all ages.</p>
+
+                <!-- Instructors -->
+                <div>
+                    <p><strong>Instructors:</strong></p>
+                    <p *ngFor="let instructor of instructors" style="padding-left: 5%;">{{instructor.name}}</p>
                 </div>
-            </div>
 
-            <!-- Course Schedule -->
-            <div>
-                <p><strong>Schedule:</strong></p>
-                <p *ngFor='let schedule of course.schedule' style="padding-left: 5%;">{{schedule.day}}:
-                    &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
-            </div>
+                <!-- Max Students -->
+                <div>
+                    <p><strong>Max Students:</strong></p>
+                    <p style="padding-left: 5%;">{{course.max_students}}</p>
+                </div>
 
-            <!-- Memberships -->
-            <div>
-                <p><strong>Memberships:</strong></p>
+                <!-- Enrolled Students -->
+                <div>
+                    <p><strong>Enrolled Students:</strong></p>
+                    <p style="padding-left: 5%;">{{number_of_students}}</p>
+                </div>
 
-                <!-- Session Membership -->
-                <div *ngIf="session_membership != null" style="padding-left: 5%;">
-                    <p>Session Membership</p>
-                    <div style="padding-left: 5%;">
-                        <p>- Cost: ${{session_membership.cost}}</p>
-                        <p>- Number of Sessions: {{session_membership.number_of_sessions}}</p>
+                <!-- Course Details -->
+                <div>
+                    <p><strong>Course Details:</strong></p>
+                    <p style="padding-left: 5%;">{{course.details}}</p>
+                </div>
+
+                <!-- Course Age Limit -->
+                <div>
+                    <p><strong>Age limit:</strong></p>
+                    <div *ngIf="course.min_age && course.max_age">
+                        <p style="padding-left: 5%;">{{course.min_age}} to {{course.max_age}} yrs old</p>
+                    </div>
+                    <div *ngIf="course.min_age && !course.max_age">
+                        <p style="padding-left: 5%;">{{course.min_age}} yrs old</p>
+                    </div>
+                    <div *ngIf="!course.min_age && !course.max_age">
+                        <p style="padding-left: 5%;">For all ages.</p>
                     </div>
                 </div>
 
-                <!-- Subscription Membership-->
-                <div *ngIf="subscription_membership != null" style="padding-left: 5%;">
-                    <p>Subscription Membership</p>
-                    <div style="padding-left: 5%;">
-                        <p>- Cost: ${{subscription_membership.cost}}</p>
+                <!-- Course Schedule -->
+                <div>
+                    <p><strong>Schedule:</strong></p>
+                    <p *ngFor='let schedule of course.schedule' style="padding-left: 5%;">{{schedule.day}}:
+                        &nbsp;&nbsp;{{schedule.start}} - {{schedule.end}}</p>
+                </div>
+
+                <!-- Memberships -->
+                <div>
+                    <p><strong>Memberships:</strong></p>
+
+                    <!-- Session Membership -->
+                    <div *ngIf="session_membership != null" style="padding-left: 5%;">
+                        <p>Session Membership</p>
+                        <div style="padding-left: 5%;">
+                            <p>- Cost: ${{session_membership.cost}}</p>
+                            <p>- Number of Sessions: {{session_membership.number_of_sessions}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Subscription Membership-->
+                    <div *ngIf="subscription_membership != null" style="padding-left: 5%;">
+                        <p>Subscription Membership</p>
+                        <div style="padding-left: 5%;">
+                            <p>- Cost: ${{subscription_membership.cost}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
-        <div class="full-wrapper button-wrapper">
-            <div class="button-wrapper">
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    (click)="openEditCourseModal()"> Edit Course </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    (click)="openEditScheduleModal()"> Edit Schedule </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    (click)="openEditMembershipModal()"> Edit Membership </button>
-            </div>
-            <div class="button-wrapper">
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    (click)="openAssignInstructorModal()"> Instructor </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
-                <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
-                    [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
+        <div class="controlers-wrapper" style="text-align: center; margin-top:2%;">
+            <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        (click)="openEditCourseModal()"> Edit Course </button>
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        (click)="openEditScheduleModal()"> Edit Schedule </button>
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        (click)="openEditMembershipModal()"> Edit Membership </button>
+                </div>
+                <div class="button-wrapper">
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        (click)="openAssignInstructorModal()"> Instructor </button>
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        [routerLink]="['/admin/enroll-student', this.course_id]"> Enroll Student </button>
+                    <button class="AdminModuleButtons" type='button' mat-flat-button color="warn"
+                        [routerLink]="['/admin/view-students', this.course_id]"> View Students </button>
+                </div>
             </div>
         </div>
     </div>

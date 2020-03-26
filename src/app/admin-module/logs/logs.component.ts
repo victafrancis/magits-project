@@ -23,7 +23,6 @@ export class LogsComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Log>(this.Logs);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(data);
     })
   }
 

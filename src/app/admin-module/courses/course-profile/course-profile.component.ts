@@ -65,6 +65,7 @@ export class CourseProfileComponent implements OnInit {
       this.course.schedule = data.schedule;
       this.course.min_age = data.min_age;
       this.course.max_age = data.max_age;
+      this.course.parental_consent = data.parental_consent;
       data.session_membership == null ? this.session_membership = null : this.session_membership = data.session_membership;
       data.subscription_membership == null ? this.subscription_membership = null : this.subscription_membership = data.subscription_membership;
 
@@ -80,7 +81,9 @@ export class CourseProfileComponent implements OnInit {
     // dialogConfig.disableClose = true;
     dialogConfig.id = "edit-schedule-component";
     dialogConfig.height = "55%";
-    dialogConfig.width = "35%";
+    dialogConfig.width = "80%";
+    dialogConfig.maxWidth= '550px';
+    dialogConfig.maxHeight='700px';
     dialogConfig.data = { course_id: this.course_id };
     const modalDialog = this.matDialog.open(EditScheduleComponent, dialogConfig);
   }
@@ -91,6 +94,8 @@ export class CourseProfileComponent implements OnInit {
     dialogConfig.id = "edit-course-component";
     dialogConfig.height = "55%";
     dialogConfig.width = "35%";
+    dialogConfig.maxWidth= '550px';
+    dialogConfig.maxHeight='700px';
     dialogConfig.data = { course_id: this.course_id };
     const modalDialog = this.matDialog.open(EditCourseComponent, dialogConfig);
   }
@@ -100,7 +105,9 @@ export class CourseProfileComponent implements OnInit {
     // dialogConfig.disableClose() = true;
     dialogConfig.id = "assign-instructor-component";
     dialogConfig.height = "55%";
-    dialogConfig.width = "35%";
+    dialogConfig.width = "80%";
+    dialogConfig.maxWidth= '550px';
+    dialogConfig.maxHeight='700px';
     dialogConfig.data = { course_id: this.course_id };
 
     const modalDialog = this.matDialog.open(AssignInstructorComponent, dialogConfig);
@@ -111,7 +118,9 @@ export class CourseProfileComponent implements OnInit {
     // dialogConfig.disableClose() = true;
     dialogConfig.id = "edit-membership-component";
     dialogConfig.height = "55%";
-    dialogConfig.width = "35%";
+    dialogConfig.width = "80%";
+    dialogConfig.maxWidth= '550px';
+    dialogConfig.maxHeight='700px';
     dialogConfig.data = { course_id: this.course_id, subscription_membership: this.subscription_membership, session_membership: this.session_membership };
     const modalDialog = this.matDialog.open(EditMembershipComponent, dialogConfig);
   }
