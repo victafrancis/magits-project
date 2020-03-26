@@ -4,7 +4,7 @@ import { User } from 'src/app/_services/user/user';
 import { CourseService } from '../../../_services/course/course.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from '../modal/modal.component';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-enroll-student',
@@ -18,12 +18,16 @@ export class EnrollStudentComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = ['_id', 'name', 'Action'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  min_age: any;
+  currentDate: any = new Date();
+
 
   constructor(
     private courseApi: CourseService,
     private actRoute: ActivatedRoute,
     private matDialog: MatDialog,
-    private location: Location
+    private location: Location,
+    private datePipe: DatePipe
   ) {
 
     this.course_id = this.actRoute.snapshot.paramMap.get('id');
@@ -31,6 +35,7 @@ export class EnrollStudentComponent implements OnInit {
     // RETRIEVES THE COURSE INFO USING THE ID PASSED
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
       this.Course = data;
+      this.min_age = data.min_age;
     });
 
     // GETS ALL MEMBERS NOT ENROLLED IN THIS COURSE
@@ -61,5 +66,13 @@ export class EnrollStudentComponent implements OnInit {
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  // get user age
+  getAge(birthdate){
+    var bday: any = new Date(birthdate);
+    var difference = Math.abs(Date.now() - bday);
+    var age = Math.floor((difference/ (1000 * 3600 * 24))/365);
+    return age;
   }
 }
