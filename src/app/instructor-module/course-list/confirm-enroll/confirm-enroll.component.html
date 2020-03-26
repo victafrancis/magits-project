@@ -50,6 +50,9 @@
                 </div>
                 <div style="text-align:left; margin: auto; width: 100%;">
                     <p>Slots open: {{ slots_open }}</p>
+                    <div *ngIf= "parental_consent">
+                        <P><strong>Parental consent is required</strong></P>       
+                    </div>
                 </div>
 
                 <div style="text-align:left; margin: auto; width: 100%;">

@@ -72,6 +72,7 @@ myNumberQRVersion = 9;
       this.course.schedule = data.schedule;
       this.course.age_min = data.age_min;
       this.course.age_max = data.age_max;
+      this.course.parental_consent = data.parental_consent;
       this.slots_open = data.max_students - data.members.length;
      
       data.session_membership == null ? this.session_membership = null : this.session_membership = data.session_membership;

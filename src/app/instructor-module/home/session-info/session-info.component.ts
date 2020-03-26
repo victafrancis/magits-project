@@ -24,8 +24,6 @@ export class SessionInfoComponent implements OnInit {
       this.courseApi.GetCourse(this.session_info.course).subscribe(data=>{
         this.course = data;
       });
-
-      //GET ALL FEEDBACK FOR THIS COURSE
       
    }
 
@@ -33,6 +31,7 @@ export class SessionInfoComponent implements OnInit {
   }
 
   closeDialog() {
+    window.location.reload();
     this.dialogRef.close({ event: 'close' });
   }
 }

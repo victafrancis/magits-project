@@ -10,6 +10,7 @@ export class Course {
     max_students: Number;
     age_min: Number;
     age_max: Number;
+    parental_consent: Boolean;
     members: [{ user: User, membership: Membership}];
     instructors: [{user: User}];
     schedule: [{schedule: Schedule}];

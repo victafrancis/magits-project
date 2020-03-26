@@ -23,6 +23,7 @@ export class ConfirmEnrollComponent implements OnInit {
   maxAge: any;
   minAge: any;
   slots_open: any;
+  parental_consent:any;
 
   constructor(
     // DATA PASSED TO MODAL COMPONENT
@@ -54,6 +55,8 @@ export class ConfirmEnrollComponent implements OnInit {
       this.maxAge = data.age_max;
       this.minAge = data.age_min;
       this.slots_open = data.max_students - data.members.length;
+      this.parental_consent = data.parental_consent;
+
       // POPULATES DISPLAY FORM
       this.courseForm = this.fb.group({
         name: [{ value: data.name, disabled: true }],
