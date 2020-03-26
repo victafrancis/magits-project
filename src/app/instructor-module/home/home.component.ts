@@ -152,8 +152,7 @@ export class HomeComponent implements OnInit {
 
       this.sessionApi.AddSession(this.sessionEntry).subscribe( data => this.sessionInfo = data);
       // console.log(this.sessionInfo);
-      // this.openSessionInfoModal(this.sessionEntry);
-      window.location.reload();
+      this.openSessionInfoModal(this.sessionEntry);
     }
   }
 

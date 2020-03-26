@@ -39,6 +39,7 @@ export class MyCourseProfComponent implements OnInit {
   course: any = {};
   instructors = [];
   courseForSession: any = {};
+  slots_open: any;
 
   //LOADING
   isLoading: boolean = true;
@@ -81,7 +82,7 @@ export class MyCourseProfComponent implements OnInit {
         end.setHours(end_hour, end_min, 0);
         data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
       }
-
+      this.slots_open = data.max_students - data.members.length;
       this.course = data;
       this.getSessions(this.course);
     });

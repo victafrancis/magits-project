@@ -87,8 +87,8 @@ export class CourseDescriptionComponent implements OnInit {
       this.course.subscription_membership = data.subscription_membership;
       this.subCost = data.subscription_membership.cost;
       this.course.max_students = data.max_students;
-      this.maxAge = data.age_max;
-      this.minAge = data.age_min;
+      this.maxAge = data.max_age;
+      this.minAge = data.min_age;
     });
   }
 
@@ -199,8 +199,8 @@ export class DialogOverviewEnrollMember {
       this.course.subscription_membership = data.subscription_membership;
       this.course.max_students = data.max_students;
       this.studCount = data.members.length;
-      this.maxAge = data.age_max;
-      this.minAge = data.age_min;
+      this.maxAge = data.max_age;
+      this.minAge = data.min_age;
     });
 
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
