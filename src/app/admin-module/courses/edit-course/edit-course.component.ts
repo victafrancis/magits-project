@@ -18,6 +18,7 @@ export class EditCourseComponent implements OnInit {
   courseForm: FormGroup;
   users: any = [];
   selected: null;
+  check: boolean;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -32,10 +33,14 @@ export class EditCourseComponent implements OnInit {
 
     // GETS THE COURSE DETAILS
     this.courseApi.GetCourse(this.course_id).subscribe(data => {
+      this.check = data.parental_consent;
       this.courseForm = this.fb.group({
         name: [data.name, [Validators.required]],
         details: [data.details, [Validators.required]],
-        max_students: [data.max_students, [Validators.required]]
+        max_students: [data.max_students, [Validators.required]],
+        min_age: [data.min_age],
+        max_age: [data.max_age],
+        parental_consent: [this.check]
       });
     });
 
@@ -45,15 +50,21 @@ export class EditCourseComponent implements OnInit {
     this.courseForm = this.fb.group({
       name: ['', [Validators.required]],
       details: ['', [Validators.required]],
-      max_students: ['', [Validators.required]]
+      max_students: ['', [Validators.required]],
+      min_age: [''],
+      max_age: [''],
+      parental_consent: ['']
     });
   }
   updateCourseForm() {
-    if (window.confirm('Are you sure you want to update?')) {
-      this.courseApi.UpdateCourse(this.course_id, this.courseForm.value).subscribe(res => {
-        this.closeDialog();
-        window.location.reload();
-      })
+    if(this.courseForm.valid){
+      console.log(this.courseForm.value);
+      if (window.confirm('Are you sure you want to update?')) {
+        this.courseApi.UpdateCourse(this.course_id, this.courseForm.value).subscribe(res => {
+          this.closeDialog();
+          window.location.reload();
+        })
+      }
     }
   }
 
