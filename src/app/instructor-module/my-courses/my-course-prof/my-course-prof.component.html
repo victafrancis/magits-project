@@ -38,27 +38,25 @@
                     <tr>              
                         <th><h3>Age limit:</h3>&nbsp;</th>
                         
-                        <div *ngIf="course.age_min && course.age_max">
-                            <td><p>{{course.age_min}} to {{course.age_max}} yrs old</p></td>
+                        <div *ngIf="course.min_age && course.max_age">
+                            <td><p>{{course.min_age}} to {{course.max_age}} yrs old</p></td>
                         </div>
-                        <div *ngIf="course.age_min && !course.age_max">
-                            <td><p>{{course.age_min}} yrs old</p></td>
+                        <div *ngIf="course.min_age && !course.max_age">
+                            <td><p>{{course.min_age}} yrs old</p></td>
                         </div>
-                        <div *ngIf="!course.age_min && !course.age_max">
+                        <div *ngIf="!course.min_age && !course.max_age">
                             <td><p>For all ages.</p></td>
                         </div>
                     </tr>
                     <tr>
                         <th><h3>Slots open:</h3></th>
-                        <td>{{ slots_open }}</td>
+                        <td>{{ slots_open }} slots</td>
                     </tr>
-                    <tr>
-                        <th><h3>Requirements:</h3></th>
-                        <td>&nbsp;Parental consent is required.</td>
+
+                    <tr *ngIf="course.parental_consent">              
+                        <th><h3>Requirement:</h3>&nbsp;</th>
+                        <td><p>&nbsp;Parental consent is required.</p></td>
                     </tr>
-                    <div *ngIf="course.parental_consent">
-                        
-                    </div>
                     <tr>
                         <th>
                             <h3><label>Course Schedule:</label>&nbsp;</h3>

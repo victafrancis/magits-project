@@ -8,7 +8,6 @@
 
 <div style="text-align: center;">
     <form [formGroup]="courseForm" (ngSubmit)="updateCourseForm()" novalidate>
-        <!-- LEFT SIDE -->
         <div class="controlers-wrapper">
             <!-- Course Name -->
             <mat-form-field class="example-full-width">
@@ -26,6 +25,18 @@
                 </mat-error>
             </mat-form-field>
 
+            <!-- Minimum Age -->
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Minimum Age" type="number" min="7" max="80" formControlName="min_age"
+                    onkeypress="return false;">
+            </mat-form-field>
+
+            <!-- Maximum Age -->
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Maximum Age" type="number" min="7" max="80" formControlName="max_age"
+                    onkeypress="return false;">
+            </mat-form-field>
+
             <!-- Maximum number of members -->
             <mat-form-field class="example-full-width">
                 <input matInput placeholder="Maximum number of Students" formControlName="max_students">
@@ -34,10 +45,15 @@
                 </mat-error>
             </mat-form-field>
 
+            <!-- Parent's Consent -->
+            <mat-checkbox formControlName="parental_consent" [(NgModel)]="check">Needs Parental Consent</mat-checkbox>
+            <br><br><br>
+            
             <!-- Submit & Reset -->
             <div>
                 <button class="AdminModuleButtons" mat-flat-button color="warn"> Update Course </button>&nbsp;
-                <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="closeDialog()"> Cancel </button>
+                <button class="AdminModuleButtons" type="button" mat-flat-button color="accent" (click)="closeDialog()">
+                    Cancel </button>
             </div>
         </div>
     </form>

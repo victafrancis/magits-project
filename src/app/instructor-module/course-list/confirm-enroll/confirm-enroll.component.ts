@@ -52,8 +52,8 @@ export class ConfirmEnrollComponent implements OnInit {
         this.memberships.push({ 'key': 'Subscription', 'type': data.subscription_membership._id, 'cost': data.subscription_membership.cost});
       }
 
-      this.maxAge = data.age_max;
-      this.minAge = data.age_min;
+      this.maxAge = data.max_age;
+      this.minAge = data.min_age;
       this.slots_open = data.max_students - data.members.length;
       this.parental_consent = data.parental_consent;
 
