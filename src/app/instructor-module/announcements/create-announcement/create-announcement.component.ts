@@ -47,7 +47,7 @@ export class CreateAnnouncementComponent implements OnInit {
     if(this.announcementForm.valid){
       if(window.confirm('Are you sure you want to send this announcement?')){
         this.announcementForm.value.user= this.user.subject;
-        console.log(this.announcementForm.value)
+     
         this.announcementApi.AddAnnouncement(this.announcementForm.value).subscribe( res => {
           this.ngZone.run(() => this.router.navigateByUrl('/instructor/announcements'))
         });

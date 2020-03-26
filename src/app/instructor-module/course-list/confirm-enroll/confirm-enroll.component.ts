@@ -108,12 +108,10 @@ export class ConfirmEnrollComponent implements OnInit {
 
     this.memberApi.GetUser(member).subscribe(data =>{
       this.memberData = data.birthdate;
-      console.log(this.memberData);
 
     //birthdate
     var timeDiff = Math.abs(Date.now() - new Date(data.birthdate).getTime());
     this.age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
-    console.log(this.age)
     });
 
   }

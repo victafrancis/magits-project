@@ -17,9 +17,11 @@ padding-left: 15px;
 padding-top: 10px;
 padding-bottom: 10px;
 }
-.mat-elevation-z8{
+
+/* table elevation to separate from bottom table footer */
+/* .mat-elevation-z8{
 margin-bottom: 50px;
-}
+} */
 .myCourseTable{
 width: 100%;
 height: 100%;
