@@ -49,17 +49,23 @@
                     </div>
                 </div>
                 <div style="text-align:left; margin: auto; width: 100%;">
-                    <p>Age limit:</p>
+                    <p>Slots open: {{ slots_open }}</p>
+                </div>
+
+                <div style="text-align:left; margin: auto; width: 100%;">
                     <div *ngIf="minAge && maxAge">
-                        <p>{{minAge}} to {{maxAge}} yrs old</p>
+                        <p>Age limit: {{minAge}} to {{maxAge}} yrs old</p>
                     </div>
                     <div *ngIf="minAge && !maxAge">
-                        <p>{{minAge}} yrs old</p>
+                        <p>Age limit: {{minAge}} yrs old</p>
                         </div>
                     <div *ngIf="!minAge && !maxAge">
-                        <p>For all ages</p>
+                        <p>Age limit: For all ages</p>
                     </div>
                 </div>
+
+               
+
                 <!-- Submit & Reset -->
                 <mat-card>
                     <div class="full-wrapper button-wrapper">

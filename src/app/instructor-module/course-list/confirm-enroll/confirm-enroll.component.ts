@@ -22,6 +22,7 @@ export class ConfirmEnrollComponent implements OnInit {
   age: any;
   maxAge: any;
   minAge: any;
+  slots_open: any;
 
   constructor(
     // DATA PASSED TO MODAL COMPONENT
@@ -50,10 +51,9 @@ export class ConfirmEnrollComponent implements OnInit {
         this.memberships.push({ 'key': 'Subscription', 'type': data.subscription_membership._id, 'cost': data.subscription_membership.cost});
       }
 
-      // @todo: output display age min and max
       this.maxAge = data.age_max;
       this.minAge = data.age_min;
-
+      this.slots_open = data.max_students - data.members.length;
       // POPULATES DISPLAY FORM
       this.courseForm = this.fb.group({
         name: [{ value: data.name, disabled: true }],
