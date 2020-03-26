@@ -24,6 +24,7 @@ myNumberQRVersion = 9;
   subscription_membership: any;
   course = new Course();
   instructors = [];
+  slots_open: any;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -61,7 +62,6 @@ myNumberQRVersion = 9;
         end.setHours(end_hour, end_min, 0);
         data.schedule[i].end = this.datePipe.transform(end, "h:mm a");
 
-
       }
 
       this.number_of_students = data.members.length;
@@ -70,6 +70,8 @@ myNumberQRVersion = 9;
       this.course.max_students = data.max_students;
       this.course.name = data.name;
       this.course.schedule = data.schedule;
+      this.course.parental_consent = data.parental_consent;
+      this.slots_open = data.max_students - data.members.length;
       this.course.min_age = data.min_age;
       this.course.max_age = data.max_age;
       data.session_membership == null ? this.session_membership = null : this.session_membership = data.session_membership;
