@@ -77,7 +77,6 @@ export class CourseDescriptionComponent implements OnInit {
         });
       }
       // INFO GATHERING
-      console.log(data);
       this.parentalConsent = data.parental_consent;
       this.course.name = data.name;
       this.course.session_membership = data.session_membership;
