@@ -4,9 +4,6 @@
     <mat-grid-tile>
         <mat-card>
             <!--------------------------------Session info -------------------------------------------------  -->
-        
-            Session: &nbsp;{{ course?.name }}
-            <br><br>
             Date: &nbsp;{{ session_info?.date | date:'EEEE, MMMM d, y' }}
             <br><br>
             Time: &nbsp;{{ session_info?.start_time | date:'h:mm a'}} - {{ session_info?.end_time | date:'h:mm a'}}
