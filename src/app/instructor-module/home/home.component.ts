@@ -173,7 +173,7 @@ export class HomeComponent implements OnInit {
   openSessionInfoModal(sess: any){
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
-    dialogConfig.id = "session-info-component";
+    dialogConfig.id = "app-session-info";
     dialogConfig.maxWidth= '550px';
     dialogConfig.maxHeight='700px';
     dialogConfig.width= '80%';
