@@ -34,7 +34,7 @@ export class SessionInfoComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close({ event: 'close' });
     window.location.reload();
+    this.dialogRef.close({ event: 'close' });
   }
 }
