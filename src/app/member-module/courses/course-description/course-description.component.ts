@@ -80,6 +80,7 @@ export class CourseDescriptionComponent implements OnInit {
       this.parentalConsent = data.parental_consent;
       this.course.name = data.name;
       //this.course.session_membership = data.session_membership;
+      //Alwin's fix
       if(!(typeof data.session_membership === "undefined")){
         this.course.session_membership = data.session_membership;
         this.sessCost = data.session_membership.cost;
