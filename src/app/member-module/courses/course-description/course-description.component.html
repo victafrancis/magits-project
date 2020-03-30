@@ -20,8 +20,9 @@ Age Limit: {{minAge}} <div style="display: inline;" *ngIf="maxAge"> - {{maxAge}}
 <p>{{course.details}}</p>
 
 <h1>Cost</h1>
-<p>Subscription: {{subCost | currency:'CAD'}}</p>
-<p>Session: {{sessCost | currency:'CAD' }} for <b>{{numberSess}}</b> sessions</p>
+<div *ngIf="subCost"> <p>Subscription: {{subCost | currency:'CAD'}}</p> </div>
+<div *ngIf="sessCost"> <p>Session: {{sessCost | currency:'CAD' }} for <b>{{numberSess}}</b> sessions</p> </div>
+
 <br>
 <div *ngIf="parentalConsent" style="border: 2px solid teal; padding: 3em; margin-bottom: 1em;">
   <h1>Parental Consent</h1>

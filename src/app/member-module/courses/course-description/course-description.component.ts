@@ -80,20 +80,19 @@ export class CourseDescriptionComponent implements OnInit {
       this.parentalConsent = data.parental_consent;
       this.course.name = data.name;
       this.course.session_membership = data.session_membership;
-      if(data.session_membership.cost){
+      if(!(typeof data.session_membership === "undefined")){
+        this.course.session_membership = data.session_membership;
         this.sessCost = data.session_membership.cost;
         this.numberSess = data.session_membership.number_of_sessions;
-      }else{
-        this.sessCost = " ";
-        this.numberSess = " ";
       }
       this.studCount = data.members.length;
       this.course.subscription_membership = data.subscription_membership;
-      if(data.subscription_membership.cost){
-        this.subCost = data.subscription_membership.cost;     
-      }else{
-        this.subCost = " ";
+      if(!(typeof data.subscription_membership === "undefined")){
+        this.course.subscription_membership = data.subscription_membership;
+        this.subCost = data.subscription_membership.cost;
       }
+
+
       this.course.max_students = data.max_students;
       this.maxAge = data.max_age;
       this.minAge = data.min_age;
