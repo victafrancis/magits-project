@@ -1,18 +1,12 @@
-<h1>Session Started for: </h1>
-<mat-grid-list>
-    <!-- left -->
-    <mat-grid-tile>
-        <mat-card>
-            <!--------------------------------Session info -------------------------------------------------  -->
-            Date: &nbsp;{{ session_info?.date | date:'EEEE, MMMM d, y' }}
-            <br><br>
-            Time: &nbsp;{{ session_info?.start_time | date:'h:mm a'}} - {{ session_info?.end_time | date:'h:mm a'}}
-            <br><br>
-            <button (click)="closeDialog()"> close </button>
-            <br><br>
-            <!-- --------------------------------------------------------------------------------------------- -->
-        </mat-card>
+<h1>Session Started</h1>
 
-    </mat-grid-tile>
-</mat-grid-list>
+    <!--------------------------------Session info -------------------------------------------------  -->
+    Date: &nbsp;{{ session_info?.date | date:'EEEE, MMMM d, y' }}
+    <br><br>
+    Time: &nbsp;{{ session_info?.start_time | date:'h:mm a'}} - {{ session_info?.end_time | date:'h:mm a'}}
+    <br><br>
+    <button (click)="closeDialog()"> close </button>
+    <br><br>
+    <!-- --------------------------------------------------------------------------------------------- -->
+       
 
