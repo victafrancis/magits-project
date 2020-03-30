@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   myDate= new Date();
   currentDate: String;
   currentDay: String='';
-  currentTime: String='';
+  currentTime: any;
   time:any = null;
   user: any = {};
   sessionDate: String='';
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'start','status','action'];
   scheduleDatasource:MatTableDataSource<Schedule>;
-  courses: Array<Course>= [];
+  courses: Array<Course>=[];
   schedules: Array<any>=[];
   readyStartButton: Array<any>=[]
   currentCourse: String='';
@@ -69,10 +69,10 @@ export class HomeComponent implements OnInit {
     private sessionApi: SessionService,
     private router: Router
     ) {
+      this.currentTime = this.datePipe.transform(this.myDate,'h:mm:ss a');
       this.isLoading = true;
       this.currentDate = this.datePipe.transform(this.myDate, 'EEEE, MMMM d, y');
       this.currentDay = this.datePipe.transform(this.myDate,'EEEE');
-      this.currentTime = this.datePipe.transform(this.myDate,'h:mm:ss a');
 
       // FOR CLOCK
       setInterval(() => {
