@@ -55,18 +55,17 @@
             <th mat-header-cell *matHeaderCellDef> Session </th>
             <td mat-cell *matCellDef="let row; let i = index;">
                
-                <div *ngIf= "row.status === 'Not Started' && (row.start_time <= currentTime && currentTime < row.end_time)">
-                    <button mat-raised-button color="primary" (click)="startSession(row)">
-                        <i class="material-icons">meeting_room</i> &nbsp;Start
-                    </button>
-                </div>
-                
-                <!-- <div *ngIf= "row.status === 'Not Started'">
+                <!-- <div *ngIf= "row.status === 'Not Started' && (row.start_time <= currentTime && currentTime < row.end_time)">
                     <button mat-raised-button color="primary" (click)="startSession(row)">
                         <i class="material-icons">meeting_room</i> &nbsp;Start
                     </button>
                 </div> -->
-
+                
+                <div *ngIf= "row.status === 'Not Started'">
+                    <button mat-raised-button color="primary" (click)="startSession(row)">
+                        <i class="material-icons">meeting_room</i> &nbsp;Start
+                    </button>
+                </div>
 
                 <div *ngIf= "row.status === 'Open'">
                     <button mat-raised-button color="warn" (click)="closeSession(sessionIds[i])">
