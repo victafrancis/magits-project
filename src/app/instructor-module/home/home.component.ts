@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   myDate= new Date();
   currentDate: String;
   currentDay: String='';
-  currentTime: String='';
+  currentTime: any;
   time:any = null;
   user: any = {};
   sessionDate: String='';
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   // Schedule Table
   scheduleColumns: string[] = ['courseName', 'start','status','action'];
   scheduleDatasource:MatTableDataSource<Schedule>;
-  courses: Array<Course>= [];
+  courses: any;
   schedules: Array<any>=[];
   readyStartButton: Array<any>=[]
   currentCourse: String='';

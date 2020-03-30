@@ -60,6 +60,13 @@
                         <i class="material-icons">meeting_room</i> &nbsp;Start
                     </button>
                 </div>
+                
+                <!-- <div *ngIf= "row.status === 'Not Started'">
+                    <button mat-raised-button color="primary" (click)="startSession(row)">
+                        <i class="material-icons">meeting_room</i> &nbsp;Start
+                    </button>
+                </div> -->
+
 
                 <div *ngIf= "row.status === 'Open'">
                     <button mat-raised-button color="warn" (click)="closeSession(sessionIds[i])">
