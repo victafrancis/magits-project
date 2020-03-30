@@ -83,9 +83,9 @@ export class CourseDescriptionComponent implements OnInit {
       if(data.session_membership.cost){
         this.sessCost = data.session_membership.cost;
         this.numberSess = data.session_membership.number_of_sessions;
-        this.numberSess = " ";
       }else{
-        this.sessCost = " "
+        this.sessCost = " ";
+        this.numberSess = " ";
       }
       this.studCount = data.members.length;
       this.course.subscription_membership = data.subscription_membership;
